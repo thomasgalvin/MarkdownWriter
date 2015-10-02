@@ -1,0 +1,875 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Markdown Writer Help</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <style type="text/css">
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a
+  {
+      color: black;
+      text-decoration:none;
+  }
+  
+  </style>
+  
+</head>
+<body>
+<div id="header">
+<h1 class="title"><span class="pandoc-auto-title">Markdown Writer Help</span></h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#what-is-markdown">What is Markdown?</a></li>
+<li><a href="#what-is-markdown-writer">What is Markdown Writer</a></li>
+<li><a href="#what-is-pandoc">What is Pandoc</a></li>
+</ul></li>
+<li><a href="#markdown-syntax">Markdown Syntax</a><ul>
+<li><a href="#paragraphs">Paragraphs</a></li>
+<li><a href="#inline-formatiing">Inline formatiing</a><ul>
+<li><a href="#italics">Italics</a></li>
+<li><a href="#bold">Bold</a></li>
+<li><a href="#bold-italics">Bold Italics</a></li>
+<li><a href="#emphasis-within-a-word">Emphasis within a word</a></li>
+<li><a href="#escape-characters">Escape characters</a></li>
+<li><a href="#inline-preformatting">Inline preformatting</a></li>
+<li><a href="#strikethrough">Strikethrough</a></li>
+<li><a href="#superscript">Superscript</a></li>
+<li><a href="#subscript">Subscript</a></li>
+</ul></li>
+<li><a href="#headers">Headers</a><ul>
+<li><a href="#setext-headers">Setext headers</a></li>
+<li><a href="#atx-headers">ATX Headers</a></li>
+</ul></li>
+<li><a href="#horizontal-rules">Horizontal rules</a></li>
+<li><a href="#links">Links</a><ul>
+<li><a href="#automatic-links">Automatic links</a></li>
+<li><a href="#inline-links">Inline links</a></li>
+<li><a href="#reference-links">Reference links</a></li>
+<li><a href="#implicit-header-links">Implicit header links</a></li>
+<li><a href="#internal-links">Internal links</a></li>
+</ul></li>
+<li><a href="#blocks">Blocks</a><ul>
+<li><a href="#block-quotes">Block quotes</a></li>
+<li><a href="#preformatted-blocks">Preformatted blocks</a></li>
+<li><a href="#line-blocks">Line blocks</a></li>
+</ul></li>
+<li><a href="#lists">Lists</a><ul>
+<li><a href="#bulleted-lists">Bulleted lists</a></li>
+<li><a href="#multi-level-lists">Multi-level lists</a></li>
+<li><a href="#ordered-lists">Ordered lists</a></li>
+<li><a href="#auto-numbered-lists">Auto-numbered lists</a></li>
+<li><a href="#forcefully-ending-lists">Forcefully ending lists</a></li>
+<li><a href="#definition-lists">Definition lists</a></li>
+</ul></li>
+<li><a href="#tables">Tables</a><ul>
+<li><a href="#simple-tables">Simple tables</a></li>
+<li><a href="#multiline-tables">Multiline tables</a></li>
+<li><a href="#grid-tables">Grid tables</a></li>
+<li><a href="#pipe-tables">Pipe tables</a></li>
+</ul></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#references">References</a><ul>
+<li><a href="#footnotes">Footnotes</a></li>
+<li><a href="#citations">Citations</a></li>
+</ul></li>
+<li><a href="#inline-math">Inline math</a></li>
+<li><a href="#inline-html">Inline HTML</a></li>
+<li><a href="#the-pandoc-title-block">The Pandoc Title Block</a></li>
+<li><a href="#special-characters">Special Characters</a></li>
+<li><a href="#smart-punctuation">Smart Punctuation</a></li>
+</ul></li>
+<li><a href="#about-markdown-writer">About Markdown Writer</a></li>
+</ul>
+</div>
+<h1 id="introduction"><a href="#introduction">Introduction</a></h1>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="what-is-markdown"><a href="#what-is-markdown">What is Markdown?</a></h2>
+<p><a href="http://daringfireball.net/projects/markdown/">Markdown</a> was invented by John Gruber, so we&#8217;ll just let him explain what it is:</p>
+<blockquote>
+<p>Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).</p>
+<p>&#8230;</p>
+<p>The overriding design goal for Markdown&#8217;s formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it&#8217;s been marked up with tags or formatting instructions. While Markdown&#8217;s syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown&#8217;s syntax is the format of plain text email.</p>
+</blockquote>
+<p>Basically, markdown is a way to format your documents without cluttering it up with HTML tags or LaTeX commands. It&#8217;s a plain text format, which means it can be written (and read) pretty much anywhere.</p>
+<p>It&#8217;s also very intuitive; markdown uses a lot of conventions that arose naturally from plain-text email. Chances are you&#8217;ve already used something that looks a lot like Markdown without even knowing it.</p>
+<p>Markdown is also a lot more portable than other formats. You don&#8217;t need to install special software to read it, and you don&#8217;t have to worry about the Markdown document you created on your Mac at home looking different on your PC at work.</p>
+<p>Finally, markdown can be exported to a number of formats: HTML, PDF, ePub, Microsoft Word, and on and on. It provides &#8220;write once, publish anywhere&#8221; convenience.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="what-is-markdown-writer"><a href="#what-is-markdown-writer">What is Markdown Writer</a></h2>
+<p>I&#8217;m a software engineer, and I use something called an Integrated Development Environment (IDE) to do my work. An IDE helps you manage all of the files in your project, shows you where they are and how they relate, and helps you perform some common tasks.</p>
+<p>Markdown Writer is basically an IDE for writers. It lets you treat your novel (or research paper, or whatever) as parts, chapters, and scenes rather than one long, monolithic document. It lets you write out of order, focus on jut the part you&#8217;re currently working on, shuffle parts around easily, and more.</p>
+<p>You can also use Markdown Writer to export your project to a variety of formats: HTML, ePub, Mobi Pocketbook, PDF, Microsoft Word, and a few others. This means an author can, for example, compile a project into the formats expected by Amazon, Barnes &amp; Noble, iTunes, and Smashwords in a single step.</p>
+<p>That&#8217;s actually why I created Markdown Writer: there are a lot of project-based text editors out there, but none of them allow you to compile to multiple formats so easily.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="what-is-pandoc"><a href="#what-is-pandoc">What is Pandoc</a></h2>
+<p><a href="http://johnmacfarlane.net/pandoc/">Pandoc</a> is the invention if John MacFarlane, and it&#8217;s basically a swiss-army knife for converting one kind of document into another. It can take markdown, LaTex, HTML, and a few other formats and turn it into &#8230; basically anything. Pandoc spits out HTML in various flavors, Microsoft Word files, ePub, PDF, and more.</p>
+<p>Pandoc actually supports several different variants of markdown: the classic, &#8220;strict&#8221; format, a superset called <a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a> created by Fletcher T. Penney, a variation called <a href="http://michelf.ca/projects/php-markdown/extra/">PHP Extra</a>, and it&#8217;s own native format.</p>
+<p>Pandoc&#8217;s version of markdown is, in my opinion, the best available. It supports everything in traditional markdown and adds a number of useful extensions, like superscript and subscript, strikethrough, tables, footnotes, and citations. If you&#8217;re feeling adventurous, you can also mix in LaTeX commands. And Pandoc is being actively developed,so new features pop up all the time.</p>
+<p>Earlier versions of Markdown Writer cobbled together a number of different document converters to produce various outputs, but all of these have been replaced with Pandoc. It would be fair to say that Markdown Writer is both writing management software and a graphical front end to Pandoc.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h1 id="markdown-syntax"><a href="#markdown-syntax">Markdown Syntax</a></h1>
+<p>Markdown Writer supports a variety of input formats: several flavors of markdown, raw HTML, and LaTeX. The best combination of ease-of-use and power, though, probably comes from Pandoc&#8217;s native markdown format. A complete discussion of this format, and how it differs from traditional Markdown, can be found in the <a href="http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown">Pandoc User&#8217;s Guide</a>. We&#8217;ll cover the most important parts here.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="paragraphs"><a href="#paragraphs">Paragraphs</a></h2>
+<p>A paragraph is one or more lines of text. So this:</p>
+<pre class="markdown"><code>Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.</code></pre>
+<p>Is single paragraph. Multiple paragraphs are separated by one or more blank lines, like this:</p>
+<pre class="markdown"><code>Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+ 
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.</code></pre>
+<p>You can create a hard line break by adding two spaces to the end of a line:</p>
+<pre class="markdown"><code>Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui.  
+Integer tortor. Praesent adipiscing nibh sit amet lacus.</code></pre>
+<p>Pandoc also allows you to create a hard line break by adding a backslash to the end of the line:</p>
+<pre class="markdown"><code>Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui.\
+Integer tortor. Praesent adipiscing nibh sit amet lacus.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="inline-formatiing"><a href="#inline-formatiing">Inline formatiing</a></h2>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="italics"><a href="#italics">Italics</a></h3>
+<p>To <em>emphasize</em> text, surround it with a single asterisk (<code>*</code>) or underscore (<code>_</code>):</p>
+<pre class="markdown"><code>This is *emphasized*, and so is _this_.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="bold"><a href="#bold">Bold</a></h3>
+<p>To <strong>bold</strong> text, surround it with two asterisks (<code>**</code>) or underscores (<code>__</code>);</p>
+<pre class="markdown"><code>This is **bold**, and so is __this__.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="bold-italics"><a href="#bold-italics">Bold Italics</a></h3>
+<p>To use bold and italics together, use three asterisks (<code>***</code>) or underscores (<code>___</code>):</p>
+<pre class="markdown"><code>This is ***very important***, and so is ___this___.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="emphasis-within-a-word"><a href="#emphasis-within-a-word">Emphasis within a word</a></h3>
+<p>To emphasize part of a work, use asterisks:</p>
+<pre class="markdown"><code>You emphasized the wrong syll*ab*le.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="escape-characters"><a href="#escape-characters">Escape characters</a></h3>
+<p>If an asterisk or underscore is surrounded by spaces, or is escaped, it will not trigger special formatting:</p>
+<pre class="markdown"><code>This is * nothing particularly * important, and neither \*is this\*.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="inline-preformatting"><a href="#inline-preformatting">Inline preformatting</a></h3>
+<p>To use inline pre-formatting, surround text with one or more backticks (<code>`</code>):</p>
+<p>This is a snippet of code: <code>for (int i = 0; i &lt; 10; i++ )</code></p>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="strikethrough"><a href="#strikethrough">Strikethrough</a></h3>
+<p>Pandoc also supports strikethrough, using two tildes (<code>~~</code>)</p>
+<pre class="markdown"><code>Markdow Writer is available for ~~$99.99~~ free.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="superscript"><a href="#superscript">Superscript</a></h3>
+<p>You can make something superscript by surrounding it with carats (<code>^</code>):</p>
+<pre class="markdown"><code>2^10 ^ is 1024;</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="subscript"><a href="#subscript">Subscript</a></h3>
+<p>Or subscript by surrounding it with tildes (<code>~</code>):</p>
+<pre class="markdown"><code>The formula for water is H~2~O</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="headers"><a href="#headers">Headers</a></h2>
+<p>Markdown suppports two kinds of headers: Setext and ATX.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="setext-headers"><a href="#setext-headers">Setext headers</a></h3>
+<p>Setext allows you to create a level-one header by underlining text with <code>=</code> signs:</p>
+<pre class="markdown"><code>Document Title
+==============</code></pre>
+<p>And level-two headers by underlining text with <code>-</code> signs:</p>
+<pre class="markdown"><code>Chapter One
+-----------</code></pre>
+<p>Headings can themselves contain markdown.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="atx-headers"><a href="#atx-headers">ATX Headers</a></h3>
+<p>You can create ATX Headers by adding <code>#</code> signs to the start of a line:</p>
+<pre class="markdown"><code># Header One
+## Header Two
+### Header Three
+#### Header Four
+##### Header Five
+###### Header Six</code></pre>
+<p>If you want, you can add <code>#</code> signs to the end of the lines, too.</p>
+<pre class="markdown"><code># Header One #
+## Header Two ##
+### Header Three ###
+#### Header Four ####
+##### Header Five #####
+###### Header Six ######</code></pre>
+<p>Pandoc automatically generates identifiers for your headers.</p>
+<pre class="markdown"><code># Header One #</code></pre>
+<p>Becomes:</p>
+<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h1</span><span class="ot"> id=</span><span class="st">&quot;header-one&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#header-one&quot;</span><span class="kw">&gt;</span>Header One<span class="kw">&lt;/a&gt;&lt;/h1&gt;</span></code></pre>
+<p>Pandoc also allows you to specify what identifier a header will receive:</p>
+<pre class="markdown"><code># Header One {#foo}</code></pre>
+<p>Becomes</p>
+<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h1</span><span class="ot"> id=</span><span class="st">&quot;foo&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#foo&quot;</span><span class="kw">&gt;</span>Header One<span class="kw">&lt;/a&gt;&lt;/h1&gt;</span></code></pre>
+<p>Pandoc can be configured to automatically number sections. This can be suppressed by adding a lone hyphen to the end of a header:</p>
+<pre class="markdown"><code># Header One {-}</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="horizontal-rules"><a href="#horizontal-rules">Horizontal rules</a></h2>
+<p>You can create a horizontal rule by adding a line with three or more <code>*</code>, <code>-</code>, or <code>_</code> characters, optionally separated by spaces:</p>
+<pre class="markdown"><code>***
+
+---
+
+___
+
+* * * * * *</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="links"><a href="#links">Links</a></h2>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="automatic-links"><a href="#automatic-links">Automatic links</a></h3>
+<p>The first kind of link you can create involves surrounding a well-formed URL with angle brackets (<code>&lt;</code> and <code>&gt;</code>):</p>
+<pre class="markdown"><code>&lt;http://www.google.com&gt;</code></pre>
+<pre class="markdown"><code>&lt;foo@bar.com&gt;</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="inline-links"><a href="#inline-links">Inline links</a></h3>
+<p>You can create traditional-looking hyperlinks by surrounding the link text is square brackets (<code>[</code> and <code>]</code>) and the including the link in parentheses (<code>(</code> and <code>)</code>) immediately after:</p>
+<pre class="markdown"><code>This goes to [Google](http://www.google.com).</code></pre>
+<p>You can also add a tool-tip to hyperlinks:</p>
+<pre class="markdown"><code>This goes to [Google](http://www.google.com &quot;A search engine&quot; ).</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="reference-links"><a href="#reference-links">Reference links</a></h3>
+<p>If you don&#8217;t want to clutter up your document with URLs, you can add links by reference instead. To create a reference link, wrap the link text inside of square brackets (<code>[</code> and <code>]</code>) and then add <em>another</em> set of square brackets with the reference name:</p>
+<pre class="markdown"><code>This link goes to [Google][GoogleLink]</code></pre>
+<p>Elsewhere in the document (it doesn&#8217;t really matter where), define what that reference means:</p>
+<pre class="markdown"><code>[GoogleLink]: http://www.google.com</code></pre>
+<p>Reference links can also have tool tips on the second line</p>
+<pre class="markdown"><code>[GoogleLink]: http://www.google.com
+              &quot;A search engine&quot;</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="implicit-header-links"><a href="#implicit-header-links">Implicit header links</a></h3>
+<p>You can link to sections within a document using the header IDs (either automatically generated or specifically assigned):</p>
+<pre class="markdown"><code># Section One
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. 
+
+Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. 
+
+Nulla et magna a justo mollis  venenatis. Donec eros. Praesent luctus urna sed 
+mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+# Section Two
+
+Hey, remember what we were talking about in [Section One]?</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="internal-links"><a href="#internal-links">Internal links</a></h3>
+<p>You can also use internal links explicitly:</p>
+<pre class="markdown"><code>Jump back to the [first section](#section-one)</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="blocks"><a href="#blocks">Blocks</a></h2>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="block-quotes"><a href="#block-quotes">Block quotes</a></h3>
+<p>Markdown supports block quotations, using the same convention as most email programs: a leading <code>&gt;</code> character at the start of a line:</p>
+<pre class="markdown"><code>&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.</code></pre>
+<p>You can also use &#8220;lazy&#8221; block quotes; just add the <code>&gt;</code> to the <em>first</em> line:</p>
+<p><code>markdown &gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer  tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim  condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede  non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis  venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec  imperdiet, mi eu consequat sollicitudin.</code>markdown</p>
+<p>And block quotes can be multiple levels deep</p>
+<pre class="markdown"><code>&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.
+&gt;
+&gt; &gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; &gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; &gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; &gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; &gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; &gt; imperdiet, mi eu consequat sollicitudin.
+&gt;
+&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="preformatted-blocks"><a href="#preformatted-blocks">Preformatted blocks</a></h3>
+<p>Markdown allows you to create preformatted (or code) blocks by indenting a paragraph by four spaces (or one tab):</p>
+<pre class="markdown"><code>    for( int i = 0; i &lt; 10; i++ )
+    {
+        System.out.println( i );
+    }</code></pre>
+<p>Pandoc also allows fenced code blocks; simple add a line of three or more backticks (`) or tildes (<code>~</code>) above and below the code block:</p>
+<pre class="markdown"><code>```
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```</code></pre>
+<p>If you need backticks or tildes inside the fenced block itself, just add a longer line above and below:</p>
+<pre class="markdown"><code>`````
+```
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```
+`````</code></pre>
+<p>Pandoc also supports syntax highlighting:</p>
+<pre class="markdown"><code>```java
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```</code></pre>
+<p>Pandoc also supports attributes for fenced code blocks: an ID, the language to highlight, whether or not to number lines, and the line number to start from:</p>
+<pre class="markdown"><code>```{#javaExample .java .numberLines startFrom=&quot;10&quot;}
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="line-blocks"><a href="#line-blocks">Line blocks</a></h3>
+<p>Pandoc adds the concept of line blocks to markdown. Line blocks preserve line breaks and leading spaces, but do <em>not</em> format the text as code / monosapce. This is useful for poetry and addresses.</p>
+<p>To use a line block, start each line with a vertical bar (<code>|</code>) and a space:</p>
+<pre class="markdown"><code>| The limerick packs laughs anatomical
+| In space that is quite economical.
+|    But the good ones I&#39;ve seen
+|    So seldom are clean
+| And the clean ones so seldom are comical</code></pre>
+<pre class="markdown"><code>| 200 Main St.
+| Berkeley, CA 94718</code></pre>
+<p>Both of these examples are from the <a href="http://johnmacfarlane.net/pandoc/README.html#line-blocks">Pandoc User&#8217;s Guide</a>.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="lists"><a href="#lists">Lists</a></h2>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="bulleted-lists"><a href="#bulleted-lists">Bulleted lists</a></h3>
+<p>Bulleted lists can begin with an asterisk (<code>*</code>), plus-sign (<code>+</code>) or dash (<code>-</code>). For example:</p>
+<pre class="markdown"><code>* One
+* Two
+* Three</code></pre>
+<p>You can also format &#8220;loose lists&#8221;, where each item is its own paragraph:</p>
+<pre class="markdown"><code>* One
+
+* Two
+
+* Three</code></pre>
+<p>List items can wrap along multiple lines:</p>
+<pre class="markdown"><code>* This is the first item.
+  Still the first item
+* This is the second item.
+* This is the third item.
+  Still the third item.
+  And some more for the third item.</code></pre>
+<p>List items can also be multi-paragraph. Just add a blank line between paragraphs and indent them by four spaces.</p>
+<pre class="markdown"><code>*    Item One.
+
+     Another paragraph for item one.
+
+     The final paragraph of item one.
+
+*    Item Two.
+
+     Another paragraph for item two.
+
+     The final paragraph of item two.
+
+*    Item Three.
+
+     Another paragraph for item three.
+
+     The final paragraph of item three.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="multi-level-lists"><a href="#multi-level-lists">Multi-level lists</a></h3>
+<p>Lists can contain other lists; just indent by four spaces and start a new list:</p>
+<pre class="markdown"><code>*    One
+     *    A
+     *    B
+          *    i
+          *    ii
+          *    iii
+          *    iv
+          *    v
+     *    C
+*    Two
+*    Three</code></pre>
+<p>And you can mix list styles:</p>
+<pre class="markdown"><code>*    One
+     +    A
+     +    B
+          -    i
+          -    ii
+          -    iii
+          -    iv
+          -    v
+     +    C
+*    Two
+*    Three</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="ordered-lists"><a href="#ordered-lists">Ordered lists</a></h3>
+<p>Ordered lists behave like unordered lists; they just begin with enumerators instead of bullets.</p>
+<pre class="markdown"><code>1.  Acknowledgments
+2.  Introduction
+3.  Chapter One
+    1. What is markdown?
+    2. Why use markdown?
+    3. What is Pandoc?
+    4. Why use Pandoc?
+4.  Chapter Two</code></pre>
+<p>Pandoc expands this functionality to allow upper- and lower- case letters and Roman numerals. These enumerators and be enclosed inside of parentheses or followed by a single right-parentheses or period. They should be separated from the content of the item by two spaces.</p>
+<pre class="markdown"><code>(1)  Acknowledgments
+(2)  Introduction
+(3)  Chapter One
+    (A)  What is markdown?
+         (i)  John Gruber
+         (ii)   Daring Fireball
+         (iii)  Based on email syntax
+    (B)  Why use markdown?
+    (C)  What is Pandoc?
+    (D)  Why use Pandoc?
+(4)  Chapter Two</code></pre>
+<p>Pandoc tries to honor the number you start with, too:</p>
+<pre class="markdown"><code>(9)  Nine
+(10)  Ten
+      (iv)  Four
+      (v)  Five
+      (vi) Six
+(11)  Eleven</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="auto-numbered-lists"><a href="#auto-numbered-lists">Auto-numbered lists</a></h3>
+<p>Pandoc can also continue numbering across multiple lists automatically. To do this, start a list with an at sign (<code>@</code>). The first item will be numbered one, and subsequent lists will pick up wherever the last list left off.</p>
+<pre class="markdown"><code>(@)  One
+(@)  Two
+(@)  Three
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+(@)  Four
+(@)  Five
+(@)  Six</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="forcefully-ending-lists"><a href="#forcefully-ending-lists">Forcefully ending lists</a></h3>
+<p>If you want to put indented code immediately after a list, or if you want two consecutive lists to follow each other, you need to insert a non-indented HTML comment between them. This breaks up the indenting, telling the markdown processor what you mean, but doesn&#8217;t produce any visible content when exported.</p>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+<!-- end of list -->
+
+<pre><code>for( int i = 0; i &lt; 10; i++ )</code></pre>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+<!-- end of list -->
+
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="definition-lists"><a href="#definition-lists">Definition lists</a></h3>
+<p>Pandoc allows you to create definition lists. The <em>term</em> goes on the first line (and must fit on one line; it can&#8217;t be wrapped). Each <em>definition</em> starts with a color (<code>:</code>) or tilde (<code>~</code>), followed by four spaces, followed by the definition.</p>
+<dl>
+<dt>Term 1</dt>
+<dd>Definition one
+</dd>
+<dd>Definition two
+</dd>
+<dd><p>Definition three</p>
+<p>The second paragraph of definition three</p>
+The third and final paragraph of definition three.
+</dd>
+<dd><p>Definition four.</p>
+</dd>
+</dl>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="tables"><a href="#tables">Tables</a></h2>
+<p>This is kind of complicated, so you might want to check out the <a href="http://johnmacfarlane.net/pandoc/README.html#tables">Pandoc User&#8217;s Guide</a> for complete details.</p>
+<p>Personally, I hate everything about markdown&#8217;s table syntax (no matter which implementation you&#8217;re talking about), and usually opt to include [inline html] instead, but your mileage may vary.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="simple-tables"><a href="#simple-tables">Simple tables</a></h3>
+<p>Table headers look kind of like level-two Setext headers.</p>
+<pre class="markdown"><code>One     Two     Three     Four
+---     ---     -----     ----
+1       2       3         4
+1       2       3         4
+1       2       3         4</code></pre>
+<p>You can control the alignment by fiddling with the underscore. If the content is flush with the right of the underscores it will be right-justified. The same rule applies for flush-left. If the underscores continue to the left and right of the content, it will be centered.</p>
+<pre class="markdown"><code>Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67</code></pre>
+<p>Tables can have captions:</p>
+<pre class="markdown"><code>Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+
+Table: A well-justifie table.</code></pre>
+<p>And they can be ended with another line of dashes, if you want:</p>
+<pre class="markdown"><code>Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+-----   ----------    -------</code></pre>
+<p>This can be used to omit column headers:</p>
+<pre class="markdown"><code>-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+-----   ----------    -------</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="multiline-tables"><a href="#multiline-tables">Multiline tables</a></h3>
+<p>Here&#8217;s an example of a multi-line table, taken from the <a href="http://johnmacfarlane.net/pandoc/README.html#multiline-tables">Pandoc User&#8217;s Guide</a>:</p>
+<pre class="markdown"><code>-------------------------------------------------------------
+ Centered   Default           Right Left
+  Header    Aligned         Aligned Aligned
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here&#39;s another one. Note
+                                    the blank line between
+                                    rows.
+-------------------------------------------------------------</code></pre>
+<p>Table: Here&#8217;s the caption. It, too, may span multiple lines.</p>
+<p>Multi-line tables:</p>
+<ul>
+<li>Begin with a row of dashes</li>
+<li>end with a row of dashes, then a blank line</li>
+<li>Have rows separated by blank lines</li>
+</ul>
+<p>Headers are optional:</p>
+<pre class="markdown"><code>----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here&#39;s another one. Note
+                                    the blank line between
+                                    rows.
+----------- ------- --------------- -------------------------
+
+: Here&#39;s a multiline table without headers.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="grid-tables"><a href="#grid-tables">Grid tables</a></h3>
+<p>Grid tables use <code>=</code> to separate the headers from the body, and do not support alignment. Here&#8217;s the example from the <a href="http://johnmacfarlane.net/pandoc/README.html#grid-tables">Pandoc User&#8217;s Guide</a>:</p>
+<pre class="markdown"><code>: Sample grid table.
+
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="pipe-tables"><a href="#pipe-tables">Pipe tables</a></h3>
+<p>Pandoc supports PHP Extra&#8217;s pipe tables. The example from the <a href="http://johnmacfarlane.net/pandoc/README.html#pipe-tables">Pandoc User&#8217;s Guide</a>:</p>
+<table>
+<caption>Demonstration of simple table syntax.</caption>
+<thead>
+<tr class="header">
+<th align="right">Right</th>
+<th align="left">Left</th>
+<th align="left">Default</th>
+<th align="center">Center</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">12</td>
+<td align="left">12</td>
+<td align="left">12</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="right">123</td>
+<td align="left">123</td>
+<td align="left">123</td>
+<td align="center">123</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="images"><a href="#images">Images</a></h2>
+<p>If a link has an exclamation point immediately in front of it, it will be treated as an image:</p>
+<pre class="markdown"><code>![](cover-image.jpg)</code></pre>
+<p>You can also specify alt text and captions for the image:</p>
+<pre class="markdown"><code>![Caption](cover-image.jpg &quot;Title&quot; )</code></pre>
+<p>if you want to suppress the caption, add a slash to the end of the line:</p>
+<pre class="markdown"><code>![Caption won&#39;t be displayed](cover-image.jpg &quot;Title&quot; )</code></pre>
+<p>You can also use reference links:</p>
+<pre class="markdown"><code>![cover]
+
+[cover]: cover.jpg</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="references"><a href="#references">References</a></h2>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="footnotes"><a href="#footnotes">Footnotes</a></h3>
+<p>To add a footnote, use the following syntax:</p>
+<pre class="markdown"><code>This needs to be clarified in a footnote[^f1], and so does this[^f2].
+
+[^f1]: The first footnote
+
+[^f2]: The second footnote.</code></pre>
+<p>You can use the same kind of block-level indenting in footnotes as you do in lists.</p>
+<p>Pandoc also allows you to specify footnotes inline:</p>
+<pre class="markdown"><code>This needs to be clarified in a footnote^[And here that footnote is].</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h3 id="citations"><a href="#citations">Citations</a></h3>
+<p>Pandoc supports the following citation database formats:</p>
+<ul>
+<li>MODS</li>
+<li>BibLaTeX</li>
+<li>BibTeX</li>
+<li>RIS</li>
+<li>EndNote</li>
+<li>EndNote XML</li>
+<li>MEDLINE</li>
+<li>Copac</li>
+<li>JSON citeproc</li>
+</ul>
+<p>Citations take the following format, all taken from the <a href="http://johnmacfarlane.net/pandoc/README.html#citations">Pandoc User&#8217;s Guide</a></p>
+<pre class="markdown"><code>Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+
+Blah blah [@doe99, pp. 33-35, 38-39 and *passim*].
+
+Blah blah [@smith04; @doe99].</code></pre>
+<p>You can suppress the author (if you mention the name is the text, for example):</p>
+<pre class="markdown"><code>Smith says blah [-@smith04].</code></pre>
+<p>And you do citations in-line, as well:</p>
+<pre class="markdown"><code>@smith04 says blah.
+
+@smith04 [p. 33] says blah.</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="inline-math"><a href="#inline-math">Inline math</a></h2>
+<p>You can add TeX Math to a document by surrounding it with two dollar signs (<code>$$</code>):</p>
+<p><br /><span class="math">&#8704;&#8198;<em>x</em>&#8196;&#8712;&#8196;<em>X</em>,&#8198;&#8193;&#8707;&#8198;<em>y</em>&#8196;&#8804;&#8196;<em>&#949;</em></span><br /></p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="inline-html"><a href="#inline-html">Inline HTML</a></h2>
+<p>If there&#8217;s something you want to do that isn&#8217;t supported by markdown, chances are you can pull it off by writing HTML. You don&#8217;t need to do anything special to make this work: just add your tags in like you were writing any other web page.</p>
+<p>While Markdown is designed to be compiled into HTML, Pandoc has more wide-reaching goals, so it&#8217;s variant of markdown provides many non-HTML ways of representing document elements like lists, footnotes, and citations.</p>
+<p>Pandoc will interpret markdown commands inside of HTML, except inside of <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> tags.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="the-pandoc-title-block"><a href="#the-pandoc-title-block">The Pandoc Title Block</a></h2>
+<p>Pandoc allows you to specify three pieces of document metadata: the title, a list of authors, and the date. To do this, start a document with three lines beginning with modulus (<code>%</code>) signs:</p>
+<pre class="markdown"><code>% Title
+% Author One; Author Two
+% March 2013</code></pre>
+<p>All of these are optional.</p>
+<pre class="markdown"><code>% Title
+% 
+% March 2013</code></pre>
+<p>Markdown Writer will generate this for you, based on the metadata contained in the project itself.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="special-characters"><a href="#special-characters">Special Characters</a></h2>
+<p>The <code>&lt;</code> and <code>&amp;</code> characters have special meaning in HTML, and you have to enter special codes to use them: <code>&amp;lt;</code> and <code>&amp;amp;</code>. Markdown generates this markdown for you.</p>
+<p>You can escape any character (except in a code block) with a backslash. For example, the following would be in italics, not bold:</p>
+<pre class="markdown"><code>*\*Hello, world!*\*</code></pre>
+<div style='page-break-after: always' ></div>
+
+
+<h2 id="smart-punctuation"><a href="#smart-punctuation">Smart Punctuation</a></h2>
+<p>If the &#8220;Smart Punctuation&#8221; option is selected, Pandoc will generate typographically correct punctuation: em-dashes, ellipses, and curly quotes.</p>
+<div style='page-break-after: always' ></div>
+
+
+<h1 id="about-markdown-writer"><a href="#about-markdown-writer">About Markdown Writer</a></h1>
+<p><strong>Version 1.0</strong></p>
+<p><em>Copyright &#169; 2012 - Thomas Galvin</em></p>
+<p>Markdown Writer is provided in the hopes that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>Markdown Writer is built with or depends on several third party projects:</p>
+<ul>
+<li>Libraries
+<ul>
+<li>Commons IO version 2.4 <a href="http://commons.apache.org/io/">Homepage</a> <a href="http://www.apache.org/licenses/">License</a></li>
+<li>Fifesoft RText Editor and Spell, version 2.0.4.1 <a href="http://fifesoft.com/rtext/">Homepage</a> <a href="http://fifesoft.com/rtext/License.txt">License</a></li>
+<li>Groovy version 2.0.4 <a href="http://groovy.codehaus.org/">Homepage</a> <a href="http://www.apache.org/licenses/LICENSE-2.0.html">License</a></li>
+<li>Jazzy <a href="http://jazzy.sourceforge.net/">Homepage</a> <a href="http://sourceforge.net/projects/jazzy/">License</a></li>
+<li>JRuby <a href="http://jruby.org/">Homepage</a> <a href="https://github.com/jruby/jruby/blob/master/COPYING">License</a></li>
+<li>Textplay <a href="https://github.com/olivertaylor/Textplay">Homepage</a> <a href="https://github.com/olivertaylor/Textplay/blob/master/textplay">License</a></li>
+</ul></li>
+<li>Standalone executables
+<ul>
+<li>PanDoc <a href="http://johnmacfarlane.net/pandoc/">Homepage</a> <a href="http://www.gnu.org/copyleft/gpl.html">License</a></li>
+<li>LaTeX <a href="http://latex-project.org/">Homepage</a> <a href="http://latex-project.org/lppl/">License</a></li>
+<li>MacTeX <a href="http://www.tug.org/mactex/">Homepage</a> <a href="http://www.tug.org/mactex/2012/src/License.rtf">License</a></li>
+<li>MiKTeX <a href="http://miktex.org/">Homepage</a> <a href="http://miktex.org/copying">License</a></li>
+</ul></li>
+<li>Icon sets
+<ul>
+<li>Crystal <a href="http://www.everaldo.com/">Homepage</a> <a href="http://www.everaldo.com/crystal/?action=license">License</a></li>
+<li>Oxygen <a href="http://oxygen-icons.org">Homepage</a> <a href="http://www.oxygen-icons.org/?page_id=4">License</a></li>
+</ul></li>
+</ul>
+</body>
+</html>

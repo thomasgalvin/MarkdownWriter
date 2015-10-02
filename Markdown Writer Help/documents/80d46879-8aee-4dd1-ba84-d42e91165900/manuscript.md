@@ -1,0 +1,7 @@
+[Pandoc](http://johnmacfarlane.net/pandoc/) is the invention if John MacFarlane, and it's basically a swiss-army knife for converting one kind of document into another. It can take markdown, LaTex, HTML, and a few other formats and turn it into ... basically anything. Pandoc spits out HTML in various flavors, Microsoft Word files, ePub, PDF, and more.
+
+Pandoc actually supports several different variants of markdown: the classic, "strict" format, a superset called [MultiMarkdown](http://fletcherpenney.net/multimarkdown/) created by  Fletcher T. Penney, a variation called [PHP Extra](http://michelf.ca/projects/php-markdown/extra/), and it's own native format.
+
+Pandoc's version of markdown is, in my opinion, the best available. It supports everything in traditional markdown and adds a number of useful extensions, like superscript and subscript, strikethrough, tables, footnotes, and citations. If you're feeling adventurous, you can also mix in LaTeX commands. And Pandoc is being actively developed,so new features pop up all the time.
+
+Earlier versions of Markdown Writer cobbled together a number of different document converters to produce various outputs, but all of these have been replaced with Pandoc. It would be fair to say that Markdown Writer is both writing management software and a graphical front end to Pandoc.

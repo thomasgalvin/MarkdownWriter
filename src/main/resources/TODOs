@@ -1,0 +1,59 @@
+
+
+Add "create macro" item that uses the current word as the macro key
+Newlines sometimes indent wrong
+Start/End goes to start/end of paragraph, not visible line
+Add ability to turn spell check on/off
+Import macros from another project
+Banner code (script?)
+Paragraph count
+Word occurance count
+Open in floating editor
+Open project by double-lick (parse the arg list in main)
+Mac - embedded Java runtime. New process per window?
+D&D multiple nodes at once
+
+Pandoc port
+===========
+* Compile preferences
+    * Include TOC
+        * TOC Depth
+    * Generate title block
+    * pretty much every other pandoc option
+
+Fountain
+========
+* Add FDX output format
+* Add Fountain syntax to help sheet
+
+Layout
+======
+* Move Style Sheet, Metadata, and Cover to their own nodes. Like:
+    * Metadata
+        * Information
+        * Stylesheet
+        * Cover
+    * Manuscript
+
+* Errors
+    * Join is fucked up; second doc came up first, no paragraph break.
+    * Refresh project metadata from contributor scripts
+    * Preference editor for:
+        * spaces per tab
+        * date and time formats
+        * Floating newlines
+        * Margin line location
+        * Scripts: sub-sub folders not being honored (sub-sub folders put in root menu)
+
+* Enhancements
+    * Detect attempt to delete Cover node
+    * Empty graveyard
+    * Correct markup if export format is not pandoc markdown
+    * Export
+        * export/import zip file
+        * Auto chapter numbering
+
+*Help
+    * UI
+    * Exporting
+    * Groovy

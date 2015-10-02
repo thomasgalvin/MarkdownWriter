@@ -1,0 +1,1796 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <projectModelVersion>2.0</projectModelVersion>
+    <uuid>9851b0a1-cb09-4c35-b8c9-6ba4df476cc8</uuid>
+    <title>Markdown Writer Help</title>
+    <langauge>
+        <code>en</code>
+        <name>English</name>
+    </langauge>
+    <identifierScheme>
+        <name>ISBN</name>
+        <code>ISBN</code>
+    </identifierScheme>
+    <identifier>e6de7954-bb15-47db-a176-e043c8c44a45</identifier>
+    <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+    <modifiedDate>2013-03-26T08:08:41.633-04:00</modifiedDate>
+    <styleSheet>h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a
+{
+    color: black;
+    text-decoration:none;
+}
+</styleSheet>
+    <projectDictionaryText></projectDictionaryText>
+    <manuscriptUuid>64ce24b6-63a0-455e-bc33-80d5088ec83e</manuscriptUuid>
+    <resourcesUuid>0dc6dbcd-4a18-4a35-a2f2-9d7bd05e6c71</resourcesUuid>
+    <trashUuid>58aaaeca-9b58-4a29-8266-535183861214</trashUuid>
+    <childNodes>
+        <uuid>64ce24b6-63a0-455e-bc33-80d5088ec83e</uuid>
+        <nodeType>project/manuscript</nodeType>
+        <title>Manuscript</title>
+        <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+        <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+        <childNodes>
+            <uuid>ecfee86a-f142-415c-a7b3-6c227da54c0a</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>Introduction</title>
+            <createdDate>2013-03-26T08:22:41.288-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+            <childNodes>
+                <uuid>f45bd076-3217-4a51-8846-92cc009c15cc</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>What is Markdown?</title>
+                <createdDate>2013-03-26T08:22:51.543-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>[Markdown](http://daringfireball.net/projects/markdown/) was invented by John Gruber, so we'll just let him explain what it is:
+
+&gt; Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you 
+&gt; to write using an easy-to-read, easy-to-write plain text format, then convert 
+&gt; it to structurally valid XHTML (or HTML).
+&gt; 
+&gt; ...
+&gt; 
+&gt; The overriding design goal for Markdown's formatting syntax is to make it as 
+&gt; readable as possible. The idea is that a Markdown-formatted document should be 
+&gt; publishable as-is, as plain text, without looking like it's been marked up with 
+&gt; tags or formatting instructions. While Markdown's syntax has been influenced by 
+&gt; several existing text-to-HTML filters, the single biggest source of inspiration 
+&gt; for Markdown's syntax is the format of plain text email.
+
+Basically, markdown is a way to format your documents without cluttering it up with HTML tags or LaTeX commands. It's a plain text format, which means it can be written (and read) pretty much anywhere.
+
+It's also very intuitive; markdown uses a lot of conventions that arose naturally from plain-text email. Chances are you've already used something that looks a lot like Markdown without even knowing it.
+
+Markdown is also a lot more portable than other formats. You don't need to install special software to read it, and you don't have to worry about the Markdown document you created on your Mac at home looking different on your PC at work.
+
+Finally, markdown can be exported to a number of formats: HTML, PDF, ePub, Microsoft Word, and on and on. It provides &quot;write once, publish anywhere&quot; convenience.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>32917d76-25df-43c6-b2f4-de3e59497e72</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>What is Markdown Writer</title>
+                <createdDate>2013-03-26T08:23:02.276-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>I'm a software engineer, and I use something called an Integrated Development Environment (IDE) to do my work. An IDE helps you manage all of the files in your project, shows you where they are and how they relate, and helps you perform some common tasks.
+
+Markdown Writer is basically an IDE for writers. It lets you treat your novel (or research paper, or whatever) as parts, chapters, and scenes rather than one long, monolithic document. It lets you write out of order, focus on jut the part you're currently working on, shuffle parts around easily, and more.
+
+You can also use Markdown Writer to export your project to a variety of formats: HTML, ePub, Mobi Pocketbook, PDF, Microsoft Word, and a few others. This means an author can, for example, compile a project into the formats expected by Amazon, Barnes &amp; Noble, iTunes, and Smashwords in a single step.
+
+That's actually why I created Markdown Writer: there are a lot of project-based text editors out there, but none of them allow you to compile to multiple formats so easily.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>80d46879-8aee-4dd1-ba84-d42e91165900</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>What is Pandoc</title>
+                <createdDate>2013-03-26T08:27:53.572-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>[Pandoc](http://johnmacfarlane.net/pandoc/) is the invention if John MacFarlane, and it's basically a swiss-army knife for converting one kind of document into another. It can take markdown, LaTex, HTML, and a few other formats and turn it into ... basically anything. Pandoc spits out HTML in various flavors, Microsoft Word files, ePub, PDF, and more.
+
+Pandoc actually supports several different variants of markdown: the classic, &quot;strict&quot; format, a superset called [MultiMarkdown](http://fletcherpenney.net/multimarkdown/) created by  Fletcher T. Penney, a variation called [PHP Extra](http://michelf.ca/projects/php-markdown/extra/), and it's own native format.
+
+Pandoc's version of markdown is, in my opinion, the best available. It supports everything in traditional markdown and adds a number of useful extensions, like superscript and subscript, strikethrough, tables, footnotes, and citations. If you're feeling adventurous, you can also mix in LaTeX commands. And Pandoc is being actively developed,so new features pop up all the time.
+
+Earlier versions of Markdown Writer cobbled together a number of different document converters to produce various outputs, but all of these have been replaced with Pandoc. It would be fair to say that Markdown Writer is both writing management software and a graphical front end to Pandoc.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>59b74950-a55d-40ef-9935-4d65e5f2745e</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>Markdown Syntax</title>
+            <createdDate>2013-03-26T08:42:41.721-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.236-05:00</modifiedDate>
+            <childNodes>
+                <uuid>817838e4-bd37-4b84-a346-c6718064ac58</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Paragraphs</title>
+                <createdDate>2013-03-26T08:46:30.019-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>A paragraph is one or more lines of text. So this:
+
+```markdown
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+```
+
+Is single paragraph. Multiple paragraphs are separated by one or more blank lines, like this:
+
+```markdown
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+ 
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+```
+
+You can create a hard line break by adding two spaces to the end of a line:
+
+```markdown
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui.  
+Integer tortor. Praesent adipiscing nibh sit amet lacus.
+```
+
+Pandoc also allows you to create a hard line break by adding a backslash to the end of the line:
+
+```markdown
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui.\
+Integer tortor. Praesent adipiscing nibh sit amet lacus.
+```
+</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>01cce106-5047-4b1e-9539-b4bb03d81cba</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Inline formatiing</title>
+                <createdDate>2013-03-26T11:45:12.832-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>f706c380-78bb-4b60-96e6-763955892011</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Italics</title>
+                    <createdDate>2013-03-26T11:57:34.594-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To *emphasize* text, surround it with a single asterisk (`*`) or underscore (`_`):
+
+```markdown
+This is *emphasized*, and so is _this_.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>9ad665ed-bb0c-4cca-b63c-1fe894671259</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Bold</title>
+                    <createdDate>2013-03-26T11:57:37.538-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To **bold** text, surround it with two asterisks (`**`) or underscores (`__`);
+
+```markdown
+This is **bold**, and so is __this__.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>904ffda5-77cb-4cc3-aaf2-2c4be7b00bd6</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Bold Italics</title>
+                    <createdDate>2013-03-26T11:57:44.114-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To use bold and italics together, use three asterisks (`***`) or underscores (`___`):
+
+```markdown
+This is ***very important***, and so is ___this___.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>e53bf5dc-e1fe-4bd0-923c-c5d98f90f7e0</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Emphasis within a word</title>
+                    <createdDate>2013-03-26T11:58:21.764-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To emphasize part of a work, use asterisks:
+
+```markdown
+You emphasized the wrong syll*ab*le.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>4d726ee8-4c2c-4ae9-84d2-00dda9437938</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Escape characters</title>
+                    <createdDate>2013-03-26T11:58:07.731-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>If an asterisk or underscore is surrounded by spaces, or is escaped, it will not trigger special formatting:
+
+```markdown
+This is * nothing particularly * important, and neither \*is this\*.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>1c6c899f-d23e-45d6-beb9-5fe0e6d0e60f</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Inline preformatting</title>
+                    <createdDate>2013-03-26T11:58:12.243-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To use inline pre-formatting, surround text with one or more backticks (`` ` ``):
+
+This is a snippet of code: `` for (int i = 0; i &lt; 10; i++ ) ``</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>e24d82b2-f193-44cf-b247-f8d269716662</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Strikethrough</title>
+                    <createdDate>2013-03-26T11:58:27.987-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc also supports strikethrough, using two tildes (`~~`)
+
+```markdown
+Markdow Writer is available for ~~$99.99~~ free.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>bf52c542-e0a0-4a49-90b7-543288038af1</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Superscript</title>
+                    <createdDate>2013-03-26T11:58:31.522-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.237-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>You can make something superscript by surrounding it with carats (`^`):
+
+```markdown
+2^10 ^ is 1024;
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>0fe362e0-4f01-4175-9cd6-90b865ff44e1</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Subscript</title>
+                    <createdDate>2013-03-26T11:58:34.501-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Or subscript by surrounding it with tildes (`~`):
+
+```markdown
+The formula for water is H~2~O
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>d16c958c-8fd9-4ccd-9bee-260325ab88b2</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Headers</title>
+                <createdDate>2013-03-26T08:59:30.662-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>9cc6fae1-400b-41ed-adac-a897644c4a6a</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Setext headers</title>
+                    <createdDate>2013-03-26T08:59:59.924-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Setext allows you to create a level-one header by underlining text with `=` signs:
+
+```markdown
+Document Title
+==============
+```
+
+And level-two headers by underlining text with `-` signs:
+
+```markdown
+Chapter One
+-----------
+```
+
+Headings can themselves contain markdown.</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>d437b66d-94be-47bb-96e8-e61c2187e649</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>ATX Headers</title>
+                    <createdDate>2013-03-26T09:03:53.119-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>You can create ATX Headers by adding `#` signs to the start of a line:
+
+```markdown
+# Header One
+## Header Two
+### Header Three
+#### Header Four
+##### Header Five
+###### Header Six
+```
+
+If you want, you can add `#` signs to the end of the lines, too.
+
+```markdown
+# Header One #
+## Header Two ##
+### Header Three ###
+#### Header Four ####
+##### Header Five #####
+###### Header Six ######
+```
+
+Pandoc automatically generates identifiers for your headers.
+
+```markdown
+# Header One #
+```
+
+Becomes:
+
+```html
+&lt;h1 id=&quot;header-one&quot;&gt;&lt;a href=&quot;#header-one&quot;&gt;Header One&lt;/a&gt;&lt;/h1&gt;
+```
+
+Pandoc also allows you to specify what identifier a header will receive:
+
+```markdown
+# Header One {#foo}
+```
+
+Becomes
+
+```html
+&lt;h1 id=&quot;foo&quot;&gt;&lt;a href=&quot;#foo&quot;&gt;Header One&lt;/a&gt;&lt;/h1&gt;
+```
+
+Pandoc can be configured to automatically number sections. This can be suppressed by adding a lone hyphen to the end of a header:
+
+```markdown
+# Header One {-}
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>Markdown suppports two kinds of headers: Setext and ATX.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>1adb3131-39ee-4335-a6d3-30bb6dce6697</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Horizontal rules</title>
+                <createdDate>2013-03-26T11:34:19.558-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>You can create a horizontal rule by adding a line with three or more `*`, `-`, or `_` characters, optionally separated by spaces:
+
+```markdown
+***
+
+---
+
+___
+
+* * * * * *
+```</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>242b6d0e-78f7-443b-af89-eb2aef95beea</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Links</title>
+                <createdDate>2013-03-26T09:15:33.661-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>753b61f7-91cf-4801-877c-b365b3bd8ce7</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Automatic links</title>
+                    <createdDate>2013-03-26T12:06:10.038-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>The first kind of link you can create involves surrounding a well-formed URL with angle brackets (`&lt;` and `&gt;`):
+
+```markdown
+&lt;http://www.google.com&gt;
+```
+
+```markdown
+&lt;foo@bar.com&gt;
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>477cd363-d785-4f2d-9ff9-07ba292d74d4</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Inline links</title>
+                    <createdDate>2013-03-26T12:07:22.953-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>You can create traditional-looking hyperlinks by surrounding the link text is square brackets (`[` and `]`) and the including the link in parentheses (`(` and `)`) immediately after:
+
+```markdown
+This goes to [Google](http://www.google.com).
+```
+
+You can also add a tool-tip to hyperlinks:
+
+```markdown
+This goes to [Google](http://www.google.com &quot;A search engine&quot; ).
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>4a48c467-4019-4a48-8273-8d3e85fcc7c1</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Reference links</title>
+                    <createdDate>2013-03-26T12:10:50.578-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>If you don't want to clutter up your document with URLs, you can add links by reference instead. To create a reference link, wrap the link text inside of square brackets (`[` and `]`) and then add *another* set of square brackets with the reference name:
+
+```markdown
+This link goes to [Google][GoogleLink]
+```
+
+Elsewhere in the document (it doesn't really matter where), define what that reference means:
+
+```markdown
+[GoogleLink]: http://www.google.com
+```
+
+Reference links can also have tool tips on the second line
+
+```markdown
+[GoogleLink]: http://www.google.com
+              &quot;A search engine&quot;
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>f1a573c2-04bb-415b-9332-88d40967db4b</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Implicit header links</title>
+                    <createdDate>2013-03-26T09:16:46.399-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.238-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>You can link to sections within a document using the header IDs (either automatically generated or specifically assigned):
+
+```markdown
+# Section One
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. 
+
+Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. 
+
+Nulla et magna a justo mollis  venenatis. Donec eros. Praesent luctus urna sed 
+mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+# Section Two
+
+Hey, remember what we were talking about in [Section One]?
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>82487246-1a7b-4e2e-9d7f-47a0b513a6b1</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Internal links</title>
+                    <subtitle></subtitle>
+                    <createdDate>2013-03-26T09:15:46.894-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>You can also use internal links explicitly:
+
+```markdown
+Jump back to the [first section](#section-one)
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>039c1edd-15ce-4447-a006-215778eb312e</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Blocks</title>
+                <createdDate>2013-03-26T11:33:50.244-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>b1bb53a8-a564-4452-ae93-015619159fa9</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Block quotes</title>
+                    <createdDate>2013-03-26T09:17:04.896-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Markdown supports block quotations, using the same convention as most email programs: a leading `&gt;` character at the start of a line:
+
+```markdown
+&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.
+```
+You can also use &quot;lazy&quot; block quotes; just add the `&gt;` to the *first* line:
+
+```markdown
+&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+```markdown
+
+And block quotes can be multiple levels deep
+
+```markdown
+&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.
+&gt;
+&gt; &gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; &gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; &gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; &gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; &gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; &gt; imperdiet, mi eu consequat sollicitudin.
+&gt;
+&gt; Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+&gt; tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+&gt; condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+&gt; non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+&gt; venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+&gt; imperdiet, mi eu consequat sollicitudin.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>7bc7989f-6ca5-4457-9b0b-6d08e068e3e7</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Preformatted blocks</title>
+                    <createdDate>2013-03-26T09:22:46.110-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Markdown allows you to create preformatted (or code) blocks by indenting a paragraph by four spaces (or one tab):
+
+```markdown
+    for( int i = 0; i &lt; 10; i++ )
+    {
+        System.out.println( i );
+    }
+```
+
+Pandoc also allows fenced code blocks; simple add a line of three or more backticks (\`) or tildes (`~`) above and below the code block:
+
+`````markdown
+```
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```
+`````
+
+If you need backticks or tildes inside the fenced block itself, just add a longer line above and below:
+
+``````markdown
+`````
+```
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```
+`````
+``````
+
+Pandoc also supports syntax highlighting:
+
+`````markdown
+```java
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```
+`````
+
+Pandoc also supports attributes for fenced code blocks: an ID, the language to highlight, whether or not to number lines, and the line number to start from:
+
+`````markdown
+```{#javaExample .java .numberLines startFrom=&quot;10&quot;}
+for( int i = 0; i &lt; 10; i++ )
+{
+    System.out.println( i );
+}
+```
+`````
+</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>20acc3d2-d8a3-4166-bac1-5402f38dde58</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Line blocks</title>
+                    <createdDate>2013-03-26T10:57:11.600-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc adds the concept of line blocks to markdown. Line blocks preserve line breaks and leading spaces, but do *not* format the text as code / monosapce. This is useful for poetry and addresses.
+
+To use a line block, start each line with a vertical bar (`|`) and a space:
+
+```markdown
+| The limerick packs laughs anatomical
+| In space that is quite economical.
+|    But the good ones I've seen
+|    So seldom are clean
+| And the clean ones so seldom are comical
+```
+
+```markdown
+| 200 Main St.
+| Berkeley, CA 94718
+```
+
+Both of these examples are from the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#line-blocks).</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>1ced3065-4cf9-4869-a0ab-ce835d76e860</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Lists</title>
+                <createdDate>2013-03-26T11:02:13.378-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>c39603ea-b813-41fb-997b-8531f553c9bb</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Bulleted lists</title>
+                    <createdDate>2013-03-26T11:02:20.467-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Bulleted lists can begin with an asterisk (`*`), plus-sign (`+`) or dash (`-`). For example:
+
+```markdown
+* One
+* Two
+* Three
+```
+
+You can also format &quot;loose lists&quot;, where each item is its own paragraph:
+
+```markdown
+* One
+
+* Two
+
+* Three
+```
+
+List items can wrap along multiple lines:
+
+```markdown
+* This is the first item.
+  Still the first item
+* This is the second item.
+* This is the third item.
+  Still the third item.
+  And some more for the third item.
+```
+
+List items can also be multi-paragraph. Just add a blank line between paragraphs and indent them by four spaces.
+
+```markdown
+*    Item One.
+
+     Another paragraph for item one.
+
+     The final paragraph of item one.
+
+*    Item Two.
+
+     Another paragraph for item two.
+
+     The final paragraph of item two.
+
+*    Item Three.
+
+     Another paragraph for item three.
+
+     The final paragraph of item three.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>5dd19008-a43c-4d58-a748-7d5e3483ee11</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Multi-level lists</title>
+                    <createdDate>2013-03-26T11:07:24.976-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.239-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Lists can contain other lists; just indent by four spaces and start a new list:
+
+```markdown
+*    One
+     *    A
+     *    B
+          *    i
+          *    ii
+          *    iii
+          *    iv
+          *    v
+     *    C
+*    Two
+*    Three
+```
+
+And you can mix list styles:
+
+```markdown
+*    One
+     +    A
+     +    B
+          -    i
+          -    ii
+          -    iii
+          -    iv
+          -    v
+     +    C
+*    Two
+*    Three
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>c65a6c9a-6282-4a45-9044-28423c2087df</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Ordered lists</title>
+                    <createdDate>2013-03-26T11:12:46.813-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Ordered lists behave like unordered lists; they just begin with enumerators instead of bullets.
+
+```markdown
+1.  Acknowledgments
+2.  Introduction
+3.  Chapter One
+    1. What is markdown?
+    2. Why use markdown?
+    3. What is Pandoc?
+    4. Why use Pandoc?
+4.  Chapter Two
+```
+
+Pandoc expands this functionality to allow upper- and lower- case letters and Roman numerals. These enumerators and be enclosed inside of parentheses or followed by a single  right-parentheses or period. They should be separated from the content of the item by two spaces.
+
+```markdown
+(1)  Acknowledgments
+(2)  Introduction
+(3)  Chapter One
+    (A)  What is markdown?
+         (i)  John Gruber
+         (ii)   Daring Fireball
+         (iii)  Based on email syntax
+    (B)  Why use markdown?
+    (C)  What is Pandoc?
+    (D)  Why use Pandoc?
+(4)  Chapter Two
+```
+
+Pandoc tries to honor the number you start with, too:
+
+```markdown
+(9)  Nine
+(10)  Ten
+      (iv)  Four
+      (v)  Five
+      (vi) Six
+(11)  Eleven
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>4c494fec-4039-4103-b530-824ebc903251</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Auto-numbered lists</title>
+                    <createdDate>2013-03-26T11:27:13.460-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc can also continue numbering across multiple lists automatically. To do this, start a list with an at sign (`@`). The first item will be numbered one, and subsequent lists will pick up wherever the last list left off.
+
+```markdown
+(@)  One
+(@)  Two
+(@)  Three
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+Lorem ipsum dol amet sitor, consectetuer adipiscing elit. Donec dui. Integer 
+tortor. Praesent adipiscing nibh sit amet lacus. Ut ut lorem et mi dignissim 
+condimentum. Maecenas ac lectus quis pede dictum tempor. Proin convallis pede 
+non lacus. Etiam nonummy arcu sit amet justo. Nulla et magna a justo mollis 
+venenatis. Donec eros. Praesent luctus urna sed mauris. Aliquam ultrices. Donec 
+imperdiet, mi eu consequat sollicitudin.
+
+(@)  Four
+(@)  Five
+(@)  Six
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>ecc7e8ee-98fc-4395-8565-1377e0aaa79d</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Forcefully ending lists</title>
+                    <subtitle></subtitle>
+                    <createdDate>2013-03-26T11:30:16.858-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>If you want to put indented code immediately after a list, or if you want two consecutive lists to follow each other, you need to insert a non-indented HTML comment between them. This breaks up the indenting, telling the markdown processor what you mean, but doesn't produce any visible content when exported.
+
+*     One
+*     Two
+*     Three
+
+&lt;!-- end of list --&gt;
+
+    for( int i = 0; i &lt; 10; i++ )
+
+* One
+* Two
+* Three
+
+&lt;!-- end of list --&gt;
+
+* One
+* Two
+* Three</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>633d084c-3e1e-4e70-a640-7693f3cd4e9b</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Definition lists</title>
+                    <createdDate>2013-03-26T11:23:51.098-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc allows you to create definition lists. The *term* goes on the first line (and must fit on one line; it can't be wrapped). Each *definition* starts with a color (`:`) or tilde (`~`), followed by four spaces, followed by the definition.
+
+Term 1
+:    Definition one
+:    Definition two
+:    Definition three
+
+     The second paragraph of definition three
+
+     The third and final paragraph of definition three.
+:    Definition four.</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>6f01199a-db48-4ce4-b275-dc7dcc08016f</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Tables</title>
+                <subtitle></subtitle>
+                <createdDate>2013-03-26T11:36:18.794-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>5afe924d-7758-442f-8dee-88ec62fb1758</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Simple tables</title>
+                    <subtitle></subtitle>
+                    <createdDate>2013-03-26T12:40:59.169-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Table headers look kind of like level-two Setext headers. 
+
+```markdown
+One     Two     Three     Four
+---     ---     -----     ----
+1       2       3         4
+1       2       3         4
+1       2       3         4
+```
+
+You can control the alignment by fiddling with the underscore. If the content is flush with the right of the underscores it will be right-justified. The same rule applies for flush-left. If the underscores continue to the left and right of the content, it will be centered.
+
+```markdown
+Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+```
+
+Tables can have captions:
+
+```markdown
+Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+
+Table: A well-justifie table.
+```
+
+And they can be ended with another line of dashes, if you want:
+
+```markdown
+Left     Centered       Right
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+-----   ----------    -------
+```
+
+This can be used to omit column headers:
+
+```markdown
+-----   ----------    -------
+12         345             67
+12         345             67
+12         345             67
+12         345             67
+-----   ----------    -------
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>1f3ce5fe-2de7-4e64-ab1c-cc1dff29bf03</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Multiline tables</title>
+                    <createdDate>2013-03-26T12:50:06.087-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Here's an example of a multi-line table, taken from the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#multiline-tables):
+
+```markdown
+-------------------------------------------------------------
+ Centered   Default           Right Left
+  Header    Aligned         Aligned Aligned
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here's another one. Note
+                                    the blank line between
+                                    rows.
+-------------------------------------------------------------
+```
+
+Table: Here's the caption. It, too, may span
+multiple lines.
+
+Multi-line tables:
+
+* Begin with a row of dashes
+* end with a row of dashes, then a blank line
+* Have rows separated by blank lines
+
+Headers are optional:
+
+```markdown
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here's another one. Note
+                                    the blank line between
+                                    rows.
+----------- ------- --------------- -------------------------
+
+: Here's a multiline table without headers.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>1a5d8606-a059-4490-8b1c-66313fbe353c</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Grid tables</title>
+                    <createdDate>2013-03-26T12:57:11.432-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Grid tables use `=` to separate the headers from the body, and do not support alignment. Here's the example from the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#grid-tables):
+
+```markdown
+: Sample grid table.
+
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>1b48e390-03ed-4e57-b276-5069fb82abcb</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Pipe tables</title>
+                    <subtitle></subtitle>
+                    <createdDate>2013-03-26T12:59:06.555-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc supports PHP Extra's pipe tables. The example from the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#pipe-tables):
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+  : Demonstration of simple table syntax.</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>This is kind of complicated, so you might want to check out the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#tables) for complete details.
+
+Personally, I hate everything about markdown's table syntax (no matter which implementation you're talking about), and usually opt to include [inline html] instead, but your mileage may vary.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>af17b2b2-c4dc-4a13-a37f-84127b21363f</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Images</title>
+                <createdDate>2013-03-26T12:20:21.148-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.240-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>If a link has an exclamation point immediately in front of it, it will be treated as an image:
+
+```markdown
+![](cover-image.jpg)
+```
+
+You can also specify alt text and captions for the image:
+
+```markdown
+![Caption](cover-image.jpg &quot;Title&quot; )
+```
+
+if you want to suppress the caption, add a slash to the end of the line:
+
+```markdown
+![Caption won't be displayed](cover-image.jpg &quot;Title&quot; )
+```
+
+You can also use reference links:
+
+```markdown
+![cover]
+
+[cover]: cover.jpg
+```</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>0e4478f8-6da6-427b-bc80-9ff5ee242525</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>References</title>
+                <createdDate>2013-03-26T12:27:23.596-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <childNodes>
+                    <uuid>a8407e40-3fb6-4037-b234-1e9e119ce9df</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Footnotes</title>
+                    <createdDate>2013-03-26T12:27:29.868-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>To add a footnote, use the following syntax:
+
+```markdown
+This needs to be clarified in a footnote[^f1], and so does this[^f2].
+
+[^f1]: The first footnote
+
+[^f2]: The second footnote.
+```
+
+You can use the same kind of block-level indenting in footnotes as you do in lists.
+
+Pandoc also allows you to specify footnotes inline:
+
+```markdown
+This needs to be clarified in a footnote^[And here that footnote is].
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <childNodes>
+                    <uuid>2ab96538-9fb5-4e46-bf37-7b03c1366b70</uuid>
+                    <nodeType>file/folder</nodeType>
+                    <title>Citations</title>
+                    <createdDate>2013-03-26T12:31:13.798-04:00</createdDate>
+                    <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                    <imageResource/>
+                    <cursorStart>0</cursorStart>
+                    <cursorEnd>0</cursorEnd>
+                    <expanded>false</expanded>
+                    <manuscriptText>Pandoc supports the following citation database formats:
+
+* MODS
+* BibLaTeX
+* BibTeX
+* RIS
+* EndNote
+* EndNote XML
+* MEDLINE
+* Copac
+* JSON citeproc
+
+Citations take the following format, all taken from the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#citations)
+
+```markdown
+Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+
+Blah blah [@doe99, pp. 33-35, 38-39 and *passim*].
+
+Blah blah [@smith04; @doe99].
+```
+You can suppress the author (if you mention the name is the text, for example):
+
+```markdown
+Smith says blah [-@smith04].
+```
+
+And you do citations in-line, as well:
+
+```markdown
+@smith04 says blah.
+
+@smith04 [p. 33] says blah.
+```</manuscriptText>
+                    <descriptionText></descriptionText>
+                    <summaryText></summaryText>
+                    <notesText></notesText>
+                </childNodes>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>23d0b6bf-d172-4135-9001-b67bb34c1626</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Inline math</title>
+                <createdDate>2013-03-26T12:01:40.891-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>You can add TeX Math to a document by surrounding it with two dollar signs (`$$`):
+
+$$\forall x \in X, \quad \exists y \leq \epsilon$$</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>cdad90ed-f845-40ee-aa3d-f23666204ebc</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Inline HTML</title>
+                <createdDate>2013-03-26T08:47:23.205-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>If there's something you want to do that isn't supported by markdown, chances are you can pull it off by writing HTML. You don't need to do anything special to make this work: just add your tags in like you were writing any other web page.
+
+While Markdown is designed to be compiled into HTML, Pandoc has more wide-reaching goals, so it's variant of markdown provides many non-HTML ways of representing document elements like lists, footnotes, and citations.
+
+Pandoc will interpret markdown commands inside of HTML, except inside of `&lt;script&gt;` and `&lt;style&gt;` tags.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>9b827ad9-4c95-48c8-8b5f-e513e99653cb</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>The Pandoc Title Block</title>
+                <createdDate>2013-03-26T11:36:27.098-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>Pandoc allows you to specify three pieces of document metadata: the title, a list of authors, and the date. To do this, start a document with three lines beginning with modulus (`%`) signs:
+
+```markdown
+% Title
+% Author One; Author Two
+% March 2013
+```
+
+All of these are optional.
+
+```markdown
+% Title
+% 
+% March 2013
+```
+
+Markdown Writer will generate this for you, based on the metadata contained in the project itself.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>b19816c6-b6e9-4f06-b1f8-3370a893899c</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Special Characters</title>
+                <createdDate>2013-03-26T08:48:35.271-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>The `&lt;` and `&amp;` characters have special meaning in HTML, and you have to enter special codes to use them: `&amp;lt;` and `&amp;amp;`. Markdown generates this markdown for you.
+
+You can escape any character (except in a code block) with a backslash. For example, the following would be in italics, not bold:
+
+```markdown
+*\*Hello, world!*\*
+```</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>4c4a473c-ea0c-4265-aa3d-d0e7f27d4d56</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Smart Punctuation</title>
+                <createdDate>2013-03-26T11:44:07.678-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>If the &quot;Smart Punctuation&quot; option is selected, Pandoc will generate typographically correct punctuation: em-dashes, ellipses, and curly quotes.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>Markdown Writer supports a variety of input formats: several flavors of markdown, raw HTML, and LaTeX. The best combination of ease-of-use and power, though, probably comes from Pandoc's native markdown format. A complete discussion of this format, and how it differs from traditional Markdown, can be found in the [Pandoc User's Guide](http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown). We'll cover the most important parts here.</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>03c2c271-3f92-46f3-ad49-c69266bca2b5</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>About Markdown Writer</title>
+            <subtitle></subtitle>
+            <createdDate>2013-03-26T13:13:11.013-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>**Version 1.0**
+
+*Copyright &amp;#169; 2012 - Thomas Galvin*
+
+Markdown Writer is provided in the hopes that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Markdown Writer is built with or depends on several third party projects:
+
+* Libraries
+    *  Commons IO version 2.4
+       [Homepage](http://commons.apache.org/io/)
+       [License](http://www.apache.org/licenses/)
+    *  Fifesoft RText Editor and Spell, version 2.0.4.1
+       [Homepage](http://fifesoft.com/rtext/)
+       [License](http://fifesoft.com/rtext/License.txt)
+    *  Groovy version 2.0.4
+       [Homepage](http://groovy.codehaus.org/)
+       [License](http://www.apache.org/licenses/LICENSE-2.0.html)
+    * Jazzy
+       [Homepage](http://jazzy.sourceforge.net/)
+       [License](http://sourceforge.net/projects/jazzy/)
+    * JRuby
+       [Homepage](http://jruby.org/)
+       [License](https://github.com/jruby/jruby/blob/master/COPYING)
+    * Textplay
+       [Homepage](https://github.com/olivertaylor/Textplay)
+       [License](https://github.com/olivertaylor/Textplay/blob/master/textplay)
+*  Standalone executables
+    * PanDoc
+       [Homepage](http://johnmacfarlane.net/pandoc/)
+       [License](http://www.gnu.org/copyleft/gpl.html)
+    * LaTeX
+       [Homepage](http://latex-project.org/)
+       [License](http://latex-project.org/lppl/)
+    * MacTeX
+      [Homepage](http://www.tug.org/mactex/)
+      [License](http://www.tug.org/mactex/2012/src/License.rtf)
+    * MiKTeX
+       [Homepage](http://miktex.org/)
+       [License](http://miktex.org/copying)
+*  Icon sets
+    * Crystal
+      [Homepage](http://www.everaldo.com/)
+      [License](http://www.everaldo.com/crystal/?action=license)
+    * Oxygen
+      [Homepage](http://oxygen-icons.org)
+      [License](http://www.oxygen-icons.org/?page_id=4)         
+</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <imageResource/>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>true</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>4107270b-f3be-423e-bc4e-ef2f8facd84f</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Research</title>
+        <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+        <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+        <imageResource/>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>0dc6dbcd-4a18-4a35-a2f2-9d7bd05e6c71</uuid>
+        <nodeType>project/resources</nodeType>
+        <title>Resources</title>
+        <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+        <modifiedDate>2013-11-11T20:44:52.241-05:00</modifiedDate>
+        <imageResource/>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>58aaaeca-9b58-4a29-8266-535183861214</uuid>
+        <nodeType>project/trash</nodeType>
+        <title>Trash</title>
+        <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+        <modifiedDate>2013-11-11T20:44:52.242-05:00</modifiedDate>
+        <childNodes>
+            <uuid>1c706179-0bce-4879-9d56-7bbfaba1239c</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>Markdown</title>
+            <subtitle></subtitle>
+            <createdDate>2013-03-26T08:08:41.633-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.242-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>2232d830-3194-4489-8e87-ca1f9c0ae09f</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Untitled</title>
+            <createdDate>2013-03-26T09:09:51.295-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.242-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText># Header One</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>16f1011a-7dc8-4004-ac92-7cf1606d3e6a</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>LaTeX</title>
+            <createdDate>2013-03-26T12:04:01.778-04:00</createdDate>
+            <modifiedDate>2013-11-11T20:44:52.242-05:00</modifiedDate>
+            <childNodes>
+                <uuid>c78247a6-0e88-4f65-b31e-061740471664</uuid>
+                <nodeType>file/folder</nodeType>
+                <title>Math</title>
+                <createdDate>2013-03-26T12:01:29.689-04:00</createdDate>
+                <modifiedDate>2013-11-11T20:44:52.242-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>Pandoc allows LaTeX and ConTeXt to be added to documents, but it is ignored for most output formats.
+
+</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <imageResource/>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <compileOptions>
+        <importFormat>
+            <name>Markdown (Pandoc)</name>
+            <extension>.md</extension>
+        </importFormat>
+        <exportFormats>
+            <name>XHTML</name>
+            <extension>.html</extension>
+            <priority>20</priority>
+        </exportFormats>
+        <nodeSection>MANUSCRIPT</nodeSection>
+        <includeTOC>true</includeTOC>
+        <tocDepth>3</tocDepth>
+        <epubChapterLevel>1</epubChapterLevel>
+        <includeContributors>true</includeContributors>
+        <includeContributorRoles>true</includeContributorRoles>
+        <includeTitlesOfFolders>true</includeTitlesOfFolders>
+        <includeSubtitlesOfFolders>true</includeSubtitlesOfFolders>
+        <includeTitlesOfFiles>false</includeTitlesOfFiles>
+        <includeSubtitlesOfFiles>false</includeSubtitlesOfFiles>
+        <generateTitleBlock>true</generateTitleBlock>
+        <separatorFolderFolder>
+
+&lt;div style='page-break-after: always' &gt;&lt;/div&gt;
+
+</separatorFolderFolder>
+        <separatorFolderFile>
+
+</separatorFolderFile>
+        <separatorFileFolder>
+
+&lt;div style='page-break-after: always' &gt;&lt;/div&gt;
+
+</separatorFileFolder>
+        <separatorFileFile>
+
+</separatorFileFile>
+        <separatorTitleFile>
+
+</separatorTitleFile>
+        <separatorTitleFolder>
+
+</separatorTitleFolder>
+        <unusedCustomSeparatorFolderFolder></unusedCustomSeparatorFolderFolder>
+        <unusedCustomSeparatorFolderFile></unusedCustomSeparatorFolderFile>
+        <unusedCustomSeparatorFileFolder></unusedCustomSeparatorFileFolder>
+        <unusedCustomSeparatorFileFile></unusedCustomSeparatorFileFile>
+        <unusedCustomSeparatorTitleFile></unusedCustomSeparatorTitleFile>
+        <unusedCustomSeparatorTitleFolder></unusedCustomSeparatorTitleFolder>
+        <endOfDocumentMarker></endOfDocumentMarker>
+        <projectContributorMarkup>*</projectContributorMarkup>
+        <nodeContributorMarkup>*</nodeContributorMarkup>
+    </compileOptions>
+    <projectMacros>
+        <macros>
+            <addbreviation>markdown</addbreviation>
+            <beforeCursor>```markdown
+</beforeCursor>
+            <afterCursor>```</afterCursor>
+            <type>PLAIN_TEXT</type>
+        </macros>
+    </projectMacros>
+    <synchronizeEditors>false</synchronizeEditors>
+</Project>

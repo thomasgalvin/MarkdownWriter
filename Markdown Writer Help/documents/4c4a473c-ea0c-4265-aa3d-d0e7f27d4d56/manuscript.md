@@ -1,0 +1,1 @@
+If the "Smart Punctuation" option is selected, Pandoc will generate typographically correct punctuation: em-dashes, ellipses, and curly quotes.

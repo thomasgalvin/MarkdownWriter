@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <projectModelVersion>2.0</projectModelVersion>
+    <uuid>31e38777-efd4-41df-8f1c-40fbfff0154c</uuid>
+    <title>Novel</title>
+    <subtitle>a novel</subtitle>
+    <langauge>
+        <name>English</name>
+        <code>en</code>
+    </langauge>
+    <identifierScheme>
+        <name>ISBN</name>
+        <code>ISBN</code>
+    </identifierScheme>
+    <identifier>ed42b066-39a3-4275-934b-c46cbdb0913a</identifier>
+    <createdDate>2014-11-11T11:44:04.148-05:00</createdDate>
+    <modifiedDate>2014-11-11T11:44:04.148-05:00</modifiedDate>
+    <styleSheet>body { margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; text-align: justify; font-size: medium; }
+code { font-family: monospace; }
+h1 { text-align: left; }
+h2 { text-align: left; }
+h3 { text-align: left; }
+h4 { text-align: left; }
+h5 { text-align: left; }
+h6 { text-align: left; }
+h1.title { }
+h2.author { }
+h3.date { }
+/* For source-code highlighting */
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre
+   { margin: 0; padding: 0; border: 0; vertical-align: baseline; border: none; }
+td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; }
+td.sourceCode { padding-left: 5px; }
+pre.sourceCode { }
+code.sourceCode span.kw { color: #007020; font-weight: bold; }
+code.sourceCode span.dt { color: #902000; }
+code.sourceCode span.dv { color: #40a070; }
+code.sourceCode span.bn { color: #40a070; }
+code.sourceCode span.fl { color: #40a070; }
+code.sourceCode span.ch { color: #4070a0; }
+code.sourceCode span.st { color: #4070a0; }
+code.sourceCode span.co { color: #60a0b0; font-style: italic; }
+code.sourceCode span.ot { color: #007020; }
+code.sourceCode span.al { color: red; font-weight: bold; }
+code.sourceCode span.fu { color: #06287e; }
+code.sourceCode span.re { }
+code.sourceCode span.er { color: red; font-weight: bold; }
+
+
+
+/*
+    Buttondown
+    A Markdown/MultiMarkdown/Pandoc HTML output CSS stylesheet
+    Author: Ryan Gray
+    Date: 15 Feb 2011
+    Revised: 21 Feb 2012
+    https://gist.github.com/ryangray/1882525#file-buttondown-css
+   
+    General style is clean, with minimal re-definition of the defaults or 
+    overrides of user font settings. The body text and header styles are 
+    left alone except title, author and date classes are centered. A Pandoc TOC 
+    is not printed, URLs are printed after hyperlinks in parentheses. 
+    Block quotes are italicized. Tables are lightly styled with lines above 
+    and below the table and below the header with a boldface header. Code 
+    blocks are line wrapped. 
+
+    All elements that Pandoc and MultiMarkdown use should be listed here, even 
+    if the style is empty so you can easily add styling to anything.
+    
+    There are some elements in here for HTML5 output of Pandoc, but I have not 
+    gotten around to testing that yet.
+*/
+
+/* NOTES:
+
+    Stuff tried and failed:
+    
+    It seems that specifying font-family:serif in Safari will always use 
+    Times New Roman rather than the user's preferences setting.
+    
+    Making the font size different or a fixed value for print in case the screen 
+    font size is making the print font too big: Making font-size different for 
+    print than for screen causes horizontal lines to disappear in math when using 
+    MathJax under Safari.
+*/
+
+/* ---- Front Matter ---- */
+
+/* Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC. 
+   Only appears if one of those three are in the document.
+*/
+
+div#header, header
+    {
+    /* Put border on bottom. Separates it from TOC or body that comes after it. */
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+    }
+
+.title /* Pandoc title header (h1.title) */
+    {
+    text-align: center;
+    }
+
+.author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+    {
+    text-align: center;
+    }
+
+/* Pandoc table of contents DIV when using the --toc option.
+   NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header. 
+   Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+*/
+
+div#TOC, nav#TOC
+    {
+    /* Put border on bottom to separate it from body. */
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+    }
+
+@media print
+    {
+    div#TOC, nav#TOC
+        {
+        /* Don't display TOC in print */
+        display: none;
+        }
+    }
+
+/* ---- Headers and sections ---- */
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;Liberation Sans&quot;, Calibri, Arial, sans-serif; /* Sans-serif headers */
+
+    /* font-family: &quot;Liberation Serif&quot;, &quot;Georgia&quot;, &quot;Times New Roman&quot;, serif; /* Serif headers */
+
+    page-break-after: avoid; /* Firefox, Chrome, and Safari do not support the property value &quot;avoid&quot; */
+}
+
+/* Pandoc with --section-divs option */
+
+div div, section section /* Nested sections */
+    {
+    margin-left: 2em; /* This will increasingly indent nested header sections */
+    }
+
+p {}
+
+blockquote
+    { 
+    font-style: italic;
+    }
+
+li /* All list items */
+    {
+    }
+
+li &gt; p /* Loosely spaced list item */
+    {
+    margin-top: 1em; /* IE: lack of space above a &lt;li&gt; when the item is inside a &lt;p&gt; */
+    }
+
+ul /* Whole unordered list */
+    {
+    }
+
+ul li /* Unordered list item */
+    {
+    }
+
+ol /* Whole ordered list */
+    {
+    }
+
+ol li /* Ordered list item */
+    {
+    }
+
+hr {}
+
+/* ---- Some span elements --- */
+
+sub /* Subscripts. Pandoc: H~2~O */
+    {
+    }
+
+sup /* Superscripts. Pandoc: The 2^nd^ try. */
+    {
+    }
+    
+em /* Emphasis. Markdown: *emphasis* or _emphasis_ */
+    {
+    }
+    
+em &gt; em /* Emphasis within emphasis: *This is all *emphasized* except that* */
+    {
+    font-style: normal;
+    }
+
+strong /* Markdown **strong** or __strong__ */
+    {
+    }
+
+/* ---- Links (anchors) ---- */
+
+a /* All links */
+    {
+    /* Keep links clean. On screen, they are colored; in print, they do nothing anyway. */
+    text-decoration: none;
+    }
+
+@media screen
+    {
+    a:hover
+        {
+        /* On hover, we indicate a bit more that it is a link. */
+        text-decoration: underline;
+        }
+    }
+
+@media print
+    {
+    a   {
+        /* In print, a colored link is useless, so un-style it. */
+        color: black;
+        background: transparent;
+        }
+        
+    a[href^=&quot;http://&quot;]:after, a[href^=&quot;https://&quot;]:after
+        {
+        /* However, links that go somewhere else, might be useful to the reader,
+           so for http and https links, print the URL after what was the link 
+           text in parens
+        */
+        content: &quot; (&quot; attr(href) &quot;) &quot;;
+        font-size: 90%;
+        }
+    }
+
+/* ---- Images ---- */
+
+img
+    {
+    /* Let it be inline left/right where it wants to be, but verticality make 
+       it in the middle to look nicer, but opinions differ, and if in a multi-line 
+       paragraph, it might not be so great. 
+    */
+    vertical-align: middle;
+    }
+
+div.figure /* Pandoc figure-style image */
+    {
+    /* Center the image and caption */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-style: italic;
+    }
+
+p.caption /* Pandoc figure-style caption within div.figure */
+    {
+    /* Inherits div.figure props by default */
+    }
+
+/* ---- Code blocks and spans ---- */
+
+pre, code 
+    {
+    background-color: #fdf7ee;
+    /* BEGIN word wrap */
+    /* Need all the following to word wrap instead of scroll box */
+    /* This will override the overflow:auto if present */
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    /* END word wrap */
+    }
+
+pre /* Code blocks */
+    {
+    /* Distinguish pre blocks from other text by more than the font with a background tint. */
+    padding: 0.5em; /* Since we have a background color */
+    border-radius: 5px; /* Softens it */
+    /* Give it a some definition */
+    border: 1px solid #aaa;
+    /* Set it off left and right, seems to look a bit nicer when we have a background */
+    margin-left:  0.5em;
+    margin-right: 0.5em;
+    }
+
+@media screen
+    {
+    pre
+        {
+        /* On screen, use an auto scroll box for long lines, unless word-wrap is enabled */
+        white-space: pre;
+        overflow: auto;
+        /* Dotted looks better on screen and solid seems to print better. */
+        border: 1px dotted #777;
+        }
+    }
+
+code /* All inline code spans */
+    {
+    }
+
+p &gt; code, li &gt; code /* Code spans in paragraphs and tight lists */
+    {
+    /* Pad a little from adjacent text */
+    padding-left:  2px;
+    padding-right: 2px;
+    }
+    
+li &gt; p code /* Code span in a loose list */
+    {
+    /* We have room for some more background color above and below */
+    padding: 2px;
+    }
+
+/* ---- Math ---- */
+
+span.math /* Pandoc inline math default and --jsmath inline math */
+    {
+    /* Tried font-style:italic here, and it messed up MathJax rendering in some browsers. Maybe don't mess with at all. */
+    }
+    
+div.math /* Pandoc --jsmath display math */
+    {
+    }
+    
+span.LaTeX /* Pandoc --latexmathml math */
+    {
+    } 
+
+eq /* Pandoc --gladtex math */
+    {
+    } 
+
+/* ---- Tables ---- */
+
+/*  A clean textbook-like style with horizontal lines above and below and under 
+    the header. Rows highlight on hover to help scanning the table on screen.
+*/
+
+table
+    {
+    border-collapse: collapse;
+    border-spacing: 0; /* IE 6 */
+
+    border-bottom: 2pt solid #000;
+    border-top: 2pt solid #000; /* The caption on top will not have a bottom-border */
+
+    /* Center */
+    margin-left: auto;
+    margin-right: auto;
+    }
+    
+thead /* Entire table header */
+    {
+    border-bottom: 1pt solid #000;
+    background-color: #eee; /* Does this BG print well? */
+    }
+
+tr.header /* Each header row */
+    {
+    } 
+
+tbody /* Entire table  body */
+    {
+    }
+
+/* Table body rows */
+
+tr  {
+    }
+tr.odd:hover, tr.even:hover /* Use .odd and .even classes to avoid styling rows in other tables */
+    {
+    background-color: #eee;
+    }
+    
+/* Odd and even rows */
+tr.odd {}
+tr.even {}
+
+td, th /* Table cells and table header cells */
+    { 
+    vertical-align: top; /* Word */
+    vertical-align: baseline; /* Others */
+    padding-left:   0.5em;
+    padding-right:  0.5em;
+    padding-top:    0.2em;
+    padding-bottom: 0.2em;
+    }
+    
+/* Removes padding on left and right of table for a tight look. Good if thead has no background color*/
+/*
+tr td:last-child, tr th:last-child
+    {
+    padding-right: 0;
+    }
+tr td:first-child, tr th:first-child 
+    {
+    padding-left: 0;
+    }
+*/
+
+th /* Table header cells */
+    {
+    font-weight: bold; 
+    }
+
+tfoot /* Table footer (what appears here if caption is on top?) */
+    {
+    }
+
+caption /* This is for a table caption tag, not the p.caption Pandoc uses in a div.figure */
+    {
+    caption-side: top;
+    border: none;
+    font-size: 0.9em;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 0.3em; /* Good for when on top */
+    padding-bottom: 0.2em;
+    }
+
+/* ---- Definition lists ---- */
+
+dl /* The whole list */
+    {
+    border-top: 2pt solid black;
+    padding-top: 0.5em;
+    border-bottom: 2pt solid black;
+    }
+
+dt /* Definition term */
+    {
+    font-weight: bold;
+    }
+
+dd+dt /* 2nd or greater term in the list */
+    {
+    border-top: 1pt solid black;
+    padding-top: 0.5em;
+    }
+    
+dd /* A definition */
+    {
+    margin-bottom: 0.5em;
+    }
+
+dd+dd /* 2nd or greater definition of a term */
+    {
+    border-top: 1px solid black; /* To separate multiple definitions */
+    }
+    
+/* ---- Footnotes ---- */
+
+a.footnote, a.footnoteRef { /* Pandoc, MultiMarkdown footnote links */
+    font-size: small; 
+    vertical-align: text-top;
+}
+
+a[href^=&quot;#fnref&quot;], a.reversefootnote /* Pandoc, MultiMarkdown, ?? footnote back links */
+    {
+    }
+
+@media print
+    {
+    a[href^=&quot;#fnref&quot;], a.reversefootnote /* Pandoc, MultiMarkdown */
+        {
+        /* Don't display these at all in print since the arrow is only something to click on */
+        display: none;
+        }
+    }
+    
+div.footnotes /* Pandoc footnotes div at end of the document */
+    {
+    }
+    
+div.footnotes li[id^=&quot;fn&quot;] /* A footnote item within that div */
+    {
+    }
+
+/* You can class stuff as &quot;noprint&quot; to not print. 
+   Useful since you can't set this media conditional inside an HTML element's 
+   style attribute (I think), and you don't want to make another stylesheet that 
+   imports this one and adds a class just to do this.
+*/
+
+@media print
+    {
+    .noprint
+        {
+        display:none;
+        }
+    }
+    
+    
+.pagebreak
+{
+    page-break-before: always;
+}
+
+.centered
+{
+    text-align: center;
+}
+
+h1.title,
+h2.author
+{
+    color: black !important;
+    font-size: 1em !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5
+.titlepage
+{
+   font-family: Copperplate, Arial, Helvetica, Verdana, Sans-serif !important;
+   text-align: center;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a
+{
+    font-family: Copperplate, Arial, Helvetica, Verdana, Sans-serif !important;
+    text-decoration: none !important;
+    color: #666666;
+}
+
+/*date headers*/
+
+h5
+{
+    font-family: Copperplate, Arial, Helvetica, Verdana, Sans-serif !important;
+    color: #666666;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/*date header are formatted as links by PanDoc*/
+h5 a
+{
+    text-decoration: none !important;
+    color: #666666 !important;
+}
+
+h1
+{
+    font-family: Copperplate, Arial, Helvetica, Verdana, Sans-serif !important;
+    color: #666666;
+    text-align: center;
+    font-size: 2em;
+    page-break-before: always;
+}
+
+h1.title,
+h2.title,
+h3.title,
+h4.title,
+h5.title
+{
+    page-break-before: never;
+}
+
+blockquote
+{
+    font-style:italic;
+    padding: 0;
+    margin: 0;
+}
+
+hr
+{
+    width: 25%;
+    text-align: center;
+    overflow: hidden;
+}
+
+body
+{
+     font-family: &quot;Times New Roman&quot;, Times, Helvetica;
+     text-align: justify;
+}
+
+p
+{
+    text-align: justify;
+}
+
+h1.titlepage,
+h1.titlepage a
+{
+    font-size: 36pt !important;
+}
+
+h2.titlepage,
+h2.titlepage a
+{
+    font-size: 24pt !important;
+}
+
+h3.titlepage,
+h3.titlepage a
+{
+    font-size: 12pt !important;
+}
+
+h3.titlepage,
+h3.titlepage a
+{
+    font-size: 12pt !important;
+}
+
+
+</styleSheet>
+    <projectDictionaryText></projectDictionaryText>
+    <manuscriptUuid>a740db9d-c274-42b0-b4df-45687bff3f46</manuscriptUuid>
+    <resourcesUuid>d98f9f72-20e3-48c5-ac9c-e93a8b9c3efc</resourcesUuid>
+    <trashUuid>2ea8a70b-3350-458d-b365-5381c8b840c5</trashUuid>
+    <childNodes>
+        <uuid>a740db9d-c274-42b0-b4df-45687bff3f46</uuid>
+        <nodeType>project/manuscript</nodeType>
+        <title>Manuscript</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <childNodes>
+            <uuid>65470e70-b41e-469a-96a1-8fe791b7f585</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Untitled</title>
+            <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+            <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>true</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>bba36006-4055-4967-a885-5244f7d68af8</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Research</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>8c75279e-41db-46b7-b7fc-578e89719204</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Outline Templates</title>
+        <createdDate>2014-07-12T19:19:13.524-04:00</createdDate>
+        <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+        <childNodes>
+            <uuid>4a79bcf4-73f8-4490-8ce5-b96e8fd996f0</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Story Fixer</title>
+            <subtitle></subtitle>
+            <createdDate>2014-07-12T20:00:17.895-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>1. Hook
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
+12.  1st plot point
+
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. Pinch Point
+8. 
+9. 
+10. 
+11. 
+12.  
+13. 
+14. Midpoint
+
+1. 
+2. 
+3. 
+4. 
+5. 
+6. Pinch Point
+7. 
+8. 
+9. 
+10. 
+11. 
+12.  
+13. 
+14. Down point / Lull before 2nd Plot Point
+
+1. 2nd Plot Point
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
+12. Black moment
+13. Resolution
+14. Denouement
+</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>bafa8a88-f1cf-4ba3-b814-e04a6151fd3b</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>ScreenPlayer</title>
+            <createdDate>2014-07-12T20:23:56.586-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>1. The Start
+    * Who
+    * What
+    * Why
+    * What the fuck?!?
+2. The Hero's Part / Love Story Part 1
+    * Trailer
+    * Tits
+    * Training
+    * What the audience wants to see
+3. The Bad Guy's Part / Love Story Part 2
+    * Everything goes to hell
+    * Breakup
+    * Suicide
+    * Everything that makes the journey worthwhile
+4. The End
+    * What they wanted ... but not how they wanted it
+    * Action</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>6368cf01-b747-42c5-9589-1930a207a722</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Blake Snyder / Save the Cat</title>
+            <createdDate>2014-07-12T20:27:17.688-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>* Opening Image
+* Set up
+* Theme stated
+* Catalyst
+* Debate
+* Break into Act Two
+    * The main character makes a choice and the journey begins. We leave the “Thesis” world and enter the upside-down, opposite world of Act Two.
+* B Story
+* Promise of the Premise
+    * This is the fun part of the story.
+* Midpoint
+* Bad guys close in
+* All is lost
+* Dark night of the soul
+* Break into Act Three
+* Finale
+* Final image</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>66ec4ed0-c93b-4f25-9305-224c4b8b6c52</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Ten Chapters</title>
+            <createdDate>2014-07-12T20:29:29.097-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>1. Hook
+2. 1st plot point
+3. Pinch point
+4. Midpoint
+5. Pinch point
+6. Down point
+7. 2nd plot point
+8. Black moment
+9. Resolution
+10. Denouement</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>fd0bcb96-a9ce-4f0b-bf27-13db4dc8498c</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Dan Harmon</title>
+            <createdDate>2014-09-14T15:50:22.123-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>1. A character is in a zone of comfort,
+2. But they want something.
+3. They enter an unfamiliar situation,
+4. Adapt to it,
+5. Get what they wanted,
+6. Pay a heavy price for it,
+7. Then return to their familiar situation,
+8. Having changed.
+
+&lt;http://channel101.wikia.com/wiki/Story_Structure_101:_Super_Basic_Shit&gt;
+&lt;http://channel101.wikia.com/wiki/Story_Structure_104:_The_Juicy_Details&gt;</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>60bd2b70-ed44-4053-9508-09aa15544875</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>Script Lab</title>
+            <createdDate>2014-09-25T18:27:51.199-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+            <childNodes>
+                <uuid>8625ee5e-621b-45ac-92a9-310e60562cec</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Five point breakdown</title>
+                <subtitle></subtitle>
+                <createdDate>2014-09-25T18:21:25.658-04:00</createdDate>
+                <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>1. Inciting Incident
+2. Lock-in (end of act one)
+3. First culmination (midpoint, end of act 2)
+4. Main culmination (end of act 3)
+5. Fourth act twist</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>d9e90328-0a89-4c9a-8b65-8855af02e125</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Eight Sequences</title>
+                <subtitle></subtitle>
+                <createdDate>2014-09-25T18:26:11.846-04:00</createdDate>
+                <modifiedDate>2014-11-11T11:52:07.026-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>1. Status Quo &amp; Inciting Incident
+2. Predicament &amp; Lock In
+
+3. First Obstacle &amp; Raising the Stakes
+4. First Culmination/Midpoint
+
+5. Subplot &amp; Rising Action
+6. Main Culmination/End of Act Two
+
+7. New Tension &amp; Twist
+8. Resolution</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>08fe6ad1-97f0-4dfd-9b8b-8fc1b2474497</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Script Lab complete</title>
+                <subtitle></subtitle>
+                <createdDate>2014-09-25T18:26:11.846-04:00</createdDate>
+                <modifiedDate>2014-11-11T11:52:07.027-05:00</modifiedDate>
+                <imageResource/>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>Act One
+=======
+
+1. Status Quo &amp; Inciting Incident
+    * Inciting Incident
+
+2. Predicament &amp; Lock In
+    * Lock-in (end of act one)
+    
+Act Two
+=======
+    
+3. First Obstacle &amp; Raising the Stakes
+    * Pinch Point
+
+4. First Culmination
+    * Midpoint
+
+Act Three
+=========
+
+5. Subplot &amp; Rising Action
+    * Pinch Point
+
+6. End of Act Three
+    * Main culmination
+    
+Act Four
+========
+
+7. New Tension &amp; Twist
+    * Fourth act twist
+    
+8. Resolution
+    </manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <childNodes>
+            <uuid>4a2c2ac0-e753-4b90-a1c2-99c6966bdc75</uuid>
+            <nodeType>file/markdown</nodeType>
+            <title>7 beat outline</title>
+            <subtitle></subtitle>
+            <createdDate>2014-09-25T18:22:36.402-04:00</createdDate>
+            <modifiedDate>2014-11-11T11:52:07.027-05:00</modifiedDate>
+            <imageResource/>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>false</expanded>
+            <manuscriptText>1. Inciting Incident
+2. Lock-in (end of act one)
+3. First culmination (midpoint, end of act 2)
+4. Main culmination (end of act 3)
+5. Fourth act twist
+6. Resolution (end of main tension)
+7. Denouement</manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <imageResource/>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>5fd79219-974f-46db-9e56-7b1fd23f0f76</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Outlines</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>7baccb2e-c4e3-4cc1-b9b6-1245624e4619</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Characters</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>d05386f4-1188-4234-ab56-cb16a0689092</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Places</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>acebcdec-b7a4-4f57-a242-2c0eebaa5da1</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Edit Notes</title>
+        <subtitle></subtitle>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>71aa0892-0a61-4c7f-8326-b2900cb302f5</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Front Matter</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+        <childNodes>
+            <uuid>d12649cd-f0d5-4f8f-ac7c-b3daf48733f4</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>Copyright</title>
+            <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+            <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+            <childNodes>
+                <uuid>ae4555b5-e8e8-40c2-9afb-c1440636b923</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Copyright</title>
+                <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+                <modifiedDate>2014-11-11T11:51:27.630-05:00</modifiedDate>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText>
+*Title* is a work of fiction. Names, characters, places, and incidents are the product of the author's imagination, or are used fictitiously. Any resemblance to actual events, locales, business establishments, or persons, living or dead, is entirely coincidental.  
+
+Copyright © YEAR AUTHOR All rights reserved.  
+  
+Cover image Copyright © YEAR COVER_ARTIST
+  
+Cover design by COVER_DESIGNER 
+
+Edited by EDITOR
+  
+Published by PUBLISHER  
+  
+Without limiting the rights under copyright reserved above, no part of this publication may be reproduced, stored in or introduced to a retrieval system, transmitted, in any form, or by any means (electronic, mechanical, photocopying, recording, or otherwise), without prior written permission of both the copyright owner and the publisher, except as allowed by law.  
+  
+The scanning, uploading, and distribution of this book via the Internet or other means without the permission of the publisher is illegal and punishable by law. Please purchase only authorized electronic editions, and do not participate in or encourage electronic piracy of copyrighted materials. This book is made available to you without restrictive Digital Rights Management, and your support of the author's rights is appreciated.</manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>true</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>true</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>4f12ca5e-f659-4f22-ab86-9303176e957a</uuid>
+        <nodeType>file/folder</nodeType>
+        <title>Back Matter</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+        <childNodes>
+            <uuid>eccb604a-e007-4d31-af92-c2f696e53895</uuid>
+            <nodeType>file/folder</nodeType>
+            <title>About the Author</title>
+            <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+            <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+            <childNodes>
+                <uuid>7414dc04-55c0-4269-a675-f0738e436308</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Newsletter</title>
+                <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+                <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>acab4c0d-bd4d-486b-a142-3a4cf4ce9368</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>About the Author</title>
+                <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+                <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <childNodes>
+                <uuid>7aa3da7c-5ac7-4e84-b312-f55b4651e771</uuid>
+                <nodeType>file/markdown</nodeType>
+                <title>Other books</title>
+                <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+                <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+                <cursorStart>0</cursorStart>
+                <cursorEnd>0</cursorEnd>
+                <expanded>false</expanded>
+                <manuscriptText></manuscriptText>
+                <descriptionText></descriptionText>
+                <summaryText></summaryText>
+                <notesText></notesText>
+            </childNodes>
+            <cursorStart>0</cursorStart>
+            <cursorEnd>0</cursorEnd>
+            <expanded>true</expanded>
+            <manuscriptText></manuscriptText>
+            <descriptionText></descriptionText>
+            <summaryText></summaryText>
+            <notesText></notesText>
+        </childNodes>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>true</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>d98f9f72-20e3-48c5-ac9c-e93a8b9c3efc</uuid>
+        <nodeType>project/resources</nodeType>
+        <title>Resources</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <childNodes>
+        <uuid>2ea8a70b-3350-458d-b365-5381c8b840c5</uuid>
+        <nodeType>project/trash</nodeType>
+        <title>Trash</title>
+        <createdDate>2014-11-11T11:51:23.173-05:00</createdDate>
+        <modifiedDate>2014-11-11T11:51:27.631-05:00</modifiedDate>
+        <cursorStart>0</cursorStart>
+        <cursorEnd>0</cursorEnd>
+        <expanded>false</expanded>
+        <manuscriptText></manuscriptText>
+        <descriptionText></descriptionText>
+        <summaryText></summaryText>
+        <notesText></notesText>
+    </childNodes>
+    <compileOptions>
+        <importFormat>
+            <name>Markdown (Pandoc)</name>
+            <extension>.md</extension>
+        </importFormat>
+        <nodeSection>MANUSCRIPT</nodeSection>
+        <includeTOC>true</includeTOC>
+        <tocDepth>3</tocDepth>
+        <epubChapterLevel>1</epubChapterLevel>
+        <includeContributors>true</includeContributors>
+        <includeContributorRoles>true</includeContributorRoles>
+        <includeTitlesOfFolders>true</includeTitlesOfFolders>
+        <includeSubtitlesOfFolders>true</includeSubtitlesOfFolders>
+        <includeTitlesOfFiles>false</includeTitlesOfFiles>
+        <includeSubtitlesOfFiles>false</includeSubtitlesOfFiles>
+        <generateTitleBlock>true</generateTitleBlock>
+        <separatorFolderFolder>
+
+&lt;div style='page-break-after: always' &gt;&lt;/div&gt;
+
+</separatorFolderFolder>
+        <separatorFolderFile>
+
+</separatorFolderFile>
+        <separatorFileFolder>
+
+&lt;div style='page-break-after: always' &gt;&lt;/div&gt;
+
+</separatorFileFolder>
+        <separatorFileFile>
+
+</separatorFileFile>
+        <separatorTitleFile>
+
+</separatorTitleFile>
+        <separatorTitleFolder>
+
+</separatorTitleFolder>
+        <unusedCustomSeparatorFolderFolder></unusedCustomSeparatorFolderFolder>
+        <unusedCustomSeparatorFolderFile></unusedCustomSeparatorFolderFile>
+        <unusedCustomSeparatorFileFolder></unusedCustomSeparatorFileFolder>
+        <unusedCustomSeparatorFileFile></unusedCustomSeparatorFileFile>
+        <unusedCustomSeparatorTitleFile></unusedCustomSeparatorTitleFile>
+        <unusedCustomSeparatorTitleFolder></unusedCustomSeparatorTitleFolder>
+        <endOfDocumentMarker></endOfDocumentMarker>
+        <projectContributorMarkup>*</projectContributorMarkup>
+        <nodeContributorMarkup>*</nodeContributorMarkup>
+    </compileOptions>
+    <projectMacros/>
+    <synchronizeEditors>false</synchronizeEditors>
+</Project>

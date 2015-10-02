@@ -1,0 +1,1 @@
+Markdown suppports two kinds of headers: Setext and ATX.
