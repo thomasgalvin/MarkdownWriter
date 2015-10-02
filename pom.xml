@@ -27,15 +27,17 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-            <version>1.7.3</version>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>jRuby</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
         </dependency>
         
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.0.4</version>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>Groovy</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
         </dependency>
         
         <dependency>
