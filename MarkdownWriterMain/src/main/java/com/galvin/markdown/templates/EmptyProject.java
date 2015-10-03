@@ -26,7 +26,7 @@ extends ProjectTemplate
         Project project = new Project();
         project.setCreatedDate( date );
         project.setModifiedDate( date );
-        project.setTitle( messages.titleUntitledProject() );
+//        project.setTitle( messages.titleUntitledProject() );
         project.setProjectModelVersion( ProjectIo.PROJECT_MODEL_VERSION);
 
         Node root = new Node();

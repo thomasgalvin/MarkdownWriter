@@ -195,6 +195,12 @@ public class Controller
 
             File projectDirectory = projectFile.getParentFile();
             project.setProjectDirectory( projectDirectory );
+            
+            if( StringUtils.isBlank( project.getTitle() ) ){
+                String title = projectFile.getName();
+                title = title.replace( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION, "" );
+                project.setTitle( title );
+            }
 
             File outputDirectory = new File( projectDirectory, ProjectIo.EXPORT_DIRECTORY );
             project.getCompileOptions().setOutputDirectory( outputDirectory );
