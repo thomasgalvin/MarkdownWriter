@@ -929,8 +929,7 @@ public class Controller
 
     public void bookendSelectedLines( String prepend, String append )
     {
-        if( prepend == null && append == null )
-        {
+        if( StringUtils.isBlank( append ) && StringUtils.isBlank( prepend ) ) {
             Toolkit.getDefaultToolkit().beep();
             return;
         }
@@ -1050,7 +1049,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H1 );
+            TextControlUtils.bookendLine( editor, Markup.H1, Markup.SPACE );
         }
     }
 
@@ -1059,7 +1058,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H2 );
+            TextControlUtils.bookendLine( editor, Markup.H2, Markup.SPACE );
         }
     }
 
@@ -1068,7 +1067,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H3 );
+            TextControlUtils.bookendLine( editor, Markup.H3, Markup.SPACE );
         }
     }
 
@@ -1077,7 +1076,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H4 );
+            TextControlUtils.bookendLine( editor, Markup.H4, Markup.SPACE );
         }
     }
 
@@ -1086,7 +1085,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H5 );
+            TextControlUtils.bookendLine( editor, Markup.H5, Markup.SPACE );
         }
     }
 
@@ -1095,7 +1094,7 @@ public class Controller
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null )
         {
-            TextControlUtils.addToStartOfLine( editor, Markup.H6 );
+            TextControlUtils.bookendLine( editor, Markup.H6, Markup.SPACE );
         }
     }
 

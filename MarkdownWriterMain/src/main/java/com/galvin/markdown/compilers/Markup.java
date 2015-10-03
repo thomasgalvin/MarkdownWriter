@@ -10,6 +10,8 @@ public class Markup
     public static final String SMALL_CENTERED_HR = "\n\n<hr style=\"text-align: center; width:25%; overflow:hidden;\" />\n\n";
     public static final String HR = "\n\n-----\n\n";
     
+    public static final String SPACE = " ";
+    
     public static final String HEADER = "#";
     public static final String H1 = "# ";
     public static final String H2 = "## ";
