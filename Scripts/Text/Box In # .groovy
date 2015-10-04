@@ -1,6 +1,15 @@
+import com.galvin.markdown.swing.editor.MarkdownDocument;
+
+final String TOKEN = "#";
+
+MarkdownDocument doc = currentEditor.getDocument();
 int line = currentEditor.getCaretLineNumber();
 int lineStart = currentEditor.getLineStartOffset( line );
 int lineEnd = currentEditor.getLineEndOffset( line );
+if( lineEnd >= doc.getLength() ){
+    lineEnd = doc.getLength();
+}
+
 currentEditor.setCaretPosition( lineStart );
 currentEditor.moveCaretPosition( lineEnd );
 
@@ -14,14 +23,20 @@ int length = text.length() + 6;
 StringBuilder hash = new StringBuilder( length + 1 );
 for( int i = 0; i < length; i++ )
 {
-  hash.append( "*" );
+  hash.append( TOKEN );
 }
 
 StringBuilder newText = new StringBuilder( length * 3 + 2 );
 newText.append( hash );
-newText.append( "  \n** " );
+newText.append( "  \n" );
+newText.append( TOKEN );
+newText.append( TOKEN );
+newText.append( " " );
 newText.append( text );
-newText.append( " **  \n" );
+newText.append( " " );
+newText.append( TOKEN );
+newText.append( TOKEN );
+newText.append( " \n" );
 newText.append( hash );
 newText.append( "  \n" );
 

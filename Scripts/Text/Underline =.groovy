@@ -1,8 +1,16 @@
+import com.galvin.markdown.swing.editor.MarkdownDocument;
+
 String underlineToken = "=";
 
 int line = currentEditor.getCaretLineNumber();
 int lineStart = currentEditor.getLineStartOffset( line );
 int lineEnd = currentEditor.getLineEndOffset( line );
+
+MarkdownDocument doc = currentEditor.getDocument();
+if( lineEnd >= doc.getLength() ){
+    lineEnd = doc.getLength();
+}
+
 currentEditor.setCaretPosition( lineStart );
 currentEditor.moveCaretPosition( lineEnd );
 
