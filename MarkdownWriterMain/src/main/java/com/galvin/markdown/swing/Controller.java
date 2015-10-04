@@ -948,7 +948,7 @@ public class Controller
                 int selectionStart = editor.getSelectionStart();
                 int selectionEnd = editor.getSelectionEnd();
                 boolean selection = selectionStart != selectionEnd;
-
+                
                 if( prepend != null )
                 {
                     selectionStart += prepend.length();
@@ -2558,13 +2558,13 @@ public class Controller
         {
             int selectionStart = Math.min( editor.getSelectionStart(), editor.getSelectionEnd() );
             int selectionEnd = Math.max( editor.getSelectionStart(), editor.getSelectionEnd() );
-
+            
             int startLine = editor.getLineOfOffset( selectionStart );
             int endLine = editor.getLineOfOffset( selectionEnd );
 
             selectionStart = editor.getLineStartOffset( startLine );
             selectionEnd = editor.getLineEndOffset( endLine );
-
+            
             editor.setCaretPosition( selectionStart );
             editor.moveCaretPosition( selectionEnd );
         }
