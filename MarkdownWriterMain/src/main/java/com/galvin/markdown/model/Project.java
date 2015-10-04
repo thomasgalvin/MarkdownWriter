@@ -57,6 +57,7 @@ public class Project
     private CompileOptions compileOptions = new CompileOptions();
     private MacroList projectMacros = new MacroList();
     private boolean synchronizeEditors = false;
+    private String selectedNode = null;
     private transient File projectDirectory;
     private transient File projectFile;
     private transient File projectDictionaryFile = SystemUtils.getTempFile( ProjectIo.PROJECT_DICTIONARY_DOCUMENT );
@@ -633,4 +634,13 @@ public class Project
             setNeedsSaving( child, needsSaving );
         }
     }
+
+    public String getSelectedNode() {
+        return selectedNode;
+    }
+
+    public void setSelectedNode( String selectedNode ) {
+        this.selectedNode = selectedNode;
+    }
+    
 }

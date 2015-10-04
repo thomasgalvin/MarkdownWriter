@@ -23,6 +23,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileFilter;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProjectFrame
     implements TreeSelectionListener
@@ -93,6 +94,11 @@ public class ProjectFrame
         macroEditorDialog = new MacroEditorDialog( controller );
 
         registerWithMarkdownServer();
+        
+        String selectedNode = project.getSelectedNode();
+        if( !StringUtils.isBlank( selectedNode ) ){
+            tree.selectNode( selectedNode );
+        }
     }
 
     public void registerWithMarkdownServer()
@@ -127,6 +133,8 @@ public class ProjectFrame
     {
         if( node != null )
         {
+            project.setSelectedNode( node.getUuid() );
+            
             boolean metadata = false;
             boolean cover = false;
             boolean styleSheet = false;
