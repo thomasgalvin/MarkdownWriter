@@ -18,4 +18,10 @@ public final class NodeTypes
     public static final String METADATA = "project/metadata";
     public static final String STYLESHEET = "project/stylesheet";
     public static final String COVER = "project/cover";
+    
+    public static boolean countsTowardDepth( String nodeType ){
+        return FOLDER.equals( nodeType ) ||
+               MARKDOWN.equals( nodeType );
+               
+    }
 }

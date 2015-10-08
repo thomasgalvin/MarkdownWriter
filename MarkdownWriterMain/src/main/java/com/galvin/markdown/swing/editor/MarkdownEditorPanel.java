@@ -265,6 +265,17 @@ public class MarkdownEditorPanel
                 {
                     editor.setDocument( document );
                 }
+                
+                int selectionStart = document.getSelectionStart();
+                
+                if( selectionStart != -1 ){
+                    editor.setCaretPosition( selectionStart );
+                    
+                    int selectionEnd = document.getSelectionEnd();
+                    if( selectionEnd != -1 ){
+                        editor.moveCaretPosition( selectionEnd );
+                    }
+                }
 
                 statisticLabel = new StatisticsLabel( document );
                 statisticLabel.setBackground( backgroundColor  );

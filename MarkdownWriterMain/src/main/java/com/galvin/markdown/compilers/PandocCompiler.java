@@ -154,8 +154,8 @@ public class PandocCompiler
                 }
 
                 //HtmlEntities.replaceAll( builder );
-                String escaped = StringEscapeUtils.escapeHtml4( builder.toString() );
-                FileUtils.write( sourceFile, escaped );
+                //String escaped = StringEscapeUtils.escapeHtml4( builder.toString() );
+                FileUtils.write( sourceFile, builder.toString() );
                 sourceFiles.add( sourceFile );
 
                 writeResources( project, compileOptions, body, workingDir );
