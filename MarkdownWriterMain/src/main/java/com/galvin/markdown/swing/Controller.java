@@ -1155,7 +1155,7 @@ public class Controller {
             node.setTitle( name );
             node.setNodeType( nodeType );
             node.getManuscript().setText( heading.toString() );
-            node.getManuscript().setSelectionEnd( heading.length() );
+            node.getManuscript().setSelectionStart( heading.length() );
 
             MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
             if( child ) {

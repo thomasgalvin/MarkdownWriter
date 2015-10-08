@@ -18,8 +18,8 @@ public class MarkdownDocument
     implements Document
 {
 
-    private int selectionStart;
-    private int selectionEnd;
+    private int selectionStart = -1;
+    private int selectionEnd = -1;
     private Node node;
     private NodeSection nodeSection;
     private UndoManager undoManager = new UndoManager();
