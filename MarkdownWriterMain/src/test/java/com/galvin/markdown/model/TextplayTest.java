@@ -1,6 +1,5 @@
 package com.galvin.markdown.model;
 
-import com.galvin.markdown.compilers.FountainCompiler;
 import galvin.SystemUtils;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +33,7 @@ public class TextplayTest
         Writer outputStream = new FileWriter( outputFile );
         container.setOutput( outputStream );
         
-        InputStream textplayStream = FountainCompiler.class.getResourceAsStream( TEXTPLAY );
+        InputStream textplayStream = TextplayTest.class.getResourceAsStream( TEXTPLAY );
         File rubyFile = new File( SystemUtils.getRandomTempDir(), "textplay.rb" );
         container.runScriptlet( textplayStream, rubyFile.getAbsolutePath() );
     }
