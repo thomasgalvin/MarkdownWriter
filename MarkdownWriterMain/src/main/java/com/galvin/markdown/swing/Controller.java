@@ -46,32 +46,28 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
-public class Controller
-{
+public class Controller {
 
     private ProjectFrame projectFrame;
     private MarkdownMessages messages = MarkdownServer.getMessages();
 
-    public Controller( ProjectFrame projectFrame )
-    {
+    public Controller( ProjectFrame projectFrame ) {
         this.projectFrame = projectFrame;
     }
 
     ///////////////
     // File actions
     ///////////////
-    public void fileNew()
-    {
+    public void fileNew() {
         MarkdownServer.welcomeNewProject();
     }
 
-    public void fileOpen()
-    {
+    public void fileOpen() {
         JFileChooser fileChooser = getOpenFileChooser();
         int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserOpenProjectButton() );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
+        if( option == JFileChooser.APPROVE_OPTION ) {
             File projectStructureDocument = fileChooser.getSelectedFile();
             fileOpen( projectStructureDocument );
         }
@@ -79,25 +75,21 @@ public class Controller
         MarkdownServer.checkForOpenProjects();
     }
 
-    public void fileOpen( File projectStructureDocument )
-    {
+    public void fileOpen( File projectStructureDocument ) {
         new OpenThread( projectStructureDocument ).start();
     }
 
     private class OpenThread
-        extends Thread
-    {
+        extends Thread {
 
         private File projectStructureDocument;
 
-        public OpenThread( File projectStructureDocument )
-        {
+        public OpenThread( File projectStructureDocument ) {
             this.projectStructureDocument = projectStructureDocument;
         }
 
         @Override
-        public void run()
-        {
+        public void run() {
             OpenProgressDialog dialog = new OpenProgressDialog();
             dialog.setVisible( true );
 
@@ -105,34 +97,28 @@ public class Controller
 
             dialog.setVisible( false );
         }
+
     }
 
-    public void reloadRecentProjects()
-    {
+    public void reloadRecentProjects() {
         MarkdownServer.reloadRecentProjects();
     }
 
-    public boolean fileNeedsSaving()
-    {
+    public boolean fileNeedsSaving() {
         return ProjectIo.needsSaving( projectFrame.getTree() );
     }
 
-    public void fileSave()
-    {
+    public void fileSave() {
         Project project = projectFrame.getProject();
-        
-        if( project != null )
-        {
-            if( project.getProjectFile() != null )
-            {
-                try
-                {
+
+        if( project != null ) {
+            if( project.getProjectFile() != null ) {
+                try {
                     project = ProjectIo.toProject( projectFrame.getTree() );
                     ProjectIo.write( project, project.getProjectFile() );
                     projectFrame.getTree().setNeedsSaving( false );
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                     JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                                    messages.errorDuringSave(),
@@ -149,54 +135,46 @@ public class Controller
         MarkdownServer.checkForOpenProjects();
     }
 
-    public void fileSaveLegacyVersionAs()
-    {
+    public void fileSaveLegacyVersionAs() {
         JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                        messages.saveLegacyVersion(),
                                        messages.saveLegacyVersionTitle(),
                                        JOptionPane.INFORMATION_MESSAGE );
         File newFile = fileSaveCopyAs();
-        if( newFile != null )
-        {
+        if( newFile != null ) {
             Project project = projectFrame.getProject();
             project.setProjectFile( newFile );
             project.setProjectDictionaryFile( newFile.getParentFile() );
-            project.setProjectModelVersion( ProjectIo.PROJECT_MODEL_VERSION);
+            project.setProjectModelVersion( ProjectIo.PROJECT_MODEL_VERSION );
 
             //TODO: project dictionary file?
         }
     }
 
-    public void fileSaveAs()
-    {
+    public void fileSaveAs() {
         JFileChooser fileChooser = projectFrame.getSaveFileChooser();
         int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserSaveProjectButton() );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
+        if( option == JFileChooser.APPROVE_OPTION ) {
             File file = fileChooser.getSelectedFile();
-            if( file != null )
-            {
-                if( !file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) )
-                {
+            if( file != null ) {
+                if( !file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) ) {
                     file = new File( file.getParentFile(), file.getName() + ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION );
                 }
-                
+
                 fileSaveAs( file );
             }
         }
     }
 
-    public void fileSaveAs( File projectFile )
-    {
-        try
-        {
+    public void fileSaveAs( File projectFile ) {
+        try {
             Project project = ProjectIo.toProject( projectFrame.getTree() );
             project.setProjectFile( projectFile );
 
             File projectDirectory = projectFile.getParentFile();
             project.setProjectDirectory( projectDirectory );
-            
-            if( StringUtils.isBlank( project.getTitle() ) ){
+
+            if( StringUtils.isBlank( project.getTitle() ) ) {
                 String title = projectFile.getName();
                 title = title.replace( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION, "" );
                 project.setTitle( title );
@@ -213,8 +191,7 @@ public class Controller
             RecentProject recentProject = new RecentProject( projectFile, project.getTitle() );
             MarkdownServer.addRecentProject( recentProject );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringSave(),
@@ -225,20 +202,16 @@ public class Controller
         MarkdownServer.checkForOpenProjects();
     }
 
-    public File fileSaveCopyAs()
-    {
+    public File fileSaveCopyAs() {
         JFileChooser fileChooser = projectFrame.getSaveFileChooser();
         int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserSaveProjectButton() );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
+        if( option == JFileChooser.APPROVE_OPTION ) {
             File file = fileChooser.getSelectedFile();
-            if( file != null )
-            {
-                if( !file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) )
-                {
+            if( file != null ) {
+                if( !file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) ) {
                     file = new File( file.getParentFile(), file.getName() + ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION );
                 }
-                
+
                 fileSaveCopyAs( file );
                 return file;
             }
@@ -247,36 +220,30 @@ public class Controller
         return null;
     }
 
-    public void fileOpenTemplatesDir()
-    {
-        try
-        {
+    public void fileOpenTemplatesDir() {
+        try {
             File templatesDir = MarkdownServer.getTemplatesDir();
             templatesDir.mkdirs();
             Desktop.getDesktop().open( templatesDir );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void fileSaveCopyAs( File projectFile )
-    {
-        try
-        {
+    public void fileSaveCopyAs( File projectFile ) {
+        try {
             Project project = ProjectIo.toProject( projectFrame.getTree() );
             project = ProjectIo.clone( project, false, true );
             project.setProjectFile( projectFile );
             project.setProjectDirectory( projectFile.getParentFile() );
             ProjectIo.write( project, projectFile );
-            
+
             RecentProject recentProject = new RecentProject( projectFile, project.getTitle() );
             MarkdownServer.addRecentProject( recentProject );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringSave(),
@@ -287,18 +254,14 @@ public class Controller
         MarkdownServer.checkForOpenProjects();
     }
 
-    public void fileExportProject()
-    {
+    public void fileExportProject() {
         fileSave();
         projectFrame.getCompileDialog().setVisible( true );
     }
 
-    public void fileExportProject( CompileOptions compileOptions )
-    {
-        try
-        {
-            if( compileOptions != null && !compileOptions.getExportFormats().isEmpty() )
-            {
+    public void fileExportProject( CompileOptions compileOptions ) {
+        try {
+            if( compileOptions != null && !compileOptions.getExportFormats().isEmpty() ) {
                 MarkdownCompiler compiler = MarkdownServer.getCompiler();
                 CompileThread compileThread = new CompileThread( this, compiler, compileOptions );
 
@@ -307,13 +270,11 @@ public class Controller
 
                 compileThread.start();
             }
-            else
-            {
+            else {
                 fileExportProject();
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -322,8 +283,7 @@ public class Controller
         }
     }
 
-    public void fileExportProjectUsingCurrentOptions()
-    {
+    public void fileExportProjectUsingCurrentOptions() {
         Project project = projectFrame.getProject();
         CompileOptions compileOptions = project.getCompileOptions();
         compileOptions.refreshNodes();
@@ -331,15 +291,12 @@ public class Controller
         fileExportProject( compileOptions );
     }
 
-    public void fileExportCurrentDocument()
-    {
-        try
-        {
+    public void fileExportCurrentDocument() {
+        try {
             Node currentNode = getNodeForCurrentDocument();
             fileExportCurrentDocument( currentNode );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -348,17 +305,13 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocument( MarkdownTreeNode node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocument( MarkdownTreeNode node ) {
+        try {
+            if( node != null ) {
                 fileExportCurrentDocument( node.getNode() );
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -367,15 +320,11 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocument( Node node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocument( Node node ) {
+        try {
+            if( node != null ) {
                 Project project = projectFrame.getProject();
-                if( project != null )
-                {
+                if( project != null ) {
                     node = ProjectIo.clone( node, project.getProjectDirectory(), true, true, false );
                     project = ProjectIo.clone( project, true, true );
                     project.setTitle( node.getTitle() );
@@ -392,8 +341,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -402,15 +350,12 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentUsingCurrentOptions()
-    {
-        try
-        {
+    public void fileExportCurrentDocumentUsingCurrentOptions() {
+        try {
             Node currentNode = getNodeForCurrentDocument();
             fileExportCurrentDocumentUsingCurrentOptions( currentNode );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -419,17 +364,13 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentUsingCurrentOptions( MarkdownTreeNode node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocumentUsingCurrentOptions( MarkdownTreeNode node ) {
+        try {
+            if( node != null ) {
                 fileExportCurrentDocumentUsingCurrentOptions( node.getNode() );
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -438,15 +379,11 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentUsingCurrentOptions( Node node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocumentUsingCurrentOptions( Node node ) {
+        try {
+            if( node != null ) {
                 Project project = projectFrame.getProject();
-                if( project != null )
-                {
+                if( project != null ) {
                     node = ProjectIo.clone( node, project.getProjectDirectory(), true, true, false );
                     project = ProjectIo.clone( project, true, true );
                     project.setTitle( node.getTitle() );
@@ -461,8 +398,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -471,15 +407,12 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentAndChildren()
-    {
-        try
-        {
+    public void fileExportCurrentDocumentAndChildren() {
+        try {
             Node currentNode = getNodeForCurrentDocument();
             fileExportCurrentDocumentAndChildren( currentNode );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -488,15 +421,11 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentAndChildren( Node node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocumentAndChildren( Node node ) {
+        try {
+            if( node != null ) {
                 Project project = projectFrame.getProject();
-                if( project != null )
-                {
+                if( project != null ) {
                     project = ProjectIo.clone( project, true, true );
                     project.setTitle( node.getTitle() );
                     project.setSubtitle( node.getSubtitle() );
@@ -512,8 +441,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -522,15 +450,12 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentAndChildrenUsingCurrentOptionst()
-    {
-        try
-        {
+    public void fileExportCurrentDocumentAndChildrenUsingCurrentOptionst() {
+        try {
             Node currentNode = getNodeForCurrentDocument();
             fileExportCurrentDocumentAndChildrenUsingCurrentOptionst( currentNode );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -539,15 +464,11 @@ public class Controller
         }
     }
 
-    public void fileExportCurrentDocumentAndChildrenUsingCurrentOptionst( Node node )
-    {
-        try
-        {
-            if( node != null )
-            {
+    public void fileExportCurrentDocumentAndChildrenUsingCurrentOptionst( Node node ) {
+        try {
+            if( node != null ) {
                 Project project = projectFrame.getProject();
-                if( project != null )
-                {
+                if( project != null ) {
                     node = ProjectIo.clone( node, project.getProjectDirectory(), true, true, true );
                     project = ProjectIo.clone( project, true, true );
                     project.setTitle( node.getTitle() );
@@ -562,8 +483,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringCompile(),
                                            messages.errorDuringCompileTitle(),
@@ -572,385 +492,306 @@ public class Controller
         }
     }
 
-    public File getExportDirectory()
-    {
+    public File getExportDirectory() {
         File result = getProject().getCompileOptions().getOutputDirectory();
-        if( result == null )
-        {
+        if( result == null ) {
             result = new File( getProject().getProjectDirectory(), ProjectIo.EXPORT_DIRECTORY );
         }
         result.mkdirs();
         return result;
     }
 
-    public void fileShowExportDirectory()
-    {
-        try
-        {
+    public void fileShowExportDirectory() {
+        try {
             File exportDir = getExportDirectory();
             exportDir.mkdirs();
             Desktop.getDesktop().open( exportDir );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void fileClose()
-    {
-        if( fileNeedsSaving() )
-        {
+    public void fileClose() {
+        if( fileNeedsSaving() ) {
             fileSave();
         }
 
         projectFrame.getWindow().closeApplicationWindow();
     }
 
-    public void fileCloseWithoutSaving()
-    {
-        if( !fileNeedsSaving() )
-        {
+    public void fileCloseWithoutSaving() {
+        if( !fileNeedsSaving() ) {
             fileClose();
         }
-        else
-        {
+        else {
             int result = JOptionPane.showConfirmDialog( getPopupWindowOwner(),
                                                         messages.dialogCloseWithoutSaving(),
                                                         messages.dialogCloseWithoutSavingTitle(),
                                                         JOptionPane.YES_NO_OPTION );
-            if( result == JOptionPane.YES_OPTION )
-            {
+            if( result == JOptionPane.YES_OPTION ) {
                 doFileCloseWithoutSaving();
             }
         }
     }
 
-    public void doFileCloseWithoutSaving()
-    {
+    public void doFileCloseWithoutSaving() {
         projectFrame.getWindow().closeApplicationWindowWithoutSaving();
     }
 
-    public void fileExit()
-    {
+    public void fileExit() {
         MarkdownServer.exit();
     }
 
     ///////////////
     // Edit actions
     ///////////////
-    public void editCut()
-    {
+    public void editCut() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             editor.cut();
         }
     }
 
-    public void editCopy()
-    {
+    public void editCopy() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             editor.copy();
         }
     }
 
-    public void editPaste()
-    {
+    public void editPaste() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             editor.paste();
         }
     }
 
-    public void editUndo()
-    {
+    public void editUndo() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             MarkdownDocument document = editor.getMarkdownDocument();
-            if( document != null )
-            {
+            if( document != null ) {
                 document.undo();
             }
         }
     }
 
-    public void editRedo()
-    {
+    public void editRedo() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             MarkdownDocument document = editor.getMarkdownDocument();
-            if( document != null )
-            {
+            if( document != null ) {
                 document.redo();
             }
         }
     }
 
-    public void editSelectAll()
-    {
+    public void editSelectAll() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             editor.selectAll();
         }
     }
 
-    public void editGoToLine()
-    {
+    public void editGoToLine() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
                                                          messages.dialogMessageGoToLine() );
-            if( result != null )
-            {
+            if( result != null ) {
                 String value = result.toString();
-                try
-                {
+                try {
                     int line = Integer.parseInt( value );
                     line--;
-                    if( line > 0 )
-                    {
+                    if( line > 0 ) {
                         editor.setCaretPosition( editor.getLineStartOffset( line ) );
                     }
 
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
         }
     }
 
-    public void editFindInProject()
-    {
+    public void editFindInProject() {
         String searchTerm = null;
 
         MarkdownEditor editor = projectFrame.getEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             searchTerm = editor.getSelectedText();
         }
 
-        if( !StringUtils.empty( searchTerm ) )
-        {
+        if( !StringUtils.empty( searchTerm ) ) {
             projectFrame.getFindAndReplaceDialog().setSearchTerm( searchTerm );
         }
 
         projectFrame.getFindAndReplaceDialog().setVisible( true );
     }
 
-    public void editFindNext()
-    {
+    public void editFindNext() {
 
         String searchTerm = projectFrame.getFindAndReplaceDialog().getSearchTerm();
-        if( !StringUtils.empty( searchTerm ) )
-        {
+        if( !StringUtils.empty( searchTerm ) ) {
             MarkdownEditor editor = projectFrame.getEditor();
-            if( editor != null )
-            {
+            if( editor != null ) {
                 MarkdownDocument document = editor.getMarkdownDocument();
                 String text = DocumentUtils.getText( document );
 
-                if( projectFrame.getFindAndReplaceDialog().getIgnoreCase() )
-                {
+                if( projectFrame.getFindAndReplaceDialog().getIgnoreCase() ) {
                     text = text.toLowerCase();
                     searchTerm = searchTerm.toLowerCase();
                 }
 
                 int index = editor.getCaretPosition();
                 int result = text.indexOf( searchTerm, index );
-                if( result != -1 )
-                {
+                if( result != -1 ) {
                     int resultEnd = result + searchTerm.length();
                     editor.setCaretPosition( result );
                     editor.moveCaretPosition( resultEnd );
                 }
-                else
-                {
+                else {
                     Toolkit.getDefaultToolkit().beep();
                 }
             }
-            else
-            {
+            else {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
-        else
-        {
+        else {
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void editToggleLiveSpellcheck()
-    {
+    public void editToggleLiveSpellcheck() {
         Preferences preferences = MarkdownServer.getPreferences();
 
         boolean spellCheck = !preferences.getEditorPreferences().liveSpellCheck();
         preferences.getEditorPreferences().setLiveSpellCheck( spellCheck );
         MarkdownServer.writePreferences();
 
-        if( spellCheck )
-        {
+        if( spellCheck ) {
             MarkdownServer.startSpellCheck();
         }
-        else
-        {
+        else {
             MarkdownServer.stopSpellCheck();
         }
 
-
         configureMenusAndEditors( preferences );
 
-        if( spellCheck )
-        {
+        if( spellCheck ) {
             getProject().startSpellCheck();
         }
-        else
-        {
+        else {
             getProject().stopSpellCheck();
         }
     }
 
-    public void editShowUserDictionary()
-    {
-        try
-        {
+    public void editShowUserDictionary() {
+        try {
             SystemUtils.selectFileInBrowser( SpellUtils.getCustomDictionaryFile() );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void formatBold()
-    {
+    public void formatBold() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.BOLD );
         }
     }
 
-    public void formatItalic()
-    {
+    public void formatItalic() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.ITALIC );
         }
     }
 
-    public void formatUnderline()
-    {
+    public void formatUnderline() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.UNDERLINE );
         }
     }
 
-    public void formatStrikethrough()
-    {
+    public void formatStrikethrough() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.STRIKETHROUGH, Markup.END_STRIKETHROUGH );
         }
     }
 
-    public void formatSmall()
-    {
+    public void formatSmall() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.SMALL, Markup.END_SMALL );
         }
     }
 
-    public void formatCenter()
-    {
+    public void formatCenter() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.CENTER_START, Markup.CENTER_END );
         }
     }
 
-    public void formatSuperscript()
-    {
+    public void formatSuperscript() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.SUPERSCRIPT_START, Markup.SUPERSCRIPT_END );
         }
     }
 
-    public void formatSubcript()
-    {
+    public void formatSubcript() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.SUBSCRIPT_START, Markup.SUBSCRIPT_END );
         }
     }
 
-    public void editPrependToSelectedLines()
-    {
+    public void editPrependToSelectedLines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
                                                          messages.dialogMessagePrependToLines() );
-            if( result != null )
-            {
+            if( result != null ) {
                 bookendSelectedLines( result.toString(), null );
             }
         }
     }
 
-    public void editAppendToSelectedLines()
-    {
+    public void editAppendToSelectedLines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
                                                          messages.dialogMessageAppendToLines() );
-            if( result != null )
-            {
+            if( result != null ) {
                 bookendSelectedLines( null, result.toString() );
             }
         }
     }
 
-    public void bookendSelectedLines( String prepend, String append )
-    {
+    public void bookendSelectedLines( String prepend, String append ) {
         if( StringUtils.isBlank( append ) && StringUtils.isBlank( prepend ) ) {
             Toolkit.getDefaultToolkit().beep();
             return;
         }
 
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int selectionStart = editor.getSelectionStart();
                 int selectionEnd = editor.getSelectionEnd();
                 boolean selection = selectionStart != selectionEnd;
-                
-                if( prepend != null )
-                {
+
+                if( prepend != null ) {
                     selectionStart += prepend.length();
                 }
 
@@ -959,42 +800,34 @@ public class Controller
 
                 selectLines();
                 String text = editor.getSelectedText();
-                if( !StringUtils.empty( text ) )
-                {
+                if( !StringUtils.empty( text ) ) {
                     StringBuilder result = new StringBuilder( text.length() * 2 );
                     String[] lines = StringUtils.tokenize( text, "\n" );
-                    if( lines.length == 1 )
-                    {
+                    if( lines.length == 1 ) {
                         String line = lines[0];
-                        if( prepend != null )
-                        {
+                        if( prepend != null ) {
                             result.append( prepend );
                             selectionEnd += prepend.length();
                         }
 
                         result.append( line );
 
-                        if( append != null )
-                        {
+                        if( append != null ) {
                             result.append( append );
                         }
 
                         result.append( "\n" );
                     }
-                    else
-                    {
-                        for( String line : lines )
-                        {
-                            if( prepend != null )
-                            {
+                    else {
+                        for( String line : lines ) {
+                            if( prepend != null ) {
                                 result.append( prepend );
                                 selectionEnd += prepend.length();
                             }
 
                             result.append( line );
 
-                            if( append != null )
-                            {
+                            if( append != null ) {
                                 result.append( append );
                                 selectionEnd += append.length();
                             }
@@ -1002,28 +835,24 @@ public class Controller
                             result.append( "\n" );
                         }
 
-                        if( append != null )
-                        {
+                        if( append != null ) {
                             selectionEnd -= append.length();
                         }
                     }
 
                     editor.replaceSelection( result.toString() );
                     editor.setCaretPosition( selectionStart );
-                    if( selection )
-                    {
+                    if( selection ) {
                         editor.moveCaretPosition( selectionEnd );
                     }
                 }
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
                 t.printStackTrace();
             }
         }
-        else
-        {
+        else {
             Toolkit.getDefaultToolkit().beep();
         }
     }
@@ -1031,89 +860,70 @@ public class Controller
     ////////////
     //Formatting
     ////////////
-    public void formatBlockquote()
-    {
+    public void formatBlockquote() {
         bookendSelectedLines( Markup.BLOCKQUOTE, null );
     }
-    
-    public void formatBulletedList()
-    {
+
+    public void formatBulletedList() {
         bookendSelectedLines( Markup.BULLET, null );
     }
 
-    public void formatCode()
-    {
+    public void formatCode() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.markup( editor, Markup.CODE );
         }
     }
 
-    public void formatH1()
-    {
+    public void formatH1() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H1, Markup.SPACE );
         }
     }
 
-    public void formatH2()
-    {
+    public void formatH2() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H2, Markup.SPACE );
         }
     }
 
-    public void formatH3()
-    {
+    public void formatH3() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H3, Markup.SPACE );
         }
     }
 
-    public void formatH4()
-    {
+    public void formatH4() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H4, Markup.SPACE );
         }
     }
 
-    public void formatH5()
-    {
+    public void formatH5() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H5, Markup.SPACE );
         }
     }
 
-    public void formatH6()
-    {
+    public void formatH6() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             TextControlUtils.bookendLine( editor, Markup.H6, Markup.SPACE );
         }
     }
 
-    public void formatInsertLink()
-    {
+    public void formatInsertLink() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             HyperlinkEditorDialog dialog = new HyperlinkEditorDialog( this );
 
             String text = editor.getSelectedText();
-            if( !StringUtils.empty( text ) )
-            {
+            if( !StringUtils.empty( text ) ) {
                 dialog.setText( text );
             }
 
@@ -1121,22 +931,18 @@ public class Controller
         }
     }
 
-    public void formatInsertLink( String text, String url )
-    {
+    public void formatInsertLink( String text, String url ) {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             StringBuilder link = null;
 
-            if( StringUtils.empty( text ) || text.equals( url ) )
-            {
+            if( StringUtils.empty( text ) || text.equals( url ) ) {
                 link = new StringBuilder( url.length() + 2 );
                 link.append( "<" );
                 link.append( url );
                 link.append( ">" );
             }
-            else
-            {
+            else {
                 link = new StringBuilder( text.length() + url.length() + 4 );
 
                 link.append( "[" );
@@ -1151,19 +957,15 @@ public class Controller
         }
     }
 
-    public void formatInsertImage()
-    {
+    public void formatInsertImage() {
         projectFrame.getInsertImageDialog().setVisible( true );
     }
 
-    public void formatInsertImage( Node node )
-    {
+    public void formatInsertImage( Node node ) {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             String imageName = Utils.getImageName( node );
-            if( imageName != null )
-            {
+            if( imageName != null ) {
                 String text = StringUtils.neverNull( editor.getSelectedText() );
                 StringBuilder imageMarkup = new StringBuilder();
                 imageMarkup.append( "![" );
@@ -1177,16 +979,13 @@ public class Controller
         }
     }
 
-    public void formatInsertFootnote()
-    {
+    public void formatInsertFootnote() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             FootnoteDialog dialog = new FootnoteDialog( this );
 
             String text = editor.getSelectedText();
-            if( !StringUtils.empty( text ) )
-            {
+            if( !StringUtils.empty( text ) ) {
                 dialog.setText( text );
             }
 
@@ -1194,11 +993,9 @@ public class Controller
         }
     }
 
-    public void formatInsertFootnote( String noteName, String noteText )
-    {
+    public void formatInsertFootnote( String noteName, String noteText ) {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             StringBuilder footnoteLink = new StringBuilder( noteName.length() + 3 );
             StringBuilder footnoteBody = new StringBuilder( noteName.length() + noteText.length() + 7 );
 
@@ -1219,27 +1016,22 @@ public class Controller
         }
     }
 
-    public void filePreview()
-    {
+    public void filePreview() {
         filePreview( false );
     }
 
-    public void filePreviewWithChildren()
-    {
+    public void filePreviewWithChildren() {
         filePreview( true );
     }
 
-    public void filePreview( boolean includeChildren )
-    {
-        try
-        {
+    public void filePreview( boolean includeChildren ) {
+        try {
             Node node = getNodeForCurrentDocument();
             CompileOptions compileOptions = getProject().getCompileOptions();
             File previewFile = MarkdownServer.getCompiler().getPreview( compileOptions, node, NodeSection.MANUSCRIPT, includeChildren );
             Desktop.getDesktop().browse( previewFile.toURI() );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
 
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorPreview(),
@@ -1249,38 +1041,31 @@ public class Controller
         }
     }
 
-    public void viewSplitHorizontal()
-    {
+    public void viewSplitHorizontal() {
         projectFrame.getEditorSplitPane().splitHorizontal();
     }
 
-    public void viewSplitVertical()
-    {
+    public void viewSplitVertical() {
         projectFrame.getEditorSplitPane().splitVertical();
     }
 
-    public void viewSplitUnsplit()
-    {
+    public void viewSplitUnsplit() {
         projectFrame.getEditorSplitPane().noSplit();
     }
 
-    public void configureMenusAndEditors( Preferences preferences )
-    {
+    public void configureMenusAndEditors( Preferences preferences ) {
         projectFrame.getMenuBar().configure( preferences );
 
         List<MarkdownEditorPanel> editorPanels = projectFrame.getEditorSplitPane().getAllMarkdownEditorPanels();
-        for( MarkdownEditorPanel editorPanel : editorPanels )
-        {
+        for( MarkdownEditorPanel editorPanel : editorPanels ) {
             MarkdownEditor editor = editorPanel.getEditor();
-            if( editor != null )
-            {
+            if( editor != null ) {
                 editor.configure( preferences );
             }
         }
     }
 
-    public void viewSynchronizeEditors()
-    {
+    public void viewSynchronizeEditors() {
         Project project = getProject();
         project.setSynchronizeEditors( !project.synchronizeEditors() );
 
@@ -1288,8 +1073,7 @@ public class Controller
         configureMenusAndEditors( preferences );
     }
 
-    public void viewToggleLineNumbers()
-    {
+    public void viewToggleLineNumbers() {
         Preferences preferences = MarkdownServer.getPreferences();
         preferences.getEditorPreferences().setShowLineNumbers( !preferences.getEditorPreferences().showLineNumbers() );
         MarkdownServer.writePreferences();
@@ -1297,8 +1081,7 @@ public class Controller
         configureMenusAndEditors( preferences );
     }
 
-    public void viewLineHighlighting()
-    {
+    public void viewLineHighlighting() {
         Preferences preferences = MarkdownServer.getPreferences();
         preferences.getEditorPreferences().setHighlightLines( !preferences.getEditorPreferences().highlightLines() );
         MarkdownServer.writePreferences();
@@ -1306,8 +1089,7 @@ public class Controller
         configureMenusAndEditors( preferences );
     }
 
-    public void viewToggleWordWrap()
-    {
+    public void viewToggleWordWrap() {
         Preferences preferences = MarkdownServer.getPreferences();
         preferences.getEditorPreferences().setLineWrap( !preferences.getEditorPreferences().lineWrap() );
         MarkdownServer.writePreferences();
@@ -1315,8 +1097,7 @@ public class Controller
         configureMenusAndEditors( preferences );
     }
 
-    public void viewToggleInvisibles()
-    {
+    public void viewToggleInvisibles() {
         Preferences preferences = MarkdownServer.getPreferences();
         preferences.getEditorPreferences().setShowInvisibles( !preferences.getEditorPreferences().showInvisibles() );
         MarkdownServer.writePreferences();
@@ -1327,278 +1108,250 @@ public class Controller
     ////////////
     // Documents
     ////////////
-    public void documentsNewChildFile()
-    {
+    private int getDepth( MarkdownTreeNode treeNode ) {
+        int depth = 0;
+        TreeNode[] path = projectFrame.getTree().getPath( treeNode );
+        for( TreeNode tmp : path ) {
+            if( tmp instanceof MarkdownTreeNode ) {
+                MarkdownTreeNode mdtn = (MarkdownTreeNode)tmp;
+                if( mdtn.getNode() != null ) {
+                    if( NodeTypes.countsTowardDepth( mdtn.getNode().getNodeType() ) ) {
+                        depth++;
+                    }
+                }
+            }
+        }
+        return depth;
+    }
+
+    private void newNode( String nodeType, MarkdownTreeNode treeNode, boolean child ) {
+        String name = showRenameDialog();
+        if( !StringUtils.empty( name ) ) {
+            int depth = getDepth( treeNode );
+            
+            if( child ) {
+                depth++;
+            }
+            
+            if( depth > 6 ){
+                depth = 6;
+            }
+
+            StringBuilder headingMarkup = new StringBuilder();
+            for( int i = 0; i < depth; i++ ) {
+                headingMarkup.append( "#" );
+            }
+
+            StringBuilder heading = new StringBuilder();
+            heading.append( headingMarkup );
+            heading.append( " " );
+            heading.append( name );
+            heading.append( " " );
+            heading.append( headingMarkup );
+            heading.append( "\n\n" );
+
+            Node node = new Node();
+            node.setProject( getProject() );
+            node.setTitle( name );
+            node.setNodeType( nodeType );
+            node.getManuscript().setText( heading.toString() );
+            node.getManuscript().setSelectionEnd( heading.length() );
+
+            MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
+            if( child ) {
+                projectFrame.getTree().addChild( treeNode, newTreeNode );
+            }
+            else {
+                projectFrame.getTree().addSiblingAfter( treeNode, newTreeNode );
+            }
+
+            projectFrame.getTree().select( newTreeNode );
+            
+        }
+    }
+
+    public void documentsNewChildFile() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewChildFile( treeNode );
     }
 
-    public void documentsNewChildFile( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewChildFile( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
 
-            String name = showRenameDialog();
-            if( !StringUtils.empty( name ) )
-            {
-                Node node = new Node();
-                node.setProject( getProject() );
-                node.setTitle( name );
-                node.setNodeType( NodeTypes.MARKDOWN );
-                MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
-                projectFrame.getTree().addChild( treeNode, newTreeNode );
-                projectFrame.getTree().select( newTreeNode );
-            }
+            newNode( NodeTypes.MARKDOWN, treeNode, true );
         }
     }
 
-    public void documentsNewFile()
-    {
+    public void documentsNewFile() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewFile( treeNode );
     }
 
-    public void documentsNewFile( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewFile( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.MARKDOWN.equals( nodeType ) )
-            {
+            if( NodeTypes.MARKDOWN.equals( nodeType ) ) {
                 documentsNewSiblingFile( treeNode );
             }
-            else if( NodeTypes.RESOURCES.equals( nodeType ) )
-            {
+            else if( NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
             }
-            else if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            else if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
             }
-            else
-            {
+            else {
                 documentsNewChildFile( treeNode );
             }
         }
     }
 
-    public void documentsNewFolder()
-    {
+    public void documentsNewFolder() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewFolder( treeNode );
     }
 
-    public void documentsNewFolder( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewFolder( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
             }
-            else
-            {
+            else {
                 documentsNewSiblingFolder( treeNode );
             }
         }
     }
 
-    public void documentsNewSiblingFile()
-    {
+    public void documentsNewSiblingFile() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewSiblingFile( treeNode );
     }
 
-    public void documentsNewSiblingFile( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewSiblingFile( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
 
-            String name = showRenameDialog();
-            if( !StringUtils.empty( name ) )
-            {
-                Node node = new Node();
-                node.setProject( getProject() );
-                node.setTitle( name );
-                node.setNodeType( NodeTypes.MARKDOWN );
-                MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
-                projectFrame.getTree().addSiblingAfter( treeNode, newTreeNode );
-                projectFrame.getTree().select( newTreeNode );
-            }
+            newNode( NodeTypes.MARKDOWN, treeNode, false );
         }
     }
 
-    public void documentsNewChildFolder()
-    {
+    public void documentsNewChildFolder() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewChildFolder( treeNode );
     }
 
-    public void documentsNewChildFolder( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewChildFolder( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
 
-            String name = showRenameDialog();
-            if( !StringUtils.empty( name ) )
-            {
-                Node node = new Node();
-                node.setProject( getProject() );
-                node.setTitle( name );
-                node.setNodeType( NodeTypes.FOLDER );
-                MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
-                projectFrame.getTree().addChild( treeNode, newTreeNode );
-                projectFrame.getTree().select( newTreeNode );
-            }
+            newNode( NodeTypes.FOLDER, treeNode, true );
         }
     }
 
-    public void documentsNewSiblingFolder()
-    {
+    public void documentsNewSiblingFolder() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewSiblingFolder( treeNode );
     }
 
-    public void documentsNewSiblingFolder( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsNewSiblingFolder( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
 
-            String name = showRenameDialog();
-            if( !StringUtils.empty( name ) )
-            {
-                Node node = new Node();
-                node.setProject( getProject() );
-                node.setTitle( name );
-                node.setNodeType( NodeTypes.FOLDER );
-                MarkdownTreeNode newTreeNode = new MarkdownTreeNode( node );
-                projectFrame.getTree().addSiblingAfter( treeNode, newTreeNode );
-                projectFrame.getTree().select( newTreeNode );
-            }
+            newNode( NodeTypes.FOLDER, treeNode, false );
         }
     }
 
-    public void documentsConvertToFile( Node node )
-    {
-        if( node != null )
-        {
-            if( NodeTypes.FOLDER.equals( node.getNodeType() ) )
-            {
+    public void documentsConvertToFile( Node node ) {
+        if( node != null ) {
+            if( NodeTypes.FOLDER.equals( node.getNodeType() ) ) {
                 node.setNodeType( NodeTypes.MARKDOWN );
                 repaintTree();
             }
-            else
-            {
+            else {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    public void documentsConvertToFile()
-    {
+    public void documentsConvertToFile() {
         Node markdownNode = getNodeForCurrentDocument();
-        if( markdownNode != null )
-        {
+        if( markdownNode != null ) {
             documentsConvertToFile( markdownNode );
         }
     }
 
-    public void documentsConvertToFile( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsConvertToFile( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node markdownNode = treeNode.getNode();
             documentsConvertToFile( markdownNode );
         }
     }
 
-    public void documentsConvertToFolder()
-    {
+    public void documentsConvertToFolder() {
         Node markdownNode = getNodeForCurrentDocument();
-        if( markdownNode != null )
-        {
+        if( markdownNode != null ) {
             documentsConvertToFolder( markdownNode );
         }
     }
 
-    public void documentsConvertToFolder( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsConvertToFolder( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node markdownNode = treeNode.getNode();
             documentsConvertToFolder( markdownNode );
         }
     }
 
-    public void documentsConvertToFolder( Node node )
-    {
-        if( node != null )
-        {
-            if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) )
-            {
+    public void documentsConvertToFolder( Node node ) {
+        if( node != null ) {
+            if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) ) {
                 node.setNodeType( NodeTypes.FOLDER );
                 repaintTree();
             }
-            else
-            {
+            else {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    public void documentsImportImages()
-    {
+    public void documentsImportImages() {
         JFileChooser fileChooser = getImageFileChooser();
         int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserOpenProjectButton() );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
+        if( option == JFileChooser.APPROVE_OPTION ) {
             File[] files = fileChooser.getSelectedFiles();
             documentsImportImages( files );
         }
     }
 
-    public void documentsImportImages( File[] files )
-    {
-        try
-        {
-            for( File file : files )
-            {
+    public void documentsImportImages( File[] files ) {
+        try {
+            for( File file : files ) {
                 projectFrame.getTree().addImageResource( file );
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorImportingImages(),
@@ -1607,82 +1360,64 @@ public class Controller
         }
     }
 
-    public void documentsRename()
-    {
+    public void documentsRename() {
         Node markdownNode = getNodeForCurrentDocument();
-        if( markdownNode != null )
-        {
+        if( markdownNode != null ) {
             documentsRename( markdownNode );
         }
     }
 
-    public void documentsRename( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsRename( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             Node markdownNode = treeNode.getNode();
             documentsRename( markdownNode );
         }
     }
 
-    public void documentsRename( Node markdownNode )
-    {
-        if( markdownNode != null )
-        {
+    public void documentsRename( Node markdownNode ) {
+        if( markdownNode != null ) {
             new RenameDocumentDialog( this, markdownNode ).setVisible( true );
         }
     }
 
-    public void documentsDelete()
-    {
+    public void documentsDelete() {
         MarkdownTreeNode currentNode = getTreeNodeForCurrentDocument();
         documentsDelete( currentNode );
     }
 
-    public void documentsDelete( MarkdownTreeNode treeNode )
-    {
-        if( treeNode != null )
-        {
+    public void documentsDelete( MarkdownTreeNode treeNode ) {
+        if( treeNode != null ) {
             projectFrame.getTree().moveToTrash( treeNode );
         }
     }
 
-    public void documentsDelete( List<DefaultMutableTreeNode> nodes )
-    {
+    public void documentsDelete( List<DefaultMutableTreeNode> nodes ) {
         projectFrame.getTree().moveToTrash( nodes );
     }
 
-    public void documentsDuplicate()
-    {
+    public void documentsDuplicate() {
         MarkdownTreeNode currentNode = getTreeNodeForCurrentDocument();
         documentsDuplicate( currentNode );
     }
 
-    public void documentsDuplicate( MarkdownTreeNode treeNode )
-    {
-        try
-        {
-            if( treeNode != null )
-            {
+    public void documentsDuplicate( MarkdownTreeNode treeNode ) {
+        try {
+            if( treeNode != null ) {
                 Node node = treeNode.getNode();
-                if( node != null )
-                {
+                if( node != null ) {
                     String name = showRenameDialog( node.getTitle() );
-                    if( !StringUtils.empty( name ) )
-                    {
+                    if( !StringUtils.empty( name ) ) {
 
                         if( NodeTypes.TRASH.equals( node.getNodeType() )
                             || NodeTypes.RESOURCES.equals( node.getNodeType() )
                             || NodeTypes.RESOURCE.equals( node.getNodeType() )
-                            || NodeTypes.PROJECT.equals( node.getNodeType() ) )
-                        {
+                            || NodeTypes.PROJECT.equals( node.getNodeType() ) ) {
                             return;
                         }
 
                         Node duplicate = ProjectIo.clone( node, projectFrame.getProject().getProjectDirectory(), false, false );
                         duplicate.setTitle( name );
-                        if( NodeTypes.MANUSCRIPT.equals( duplicate.getNodeType() ) )
-                        {
+                        if( NodeTypes.MANUSCRIPT.equals( duplicate.getNodeType() ) ) {
                             duplicate.setNodeType( NodeTypes.FOLDER );
                         }
 
@@ -1693,8 +1428,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringDuplicate(),
                                            messages.errorDuringDuplicateTitle(),
@@ -1703,38 +1437,30 @@ public class Controller
         }
     }
 
-    public void documentsSplitAtCursor()
-    {
+    public void documentsSplitAtCursor() {
         String name = showRenameDialog();
-        if( !StringUtils.empty( name ) )
-        {
+        if( !StringUtils.empty( name ) ) {
             documentsSplitAtCursor( name, false );
         }
     }
 
-    public void documentsSplitAtCursorMakeSelectionTitle()
-    {
+    public void documentsSplitAtCursorMakeSelectionTitle() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             String name = editor.getSelectedText();
-            if( !StringUtils.empty( name ) )
-            {
+            if( !StringUtils.empty( name ) ) {
                 documentsSplitAtCursor( name, true );
             }
         }
     }
 
-    public void documentsSplitAtCursor( String title, boolean highlightSelection )
-    {
-        try
-        {
+    public void documentsSplitAtCursor( String title, boolean highlightSelection ) {
+        try {
             MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
             Node node = getNodeForCurrentDocument();
             MarkdownEditor editor = getCurrentEditor();
 
-            if( treeNode != null && node != null && editor != null )
-            {
+            if( treeNode != null && node != null && editor != null ) {
                 MarkdownEditorPanel editorPanel = projectFrame.getEditorSplitPane().getCurrentComponent();
                 NodeSection section = editorPanel.getNodeSection();
 
@@ -1749,28 +1475,23 @@ public class Controller
                 Node duplicate = ProjectIo.clone( node, projectFrame.getProject().getProjectDirectory(), false, false );
                 duplicate.setTitle( title );
 
-                if( NodeSection.MANUSCRIPT.equals( section ) )
-                {
+                if( NodeSection.MANUSCRIPT.equals( section ) ) {
                     DocumentUtils.setText( node.getManuscript(), firstDocument );
                     DocumentUtils.setText( duplicate.getManuscript(), secondDocument );
                 }
-                else if( NodeSection.DESCRIPTION.equals( section ) )
-                {
+                else if( NodeSection.DESCRIPTION.equals( section ) ) {
                     DocumentUtils.setText( node.getDescription(), firstDocument );
                     DocumentUtils.setText( duplicate.getDescription(), secondDocument );
                 }
-                else if( NodeSection.NOTES.equals( section ) )
-                {
+                else if( NodeSection.NOTES.equals( section ) ) {
                     DocumentUtils.setText( node.getNotes(), firstDocument );
                     DocumentUtils.setText( duplicate.getNotes(), secondDocument );
                 }
-                else if( NodeSection.SUMMARY.equals( section ) )
-                {
+                else if( NodeSection.SUMMARY.equals( section ) ) {
                     DocumentUtils.setText( node.getSummary(), firstDocument );
                     DocumentUtils.setText( duplicate.getSummary(), secondDocument );
                 }
-                else
-                {
+                else {
                     return;
                 }
 
@@ -1778,8 +1499,7 @@ public class Controller
                 projectFrame.getTree().addSiblingAfter( treeNode, newTreeNode );
                 projectFrame.getTree().select( newTreeNode );
 
-                if( highlightSelection )
-                {
+                if( highlightSelection ) {
                     selectionEnd = selectionEnd - selectionStart;
                     selectionStart = 0;
                     editor = getCurrentEditor();
@@ -1788,8 +1508,7 @@ public class Controller
                 }
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorDuringSplit(),
                                            messages.errorDuringSplitTitle(),
@@ -1798,17 +1517,14 @@ public class Controller
         }
     }
 
-    public void documentsJoin()
-    {
+    public void documentsJoin() {
         List<DefaultMutableTreeNode> selectedNodes = projectFrame.getTree().getSelectedNodes();
-        if( selectedNodes != null && selectedNodes.size() > 1 )
-        {
+        if( selectedNodes != null && selectedNodes.size() > 1 ) {
 
             List<MarkdownTreeNode> markdownTreeNodes = new ArrayList();
             List<Node> nodes = new ArrayList();
-            for( DefaultMutableTreeNode node : selectedNodes )
-            {
-                MarkdownTreeNode treeNode = (MarkdownTreeNode) node;
+            for( DefaultMutableTreeNode node : selectedNodes ) {
+                MarkdownTreeNode treeNode = (MarkdownTreeNode)node;
                 markdownTreeNodes.add( treeNode );
                 nodes.add( treeNode.getNode() );
             }
@@ -1819,56 +1535,47 @@ public class Controller
         }
     }
 
-    public void documentsSelectInTree()
-    {
+    public void documentsSelectInTree() {
         Node node = getNodeForCurrentDocument();
         projectFrame.getTree().selectNode( node.getUuid() );
     }
 
-    public void documentsProjectStatistics()
-    {
+    public void documentsProjectStatistics() {
         ProjectStatisticsDialog projectStatisticsDialog = new ProjectStatisticsDialog( this );
         projectStatisticsDialog.loadPreferences();
         projectStatisticsDialog.refresh();
         projectStatisticsDialog.setVisible( true );
     }
 
-    public void documentsEmptyTrash()
-    {
+    public void documentsEmptyTrash() {
         int result = JOptionPane.showConfirmDialog( getPopupWindowOwner(),
                                                     messages.dialogEmptyTrash(),
                                                     messages.dialogEmptyTrashTitle(),
                                                     JOptionPane.YES_NO_OPTION );
-        if( result == JOptionPane.YES_OPTION )
-        {
+        if( result == JOptionPane.YES_OPTION ) {
             doDocumentsEmptyTrash();
         }
     }
 
-    public void doDocumentsEmptyTrash()
-    {
+    public void doDocumentsEmptyTrash() {
         Project project = getProject();
         projectFrame.getTree().emptyTrash();
 
         boolean error = false;
 
         Node trashNode = project.getTrash();
-        for( Node node : trashNode.getChildNodes() )
-        {
-            try
-            {
+        for( Node node : trashNode.getChildNodes() ) {
+            try {
                 ProjectIo.stopSpellCheck( node );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 t.printStackTrace();
                 error = true;
             }
         }
         trashNode.getChildNodes().clear();
 
-        if( error )
-        {
+        if( error ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorEmptyingTrash(),
                                            messages.errorEmptyingTrashTitle(),
@@ -1879,11 +1586,9 @@ public class Controller
     /////////////
     // Text tools
     /////////////
-    public void toolsTextSelectionToUpperCase()
-    {
+    public void toolsTextSelectionToUpperCase() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
             String text = editor.getSelectedText();
@@ -1894,11 +1599,9 @@ public class Controller
         }
     }
 
-    public void toolsTextSelectionToLowerCase()
-    {
+    public void toolsTextSelectionToLowerCase() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
             String text = editor.getSelectedText();
@@ -1909,11 +1612,9 @@ public class Controller
         }
     }
 
-    public void toolsTextSelectionToCamelCase()
-    {
+    public void toolsTextSelectionToCamelCase() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
             String text = editor.getSelectedText();
@@ -1924,22 +1625,18 @@ public class Controller
         }
     }
 
-    public String getSpacesForTabs()
-    {
+    public String getSpacesForTabs() {
         int spacesPerTab = MarkdownServer.getPreferences().getEditorPreferences().getSpacesPerTab();
         StringBuilder indent = new StringBuilder( spacesPerTab );
-        for( int i = 0; i < spacesPerTab; i++ )
-        {
+        for( int i = 0; i < spacesPerTab; i++ ) {
             indent.append( " " );
         }
         return indent.toString();
     }
 
-    public void toolsTextSelectionTabsToSpaces()
-    {
+    public void toolsTextSelectionTabsToSpaces() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             boolean softTabs = editor.getSoftTabs();
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
@@ -1960,11 +1657,9 @@ public class Controller
         }
     }
 
-    public void toolsTextSelectionSpacesToTabs()
-    {
+    public void toolsTextSelectionSpacesToTabs() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             boolean softTabs = editor.getSoftTabs();
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
@@ -1985,11 +1680,9 @@ public class Controller
         }
     }
 
-    public void toolsTextCondenseMultipleSpaces()
-    {
+    public void toolsTextCondenseMultipleSpaces() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             boolean softTabs = editor.getSoftTabs();
             int selectionStart = editor.getSelectionStart();
             int selectionEnd = editor.getSelectionEnd();
@@ -1997,8 +1690,7 @@ public class Controller
             int initialLength = text.length();
 
             StringBuilder buffer = new StringBuilder( text );
-            while( buffer.indexOf( "  " ) != -1 )
-            {
+            while( buffer.indexOf( "  " ) != -1 ) {
                 StringUtils.replaceAll( buffer, "  ", " " );
             }
             text = buffer.toString();
@@ -2014,13 +1706,10 @@ public class Controller
         }
     }
 
-    public void toolsTextShiftIndentLeft()
-    {
-        try
-        {
+    public void toolsTextShiftIndentLeft() {
+        try {
             MarkdownEditor editor = getCurrentEditor();
-            if( editor != null )
-            {
+            if( editor != null ) {
                 String indent = getIndent();
                 int length = indent.length();
 
@@ -2032,10 +1721,8 @@ public class Controller
                 StringBuilder newText = new StringBuilder( text.length() );
 
                 String[] lines = StringUtils.tokenize( text, "\n" );
-                for( String line : lines )
-                {
-                    if( line.startsWith( indent ) )
-                    {
+                for( String line : lines ) {
+                    if( line.startsWith( indent ) ) {
                         line = line.substring( length );
                         newText.append( line );
                         newText.append( "\n" );
@@ -2049,52 +1736,42 @@ public class Controller
                 editor.moveCaretPosition( selectionEnd );
             }
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void toolsTextShiftIndentRight()
-    {
+    public void toolsTextShiftIndentRight() {
         bookendSelectedLines( getIndent(), null );
     }
 
-    public void toolsTextJoinLines()
-    {
+    public void toolsTextJoinLines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 selectLines();
                 String text = editor.getSelectedText();
                 boolean newLine = text.endsWith( "\n" );
 
                 String[] lines = StringUtils.tokenize( text, "\n" );
                 StringBuilder joinedLines = new StringBuilder( StringUtils.cat( lines, " " ) );
-                if( newLine )
-                {
+                if( newLine ) {
                     joinedLines.append( "\n" );
                 }
 
                 editor.replaceSelection( joinedLines.toString() );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
                 t.printStackTrace();
             }
         }
     }
 
-    public void toolsTextDoubleNewlines()
-    {
+    public void toolsTextDoubleNewlines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int selectionStart = Math.min( editor.getSelectionStart(), editor.getSelectionEnd() );
                 int selectionEnd = Math.max( editor.getSelectionStart(), editor.getSelectionEnd() );
 
@@ -2114,21 +1791,17 @@ public class Controller
                 editor.setCaretPosition( selectionStart );
                 editor.moveCaretPosition( selectionStart + text.length() );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
                 t.printStackTrace();
             }
         }
     }
 
-    public void toolsTextSingleNewlines()
-    {
+    public void toolsTextSingleNewlines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int selectionStart = Math.min( editor.getSelectionStart(), editor.getSelectionEnd() );
                 int selectionEnd = Math.max( editor.getSelectionStart(), editor.getSelectionEnd() );
 
@@ -2148,21 +1821,17 @@ public class Controller
                 editor.setCaretPosition( selectionStart );
                 editor.moveCaretPosition( selectionStart + text.length() );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
                 t.printStackTrace();
             }
         }
     }
 
-    public void toolsTextDeleteLines()
-    {
+    public void toolsTextDeleteLines() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int selectionStart = Math.min( editor.getSelectionStart(), editor.getSelectionEnd() );
                 int selectionEnd = Math.max( editor.getSelectionStart(), editor.getSelectionEnd() );
 
@@ -2177,114 +1846,93 @@ public class Controller
 
                 editor.replaceSelection( "" );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
                 t.printStackTrace();
             }
         }
     }
 
-    public void toolsTextDeleteToStartOfLine()
-    {
+    public void toolsTextDeleteToStartOfLine() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int line = editor.getCaretLineNumber();
                 int lineStartOffset = editor.getLineStartOffset( line );
                 editor.moveCaretPosition( lineStartOffset );
                 editor.replaceSelection( "" );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    public void toolsTextDeleteToEndOfLine()
-    {
+    public void toolsTextDeleteToEndOfLine() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
-            try
-            {
+        if( editor != null ) {
+            try {
                 int line = editor.getCaretLineNumber();
                 int lineEndOffset = editor.getLineEndOffset( line ) - 1;
                 editor.moveCaretPosition( lineEndOffset );
                 editor.replaceSelection( "" );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    public void toolsTextInsertCurrentDate()
-    {
+    public void toolsTextInsertCurrentDate() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             String pattern = MarkdownServer.getPreferences().getGeneralPreferences().getDateFormat();
             SimpleDateFormat format = new SimpleDateFormat( pattern );
             editor.replaceSelection( format.format( new Date() ) );
         }
     }
 
-    public void toolsTextInsertCurrentTime()
-    {
+    public void toolsTextInsertCurrentTime() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             String pattern = MarkdownServer.getPreferences().getGeneralPreferences().getTimeFormat();
             SimpleDateFormat format = new SimpleDateFormat( pattern );
             editor.replaceSelection( format.format( new Date() ) );
         }
     }
 
-    public void toolsTextInsertCurrentDateAndTime()
-    {
+    public void toolsTextInsertCurrentDateAndTime() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             String pattern = MarkdownServer.getPreferences().getGeneralPreferences().getDatetimeFormat();
             SimpleDateFormat format = new SimpleDateFormat( pattern );
             editor.replaceSelection( format.format( new Date() ) );
         }
     }
 
-    public void toolsExpandMacro()
-    {
+    public void toolsExpandMacro() {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             List<MacroList> list = new ArrayList();
             list.add( projectFrame.getProject().getProjectMacros() );
             list.add( MarkdownServer.getPreferences().getGlobalMacros() );
 
             boolean expanded = MacroUtils.expandMacro( editor, list );
-            if( !expanded )
-            {
+            if( !expanded ) {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
-        else
-        {
+        else {
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void toolsEditMacros()
-    {
+    public void toolsEditMacros() {
         projectFrame.getMacroEditorDialog().refresh();
         projectFrame.getMacroEditorDialog().setVisible( true );
     }
 
-    public void helpPreferences()
-    {
+    public void helpPreferences() {
         PreferencesDialog preferencesDialog = MarkdownServer.getPreferencesDialog();
         preferencesDialog.setVisible( true );
     }
@@ -2292,23 +1940,18 @@ public class Controller
     ////////////////////////////////////
     // Document selection and navigation
     ////////////////////////////////////
-    public void nullSelection()
-    {
-        if( getProject().synchronizeEditors() )
-        {
+    public void nullSelection() {
+        if( getProject().synchronizeEditors() ) {
             List<MarkdownEditorPanel> editorPanels = projectFrame.getEditorSplitPane().getAllMarkdownEditorPanels();
-            for( MarkdownEditorPanel editorPanel : editorPanels )
-            {
-                editorPanel.edit( (Node) null );
+            for( MarkdownEditorPanel editorPanel : editorPanels ) {
+                editorPanel.edit( (Node)null );
             }
         }
-        else
-        {
+        else {
 
             MarkdownEditorPanel editorPanel = projectFrame.getEditorSplitPane().getCurrentComponent();
-            if( editorPanel != null )
-            {
-                editorPanel.edit( (Node) null );
+            if( editorPanel != null ) {
+                editorPanel.edit( (Node)null );
             }
         }
     }
@@ -2316,12 +1959,10 @@ public class Controller
     ///////////
     // Renaming
     ///////////
-    public void projectRenamed()
-    {
+    public void projectRenamed() {
         String title = messages.titleUntitled();
         Project project = projectFrame.getProject();
-        if( project != null )
-        {
+        if( project != null ) {
             title = project.getTitle();
         }
 
@@ -2329,21 +1970,17 @@ public class Controller
         projectFrame.getTree().projectRenamed();
     }
 
-    public String showRenameDialog()
-    {
+    public String showRenameDialog() {
         return showRenameDialog( null );
     }
 
-    public String showRenameDialog( String originalName )
-    {
-        if( StringUtils.empty( originalName ) )
-        {
+    public String showRenameDialog( String originalName ) {
+        if( StringUtils.empty( originalName ) ) {
             originalName = messages.titleUntitled();
         }
 
         Object result = JOptionPane.showInputDialog( getPopupWindowOwner(), messages.dialogMessageRename(), originalName );
-        if( result != null )
-        {
+        if( result != null ) {
             return result.toString();
         }
 
@@ -2353,8 +1990,7 @@ public class Controller
     /////////
     // Groovy
     /////////
-    public GroovyShell getGroovyShell()
-    {
+    public GroovyShell getGroovyShell() {
         Binding binding = new Binding();
         binding.setVariable( "controller", this );
         binding.setVariable( "project", getProject() );
@@ -2366,14 +2002,11 @@ public class Controller
         return groovyShell;
     }
 
-    public void executeGroovyScript( File file )
-    {
-        try
-        {
+    public void executeGroovyScript( File file ) {
+        try {
             getGroovyShell().evaluate( file );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
 
             StringBuilder message = new StringBuilder();
@@ -2387,21 +2020,17 @@ public class Controller
         }
     }
 
-    public void reloadGroovyScripts()
-    {
+    public void reloadGroovyScripts() {
         projectFrame.getMenuBar().reloadGroovyScripts();
     }
 
-    public void openGroovyScriptsDir()
-    {
-        try
-        {
+    public void openGroovyScriptsDir() {
+        try {
             File groovyScriptsDir = MarkdownServer.getGroovyScriptsDir();
             groovyScriptsDir.mkdirs();
             Desktop.getDesktop().open( groovyScriptsDir );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2410,68 +2039,55 @@ public class Controller
     ////////
     // Utils
     ////////
-    public ProjectFrame getProjectFrame()
-    {
+    public ProjectFrame getProjectFrame() {
         return projectFrame;
     }
 
-    public Project getProject()
-    {
+    public Project getProject() {
         return getProjectFrame().getProject();
     }
 
-    public MarkdownEditor getCurrentEditor()
-    {
+    public MarkdownEditor getCurrentEditor() {
         MarkdownEditorPanel panel = projectFrame.getEditorSplitPane().getCurrentComponent();
-        if( panel != null )
-        {
+        if( panel != null ) {
             return panel.getEditor();
         }
 
         return null;
     }
 
-    public Node getNodeForCurrentDocument()
-    {
+    public Node getNodeForCurrentDocument() {
         return projectFrame.getCurrentNode();
     }
 
-    public MarkdownTreeNode getTreeNodeForCurrentDocument()
-    {
+    public MarkdownTreeNode getTreeNodeForCurrentDocument() {
         Node node = getNodeForCurrentDocument();
-        if( node != null )
-        {
+        if( node != null ) {
             return getTreeNodeForNode( node );
         }
 
         return null;
     }
 
-    public MarkdownTreeNode getTreeNodeForNode( Node node )
-    {
+    public MarkdownTreeNode getTreeNodeForNode( Node node ) {
         MarkdownTree tree = projectFrame.getTree();
-        MarkdownTreeNode root = (MarkdownTreeNode) tree.getRootNode();
+        MarkdownTreeNode root = (MarkdownTreeNode)tree.getRootNode();
         return getTreeNodeForNode( node, root );
     }
 
-    private MarkdownTreeNode getTreeNodeForNode( Node node, MarkdownTreeNode treeNode )
-    {
+    private MarkdownTreeNode getTreeNodeForNode( Node node, MarkdownTreeNode treeNode ) {
         Node testNode = treeNode.getNode();
-        if( testNode != null )
-        {
-            if( node.getUuid().equals( testNode.getUuid() ) )
-            {
+        if( testNode != null ) {
+            if( node.getUuid().equals( testNode.getUuid() ) ) {
                 return treeNode;
             }
         }
 
         int childCount = treeNode.getChildCount();
-        for( int i = 0; i < childCount; i++ )
-        {
-            MarkdownTreeNode childNode = (MarkdownTreeNode) treeNode.getChildAt( i );
+        for( int i = 0; i < childCount; i++ ) {
+            MarkdownTreeNode childNode = (MarkdownTreeNode)treeNode.getChildAt( i );
             MarkdownTreeNode result = getTreeNodeForNode( node, childNode );
-            if( result != null )
-            {
+            if( result != null ) {
                 return result;
             }
         }
@@ -2491,12 +2107,9 @@ public class Controller
 //
 //        return MarkdownServer.getSaveProjectDialog();
 //    }
-    private JFileChooser getOpenFileChooser()
-    {
-        if( projectFrame != null )
-        {
-            if( projectFrame.getOpenFileChooser() != null )
-            {
+    private JFileChooser getOpenFileChooser() {
+        if( projectFrame != null ) {
+            if( projectFrame.getOpenFileChooser() != null ) {
                 return projectFrame.getOpenFileChooser();
             }
         }
@@ -2504,12 +2117,9 @@ public class Controller
         return MarkdownServer.getOpenFileChooser();
     }
 
-    private JFileChooser getImageFileChooser()
-    {
-        if( projectFrame != null )
-        {
-            if( projectFrame.getImageFileChooser() != null )
-            {
+    private JFileChooser getImageFileChooser() {
+        if( projectFrame != null ) {
+            if( projectFrame.getImageFileChooser() != null ) {
                 return projectFrame.getImageFileChooser();
             }
         }
@@ -2517,93 +2127,79 @@ public class Controller
         return MarkdownServer.getImageFileChooser();
     }
 
-    public Component getPopupWindowOwner()
-    {
-        if( projectFrame != null )
-        {
+    public Component getPopupWindowOwner() {
+        if( projectFrame != null ) {
             return projectFrame.getWindow();
         }
 
         return null;
     }
 
-    public void repaintTree()
-    {
+    public void repaintTree() {
         GuiUtils.forceRepaint( projectFrame.getTree() );
     }
 
     public void selectLine()
-        throws BadLocationException
-    {
+        throws BadLocationException {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             int caretLine = editor.getCaretLineNumber();
             int lineStart = editor.getLineStartOffset( caretLine );
             int lineEnd = editor.getLineEndOffset( caretLine );
             editor.setCaretPosition( lineStart );
             editor.moveCaretPosition( lineEnd );
         }
-        else
-        {
+        else {
             throw new IllegalArgumentException( "No editor set." );
         }
     }
 
     public void selectLines()
-        throws BadLocationException
-    {
+        throws BadLocationException {
         MarkdownEditor editor = getCurrentEditor();
-        if( editor != null )
-        {
+        if( editor != null ) {
             int selectionStart = Math.min( editor.getSelectionStart(), editor.getSelectionEnd() );
             int selectionEnd = Math.max( editor.getSelectionStart(), editor.getSelectionEnd() );
-            
+
             int startLine = editor.getLineOfOffset( selectionStart );
             int endLine = editor.getLineOfOffset( selectionEnd );
 
             selectionStart = editor.getLineStartOffset( startLine );
             selectionEnd = editor.getLineEndOffset( endLine );
-            
+
             editor.setCaretPosition( selectionStart );
             editor.moveCaretPosition( selectionEnd );
         }
-        else
-        {
+        else {
             throw new IllegalArgumentException( "No editor set." );
         }
     }
 
-    public String getIndent()
-    {
+    public String getIndent() {
         int spacesPerTab = MarkdownServer.getPreferences().getEditorPreferences().getSpacesPerTab();
         StringBuilder indent = new StringBuilder( spacesPerTab );
 
-        if( MarkdownServer.getPreferences().getEditorPreferences().softTabs() )
-        {
-            for( int i = 0; i < spacesPerTab; i++ )
-            {
+        if( MarkdownServer.getPreferences().getEditorPreferences().softTabs() ) {
+            for( int i = 0; i < spacesPerTab; i++ ) {
                 indent.append( " " );
             }
         }
-        else
-        {
+        else {
             indent.append( "\t" );
         }
         return indent.toString();
     }
 
-    public MarkdownMessages getMessages()
-    {
+    public MarkdownMessages getMessages() {
         return messages;
     }
 
-    private static void stubCode()
-    {
+    private static void stubCode() {
         System.out.println( "=========================" );
         System.out.println( "=========================" );
         System.out.println( "=== STUB CODE: FIX ME ===" );
         System.out.println( "=========================" );
         System.out.println( "=========================" );
     }
+
 }
