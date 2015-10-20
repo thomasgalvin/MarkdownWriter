@@ -95,6 +95,7 @@ public class MarkdownMenuBar
     private JMenuItem viewToggleInvisibles = createMenuItem( messages.menuBarViewShowInvisibles(), listener );
     private JMenu documentsMenu = new JMenu( messages.menuBarDocuments() );
     private JMenuItem menuBarDocumentsNewFile = createMenuItem( messages.menuBarDocumentsNewFile(), listener );
+    private JMenuItem menuBarDocumentsNewChildText = createMenuItem( messages.menuBarDocumentsNewChildText(), listener );
     private JMenuItem menuBarDocumentsNewFolder = createMenuItem( messages.menuBarDocumentsNewFolder(), listener );
     private JMenu addChild = new JMenu( messages.treeMenuAddChild() );
     private JMenuItem addChildText = createMenuItem( messages.treeMenuAddText(), listener );
@@ -274,6 +275,7 @@ public class MarkdownMenuBar
         viewMenu.add( viewToggleInvisibles );
 
         documentsMenu.add( menuBarDocumentsNewFile );
+        documentsMenu.add( menuBarDocumentsNewChildText );
         documentsMenu.add( menuBarDocumentsNewFolder );
         documentsMenu.addSeparator();
         documentsMenu.add( addSibling );
@@ -358,7 +360,8 @@ public class MarkdownMenuBar
         documentsRename.setAccelerator( KeyStroke.getKeyStroke( 'R', SystemUtils.PREFERED_MODIFIER_KEY ) );
 
         menuBarDocumentsNewFile.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY ) );
-        menuBarDocumentsNewFolder.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+        menuBarDocumentsNewChildText.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+        menuBarDocumentsNewFolder.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
 
         toolsExpandMacro.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_SEMICOLON, SystemUtils.PREFERED_MODIFIER_KEY ) );
 
@@ -410,7 +413,7 @@ public class MarkdownMenuBar
     private class Listener
         implements ActionListener
     {
-
+        @Override
         public void actionPerformed( ActionEvent e )
         {
             final Object source = e.getSource();
@@ -675,6 +678,9 @@ public class MarkdownMenuBar
                     }
                     else if( source == addChildText )
                     {
+                        controller.documentsNewChildFile();
+                    } 
+                    else if( source == menuBarDocumentsNewChildText ){
                         controller.documentsNewChildFile();
                     }
                     else if( source == addChildFolder )
