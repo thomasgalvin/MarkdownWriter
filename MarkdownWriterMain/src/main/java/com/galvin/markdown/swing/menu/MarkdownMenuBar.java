@@ -80,6 +80,14 @@ public class MarkdownMenuBar
     private JMenuItem formatH4 = createMenuItem( messages.menuBarFormatH4(), listener );
     private JMenuItem formatH5 = createMenuItem( messages.menuBarFormatH5(), listener );
     private JMenuItem formatH6 = createMenuItem( messages.menuBarFormatH6(), listener );
+    private JMenu cssMenu = new JMenu( messages.menuBarCss() );
+    private JMenuItem cssPagebreakBefore = createMenuItem( messages.cssPagebreakBefore(), listener );
+    private JMenuItem cssPagebreakAfter = createMenuItem( messages.cssPagebreakAfter(), listener );
+    private JMenuItem cssPagebreakBoth = createMenuItem( messages.cssPagebreakBoth(), listener );
+    private JMenuItem cssChapter = createMenuItem( messages.cssChapter(), listener );
+    private JMenuItem cssChapterPagebreakBefore = createMenuItem( messages.cssChapterPagebreakBefore(), listener );
+    private JMenuItem cssChapterPagebreakAfter = createMenuItem( messages.cssChapterPagebreakAfter(), listener );
+    private JMenuItem cssChapterPagebreakBoth = createMenuItem( messages.cssChapterPagebreakBoth(), listener );
     private JMenu insertMenu = new JMenu( messages.menuBarFormatInsert() );
     private JMenuItem formatInsertLink = createMenuItem( messages.menuBarFormatInsertLink(), listener );
     private JMenuItem formatInsertImage = createMenuItem( messages.menuBarFormatInsertImage(), listener );
@@ -188,6 +196,7 @@ public class MarkdownMenuBar
         editMenu.add( editFindNext );
         editMenu.addSeparator();
         editMenu.add( formatMenu );
+        editMenu.add( cssMenu );
         editMenu.add( insertMenu );
         editMenu.add( textToolsMenu );
         editMenu.addSeparator();
@@ -217,6 +226,15 @@ public class MarkdownMenuBar
         formatMenu.add( formatH4 );
         formatMenu.add( formatH5 );
         formatMenu.add( formatH6 );
+        
+        cssMenu.add(cssPagebreakBefore );
+        cssMenu.add( cssPagebreakAfter );
+        cssMenu.add( cssPagebreakBoth );
+        cssMenu.addSeparator();
+        cssMenu.add( cssChapter );
+        cssMenu.add( cssChapterPagebreakBefore );
+        cssMenu.add( cssChapterPagebreakAfter );
+        cssMenu.add( cssChapterPagebreakBoth );
 
         insertMenu.add( formatInsertLink );
         insertMenu.add( formatInsertImage );
@@ -600,6 +618,28 @@ public class MarkdownMenuBar
                     {
                         controller.formatH6();
                     }
+                    else if( source == cssPagebreakBefore ) {
+                        controller.cssPagebreakBefore();
+                    }
+                    else if( source == cssPagebreakAfter ) {
+                        controller.cssPagebreakAfter();
+                    }
+                    else if( source == cssPagebreakBoth ) {
+                        controller.cssPagebreakBoth();
+                    }
+                    else if( source == cssChapter ) {
+                        controller.cssChapter();
+                    }
+                    else if( source == cssChapterPagebreakBefore ) {
+                        controller.cssChapterPagebreakBefore();
+                    }
+                    else if( source == cssChapterPagebreakAfter ) {
+                        controller.cssChapterPagebreakAfter();
+                    }
+                    else if( source == cssChapterPagebreakBoth ) {
+                        controller.cssChapterPagebreakBoth();
+                    }
+
                     else if( source == formatInsertLink )
                     {
                         controller.formatInsertLink();

@@ -916,6 +916,55 @@ public class Controller {
             TextControlUtils.bookendLine( editor, Markup.H6, Markup.SPACE );
         }
     }
+    
+    public void cssPagebreakBefore(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_BEFORE );
+        }
+    }
+    
+    public void cssPagebreakAfter(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_AFTER );
+        }
+    }
+    
+    public void cssPagebreakBoth(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_BOTH );
+        }
+    }
+    
+    public void cssChapter(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER );
+        }
+    }
+    
+    public void cssChapterPagebreakBefore(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_BEFORE );
+        }
+    }
+    
+    public void cssChapterPagebreakAfter(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_AFTER );
+        }
+    }
+    
+    public void cssChapterPagebreakBoth(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_BOTH );
+        }
+    }
 
     public void formatInsertLink() {
         MarkdownEditor editor = getCurrentEditor();

@@ -109,17 +109,6 @@ public class MarkdownTreeCellRenderer
                 {
                     setImageIcon( label, Icons.MANUSCRIPT );
                 }
-//                else if( NodeTypes.FOLDER.equals( nodeType ) )
-//                {
-//                    if( markdownTreeNode.isLeaf() )
-//                    {
-//                        setImageIcon( label, Icons.FOLDER );
-//                    }
-//                    else
-//                    {
-//                        setImageIcon( label, Icons.FOLDER_DOCUMENTS );
-//                    }
-//                }
                 else if( NodeTypes.TRASH.equals( nodeType ) )
                 {
                     if( markdownTreeNode.isLeaf() )

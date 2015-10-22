@@ -174,6 +174,16 @@ extends BaseMessages
     public String menuBarFormatH4(){ return getString( "menuBarFormatH4" ); }
     public String menuBarFormatH5(){ return getString( "menuBarFormatH5" ); }
     public String menuBarFormatH6(){ return getString( "menuBarFormatH6" ); }
+    
+    public String menuBarCss(){ return getString( "menuBarCss" ); }
+    public String cssPagebreakBefore(){ return getString( "cssPagebreakBefore" ); }
+    public String cssPagebreakAfter(){ return getString( "cssPagebreakAfter" ); }
+    public String cssPagebreakBoth(){ return getString( "cssPagebreakBoth" ); }
+    public String cssChapter(){ return getString( "cssChapter" ); }
+    public String cssChapterPagebreakBefore(){ return getString( "cssChapterPagebreakBefore" ); }
+    public String cssChapterPagebreakAfter(){ return getString( "cssChapterPagebreakAfter" ); }
+    public String cssChapterPagebreakBoth(){ return getString( "cssChapterPagebreakBoth" ); }
+    
     public String menuBarFormatInsert(){ return getString( "menuBarFormatInsert" ); }
     public String menuBarFormatInsertLink(){ return getString( "menuBarFormatInsertLink" ); }
     public String menuBarFormatInsertImage(){ return getString( "menuBarFormatInsertImage" ); }

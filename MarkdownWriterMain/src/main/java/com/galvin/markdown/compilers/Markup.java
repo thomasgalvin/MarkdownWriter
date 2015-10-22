@@ -23,6 +23,14 @@ public class Markup
     public static final String TABLE_OF_CONTENTS_HEADER_LINK_START = "[";
     public static final String TABLE_OF_CONTENTS_HEADER_LINK_END = "][]";
     
+    public static final String STYLE_PAGEBREAK_BEFORE = " {.pagebreak-before}";
+    public static final String STYLE_PAGEBREAK_AFTER = " {.pagebreak-after}";
+    public static final String STYLE_PAGEBREAK_BOTH = " {.pagebreak-both}";
+    public static final String STYLE_CHAPTER = " {.chapter}";
+    public static final String STYLE_CHAPTER_WITH_PAGEBREAK_BEFORE = " {.chapter .pagebreak-before}";
+    public static final String STYLE_CHAPTER_WITH_PAGEBREAK_AFTER = " {.chapter .pagebreak-after}";
+    public static final String STYLE_CHAPTER_WITH_PAGEBREAK_BOTH = " {.chapter .pagebreak-both}";
+    
     public static final String BOLD = "**";
     public static final String UNDERLINE = "_";
     public static final String ITALIC = "*";
