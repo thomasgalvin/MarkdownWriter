@@ -32,6 +32,18 @@ public class MarkdownTreeMenu
     private JMenuItem delete = new JMenuItem( messages.treeMenuDelete() );
     private JMenuItem duplicate = new JMenuItem( messages.treeMenuDuplicate() );
     private JMenuItem join = new JMenuItem( messages.treeMenuJoin() );
+    
+    private JMenu fileExportMenu = new JMenu( messages.menuBarFileExport() );
+    private JMenuItem fileExportProject = new JMenuItem( messages.menuBarFileExportProject() );
+    private JMenuItem fileExportProjectUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportProjectUsingCurrentOptions() );
+    private JMenuItem fileExportCurrentDocument = new JMenuItem( messages.menuBarFileExportCurrentDocument() );
+    private JMenuItem fileExportCurrentDocumentUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportCurrentDocumentUsingCurrentOptions() );
+    private JMenuItem fileExportCurrentDocumentAndChildren = new JMenuItem( messages.menuBarFileExportCurrentDocumentAndChildren() );
+    private JMenuItem fileExportCurrentDocumentAndChildrenUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportCurrentDocumentAndChildrenUsingCurrentOptions() );
+    
+    private JMenu filePreviewMenu = new JMenu( messages.menuBarFilePreview() );
+    private JMenuItem filePreviewCurrentDocument = new JMenuItem( messages.menuBarFilePreviewCurrentDocument() );
+    private JMenuItem filePreviewCurrentDocumentAndChildren = new JMenuItem( messages.menuBarFilePreviewCurrentDocumentAndChildren() );
 
     private JMenuItem emptyTrash = new JMenuItem( messages.treeMenuEmptyTrash() );
 
@@ -41,6 +53,17 @@ public class MarkdownTreeMenu
         this.paths = paths;
         this.treeNode = treeNode;
         this.node = treeNode.getNode();
+        
+        fileExportMenu.add( fileExportProject );
+        fileExportMenu.add( fileExportProjectUsingCurrentOptions );
+        fileExportMenu.addSeparator();
+        fileExportMenu.add( fileExportCurrentDocument );
+        fileExportMenu.add( fileExportCurrentDocumentUsingCurrentOptions );
+        fileExportMenu.add( fileExportCurrentDocumentAndChildren );
+        fileExportMenu.add( fileExportCurrentDocumentAndChildrenUsingCurrentOptions );
+        
+        filePreviewMenu.add( filePreviewCurrentDocument );
+        filePreviewMenu.add( filePreviewCurrentDocumentAndChildren );
 
         add( addSiblingText );
         add( addChildText );
@@ -49,6 +72,9 @@ public class MarkdownTreeMenu
         addSeparator();
         add( duplicate );
         add( join );
+        addSeparator();
+        add( fileExportMenu );
+        add( filePreviewMenu );
         addSeparator();
         add( delete );
         addSeparator();
@@ -85,6 +111,16 @@ public class MarkdownTreeMenu
         join.addActionListener( this );
         delete.addActionListener( this );
         emptyTrash.addActionListener( this );
+        
+        fileExportProject.addActionListener( this );
+        fileExportProjectUsingCurrentOptions.addActionListener( this );
+        fileExportCurrentDocument.addActionListener( this );
+        fileExportCurrentDocumentUsingCurrentOptions.addActionListener( this );
+        fileExportCurrentDocumentAndChildren.addActionListener( this );
+        fileExportCurrentDocumentAndChildrenUsingCurrentOptions.addActionListener( this );
+        
+        filePreviewCurrentDocument.addActionListener( this );
+        filePreviewCurrentDocumentAndChildren.addActionListener( this );
     }
 
     @Override
@@ -104,6 +140,30 @@ public class MarkdownTreeMenu
         }
         else if( source == join ) {
             controller.documentsJoin();
+        }
+        else if( source == fileExportProject ) {
+            controller.fileExportProject();
+        }
+        else if( source == fileExportProjectUsingCurrentOptions ) {
+            controller.fileExportProjectUsingCurrentOptions();
+        }
+        else if( source == fileExportCurrentDocument ) {
+            controller.fileExportCurrentDocument();
+        }
+        else if( source == fileExportCurrentDocumentUsingCurrentOptions ) {
+            controller.fileExportCurrentDocumentUsingCurrentOptions();
+        }
+        else if( source == fileExportCurrentDocumentAndChildren ) {
+            controller.fileExportCurrentDocumentAndChildren();
+        }
+        else if( source == fileExportCurrentDocumentAndChildrenUsingCurrentOptions ) {
+            controller.fileExportCurrentDocumentAndChildrenUsingCurrentOptionst();
+        }
+        else if( source == filePreviewCurrentDocument ) {
+            controller.filePreview();
+        }
+        else if( source == filePreviewCurrentDocumentAndChildren ) {
+            controller.filePreviewWithChildren();
         }
         else if( source == delete ) {
             List<DefaultMutableTreeNode> nodes = tree.getSelectedNodes();
