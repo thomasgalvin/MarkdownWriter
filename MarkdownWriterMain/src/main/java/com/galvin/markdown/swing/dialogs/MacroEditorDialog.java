@@ -33,8 +33,8 @@ implements MacroEditor.MacroListListener
     
     MarkdownMessages messages = MarkdownServer.getMessages();
     private JTabbedPane tabbedPane = new JTabbedPane();
-    private MacroEditor globalEditor = new MacroEditor();
-    private MacroEditor projectEditor = new MacroEditor();
+    private MacroEditor globalMacrosEditor = new MacroEditor();
+    private MacroEditor projectMacrosEditor = new MacroEditor();
     private Controller controller;
     private boolean listening = true;
     
@@ -44,11 +44,11 @@ implements MacroEditor.MacroListListener
         
         setTitle( messages.dialogMacrosTitle() );
         
-        tabbedPane.add( messages.dialogMacrosProject(), projectEditor );
-        tabbedPane.add( messages.dialogMacrosGlobal(), globalEditor );
+        tabbedPane.add( messages.dialogMacrosProject(), projectMacrosEditor );
+        tabbedPane.add( messages.dialogMacrosGlobal(), globalMacrosEditor );
         
-        globalEditor.addMacroListListener( this );
-        projectEditor.addMacroListListener( this );
+        globalMacrosEditor.addMacroListListener( this );
+        projectMacrosEditor.addMacroListListener( this );
         
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put( NEW_KEYSTROKE, NEW_MACRO_ACTION_MAP_KEY ); 
         getRootPane().getActionMap().put( NEW_MACRO_ACTION_MAP_KEY, new NewMacroAction() ); 
@@ -79,11 +79,11 @@ implements MacroEditor.MacroListListener
         
         List<Macro> global = MarkdownServer.getPreferences().getGlobalMacros().getMacros();
         Collections.sort( global, comparator );
-        globalEditor.setMacros( global );
+        globalMacrosEditor.setMacros( global );
         
         List<Macro> project = controller.getProjectFrame().getProject().getProjectMacros().getMacros();
         Collections.sort( project, comparator );
-        projectEditor.setMacros( project );
+        projectMacrosEditor.setMacros( project );
         
         listening = true;
     }
@@ -92,11 +92,11 @@ implements MacroEditor.MacroListListener
     {
         if( listening )
         {
-            if( source == globalEditor )
+            if( source == globalMacrosEditor )
             {
                 writeGlobal();
             }
-            else if( source == projectEditor )
+            else if( source == projectMacrosEditor )
             {
                 writeProject();
             }
@@ -105,7 +105,7 @@ implements MacroEditor.MacroListListener
     
     public void writeGlobal()
     {
-        List<Macro> macros = globalEditor.getMacros();
+        List<Macro> macros = globalMacrosEditor.getMacros();
         MarkdownServer.getPreferences().getGlobalMacros().getMacros().clear();
         MarkdownServer.getPreferences().getGlobalMacros().getMacros().addAll( macros );
         MarkdownServer.writePreferences();
@@ -113,7 +113,7 @@ implements MacroEditor.MacroListListener
     
     public void writeProject()
     {
-        List<Macro> macros = projectEditor.getMacros();
+        List<Macro> macros = projectMacrosEditor.getMacros();
         controller.getProjectFrame().getProject().getProjectMacros().getMacros().clear();
         controller.getProjectFrame().getProject().getProjectMacros().getMacros().addAll( macros );
     }
@@ -142,11 +142,11 @@ implements MacroEditor.MacroListListener
     {
         if( tabbedPane.getSelectedIndex() == 0 )
         {
-            projectEditor.newMacro();
+            projectMacrosEditor.newMacro();
         }
         else
         {
-            globalEditor.newMacro();
+            globalMacrosEditor.newMacro();
         }
     }
     
@@ -154,11 +154,11 @@ implements MacroEditor.MacroListListener
     {
         if( tabbedPane.getSelectedIndex() == 0 )
         {
-            projectEditor.saveMacro();
+            projectMacrosEditor.saveMacro();
         }
         else
         {
-            globalEditor.saveMacro();
+            globalMacrosEditor.saveMacro();
         }
     }
     
