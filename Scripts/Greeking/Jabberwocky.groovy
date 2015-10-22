@@ -1,1 +1,1 @@
-currentEditor.replaceSelection( com.galvin.util.Lorem.jabberwocky() );
+currentEditor.replaceSelection( galvin.Lorem.jabberwocky() );

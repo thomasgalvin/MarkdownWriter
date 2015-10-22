@@ -28,7 +28,6 @@ public class CompileDialog
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private FormatsCompileOptionsPanel formatOptions;
     private GeneralCompileOptionsPanel generalOptions;
-    private SeparatorsCompileOptionsPanel separatorOptions;
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JPanel buttonPanel = new JPanel();
     private JButton cancelButton = new JButton( messages.cancelCompile() );
@@ -50,11 +49,9 @@ public class CompileDialog
         
         formatOptions = new FormatsCompileOptionsPanel( this );
         generalOptions = new GeneralCompileOptionsPanel( this );
-        separatorOptions = new SeparatorsCompileOptionsPanel( this );
 
         tabbedPane.add( messages.outputCompileOptions(), formatOptions );
         tabbedPane.add( messages.includeCompileOptions(), generalOptions );
-        tabbedPane.add( messages.separatorCompileOptions(), separatorOptions );
 
         GuiUtils.sameSize( new JComponent[] { cancelButton, compileButton } );
         
@@ -79,7 +76,6 @@ public class CompileDialog
         {
             formatOptions.loadPreferences( compileOptions );
             generalOptions.loadPreferences( compileOptions );
-            separatorOptions.loadPreferences( compileOptions );
         }
     }
     
@@ -93,7 +89,6 @@ public class CompileDialog
     {
         formatOptions.updatePreferences();
         generalOptions.updatePreferences();
-        separatorOptions.updatePreferences();
     }
     
     public void writePrefences()
@@ -106,7 +101,6 @@ public class CompileDialog
         compileOptions.setProject(  project );
         formatOptions.writePreferences( compileOptions );
         generalOptions.writePreferences( compileOptions );
-        separatorOptions.writePreferences( compileOptions );
         compileOptions.refreshNodes();
         targetProject.setCompileOptions( compileOptions );
     }
@@ -119,11 +113,6 @@ public class CompileDialog
     public GeneralCompileOptionsPanel getGeneralOptions()
     {
         return generalOptions;
-    }
-
-    public SeparatorsCompileOptionsPanel getSeparatorOptions()
-    {
-        return separatorOptions;
     }
 
     public void cancel()

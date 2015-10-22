@@ -1,1 +1,1 @@
-currentEditor.replaceSelection( com.galvin.util.Lorem.raven() );
+currentEditor.replaceSelection( galvin.Lorem.raven() );

@@ -10,7 +10,6 @@ import com.galvin.markdown.swing.MarkdownServer;
 import galvin.swing.GuiUtils;
 import java.awt.Dimension;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JRadioButton;
@@ -24,24 +23,11 @@ extends AbstractCompileOptionsPanel
     private JRadioButton includeSummary = new JRadioButton( messages.includeSummary() );
     private JRadioButton includeNotes = new JRadioButton( messages.includeNotes() );
     private ButtonGroup buttonGroup = new ButtonGroup();
-    private JCheckBox includeContributors = new JCheckBox( messages.includeContributors() );
-    private JCheckBox includeContributorRoles = new JCheckBox( messages.includeContributorRoles() );
-    private JCheckBox includeTitlesOfFolders = new JCheckBox( messages.includeTitlesOfFolders() );
-    private JCheckBox includeSubtitlesOfFolders = new JCheckBox( messages.includeSubtitlesOfFolders() );
-    private JCheckBox includeTitlesOfFiles = new JCheckBox( messages.includeTitlesOfFiles() );
-    private JCheckBox includeSubtitlesOfFiles = new JCheckBox( messages.includeSubtitlesOfFiles() );
     private JFileChooser fileChooser = new JFileChooser();
     private Dimension radioSize = GuiUtils.sameSize( new JComponent[] { includeManuscript,
                                                                         includeDescription,
                                                                         includeSummary,
                                                                         includeNotes,
-    } );
-    private Dimension checkBoxSize = GuiUtils.sameSize( new JComponent[] { includeContributors,
-                                                                           includeContributorRoles,
-                                                                           includeTitlesOfFolders,
-                                                                           includeSubtitlesOfFolders,
-                                                                           includeTitlesOfFiles,
-                                                                           includeSubtitlesOfFiles,
     } );
     
     public GeneralCompileOptionsPanel( CompileDialog compileDialog )
@@ -59,12 +45,6 @@ extends AbstractCompileOptionsPanel
         add( includeSummary );
         add( includeNotes );
         
-        add( includeContributors );
-        add( includeContributorRoles );
-        add( includeTitlesOfFolders );
-        add( includeSubtitlesOfFolders );
-        add( includeTitlesOfFiles );
-        add( includeSubtitlesOfFiles );
         doLayout();
         
         fileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
@@ -77,13 +57,6 @@ extends AbstractCompileOptionsPanel
         includeDescription.setSelected( nodeSection.equals( NodeSection.DESCRIPTION ) );
         includeSummary.setSelected( nodeSection.equals( NodeSection.SUMMARY ) );
         includeNotes.setSelected( nodeSection.equals( NodeSection.NOTES ) );
-        
-        includeContributors.setSelected( compileOptions.includeContributors() );
-        includeContributorRoles.setSelected( compileOptions.includeContributorRoles() );
-        includeTitlesOfFolders.setSelected( compileOptions.includeTitlesOfFolders() );
-        includeSubtitlesOfFolders.setSelected( compileOptions.includeSubtitlesOfFolders() );
-        includeTitlesOfFiles.setSelected( compileOptions.includeTitlesOfFiles() );
-        includeSubtitlesOfFiles.setSelected( compileOptions.includeSubtitlesOfFiles() );
     }
     
     public void writePreferences( CompileOptions compileOptions )
@@ -105,13 +78,6 @@ extends AbstractCompileOptionsPanel
         {
             compileOptions.setNodeSection( NodeSection.NOTES );
         }
-        
-        compileOptions.setIncludeContributors( includeContributors.isSelected() );
-        compileOptions.setIncludeContributorRoles( includeContributorRoles.isSelected() );
-        compileOptions.setIncludeTitlesOfFolders( includeTitlesOfFolders.isSelected() );
-        compileOptions.setIncludeSubtitlesOfFolders( includeSubtitlesOfFolders.isSelected() );
-        compileOptions.setIncludeTitlesOfFiles( includeTitlesOfFiles.isSelected() );
-        compileOptions.setIncludeSubtitlesOfFiles( includeSubtitlesOfFiles.isSelected() );
     }
     
     @Override
@@ -133,24 +99,6 @@ extends AbstractCompileOptionsPanel
         y += radioSize.height + GuiUtils.PADDING;
         
         y += GuiUtils.PADDING;
-        
-        includeContributors.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
-        
-        includeContributorRoles.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
-        
-        includeTitlesOfFolders.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
-        
-        includeSubtitlesOfFolders.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
-        
-        includeTitlesOfFiles.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
-        
-        includeSubtitlesOfFiles.setLocation( x, y );
-        y += checkBoxSize.height + GuiUtils.PADDING;
         
         int width = 500;
         setPreferredSize( new Dimension( width, y ) );

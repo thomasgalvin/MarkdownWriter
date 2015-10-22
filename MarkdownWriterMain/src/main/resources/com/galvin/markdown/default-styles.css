@@ -19,3 +19,17 @@ code.sourceCode span.fu { color: #06287e; }
 code.sourceCode span.re { }
 code.sourceCode span.er { color: red; font-weight: bold; }
 
+/* page breaks */
+
+.pagebreak-before {
+    page-break-before: always;
+}
+
+.pagebreak-after {
+    page-break-after: always;
+}
+
+.pagebreak-both {
+    page-break-before: always;
+    page-break-after: always;
+}

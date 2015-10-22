@@ -90,29 +90,16 @@ public class MarkdownMenuBar
     private JMenuItem viewSplitVertical = createMenuItem( messages.menuBarViewSplitVertical(), listener );
     private JMenuItem viewSplitUnsplit = createMenuItem( messages.menuBarViewUnsplit(), listener );
     private JMenuItem viewSynchronizeEditors = createMenuItem( messages.menuBarViewSynchronizeEditors(), listener );
-    private JMenuItem viewLineNumbers = createMenuItem( messages.menuBarViewHideLineNumbers(), listener );
-    private JMenuItem viewLineHighlighting = createMenuItem( messages.menuBarViewHideLineHighlitghts(), listener );
-    private JMenuItem viewToggleWordWrap = createMenuItem( messages.menuBarViewTurnWordWrapOff(), listener );
-    private JMenuItem viewToggleInvisibles = createMenuItem( messages.menuBarViewShowInvisibles(), listener );
     private JMenu documentsMenu = new JMenu( messages.menuBarDocuments() );
     private JMenuItem menuBarDocumentsNewFile = createMenuItem( messages.menuBarDocumentsNewFile(), listener );
     private JMenuItem menuBarDocumentsNewChildText = createMenuItem( messages.menuBarDocumentsNewChildText(), listener );
-    private JMenuItem menuBarDocumentsNewFolder = createMenuItem( messages.menuBarDocumentsNewFolder(), listener );
-    private JMenu addChild = new JMenu( messages.treeMenuAddChild() );
-    private JMenuItem addChildText = createMenuItem( messages.treeMenuAddText(), listener );
-    private JMenuItem addChildFolder = createMenuItem( messages.treeMenuAddFolder(), listener );
-    private JMenu addSibling = new JMenu( messages.treeMenuAddSibling() );
-    private JMenuItem addSiblingText = createMenuItem( messages.treeMenuAddText(), listener );
-    private JMenuItem addSiblingFolder = createMenuItem( messages.treeMenuAddFolder(), listener );
-    private JMenuItem documentsConvertToFile = createMenuItem( messages.menuBarDocumentsConvertToFile(), listener );
-    private JMenuItem documentsConvertToFolder = createMenuItem( messages.menuBarDocumentsConvertToFolder(), listener );
     private JMenuItem documentsRename = createMenuItem( messages.menuBarDocumentsRename(), listener );
     private JMenuItem documentsImportImages = createMenuItem( messages.menuBarDocumentsImportImages(), listener );
     private JMenuItem documentsDelete = createMenuItem( messages.menuBarDocumentsDelete(), listener );
     private JMenuItem documentsDuplicate = createMenuItem( messages.menuBarDocumentsDuplicate(), listener );
+    private JMenuItem documentsJoin = createMenuItem( messages.menuBarDocumentsJoin(), listener );
     private JMenuItem documentsSplitAtCursor = createMenuItem( messages.menuBarDocumentsSplitAtCurson(), listener );
     private JMenuItem documentsSplitAtCursorMakeSelectionTitle = createMenuItem( messages.menuBarDocumentsSplitMakeSelectionTitle(), listener );
-    private JMenuItem documentsJoin = createMenuItem( messages.menuBarDocumentsJoin(), listener );
     private JMenuItem documentsProjectStatistics = createMenuItem( messages.menuBarDocumentsStatistics(), listener );
     private JMenuItem documentsEmptyTrash = createMenuItem( messages.menuBarDocumentsEmptyTrash(), listener );
     private JMenuItem documentsSelectInTree = createMenuItem( messages.menuBarDocumentsSelectInTree(), listener );
@@ -270,38 +257,32 @@ public class MarkdownMenuBar
         viewMenu.addSeparator();
         viewMenu.add( viewSynchronizeEditors );
         viewMenu.addSeparator();
-        viewMenu.add( viewLineHighlighting );
-        viewMenu.add( viewLineNumbers );
-        viewMenu.addSeparator();
-        viewMenu.add( viewToggleWordWrap );
-        viewMenu.addSeparator();
-        viewMenu.add( viewToggleInvisibles );
+        
 
         documentsMenu.add( menuBarDocumentsNewFile );
         documentsMenu.add( menuBarDocumentsNewChildText );
-        documentsMenu.add( menuBarDocumentsNewFolder );
+//        documentsMenu.add( menuBarDocumentsNewFolder );
         documentsMenu.addSeparator();
-        documentsMenu.add( addSibling );
-        addSibling.add( addSiblingText );
-        addSibling.add( addSiblingFolder );
-        documentsMenu.add( addChild );
-        addChild.add( addChildText );
-        addChild.add( addChildFolder );
+//        documentsMenu.add( addSibling );
+//        addSibling.add( addSiblingText );
+//        addSibling.add( addSiblingFolder );
+//        documentsMenu.add( addChild );
+//        addChild.add( addChildText );
+//        addChild.add( addChildFolder );
         documentsMenu.addSeparator();
-        documentsMenu.add( documentsConvertToFile );
-        documentsMenu.add( documentsConvertToFolder );
+//        documentsMenu.add( documentsConvertToFile );
+//        documentsMenu.add( documentsConvertToFolder );
         documentsMenu.add( documentsRename );
         documentsMenu.addSeparator();
         documentsMenu.add( documentsDuplicate );
-        documentsMenu.addSeparator();
-        documentsMenu.add( documentsSelectInTree );
+        documentsMenu.add( documentsJoin );
         documentsMenu.addSeparator();
         documentsMenu.add( documentsSplitAtCursor );
         documentsMenu.add( documentsSplitAtCursorMakeSelectionTitle );
         documentsMenu.addSeparator();
-        documentsMenu.add( documentsJoin );
-        documentsMenu.addSeparator();
         documentsMenu.add( documentsImportImages );
+        documentsMenu.addSeparator();
+        documentsMenu.add( documentsSelectInTree );
         documentsMenu.addSeparator();
         documentsMenu.add( documentsProjectStatistics );
         documentsMenu.addSeparator();
@@ -364,7 +345,7 @@ public class MarkdownMenuBar
 
         menuBarDocumentsNewFile.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY ) );
         menuBarDocumentsNewChildText.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
-        menuBarDocumentsNewFolder.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+//        menuBarDocumentsNewFolder.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
 
         toolsExpandMacro.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_SEMICOLON, SystemUtils.PREFERED_MODIFIER_KEY ) );
 
@@ -658,56 +639,12 @@ public class MarkdownMenuBar
                     {
                         controller.viewSynchronizeEditors();
                     }
-                    else if( source == viewLineNumbers )
-                    {
-                        controller.viewToggleLineNumbers();
-                    }
-                    else if( source == viewLineHighlighting )
-                    {
-                        controller.viewLineHighlighting();
-                    }
-                    else if( source == viewToggleWordWrap )
-                    {
-                        controller.viewToggleWordWrap();
-                    }
-                    else if( source == viewToggleInvisibles )
-                    {
-                        controller.viewToggleInvisibles();
-                    }
                     else if( source == menuBarDocumentsNewFile )
                     {
                         controller.documentsNewFile();
                     }
-                    else if( source == menuBarDocumentsNewFolder )
-                    {
-                        controller.documentsNewFolder();
-                    }
-                    else if( source == addChildText )
-                    {
-                        controller.documentsNewChildFile();
-                    } 
                     else if( source == menuBarDocumentsNewChildText ){
                         controller.documentsNewChildFile();
-                    }
-                    else if( source == addChildFolder )
-                    {
-                        controller.documentsNewChildFolder();
-                    }
-                    else if( source == addSiblingText )
-                    {
-                        controller.documentsNewSiblingFile();
-                    }
-                    else if( source == addSiblingFolder )
-                    {
-                        controller.documentsNewSiblingFolder();
-                    }
-                    else if( source == documentsConvertToFile )
-                    {
-                        controller.documentsConvertToFile();
-                    }
-                    else if( source == documentsConvertToFolder )
-                    {
-                        controller.documentsConvertToFolder();
                     }
                     else if( source == documentsRename )
                     {
@@ -847,24 +784,6 @@ public class MarkdownMenuBar
     {
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
 
-        if( editorPreferences.showLineNumbers() )
-        {
-            viewLineNumbers.setText( messages.menuBarViewHideLineNumbers() );
-        }
-        else
-        {
-            viewLineNumbers.setText( messages.menuBarViewShowLineNumbers() );
-        }
-
-        if( editorPreferences.showInvisibles() )
-        {
-            viewToggleInvisibles.setText( messages.menuBarViewHideInvisibles() );
-        }
-        else
-        {
-            viewToggleInvisibles.setText( messages.menuBarViewShowInvisibles() );
-        }
-
         if( editorPreferences.liveSpellCheck() )
         {
             editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOff() );
@@ -872,24 +791,6 @@ public class MarkdownMenuBar
         else
         {
             editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOn() );
-        }
-
-        if( editorPreferences.lineWrap() )
-        {
-            viewToggleWordWrap.setText( messages.menuBarViewTurnWordWrapOff() );
-        }
-        else
-        {
-            viewToggleWordWrap.setText( messages.menuBarViewTurnWordWrapOn() );
-        }
-
-        if( editorPreferences.highlightLines() )
-        {
-            viewLineHighlighting.setText( messages.menuBarViewHideLineHighlitghts() );
-        }
-        else
-        {
-            viewLineHighlighting.setText( messages.menuBarViewShowLineHighlitghts() );
         }
 
         Project project = controller.getProject();

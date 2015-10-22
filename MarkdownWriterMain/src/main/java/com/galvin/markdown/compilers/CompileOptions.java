@@ -27,25 +27,28 @@ public class CompileOptions
     private boolean includeTOC = true;
     private int tocDepth = 3;
     private int epubChapterLevel = 1;
-    private boolean includeContributors = true;
-    private boolean includeContributorRoles = true;
-    private boolean includeTitlesOfFolders = true;
-    private boolean includeSubtitlesOfFolders = true;
-    private boolean includeTitlesOfFiles = false;
-    private boolean includeSubtitlesOfFiles = false;
     private boolean generateTitleBlock = true;
-    private String separatorFolderFolder = Markup.PAGE_BREAK;
-    private String separatorFolderFile = Markup.PARAGRAPH_BREAK;
-    private String separatorFileFolder = Markup.PAGE_BREAK;
-    private String separatorFileFile = Markup.PARAGRAPH_BREAK;
-    private String separatorTitleFile = Markup.PARAGRAPH_BREAK;
-    private String separatorTitleFolder = Markup.PARAGRAPH_BREAK;
-    private String unusedCustomSeparatorFolderFolder = "";
-    private String unusedCustomSeparatorFolderFile = "";
-    private String unusedCustomSeparatorFileFolder = "";
-    private String unusedCustomSeparatorFileFile = "";
-    private String unusedCustomSeparatorTitleFile = "";
-    private String unusedCustomSeparatorTitleFolder = "";
+    
+    @Deprecated private boolean includeContributors = true;
+    @Deprecated private boolean includeContributorRoles = true;
+    @Deprecated private boolean includeTitlesOfFolders = true;
+    @Deprecated private boolean includeSubtitlesOfFolders = true;
+    @Deprecated private boolean includeTitlesOfFiles = false;
+    @Deprecated private boolean includeSubtitlesOfFiles = false;
+    
+    @Deprecated private String separatorFolderFolder = Markup.PAGE_BREAK;
+    @Deprecated private String separatorFolderFile = Markup.PARAGRAPH_BREAK;
+    @Deprecated private String separatorFileFolder = Markup.PAGE_BREAK;
+    @Deprecated private String separatorFileFile = Markup.PARAGRAPH_BREAK;
+    @Deprecated private String separatorTitleFile = Markup.PARAGRAPH_BREAK;
+    @Deprecated private String separatorTitleFolder = Markup.PARAGRAPH_BREAK;
+    
+    @Deprecated private String unusedCustomSeparatorFolderFolder = "";
+    @Deprecated private String unusedCustomSeparatorFolderFile = "";
+    @Deprecated private String unusedCustomSeparatorFileFolder = "";
+    @Deprecated private String unusedCustomSeparatorFileFile = "";
+    @Deprecated private String unusedCustomSeparatorTitleFile = "";
+    @Deprecated private String unusedCustomSeparatorTitleFolder = "";
     private String endOfDocumentMarker = "";
     private String projectContributorMarkup = "*";
     private String nodeContributorMarkup = "*";
@@ -101,61 +104,73 @@ public class CompileOptions
         this.exportFormats = exportFormats;
     }
 
+    @Deprecated 
     public boolean includeContributors()
     {
         return includeContributors;
     }
 
+    @Deprecated 
     public void setIncludeContributors( boolean includeContributors )
     {
         this.includeContributors = includeContributors;
     }
 
+    @Deprecated 
     public boolean includeContributorRoles()
     {
         return includeContributorRoles;
     }
 
+    @Deprecated 
     public void setIncludeContributorRoles( boolean includeContributorRoles )
     {
         this.includeContributorRoles = includeContributorRoles;
     }
 
+    @Deprecated 
     public boolean includeTitlesOfFiles()
     {
         return includeTitlesOfFiles;
     }
 
+    @Deprecated 
     public void setIncludeTitlesOfFiles( boolean includeTitlesOfFiles )
     {
         this.includeTitlesOfFiles = includeTitlesOfFiles;
     }
 
+    @Deprecated 
     public boolean includeTitlesOfFolders()
     {
         return includeTitlesOfFolders;
     }
 
+    @Deprecated 
     public void setIncludeTitlesOfFolders( boolean includeTitlesOfFolders )
     {
         this.includeTitlesOfFolders = includeTitlesOfFolders;
     }
 
+    @Deprecated 
     public boolean includeSubtitlesOfFiles()
     {
         return includeSubtitlesOfFiles;
     }
 
+    @Deprecated 
     public void setIncludeSubtitlesOfFiles( boolean includeSubtitlesOfFiles )
     {
         this.includeSubtitlesOfFiles = includeSubtitlesOfFiles;
     }
 
+    @Deprecated 
     public boolean includeSubtitlesOfFolders()
     {
         return includeSubtitlesOfFolders;
     }
 
+    @Deprecated 
     public void setIncludeSubtitlesOfFolders( boolean includeSubtitlesOfFolders )
     {
         this.includeSubtitlesOfFolders = includeSubtitlesOfFolders;
@@ -219,61 +234,73 @@ public class CompileOptions
         this.resources = resources;
     }
 
+    @Deprecated 
     public String getSeparatorFileFile()
     {
         return separatorFileFile;
     }
 
+    @Deprecated 
     public void setSeparatorFileFile( String separatorFileFile )
     {
         this.separatorFileFile = separatorFileFile;
     }
 
+    @Deprecated 
     public String getSeparatorFileFolder()
     {
         return separatorFileFolder;
     }
 
+    @Deprecated 
     public void setSeparatorFileFolder( String separatorFileFolder )
     {
         this.separatorFileFolder = separatorFileFolder;
     }
 
+    @Deprecated 
     public String getSeparatorFolderFile()
     {
         return separatorFolderFile;
     }
 
+    @Deprecated 
     public void setSeparatorFolderFile( String separatorFolderFile )
     {
         this.separatorFolderFile = separatorFolderFile;
     }
 
+    @Deprecated 
     public String getSeparatorFolderFolder()
     {
         return separatorFolderFolder;
     }
 
+    @Deprecated 
     public void setSeparatorFolderFolder( String separatorFolderFolder )
     {
         this.separatorFolderFolder = separatorFolderFolder;
     }
 
+    @Deprecated 
     public String getSeparatorTitleFile()
     {
         return separatorTitleFile;
     }
 
+    @Deprecated 
     public void setSeparatorTitleFile( String separatorTitleFile )
     {
         this.separatorTitleFile = separatorTitleFile;
     }
 
+    @Deprecated 
     public String getSeparatorTitleFolder()
     {
         return separatorTitleFolder;
     }
 
+    @Deprecated 
     public void setSeparatorTitleFolder( String separatorTitleFolder )
     {
         this.separatorTitleFolder = separatorTitleFolder;
@@ -299,61 +326,73 @@ public class CompileOptions
         this.projectContributorMarkup = projectContributorMarkup;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorFileFile()
     {
         return unusedCustomSeparatorFileFile;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorFileFile( String unusedCustomSeparatorFileFile )
     {
         this.unusedCustomSeparatorFileFile = unusedCustomSeparatorFileFile;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorFileFolder()
     {
         return unusedCustomSeparatorFileFolder;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorFileFolder( String unusedCustomSeparatorFileFolder )
     {
         this.unusedCustomSeparatorFileFolder = unusedCustomSeparatorFileFolder;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorFolderFile()
     {
         return unusedCustomSeparatorFolderFile;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorFolderFile( String unusedCustomSeparatorFolderFile )
     {
         this.unusedCustomSeparatorFolderFile = unusedCustomSeparatorFolderFile;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorFolderFolder()
     {
         return unusedCustomSeparatorFolderFolder;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorFolderFolder( String unusedCustomSeparatorFolderFolder )
     {
         this.unusedCustomSeparatorFolderFolder = unusedCustomSeparatorFolderFolder;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorTitleFile()
     {
         return unusedCustomSeparatorTitleFile;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorTitleFile( String unusedCustomSeparatorTitleFile )
     {
         this.unusedCustomSeparatorTitleFile = unusedCustomSeparatorTitleFile;
     }
 
+    @Deprecated 
     public String getUnusedCustomSeparatorTitleFolder()
     {
         return unusedCustomSeparatorTitleFolder;
     }
 
+    @Deprecated 
     public void setUnusedCustomSeparatorTitleFolder( String unusedCustomSeparatorTitleFolder )
     {
         this.unusedCustomSeparatorTitleFolder = unusedCustomSeparatorTitleFolder;

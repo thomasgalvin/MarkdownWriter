@@ -1,1 +1,1 @@
-currentEditor.replaceSelection( com.galvin.util.Lorem.loremIpsumParagraphs() );
+currentEditor.replaceSelection( galvin.Lorem.loremIpsumParagraphs() );

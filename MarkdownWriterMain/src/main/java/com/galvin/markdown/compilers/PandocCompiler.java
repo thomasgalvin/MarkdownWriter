@@ -30,11 +30,9 @@ import java.util.List;
 import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class PandocCompiler
-    implements MarkdownCompiler
-{
+    implements MarkdownCompiler {
 
     private static final String RESOURCES = "Resources";
     private static final String COVER_IMAGE_JPEG = "cover.jpg";
@@ -46,34 +44,31 @@ public class PandocCompiler
 //    private static final String EPUB_TEMPLATE = "epub.html";
     private List<CompilerProgressListener> listeners = new ArrayList();
 
+    @Override
     public File getPreview( CompileOptions compileOptions, Node node, NodeSection nodeSection )
-        throws Exception
-    {
+        throws Exception {
         return getPreview( compileOptions, node, nodeSection, false );
     }
 
+    @Override
     public File getPreview( CompileOptions compileOptions, Node node, NodeSection nodeSection, boolean includeChildren )
-        throws Exception
-    {
+        throws Exception {
         return new PreviewGenerator().getPreview( this, compileOptions, node, nodeSection, includeChildren );
     }
 
+    @Override
     public List<CompileResults> compile( CompileOptions compileOptions )
-        throws Exception
-    {
-        if( ImportFormat.FOUNTAIN.equals( compileOptions.getImportFormat() ) )
-        {
+        throws Exception {
+        if( ImportFormat.FOUNTAIN.equals( compileOptions.getImportFormat() ) ) {
             return FountainCompiler.compile( compileOptions, this );
         }
-        else
-        {
+        else {
             return pandocCompile( compileOptions );
         }
     }
-    
+
     public List<CompileResults> pandocCompile( CompileOptions compileOptions )
-        throws Exception    
-    {
+        throws Exception {
         List<CompileResults> results = new ArrayList();
 
         Project project = compileOptions.getProject();
@@ -91,7 +86,6 @@ public class PandocCompiler
         List<ExportFormat> exportFormats = new ArrayList();
         exportFormats.addAll( compileOptions.getExportFormats() );
 
-
         File cssMetadataFile = new File( workingDir, CSS_METADATA_FILE );
         File cssFile = new File( workingDir, CSS_FILE );
         File coverImageFile = null;
@@ -100,68 +94,51 @@ public class PandocCompiler
         String css = StringUtils.neverNull( DocumentUtils.getText( project.getStyleSheetDocument() ) );
         FileUtils.write( cssMetadataFile, css );
         FileUtils.write( cssFile, Markup.STYLE_START + css + Markup.STYLE_END );
-        
-        if( exportFormats.contains( ExportFormat.EPUB ) || exportFormats.contains( ExportFormat.MOBI ) )
-        {
+
+        if( exportFormats.contains( ExportFormat.EPUB ) || exportFormats.contains( ExportFormat.MOBI ) ) {
             coverImageFile = writeCoverFile( project, workingDir );
             metadataFile = writeMetadataFile( project, workingDir );
         }
 
         StringBuilder asIs = null;
-        if( exportFormats.contains( ExportFormat.AS_IS ) )
-        {
+        if( exportFormats.contains( ExportFormat.AS_IS ) ) {
             asIs = new StringBuilder();
         }
 
         File workingResourcesDir = new File( workingDir, RESOURCES );
         workingResourcesDir.mkdirs();
 
-        for(int index = 0; index < nodes.size(); index++)
-        {
+        for( int index = 0; index < nodes.size(); index++ ) {
             String fileName = index + importFormat.getExtension();
             File sourceFile = new File( workingDir, fileName );
 
             Node currentNode = nodes.get( index );
             Node nextNode = null;
 
-            if( index + 1 < nodes.size() )
-            {
+            if( index + 1 < nodes.size() ) {
                 nextNode = nodes.get( index + 1 );
             }
 
             MarkdownDocument document = Utils.getDocument( currentNode, compileOptions.getNodeSection() );
-            if( document != null )
-            {
-                StringBuilder builder = new StringBuilder();
-                compileSectionHeader( builder, currentNode, nextNode, compileOptions );
-
-                String body = DocumentUtils.getText( document );
-                builder.append( body );
+            if( document != null ) {
                 
-                if( !StringUtils.empty( body ) )
-                {
-                    builder.append( "\n\n" );
-                }
+                
+                String body = DocumentUtils.getText( document );
+                
+                StringBuilder builder = new StringBuilder();
+                builder.append( body );
+                builder.append( "\n\n" );
 
-                if( NodeTypes.MARKDOWN.equals( currentNode.getNodeType() ) && StringUtils.empty( body ) )
-                {
-                    //no separator between empty documents
+                if( nextNode == null ) {
+                    builder.append( compileOptions.getEndOfDocumentMarker() );
                 }
-                else
-                {
-                    String separator = StringUtils.neverNull( getSeparator( compileOptions, currentNode, nextNode ) );
-                    builder.append( separator );
-                }
-
-                //HtmlEntities.replaceAll( builder );
-                //String escaped = StringEscapeUtils.escapeHtml4( builder.toString() );
+                
                 FileUtils.write( sourceFile, builder.toString() );
                 sourceFiles.add( sourceFile );
 
                 writeResources( project, compileOptions, body, workingDir );
 
-                if( asIs != null )
-                {
+                if( asIs != null ) {
                     System.out.println( "adding to as-is:\n" + builder.toString() + "\n\n" );
                     asIs.append( builder );
                     asIs.append( "\n\n" );
@@ -172,21 +149,17 @@ public class PandocCompiler
         int exportCount = exportFormats.size();
         int currentFormat = 0;
 
-        for(ExportFormat exportFormat : exportFormats)
-        {
-            if( getSupportedFormats().contains( exportFormat ) )
-            {
+        for( ExportFormat exportFormat : exportFormats ) {
+            if( getSupportedFormats().contains( exportFormat ) ) {
                 File workingFile = new File( workingDir, UUID.randomUUID().toString() + exportFormat.getExtension() );
                 workingFile.getParentFile().mkdirs();
 
                 File outputFile = new File( outputDir, getFileName( project, compileOptions.getNodeSection(), exportFormat ) );
-                if( outputFile.exists() )
-                {
+                if( outputFile.exists() ) {
                     outputFile.delete();
                 }
 
-                if( ExportFormat.WORDPRESS_HTML.equals( exportFormat ) )
-                {
+                if( ExportFormat.WORDPRESS_HTML.equals( exportFormat ) ) {
                     executePandoc( importFormat, ExportFormat.HTML_SNIPPET, compileOptions, metadataFile, coverImageFile, cssMetadataFile, cssFile, sourceFiles, workingFile );
 
                     String html = FileUtils.readFileToString( workingFile );
@@ -198,29 +171,25 @@ public class PandocCompiler
                     FileUtils.writeStringToFile( workingFile, wphtml.toString() );
                     workingFile.renameTo( outputFile );
                 }
-                else if( ExportFormat.AS_IS.equals( exportFormat ) )
-                {
-                    if( asIs != null ){
+                else if( ExportFormat.AS_IS.equals( exportFormat ) ) {
+                    if( asIs != null ) {
                         FileUtils.writeStringToFile( workingFile, asIs.toString() );
                         workingFile.renameTo( outputFile );
                     }
                 }
-                else if( ExportFormat.MOBI.equals( exportFormat ) )
-                {
+                else if( ExportFormat.MOBI.equals( exportFormat ) ) {
                     File epubFile = new File( workingDir, UUID.randomUUID().toString() + ExportFormat.EPUB.getExtension() );
                     executePandoc( importFormat, ExportFormat.EPUB, compileOptions, metadataFile, coverImageFile, cssMetadataFile, cssFile, sourceFiles, epubFile );
                     executeKindlegen( epubFile, workingFile );
                     workingFile.renameTo( outputFile );
                 }
-                else if( SystemUtils.IS_MAC && ExportFormat.MICROSOFT_WORD_2003.equals( exportFormat ) )
-                {
+                else if( SystemUtils.IS_MAC && ExportFormat.MICROSOFT_WORD_2003.equals( exportFormat ) ) {
                     File docxFile = new File( workingDir, UUID.randomUUID().toString() + ExportFormat.MICROSOFT_WORD.getExtension() );
                     executePandoc( importFormat, ExportFormat.MICROSOFT_WORD, compileOptions, metadataFile, coverImageFile, cssMetadataFile, cssFile, sourceFiles, docxFile );
                     executeTextUtil( docxFile, workingFile, exportFormat );
                     workingFile.renameTo( outputFile );
                 }
-                else
-                {
+                else {
                     executePandoc( importFormat, exportFormat, compileOptions, metadataFile, coverImageFile, cssMetadataFile, cssFile, sourceFiles, workingFile );
                     workingFile.renameTo( outputFile );
                 }
@@ -240,17 +209,14 @@ public class PandocCompiler
             || exportFormats.contains( ExportFormat.RTF )
             || exportFormats.contains( ExportFormat.LATEX )
             || exportFormats.contains( ExportFormat.MARKDOWN )
-            || exportFormats.contains( ExportFormat.PLAIN_TEXT ) )
-        {
+            || exportFormats.contains( ExportFormat.PLAIN_TEXT ) ) {
 
             File resourcesDir = new File( outputDir, RESOURCES );
             resourcesDir.mkdirs();
 
             File[] workingResources = workingResourcesDir.listFiles();
-            if( workingResources != null )
-            {
-                for(File workingResource : workingResources)
-                {
+            if( workingResources != null ) {
+                for( File workingResource : workingResources ) {
                     File resource = new File( resourcesDir, workingResource.getName() );
                     workingResource.renameTo( resource );
                 }
@@ -261,19 +227,14 @@ public class PandocCompiler
     }
 
     private void writeResources( Project project, CompileOptions compileOptions, String documentBody, File exportDirectory )
-        throws Exception
-    {
+        throws Exception {
         List<Node> resources = project.getResources().getChildNodes();
-        if( resources != null )
-        {
-            for(Node resource : resources)
-            {
+        if( resources != null ) {
+            for( Node resource : resources ) {
                 String outputFileName = getExportResourceName( resource );
-                if( documentBody.contains( outputFileName ) )
-                {
+                if( documentBody.contains( outputFileName ) ) {
                     File outputFile = new File( exportDirectory, outputFileName );
-                    if( !outputFile.exists() )
-                    {
+                    if( !outputFile.exists() ) {
                         byte[] bytes = resource.getImageResource().getBytes();
                         org.apache.commons.io.FileUtils.writeByteArrayToFile( outputFile, bytes );
                     }
@@ -282,39 +243,31 @@ public class PandocCompiler
         }
     }
 
-    public String getExportResourceName( Node resource )
-    {
+    public String getExportResourceName( Node resource ) {
         return RESOURCES + "/" + Utils.getImageName( resource );
     }
 
     private File writeCoverFile( Project project, File outputDir )
-        throws Exception
-    {
+        throws Exception {
         File coverImageFile = null;
 
         Node coverNode = project.getCover();
-        if( coverNode != null )
-        {
+        if( coverNode != null ) {
             ImageResource coverImageResource = coverNode.getImageResource();
-            if( coverImageResource != null )
-            {
+            if( coverImageResource != null ) {
                 String coverImageName = null;
 
-                if( MimeTypes.MIME_TYPE_JPEG.equals( coverImageResource.getMimeType() ) )
-                {
+                if( MimeTypes.MIME_TYPE_JPEG.equals( coverImageResource.getMimeType() ) ) {
                     coverImageName = COVER_IMAGE_JPEG;
                 }
-                else if( MimeTypes.MIME_TYPE_GIF.equals( coverImageResource.getMimeType() ) )
-                {
+                else if( MimeTypes.MIME_TYPE_GIF.equals( coverImageResource.getMimeType() ) ) {
                     coverImageName = COVER_IMAGE_GIF;
                 }
-                else if( MimeTypes.MIME_TYPE_PNG.equals( coverImageResource.getMimeType() ) )
-                {
+                else if( MimeTypes.MIME_TYPE_PNG.equals( coverImageResource.getMimeType() ) ) {
                     coverImageName = COVER_IMAGE_PNG;
                 }
 
-                if( coverImageName != null )
-                {
+                if( coverImageName != null ) {
                     File resourceDir = new File( outputDir, RESOURCES );
                     resourceDir.mkdirs();
 
@@ -330,19 +283,16 @@ public class PandocCompiler
     }
 
     private File writeMetadataFile( Project project, File outputDir )
-        throws Exception
-    {
+        throws Exception {
         File metadataFile = new File( outputDir, "metadata.xml" );
         MarkdownMessages messages = MarkdownServer.getMessages();
 
         String title = StringUtils.neverNull( project.getTitle() );
-        if( !StringUtils.empty( project.getSubtitle() ) )
-        {
+        if( !StringUtils.empty( project.getSubtitle() ) ) {
             title += " - " + project.getSubtitle();
         }
 
-        if( StringUtils.empty( title ) )
-        {
+        if( StringUtils.empty( title ) ) {
             title = messages.titleUntitledProject();
         }
 
@@ -353,8 +303,7 @@ public class PandocCompiler
         metadataSection.append( "</dc:title>\n" );
 
         LanguageCode lang = project.getLangauge();
-        if( lang == null )
-        {
+        if( lang == null ) {
             lang = LanguageCode.ENGLISH_US;
         }
         metadataSection.append( "<dc:language>" );
@@ -362,19 +311,16 @@ public class PandocCompiler
         metadataSection.append( "</dc:language>\n" );
 
         IdentifierScheme identifierScheme = project.getIdentifierScheme();
-        if( identifierScheme == null )
-        {
+        if( identifierScheme == null ) {
             identifierScheme = IdentifierScheme.UUID;
         }
 
         String identifier = project.getIdentifier();
-        if( StringUtils.empty( identifier ) )
-        {
+        if( StringUtils.empty( identifier ) ) {
             identifier = UUID.randomUUID().toString();
         }
 
-        if( identifierScheme != null && !StringUtils.empty( identifier ) )
-        {
+        if( identifierScheme != null && !StringUtils.empty( identifier ) ) {
             metadataSection.append( "<dc:identifier id=\"BookId\" opf:scheme=\"" );
             metadataSection.append( identifierScheme.getCode() );
             metadataSection.append( "\">" );
@@ -382,8 +328,7 @@ public class PandocCompiler
             metadataSection.append( "</dc:identifier>\n" );
         }
 
-        for(Contributor contributor : project.getContributors())
-        {
+        for( Contributor contributor : project.getContributors() ) {
             metadataSection.append( "<dc:creator opf:file-as=\"" );
             metadataSection.append( contributor.getSortByName() );
             metadataSection.append( "\" opf:role=\"" );
@@ -399,16 +344,14 @@ public class PandocCompiler
     }
 
     private File writeTitleBlockFile( Project project, File workingDir )
-        throws Exception
-    {
+        throws Exception {
         File titleBlockFile = new File( workingDir, "title.txt" );
 
         StringBuilder contents = new StringBuilder();
         contents.append( "% " );
 
         String title = StringUtils.neverNull( project.getTitle() );
-        if( !StringUtils.empty( project.getSubtitle() ) )
-        {
+        if( !StringUtils.empty( project.getSubtitle() ) ) {
             title += " - " + project.getSubtitle();
         }
 
@@ -418,10 +361,8 @@ public class PandocCompiler
         contents.append( "\n" );
 
         StringBuilder contributors = new StringBuilder();
-        for(Contributor contributor : project.getContributors())
-        {
-            if( contributors.length() != 0 )
-            {
+        for( Contributor contributor : project.getContributors() ) {
+            if( contributors.length() != 0 ) {
                 contributors.append( ";" );
             }
             contributors.append( contributor.getName() );
@@ -434,219 +375,23 @@ public class PandocCompiler
         return titleBlockFile;
     }
 
-    private static String getFileName( Project project, NodeSection nodeSection, ExportFormat exportFormat )
-    {
+    private static String getFileName( Project project, NodeSection nodeSection, ExportFormat exportFormat ) {
         String fileName = project.getTitle();
-        if( !NodeSection.MANUSCRIPT.equals( nodeSection ) )
-        {
+        if( !NodeSection.MANUSCRIPT.equals( nodeSection ) ) {
             fileName += " - " + nodeSection.name().toLowerCase();
         }
         fileName = fileName.replaceAll( "\\\\", "_" );
         fileName = fileName.replaceAll( "/", "_" );
-        
+
         fileName += exportFormat.getExtension();
         return fileName;
-    }
-
-    private void compileSectionHeader( StringBuilder body, Node node, Node nextNode, CompileOptions compileOptions )
-    {
-        int level = node.getLevel();
-        boolean includeTitle = includeTitle( compileOptions, node );
-        if( includeTitle )
-        {
-            compileTitle( body, level, node, compileOptions );
-        }
-
-        boolean includeSubtitle = includeSubtitle( compileOptions, node );
-        if( includeSubtitle )
-        {
-            compileSubtitle( body, level, node, compileOptions );
-        }
-
-        boolean includeContributors = compileOptions.includeContributors() && !node.getContributors().isEmpty();
-        if( includeContributors )
-        {
-            compileContributors( body, node, compileOptions );
-        }
-
-        if( includeTitle || includeSubtitle || includeContributors )
-        {
-            if( nextNode != null )
-            {
-                if( NodeTypes.FOLDER.equals( nextNode.getNodeType() ) )
-                {
-                    body.append( compileOptions.getSeparatorTitleFolder() );
-                }
-                else
-                {
-                    body.append( compileOptions.getSeparatorTitleFile() );
-                }
-            }
-            else
-            {
-                body.append( compileOptions.getSeparatorTitleFile() );
-            }
-        }
-    }
-
-    private void compileTitle( StringBuilder markdown, int level, Node node, CompileOptions compileOptions )
-    {
-        String title = node.getTitle();
-        if( !StringUtils.empty( title ) )
-        {
-            for(int i = 0; i <= level; i++)
-            {
-                markdown.append( Markup.HEADER );
-            }
-
-            markdown.append( " " );
-            markdown.append( title );
-            markdown.append( " " );
-
-            if( node.getNodeType().equals( NodeTypes.FOLDER ) )
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES_FOLDER );
-            }
-            else if( node.getNodeType().equals( NodeTypes.MARKDOWN ) )
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES_FILE );
-            }
-            else
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES );
-            }
-
-            markdown.append( Markup.PARAGRAPH_BREAK );
-        }
-    }
-
-    private void compileSubtitle( StringBuilder markdown, int level, Node node, CompileOptions compileOptions )
-    {
-        String title = node.getSubtitle();
-        if( !StringUtils.empty( title ) )
-        {
-            level++; //we want to go on level deeper for sub-titles
-            for(int i = 0; i <= level; i++)
-            {
-                markdown.append( Markup.HEADER );
-            }
-
-            markdown.append( " " );
-            markdown.append( title );
-            markdown.append( " " );
-
-            if( node.getNodeType().equals( NodeTypes.FOLDER ) )
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES_FOLDER );
-            }
-            else if( node.getNodeType().equals( NodeTypes.MARKDOWN ) )
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES_FILE );
-            }
-            else
-            {
-                markdown.append( Markup.PANDOC_GENERATED_TITLE_ATTRIBUTES );
-            }
-
-
-            markdown.append( Markup.PARAGRAPH_BREAK );
-        }
-    }
-
-    private void compileContributors( StringBuilder body, Node node, CompileOptions compileOptions )
-    {
-        body.append( compileOptions.getNodeContributorMarkup() );
-
-        List<String> contributorNames = new ArrayList();
-        for(Contributor contributor : node.getContributors())
-        {
-            String name = StringUtils.neverNull( contributor.getName() );
-
-            if( compileOptions.includeContributorRoles() )
-            {
-                ContributorRole role = contributor.getRole();
-                if( role != null )
-                {
-                    name += ", ";
-                    name += role.getDisplay();
-                }
-            }
-
-            contributorNames.add( name );
-        }
-
-        body.append( StringUtils.csv( contributorNames ) );
-        body.append( compileOptions.getNodeContributorMarkup() );
-    }
-
-    private boolean includeTitle( CompileOptions compileOptions, Node node )
-    {
-        if( NodeTypes.FOLDER.equals( node.getNodeType() ) && compileOptions.includeTitlesOfFolders() )
-        {
-            return true;
-        }
-        else if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) && compileOptions.includeTitlesOfFiles() )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean includeSubtitle( CompileOptions compileOptions, Node node )
-    {
-        if( NodeTypes.FOLDER.equals( node.getNodeType() ) && compileOptions.includeSubtitlesOfFolders() )
-        {
-            return true;
-        }
-        else if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) && compileOptions.includeSubtitlesOfFiles() )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static String getSeparator( CompileOptions compileOptions, Node currentNode, Node nextNode )
-    {
-        if( nextNode == null )
-        {
-            return compileOptions.getEndOfDocumentMarker();
-        }
-
-        String currentNodeType = StringUtils.neverNull( currentNode.getNodeType() );
-        String nextNodeType = StringUtils.neverNull( nextNode.getNodeType() );
-
-        if( NodeTypes.FOLDER.equals( currentNodeType ) )
-        {
-            if( NodeTypes.FOLDER.equals( nextNodeType ) )
-            {
-                return compileOptions.getSeparatorFolderFolder();
-            }
-            else //assume markdown
-            {
-                return compileOptions.getSeparatorFolderFile();
-            }
-        }
-        else //assume markdown
-        {
-            if( NodeTypes.FOLDER.equals( nextNodeType ) )
-            {
-                return compileOptions.getSeparatorFileFolder();
-            }
-            else //assume markdown
-            {
-                return compileOptions.getSeparatorFileFile();
-            }
-        }
     }
 
     /////////////////
     // Pandoc command
     /////////////////
     public boolean executePandoc( ImportFormat fromFormat, ExportFormat toFormat, CompileOptions compileOptions, File metadataFile, File coverImageFile, File cssMetadataFile, File cssFile, List<File> sourceFiles, File outputFile )
-        throws Exception
-    {
+        throws Exception {
         String[] command = getPandocCommand( fromFormat, toFormat, compileOptions, metadataFile, coverImageFile, cssMetadataFile, cssFile, sourceFiles, outputFile );
         Process p = Runtime.getRuntime().exec( command );
         p.waitFor();
@@ -665,8 +410,7 @@ public class PandocCompiler
     }
 
     public static String[] getPandocCommand( ImportFormat fromFormat, ExportFormat toFormat, CompileOptions compileOptions, File metadataFile, File coverImageFile, File cssMetadataFile, File cssFile, List<File> sourceFiles, File outputFile )
-        throws Exception
-    {
+        throws Exception {
         Preferences preferences = MarkdownServer.getPreferences();
         MarkdownPreferences markdownPreferences = preferences.getMarkdownPreferences();
 
@@ -675,16 +419,14 @@ public class PandocCompiler
 
         commandSegments.add( "--ascii" ); //use only ASCI characters (and HTML escape chars for weird stuff)
         commandSegments.add( "--normalize" ); //nom extra spaces, etc
-        
-        if( !ExportFormat.MARKDOWN.equals( toFormat ) )
-        {
+
+        if( !ExportFormat.MARKDOWN.equals( toFormat ) ) {
             commandSegments.add( "--smart" );
         }
 
         //standalone
         if( !ExportFormat.HTML_SNIPPET.equals( toFormat )
-            && !ExportFormat.WORDPRESS_HTML.equals( toFormat ) )
-        {
+            && !ExportFormat.WORDPRESS_HTML.equals( toFormat ) ) {
             commandSegments.add( "--standalone" );
         }
 
@@ -693,36 +435,28 @@ public class PandocCompiler
 //            commandSegments.add( "--toc" );
 //            commandSegments.add( "--toc-depth=" + compileOptions.getTocDepth() );
 //        }
-
-        if( ExportFormat.EPUB.equals( toFormat ) )
-        {
-            if( cssFile != null )
-            {
+        if( ExportFormat.EPUB.equals( toFormat ) ) {
+            if( cssFile != null ) {
                 commandSegments.add( "--epub-stylesheet=" + cssMetadataFile.getAbsolutePath() );
             }
 
-            if( coverImageFile != null )
-            {
+            if( coverImageFile != null ) {
                 commandSegments.add( "--epub-cover-image=" + coverImageFile.getAbsolutePath() );
             }
 
-            if( metadataFile != null )
-            {
+            if( metadataFile != null ) {
                 commandSegments.add( "--epub-metadata=" + metadataFile.getAbsolutePath() );
             }
 
             commandSegments.add( "--epub-chapter-level=" + compileOptions.getEpubChapterLevel() );
         }
-        else if( ExportFormat.XHTML.equals( toFormat ) )
-        {
-            if( cssFile != null )
-            {
+        else if( ExportFormat.XHTML.equals( toFormat ) ) {
+            if( cssFile != null ) {
                 commandSegments.add( "-H" );
                 commandSegments.add( cssFile.getAbsolutePath() );
             }
         }
-        else if( ExportFormat.PDF.equals( toFormat ) )
-        {
+        else if( ExportFormat.PDF.equals( toFormat ) ) {
             commandSegments.add( "--latex-engine=" + markdownPreferences.getPathToPdfLatex() );
         }
 
@@ -730,14 +464,12 @@ public class PandocCompiler
         commandSegments.add( "-o" );
         commandSegments.add( outputFile.getAbsolutePath() );
 
-        for(File sourceFile : sourceFiles)
-        {
+        for( File sourceFile : sourceFiles ) {
             commandSegments.add( sourceFile.getAbsolutePath() );
         }
 
         System.out.println( "Pandoc command: " );
-        for(String token : commandSegments)
-        {
+        for( String token : commandSegments ) {
             System.out.print( token );
             System.out.print( " " );
         }
@@ -752,8 +484,7 @@ public class PandocCompiler
     // KindleGen
     ////////////
     public boolean executeKindlegen( File epubFile, File outputFile )
-        throws Exception
-    {
+        throws Exception {
         String[] command = getKindleGenCommand( epubFile, outputFile );
 
         Process p = Runtime.getRuntime().exec( command );
@@ -773,8 +504,7 @@ public class PandocCompiler
     }
 
     public static String[] getKindleGenCommand( File epubFile, File outputFile )
-        throws Exception
-    {
+        throws Exception {
         Preferences preferences = MarkdownServer.getPreferences();
         MarkdownPreferences markdownPreferences = preferences.getMarkdownPreferences();
 
@@ -789,8 +519,7 @@ public class PandocCompiler
         commandSegments.add( "-o" );
         commandSegments.add( outputFilePath );
 
-        for(String command : commandSegments)
-        {
+        for( String command : commandSegments ) {
             System.out.print( command );
             System.out.print( " " );
         }
@@ -805,10 +534,8 @@ public class PandocCompiler
     // Mac TextUtil
     ///////////////
     public boolean executeTextUtil( File docxFile, File outputFile, ExportFormat format )
-        throws Exception
-    {
-        if( SystemUtils.IS_MAC )
-        {
+        throws Exception {
+        if( SystemUtils.IS_MAC ) {
             String[] commandSegments = getTextUtilCommand( docxFile, outputFile, format );
             Process p = Runtime.getRuntime().exec( commandSegments );
             p.waitFor();
@@ -825,8 +552,7 @@ public class PandocCompiler
 
             return outputFile.exists();
         }
-        else
-        {
+        else {
             MarkdownMessages messages = MarkdownServer.getMessages();
             String error = messages.errorExportFormatOnlySupportedOnMacPlaceholder();
             error = StringUtils.replaceAll( error, "${format}", format.getName() );
@@ -834,22 +560,18 @@ public class PandocCompiler
         }
     }
 
-    public String[] getTextUtilCommand( File xhtmlFile, File outputFile, ExportFormat format )
-    {
+    public String[] getTextUtilCommand( File xhtmlFile, File outputFile, ExportFormat format ) {
         String extension = format.getExtension().substring( 1 );
 
-        String[] commandSegments = new String[]
-        {
+        String[] commandSegments = new String[]{
             "textutil",
             "-convert",
             extension,
             "-output",
             outputFile.getAbsolutePath(),
-            xhtmlFile.getAbsolutePath(),
-        };
+            xhtmlFile.getAbsolutePath(), };
 
-        for(String command : commandSegments)
-        {
+        for( String command : commandSegments ) {
             System.out.print( command );
             System.out.print( " " );
         }
@@ -861,10 +583,8 @@ public class PandocCompiler
     //////////
     // Formats
     //////////
-    public List<ExportFormat> getSupportedFormats()
-    {
-        ExportFormat[] formats = new ExportFormat[]
-        {
+    public List<ExportFormat> getSupportedFormats() {
+        ExportFormat[] formats = new ExportFormat[]{
             ExportFormat.MARKDOWN,
             ExportFormat.AS_IS,
             ExportFormat.XHTML,
@@ -875,61 +595,48 @@ public class PandocCompiler
             ExportFormat.RTF,
             ExportFormat.PLAIN_TEXT,
             ExportFormat.MICROSOFT_WORD,
-            ExportFormat.ODT,
-        };
+            ExportFormat.ODT, };
 
         List<ExportFormat> result = new ArrayList( Arrays.asList( formats ) );
 
         MarkdownPreferences markdownPreferences = MarkdownServer.getPreferences().getMarkdownPreferences();
 
-        if( markdownPreferences.kindleGenSupported() )
-        {
+        if( markdownPreferences.kindleGenSupported() ) {
             result.add( ExportFormat.MOBI );
         }
 
-        if( markdownPreferences.pdfLatexSupported() )
-        {
+        if( markdownPreferences.pdfLatexSupported() ) {
             result.add( ExportFormat.LATEX );
         }
 
-        if( SystemUtils.IS_MAC )
-        {
+        if( SystemUtils.IS_MAC ) {
             result.add( ExportFormat.MICROSOFT_WORD_2003 );
         }
-
 
         return result;
     }
 
     public static String getPandocFormat( ImportFormat export )
-        throws Exception
-    {
-        if( ImportFormat.MARKDOWN.equals( export ) )
-        {
+        throws Exception {
+        if( ImportFormat.MARKDOWN.equals( export ) ) {
             return "markdown";
         }
-        else if( ImportFormat.MARKDOWN_STRICT.equals( export ) )
-        {
+        else if( ImportFormat.MARKDOWN_STRICT.equals( export ) ) {
             return "markdown_strict";
         }
-        else if( ImportFormat.MARKDOWN_PHP_EXTRA.equals( export ) )
-        {
+        else if( ImportFormat.MARKDOWN_PHP_EXTRA.equals( export ) ) {
             return "markdown_phpextra";
         }
-        else if( ImportFormat.MARKDOWN_GITHUB.equals( export ) )
-        {
+        else if( ImportFormat.MARKDOWN_GITHUB.equals( export ) ) {
             return "markdown_github";
         }
-        else if( ImportFormat.MARKDOWN_MMD.equals( export ) )
-        {
+        else if( ImportFormat.MARKDOWN_MMD.equals( export ) ) {
             return "markdown_mmd";
         }
-        else if( ImportFormat.HTML.equals( export ) )
-        {
+        else if( ImportFormat.HTML.equals( export ) ) {
             return "html";
         }
-        else if( ImportFormat.LATEX.equals( export ) )
-        {
+        else if( ImportFormat.LATEX.equals( export ) ) {
             return "latex";
         }
 
@@ -937,42 +644,32 @@ public class PandocCompiler
     }
 
     public static String getPandocFormat( ExportFormat export )
-        throws Exception
-    {
-        if( ExportFormat.MARKDOWN.equals( export ) )
-        {
+        throws Exception {
+        if( ExportFormat.MARKDOWN.equals( export ) ) {
             return "markdown";
         }
-        else if( ExportFormat.XHTML.equals( export ) )
-        {
+        else if( ExportFormat.XHTML.equals( export ) ) {
             return "html";
         }
-        if( ExportFormat.HTML_SNIPPET.equals( export ) )
-        {
+        if( ExportFormat.HTML_SNIPPET.equals( export ) ) {
             return "html";
         }
-        else if( ExportFormat.RTF.equals( export ) )
-        {
+        else if( ExportFormat.RTF.equals( export ) ) {
             return "rtf";
         }
-        else if( ExportFormat.PLAIN_TEXT.equals( export ) )
-        {
+        else if( ExportFormat.PLAIN_TEXT.equals( export ) ) {
             return "plain";
         }
-        else if( ExportFormat.MICROSOFT_WORD.equals( export ) )
-        {
+        else if( ExportFormat.MICROSOFT_WORD.equals( export ) ) {
             return "docx";
         }
-        else if( ExportFormat.PDF.equals( export ) )
-        {
+        else if( ExportFormat.PDF.equals( export ) ) {
             return "pdf";
         }
-        else if( ExportFormat.EPUB.equals( export ) )
-        {
+        else if( ExportFormat.EPUB.equals( export ) ) {
             return "epub";
         }
-        else if( ExportFormat.LATEX.equals( export ) )
-        {
+        else if( ExportFormat.LATEX.equals( export ) ) {
             return "latex";
         }
 
@@ -982,22 +679,19 @@ public class PandocCompiler
     ////////////
     // Listeners
     ////////////
-    public void addListener( CompilerProgressListener listenener )
-    {
+    public void addListener( CompilerProgressListener listenener ) {
         listeners.add( listenener );
     }
 
-    public void removeListener( CompilerProgressListener listenener )
-    {
+    public void removeListener( CompilerProgressListener listenener ) {
         listeners.remove( listenener );
     }
 
-    public void notfiyListeners( Project project, int complete, int total, MarkdownCompiler source )
-    {
+    public void notfiyListeners( Project project, int complete, int total, MarkdownCompiler source ) {
         int count = listeners.size();
-        for(int i = count - 1; i >= 0; i--)
-        {
+        for( int i = count - 1; i >= 0; i-- ) {
             listeners.get( i ).progress( project, complete, total, source );
         }
     }
+
 }
