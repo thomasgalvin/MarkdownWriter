@@ -979,6 +979,13 @@ public class Controller {
         }
     }
 
+    public void formatInsertPageBreak(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Markup.PAGE_BREAK );
+        }
+    }
+    
     public void formatInsertFootnote() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {

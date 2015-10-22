@@ -178,6 +178,7 @@ extends BaseMessages
     public String menuBarFormatInsertLink(){ return getString( "menuBarFormatInsertLink" ); }
     public String menuBarFormatInsertImage(){ return getString( "menuBarFormatInsertImage" ); }
     public String menuBarFormatInsertFootnote(){ return getString( "menuBarFormatInsertFootnote" ); }
+    public String menuBarFormatInsertPageBreak(){ return getString( "menuBarFormatInsertPageBreak" ); }
     
     public String menuBarView(){ return getString( "menuBarView" ); }
     public String menuBarViewSplitHorizontal(){ return getString( "menuBarViewSplitHorizontal" ); }

@@ -84,6 +84,7 @@ public class MarkdownMenuBar
     private JMenuItem formatInsertLink = createMenuItem( messages.menuBarFormatInsertLink(), listener );
     private JMenuItem formatInsertImage = createMenuItem( messages.menuBarFormatInsertImage(), listener );
     private JMenuItem formatInsertFootnote = createMenuItem( messages.menuBarFormatInsertFootnote(), listener );
+    private JMenuItem formatInsertPageBreak = createMenuItem( messages.menuBarFormatInsertPageBreak(), listener );
     private JMenu viewMenu = new JMenu( messages.menuBarView() );
     private JMenuItem viewSplitHorizontal = createMenuItem( messages.menuBarViewSplitHorizontal(), listener );
     private JMenuItem viewSplitVertical = createMenuItem( messages.menuBarViewSplitVertical(), listener );
@@ -233,6 +234,8 @@ public class MarkdownMenuBar
         insertMenu.add( formatInsertLink );
         insertMenu.add( formatInsertImage );
         insertMenu.add( formatInsertFootnote );
+        insertMenu.addSeparator();
+        insertMenu.add( formatInsertPageBreak );
         insertMenu.addSeparator();
         insertMenu.add( toolsTextInsertCurrentDate );
         insertMenu.add( toolsTextInsertCurrentTime );
@@ -627,6 +630,9 @@ public class MarkdownMenuBar
                     else if( source == formatInsertFootnote )
                     {
                         controller.formatInsertFootnote();
+                    }
+                    else if( source == formatInsertPageBreak ){
+                        controller.formatInsertPageBreak();
                     }
                     else if( source == filePreviewCurrentDocument )
                     {
