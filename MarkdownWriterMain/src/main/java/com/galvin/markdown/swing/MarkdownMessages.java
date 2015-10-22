@@ -246,6 +246,7 @@ extends BaseMessages
     //////////////////
     
     public String treeMenuAddChild(){ return getString( "treeMenuAddChild" ); }
+    public String menuBarDocumentsNewChildText(){ return getString( "menuBarDocumentsNewChildText" ); }
     public String treeMenuAddSibling(){ return getString( "treeMenuAddSibling" ); }
     public String treeMenuAddText(){ return getString( "treeMenuAddText" ); }
     public String treeMenuAddFolder(){ return getString( "treeMenuAddFolder" ); }
