@@ -1450,6 +1450,7 @@ public class Controller {
 
     public void documentsDelete( List<DefaultMutableTreeNode> nodes ) {
         projectFrame.getTree().moveToTrash( nodes );
+        nullSelection();
     }
 
     public void documentsDuplicate() {
