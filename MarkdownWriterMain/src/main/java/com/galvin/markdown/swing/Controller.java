@@ -779,11 +779,6 @@ public class Controller {
     }
 
     public void bookendSelectedLines( String prepend, String append ) {
-//        if( StringUtils.isBlank( append ) && StringUtils.isBlank( prepend ) ) {
-//            Toolkit.getDefaultToolkit().beep();
-//            return;
-//        }
-
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             try {
