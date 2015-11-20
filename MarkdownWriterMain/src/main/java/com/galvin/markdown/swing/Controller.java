@@ -1250,8 +1250,7 @@ public class Controller {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
             
-            if( !NodeTypes.FOLDER.equals( nodeType ) &&
-                !NodeTypes.MANUSCRIPT.equals( nodeType ) ){
+            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
@@ -1269,7 +1268,7 @@ public class Controller {
         if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
+            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
