@@ -1260,24 +1260,6 @@ public class Controller {
         }
     }
 
-//    public void documentsNewFolder() {
-//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-//        documentsNewFolder( treeNode );
-//    }
-//
-//    public void documentsNewFolder( MarkdownTreeNode treeNode ) {
-//        if( treeNode != null ) {
-//            Node currentNode = treeNode.getNode();
-//            String nodeType = currentNode.getNodeType();
-//            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
-//                Toolkit.getDefaultToolkit().beep();
-//            }
-//            else {
-//                documentsNewSiblingFolder( treeNode );
-//            }
-//        }
-//    }
-
     public void documentsNewSiblingFile() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
         documentsNewSiblingFile( treeNode );
@@ -1295,94 +1277,6 @@ public class Controller {
             newNode( NodeTypes.MARKDOWN, treeNode, false );
         }
     }
-
-//    public void documentsNewChildFolder() {
-//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-//        documentsNewChildFolder( treeNode );
-//    }
-//
-//    public void documentsNewChildFolder( MarkdownTreeNode treeNode ) {
-//        if( treeNode != null ) {
-//            Node currentNode = treeNode.getNode();
-//            String nodeType = currentNode.getNodeType();
-//            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
-//                Toolkit.getDefaultToolkit().beep();
-//                return;
-//            }
-//
-//            newNode( NodeTypes.FOLDER, treeNode, true );
-//        }
-//    }
-//
-//    public void documentsNewSiblingFolder() {
-//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-//        documentsNewSiblingFolder( treeNode );
-//    }
-//
-//    public void documentsNewSiblingFolder( MarkdownTreeNode treeNode ) {
-//        if( treeNode != null ) {
-//            Node currentNode = treeNode.getNode();
-//            String nodeType = currentNode.getNodeType();
-//            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
-//                Toolkit.getDefaultToolkit().beep();
-//                return;
-//            }
-//
-//            newNode( NodeTypes.FOLDER, treeNode, false );
-//        }
-//    }
-//
-//    public void documentsConvertToFile( Node node ) {
-//        if( node != null ) {
-//            if( NodeTypes.FOLDER.equals( node.getNodeType() ) ) {
-//                node.setNodeType( NodeTypes.MARKDOWN );
-//                repaintTree();
-//            }
-//            else {
-//                Toolkit.getDefaultToolkit().beep();
-//            }
-//        }
-//    }
-//
-//    public void documentsConvertToFile() {
-//        Node markdownNode = getNodeForCurrentDocument();
-//        if( markdownNode != null ) {
-//            documentsConvertToFile( markdownNode );
-//        }
-//    }
-//
-//    public void documentsConvertToFile( MarkdownTreeNode treeNode ) {
-//        if( treeNode != null ) {
-//            Node markdownNode = treeNode.getNode();
-//            documentsConvertToFile( markdownNode );
-//        }
-//    }
-//
-//    public void documentsConvertToFolder() {
-//        Node markdownNode = getNodeForCurrentDocument();
-//        if( markdownNode != null ) {
-//            documentsConvertToFolder( markdownNode );
-//        }
-//    }
-//
-//    public void documentsConvertToFolder( MarkdownTreeNode treeNode ) {
-//        if( treeNode != null ) {
-//            Node markdownNode = treeNode.getNode();
-//            documentsConvertToFolder( markdownNode );
-//        }
-//    }
-//
-//    public void documentsConvertToFolder( Node node ) {
-//        if( node != null ) {
-//            if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) ) {
-//                node.setNodeType( NodeTypes.FOLDER );
-//                repaintTree();
-//            }
-//            else {
-//                Toolkit.getDefaultToolkit().beep();
-//            }
-//        }
-//    }
 
     public void documentsImportImages() {
         JFileChooser fileChooser = getImageFileChooser();
