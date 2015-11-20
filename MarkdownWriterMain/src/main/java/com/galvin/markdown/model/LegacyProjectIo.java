@@ -1231,7 +1231,7 @@ public class LegacyProjectIo
         theRavenFolder.setTitle( "The Raven" );
         theRavenFolder.setSubtitle( "A Tale of Terror" );
         theRavenFolder.getContributors().add( poe );
-        theRavenFolder.setNodeType( NodeTypes.FOLDER );
+        theRavenFolder.setNodeType( NodeTypes.MARKDOWN );
         theRavenFolder.setCreatedDate( new GregorianCalendar() );
         theRavenFolder.setModifiedDate( new GregorianCalendar() );
         manuscript.getChildNodes().add( theRavenFolder );
@@ -1250,7 +1250,7 @@ public class LegacyProjectIo
         Node jabberwockyFolder = new Node();
         jabberwockyFolder.setTitle( "The Jabberwocky" );
         jabberwockyFolder.getContributors().add( carroll );
-        jabberwockyFolder.setNodeType( NodeTypes.FOLDER );
+        jabberwockyFolder.setNodeType( NodeTypes.MARKDOWN );
         jabberwockyFolder.setCreatedDate( new GregorianCalendar() );
         jabberwockyFolder.setModifiedDate( new GregorianCalendar() );
         manuscript.getChildNodes().add( jabberwockyFolder );
@@ -1268,7 +1268,7 @@ public class LegacyProjectIo
 
         Node loremFolder = new Node();
         loremFolder.setTitle( "Lorem Ipsum" );
-        loremFolder.setNodeType( NodeTypes.FOLDER );
+        loremFolder.setNodeType( NodeTypes.MARKDOWN );
         loremFolder.setCreatedDate( new GregorianCalendar() );
         loremFolder.setModifiedDate( new GregorianCalendar() );
         manuscript.getChildNodes().add( loremFolder );
@@ -1286,7 +1286,7 @@ public class LegacyProjectIo
 
         Node research = new Node();
         research.setTitle( messages.titleResearch() );
-        research.setNodeType( NodeTypes.FOLDER );
+        research.setNodeType( NodeTypes.MARKDOWN );
         research.setCreatedDate( new GregorianCalendar() );
         research.setModifiedDate( new GregorianCalendar() );
         project.getChildNodes().add( research );
@@ -1307,7 +1307,7 @@ public class LegacyProjectIo
 
         Node garbage = new Node();
         garbage.setTitle( "Throw me out!" );
-        garbage.setNodeType( NodeTypes.FOLDER );
+        garbage.setNodeType( NodeTypes.MARKDOWN );
         garbage.setCreatedDate( new GregorianCalendar() );
         garbage.setModifiedDate( new GregorianCalendar() );
         trash.getChildNodes().add( garbage );

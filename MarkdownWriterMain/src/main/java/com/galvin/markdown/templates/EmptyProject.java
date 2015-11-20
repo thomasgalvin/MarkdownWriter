@@ -52,7 +52,7 @@ extends ProjectTemplate
 
         Node research = new Node();
         research.setTitle( messages.titleResearch() );
-        research.setNodeType( NodeTypes.FOLDER );
+        research.setNodeType( NodeTypes.MARKDOWN );
         research.setCreatedDate( date );
         research.setModifiedDate( date );
         project.getChildNodes().add( research );

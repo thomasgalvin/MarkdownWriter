@@ -1249,38 +1249,34 @@ public class Controller {
         if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            if( NodeTypes.MARKDOWN.equals( nodeType ) ) {
-                documentsNewSiblingFile( treeNode );
-            }
-            else if( NodeTypes.RESOURCES.equals( nodeType ) ) {
+            
+            if( !NodeTypes.FOLDER.equals( nodeType ) &&
+                !NodeTypes.MANUSCRIPT.equals( nodeType ) ){
                 Toolkit.getDefaultToolkit().beep();
+                return;
             }
-            else if( NodeTypes.RESOURCE.equals( nodeType ) ) {
-                Toolkit.getDefaultToolkit().beep();
-            }
-            else {
-                documentsNewChildFile( treeNode );
-            }
+            
+            documentsNewSiblingFile( treeNode );
         }
     }
 
-    public void documentsNewFolder() {
-        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-        documentsNewFolder( treeNode );
-    }
-
-    public void documentsNewFolder( MarkdownTreeNode treeNode ) {
-        if( treeNode != null ) {
-            Node currentNode = treeNode.getNode();
-            String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
-                Toolkit.getDefaultToolkit().beep();
-            }
-            else {
-                documentsNewSiblingFolder( treeNode );
-            }
-        }
-    }
+//    public void documentsNewFolder() {
+//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
+//        documentsNewFolder( treeNode );
+//    }
+//
+//    public void documentsNewFolder( MarkdownTreeNode treeNode ) {
+//        if( treeNode != null ) {
+//            Node currentNode = treeNode.getNode();
+//            String nodeType = currentNode.getNodeType();
+//            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
+//                Toolkit.getDefaultToolkit().beep();
+//            }
+//            else {
+//                documentsNewSiblingFolder( treeNode );
+//            }
+//        }
+//    }
 
     public void documentsNewSiblingFile() {
         MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
@@ -1300,93 +1296,93 @@ public class Controller {
         }
     }
 
-    public void documentsNewChildFolder() {
-        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-        documentsNewChildFolder( treeNode );
-    }
-
-    public void documentsNewChildFolder( MarkdownTreeNode treeNode ) {
-        if( treeNode != null ) {
-            Node currentNode = treeNode.getNode();
-            String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
-                Toolkit.getDefaultToolkit().beep();
-                return;
-            }
-
-            newNode( NodeTypes.FOLDER, treeNode, true );
-        }
-    }
-
-    public void documentsNewSiblingFolder() {
-        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
-        documentsNewSiblingFolder( treeNode );
-    }
-
-    public void documentsNewSiblingFolder( MarkdownTreeNode treeNode ) {
-        if( treeNode != null ) {
-            Node currentNode = treeNode.getNode();
-            String nodeType = currentNode.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
-                Toolkit.getDefaultToolkit().beep();
-                return;
-            }
-
-            newNode( NodeTypes.FOLDER, treeNode, false );
-        }
-    }
-
-    public void documentsConvertToFile( Node node ) {
-        if( node != null ) {
-            if( NodeTypes.FOLDER.equals( node.getNodeType() ) ) {
-                node.setNodeType( NodeTypes.MARKDOWN );
-                repaintTree();
-            }
-            else {
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-    }
-
-    public void documentsConvertToFile() {
-        Node markdownNode = getNodeForCurrentDocument();
-        if( markdownNode != null ) {
-            documentsConvertToFile( markdownNode );
-        }
-    }
-
-    public void documentsConvertToFile( MarkdownTreeNode treeNode ) {
-        if( treeNode != null ) {
-            Node markdownNode = treeNode.getNode();
-            documentsConvertToFile( markdownNode );
-        }
-    }
-
-    public void documentsConvertToFolder() {
-        Node markdownNode = getNodeForCurrentDocument();
-        if( markdownNode != null ) {
-            documentsConvertToFolder( markdownNode );
-        }
-    }
-
-    public void documentsConvertToFolder( MarkdownTreeNode treeNode ) {
-        if( treeNode != null ) {
-            Node markdownNode = treeNode.getNode();
-            documentsConvertToFolder( markdownNode );
-        }
-    }
-
-    public void documentsConvertToFolder( Node node ) {
-        if( node != null ) {
-            if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) ) {
-                node.setNodeType( NodeTypes.FOLDER );
-                repaintTree();
-            }
-            else {
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-    }
+//    public void documentsNewChildFolder() {
+//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
+//        documentsNewChildFolder( treeNode );
+//    }
+//
+//    public void documentsNewChildFolder( MarkdownTreeNode treeNode ) {
+//        if( treeNode != null ) {
+//            Node currentNode = treeNode.getNode();
+//            String nodeType = currentNode.getNodeType();
+//            if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
+//                Toolkit.getDefaultToolkit().beep();
+//                return;
+//            }
+//
+//            newNode( NodeTypes.FOLDER, treeNode, true );
+//        }
+//    }
+//
+//    public void documentsNewSiblingFolder() {
+//        MarkdownTreeNode treeNode = getTreeNodeForCurrentDocument();
+//        documentsNewSiblingFolder( treeNode );
+//    }
+//
+//    public void documentsNewSiblingFolder( MarkdownTreeNode treeNode ) {
+//        if( treeNode != null ) {
+//            Node currentNode = treeNode.getNode();
+//            String nodeType = currentNode.getNodeType();
+//            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
+//                Toolkit.getDefaultToolkit().beep();
+//                return;
+//            }
+//
+//            newNode( NodeTypes.FOLDER, treeNode, false );
+//        }
+//    }
+//
+//    public void documentsConvertToFile( Node node ) {
+//        if( node != null ) {
+//            if( NodeTypes.FOLDER.equals( node.getNodeType() ) ) {
+//                node.setNodeType( NodeTypes.MARKDOWN );
+//                repaintTree();
+//            }
+//            else {
+//                Toolkit.getDefaultToolkit().beep();
+//            }
+//        }
+//    }
+//
+//    public void documentsConvertToFile() {
+//        Node markdownNode = getNodeForCurrentDocument();
+//        if( markdownNode != null ) {
+//            documentsConvertToFile( markdownNode );
+//        }
+//    }
+//
+//    public void documentsConvertToFile( MarkdownTreeNode treeNode ) {
+//        if( treeNode != null ) {
+//            Node markdownNode = treeNode.getNode();
+//            documentsConvertToFile( markdownNode );
+//        }
+//    }
+//
+//    public void documentsConvertToFolder() {
+//        Node markdownNode = getNodeForCurrentDocument();
+//        if( markdownNode != null ) {
+//            documentsConvertToFolder( markdownNode );
+//        }
+//    }
+//
+//    public void documentsConvertToFolder( MarkdownTreeNode treeNode ) {
+//        if( treeNode != null ) {
+//            Node markdownNode = treeNode.getNode();
+//            documentsConvertToFolder( markdownNode );
+//        }
+//    }
+//
+//    public void documentsConvertToFolder( Node node ) {
+//        if( node != null ) {
+//            if( NodeTypes.MARKDOWN.equals( node.getNodeType() ) ) {
+//                node.setNodeType( NodeTypes.FOLDER );
+//                repaintTree();
+//            }
+//            else {
+//                Toolkit.getDefaultToolkit().beep();
+//            }
+//        }
+//    }
 
     public void documentsImportImages() {
         JFileChooser fileChooser = getImageFileChooser();
@@ -1471,7 +1467,7 @@ public class Controller {
                         Node duplicate = ProjectIo.clone( node, projectFrame.getProject().getProjectDirectory(), false, false );
                         duplicate.setTitle( name );
                         if( NodeTypes.MANUSCRIPT.equals( duplicate.getNodeType() ) ) {
-                            duplicate.setNodeType( NodeTypes.FOLDER );
+                            duplicate.setNodeType( NodeTypes.MARKDOWN );
                         }
 
                         MarkdownTreeNode newTreeNode = projectFrame.getTree().addNodes( treeNode, duplicate );
