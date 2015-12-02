@@ -4,12 +4,10 @@
 package com.galvin.markdown.compilers;
 
 import com.galvin.markdown.model.Contributor;
-import com.galvin.markdown.model.ContributorRole;
 import com.galvin.markdown.model.IdentifierScheme;
 import com.galvin.markdown.model.ImageResource;
 import com.galvin.markdown.model.Node;
 import com.galvin.markdown.model.NodeSection;
-import com.galvin.markdown.model.NodeTypes;
 import com.galvin.markdown.model.Project;
 import com.galvin.markdown.preferences.MarkdownPreferences;
 import com.galvin.markdown.preferences.Preferences;
@@ -40,8 +38,6 @@ public class PandocCompiler
     private static final String COVER_IMAGE_PNG = "cover.png";
     private static final String CSS_METADATA_FILE = "styleMetadata.css";
     private static final String CSS_FILE = "style.css";
-//    private static final String EPUB_TEMPLATE_LOCATION = "/com/galvin/markdown/templates/pandoc/epub.html";
-//    private static final String EPUB_TEMPLATE = "epub.html";
     private List<CompilerProgressListener> listeners = new ArrayList();
 
     @Override
@@ -76,11 +72,14 @@ public class PandocCompiler
 
         File outputDir = compileOptions.getOutputDirectory();
         File workingDir = SystemUtils.getRandomTempDir();
+        
+        NodeSeparators separators = compileOptions.getSeparators();
 
         outputDir.mkdirs();
         workingDir.mkdirs();
 
-        List<Node> nodes = Utils.flatten( compileOptions.getManuscript(), compileOptions.getProject().getProjectDirectory() );
+        List<Node> nodes = Utils.flatten( compileOptions.getManuscript(), 
+                                          compileOptions.getProject().getProjectDirectory() );
         List<File> sourceFiles = new ArrayList();
 
         List<ExportFormat> exportFormats = new ArrayList();
@@ -121,8 +120,6 @@ public class PandocCompiler
 
             MarkdownDocument document = Utils.getDocument( currentNode, compileOptions.getNodeSection() );
             if( document != null ) {
-                
-                
                 String body = DocumentUtils.getText( document );
                 
                 StringBuilder builder = new StringBuilder();
@@ -130,7 +127,16 @@ public class PandocCompiler
                 builder.append( "\n\n" );
 
                 if( nextNode == null ) {
-                    builder.append( compileOptions.getEndOfDocumentMarker() );
+                    builder.append( separators.getEndOfDocumentMarker() );
+                }
+                else if( currentNode.getLevel() == nextNode.getLevel() ) {
+                    builder.append( separators.getSeparatorSameLevel() );
+                }
+                else if( currentNode.getLevel() > nextNode.getLevel() ) {
+                    builder.append( separators.getSeparatorHigherToLower() );
+                }
+                else if( currentNode.getLevel() < nextNode.getLevel() ) {
+                    builder.append( separators.getSeparatorLowerToHigher() );
                 }
                 
                 FileUtils.write( sourceFile, builder.toString() );

@@ -7,6 +7,7 @@ public class Markup
     public static final String LINE_BREAK = "  \n";
     public static final String PARAGRAPH_BREAK = "\n\n";
     public static final String PAGE_BREAK = "\n\n<div style='page-break-after: always' ></div>\n\n";
+    public static final String SECTION_BREAK = "\n\n<div class='section-break'>\\*\\*\\*</div>\n\n";
     public static final String SMALL_CENTERED_HR = "\n\n<hr style=\"text-align: center; width:25%; overflow:hidden;\" />\n\n";
     public static final String HR = "\n\n-----\n\n";
     

@@ -3,6 +3,7 @@ Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.util;
 
+import com.galvin.markdown.compilers.NodeSeparators;
 import com.galvin.markdown.model.ImageResource;
 import com.galvin.markdown.model.Node;
 import com.galvin.markdown.model.NodeSection;
@@ -56,8 +57,23 @@ public class Utils
         return MimeTypes.MIME_TYPE_OTHER;
     }
     
+    public static void setLevels( List<Node> nodes ){
+        setLevels( nodes, 0 );
+    }
+    
+    private static void setLevels( List<Node> nodes, int level ) {
+        for( Node node : nodes ) {
+            node.setLevel( level );
+            int childLevel = level + 1;
+            for( Node child : node.getChildNodes() ) {
+                node.setLevel( childLevel );
+            }
+        }
+    }
+    
     public static List<Node> flatten( List<Node> nodes, File projectDirectory ) throws IOException
     {
+        setLevels( nodes );
         return flatten( nodes, projectDirectory, 0 );
     }
 

@@ -29,6 +29,8 @@ public class CompileOptions
     private int epubChapterLevel = 1;
     private boolean generateTitleBlock = true;
     
+    private NodeSeparators separators = new NodeSeparators();
+    
     @Deprecated private boolean includeContributors = true;
     @Deprecated private boolean includeContributorRoles = true;
     @Deprecated private boolean includeTitlesOfFolders = true;
@@ -49,7 +51,7 @@ public class CompileOptions
     @Deprecated private String unusedCustomSeparatorFileFile = "";
     @Deprecated private String unusedCustomSeparatorTitleFile = "";
     @Deprecated private String unusedCustomSeparatorTitleFolder = "";
-    private String endOfDocumentMarker = "";
+    
     private String projectContributorMarkup = "*";
     private String nodeContributorMarkup = "*";
 
@@ -82,16 +84,6 @@ public class CompileOptions
     {
         setManuscript( project.getManuscript().getChildNodes() );
         setResources( project.getResources().getChildNodes() );
-    }
-
-    public String getEndOfDocumentMarker()
-    {
-        return endOfDocumentMarker;
-    }
-
-    public void setEndOfDocumentMarker( String endOfDocumentMarker )
-    {
-        this.endOfDocumentMarker = endOfDocumentMarker;
     }
 
     public List<ExportFormat> getExportFormats()
@@ -446,5 +438,13 @@ public class CompileOptions
     public void setGenerateTitleBlock( boolean generateTitleBlock )
     {
         this.generateTitleBlock = generateTitleBlock;
+    }
+
+    public NodeSeparators getSeparators() {
+        return separators;
+    }
+
+    public void setSeparators( NodeSeparators separators ) {
+        this.separators = separators;
     }
 }
