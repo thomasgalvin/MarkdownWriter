@@ -19,8 +19,9 @@ public class EditorPreferences
     private boolean showInvisibles = false;
     private boolean softTabs = true;
     private int spacesPerTab = 4; 
-    private transient Color backgroundColor = Color.DARK_GRAY;
-    private transient Color textColor = Color.WHITE;
+    //private transient Color backgroundColor = Color.DARK_GRAY;
+    private transient Color backgroundColor = new Color(41, 49, 52);
+    private transient Color textColor = Color.CYAN;
     
     public boolean highlightLines()
     {
