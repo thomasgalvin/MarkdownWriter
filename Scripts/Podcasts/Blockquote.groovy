@@ -33,7 +33,8 @@ for( int i = 0; i < lines.length; i++ ){
         
         newText.append( "> ##### " );
         newText.append( line );
-        newText.append( " ##### {.slugline}" );
+        newText.append( " ##### {.slugline}\n" );
+        newText.append( ">" );
     }
     else {
         newText.append( "> " );
