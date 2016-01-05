@@ -7,6 +7,10 @@ import galvin.StringUtils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -19,6 +23,7 @@ public class GroovyMenu
     private Controller controller;
     private JMenuItem reloadScriptsItem = createMenuItem( messages.menuBarGroovyReload(), listener );
     private JMenuItem openScriptsDirItem = createMenuItem( messages.menuBarGroovyOpenDir(), listener );
+    private MenuComparator menuComparator = new MenuComparator();
 
     public GroovyMenu( Controller controller )
     {
@@ -53,20 +58,38 @@ public class GroovyMenu
         File[] scripts = scriptsDir.listFiles();
         if( scripts != null )
         {
+            List<JMenu> dirs = new ArrayList();
+            List<ScriptMenuItem> files = new ArrayList();
+            
             for( File script : scripts )
             {
                 if( script.isDirectory() )
                 {
                     JMenu dirMenu = loadGroovyScripts( script );
-                    menu.add( dirMenu );
+                    dirs.add( dirMenu );
                     count++;
                 }
                 else if( script.getName().endsWith( ".groovy" ) )
                 {
                     ScriptMenuItem item = new ScriptMenuItem( script );
-                    menu.add( item );
+                    files.add( item );
                     count++;
                 }
+            }
+            
+            Collections.sort( dirs, menuComparator );
+            Collections.sort( files, menuComparator );
+            
+            for( JMenu item : dirs ){
+                menu.add( item );
+            }
+            
+            if( !dirs.isEmpty() && !files.isEmpty() ) {
+                menu.addSeparator();
+            }
+            
+            for( ScriptMenuItem item : files ){
+                menu.add( item );
             }
         }
 
@@ -137,5 +160,16 @@ public class GroovyMenu
             super( messages.menuBarGroovyNoScripts() );
             setEnabled( false );
         }
+    }
+    
+    private class MenuComparator implements Comparator {
+        @Override
+        public int compare( Object o1, Object o2 ) {
+            JMenuItem menu1 = (JMenuItem)o1;
+            JMenuItem menu2 = (JMenuItem)o2;
+            
+            return menu1.getText().compareTo( menu2.getText() );
+        }
+        
     }
 }
