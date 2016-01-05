@@ -6,20 +6,25 @@ import com.galvin.markdown.swing.MarkdownMessages;
 import com.galvin.markdown.swing.MarkdownServer;
 import galvin.StringUtils;
 import galvin.swing.GuiUtils;
+import galvin.swing.spell.SpellUtils;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RenameDocumentDialog
 extends JDialog
 {
+    private static final Logger logger = LoggerFactory.getLogger( RenameDocumentDialog.class );
     private Controller controller;
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private JLabel titleLabel = new JLabel( messages.dialogRenameTitle() );
@@ -43,6 +48,13 @@ extends JDialog
         
         titleTextField.selectAll();
         subTitleTextField.selectAll();
+
+        try {
+            SpellUtils.setUpSpelling( titleTextField, controller.getProject().getProjectDictionary() );
+            SpellUtils.setUpSpelling( subTitleTextField, controller.getProject().getProjectDictionary() );
+        } catch( IOException ioe ){
+            logger.error( "Error loading project spell dictionary", ioe );
+        }
         
         layoutPanel = new LayoutPanel();
         layoutPanel.doLayout();
