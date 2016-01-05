@@ -50,12 +50,6 @@ implements MacroEditor.MacroListListener
         
         setTitle( messages.dialogMacrosTitle() );
 
-        System.out.println( "*" );
-        System.out.println( "*" );
-        System.out.println( "*" );
-        System.out.println( "*" );
-        System.out.println( "*" );
-        System.out.println( "*" );
         SpellDictionaryUser userDict = null;
         try{
             System.out.println( "dict file: " + controller.getProject().getProjectDictionaryFile().getAbsolutePath() );
@@ -63,9 +57,7 @@ implements MacroEditor.MacroListListener
         }
         catch( IOException ioe ){
             logger.error( "Error loading user dict", ioe );
-            ioe.printStackTrace();
         }
-        System.out.println( "User dict: " + userDict );
         globalMacrosEditor = new MacroEditor( userDict );
         projectMacrosEditor = new MacroEditor( userDict );
         
