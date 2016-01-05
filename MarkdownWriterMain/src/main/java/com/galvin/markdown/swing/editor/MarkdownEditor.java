@@ -7,6 +7,7 @@ import com.galvin.markdown.preferences.EditorPreferences;
 import com.galvin.markdown.preferences.Preferences;
 import com.swabunga.spell.engine.SpellDictionary;
 import galvin.swing.editor.Editor;
+import galvin.swing.spell.SpellDictionaryUser;
 import galvin.swing.spell.SpellUtils;
 import galvin.swing.spell.SpellingHighlighter;
 import galvin.swing.spell.SpellingPopupMenu;
@@ -41,7 +42,7 @@ public class MarkdownEditor
     {
         try
         {
-            setSpellingHighlighter( new SpellingHighlighter( this ) );
+            setSpellingHighlighter( new SpellingHighlighter( this, (SpellDictionaryUser)getProjectDictionary() ) );
             spellingPopupMenu = new SpellingPopupMenu( this, SpellUtils.getCustomDictionary(), getProjectDictionary() );
         }
         catch( Throwable t )
