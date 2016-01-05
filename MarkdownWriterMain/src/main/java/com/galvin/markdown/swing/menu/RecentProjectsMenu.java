@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.apache.commons.lang3.StringUtils;
 
 public class RecentProjectsMenu
     extends JMenu
@@ -67,7 +68,12 @@ public class RecentProjectsMenu
 
         public RecentProjectMenuItem( RecentProject recentProject )
         {
-            super( recentProject.getTitle() );
+            super( name( recentProject ) );
+            
+            if( recentProject.getProjectFile() != null ){
+                setToolTipText( recentProject.getProjectFile().getAbsolutePath() );
+            }
+            
             this.recentProject = recentProject;
             addActionListener( this );
         }
@@ -78,4 +84,18 @@ public class RecentProjectsMenu
         }
     }
 
+    private static String name( RecentProject recentProject ) {
+        String result = "";
+        if( recentProject != null &&
+            recentProject.getProjectFile() != null )
+        {
+            result = recentProject.getProjectFile().getName();
+        }
+        
+        if( StringUtils.isBlank( result ) ){
+            result = "Untitled";
+        }
+        
+        return result;
+    }
 }
