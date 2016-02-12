@@ -2,6 +2,7 @@ package com.galvin.markdown.model;
 
 import com.galvin.markdown.compilers.CompileOptions;
 import com.galvin.markdown.compilers.Markup;
+import com.galvin.markdown.compilers.NodeSeparators;
 import com.galvin.markdown.preferences.EditorPreferences;
 import com.galvin.markdown.preferences.Preferences;
 import com.galvin.markdown.swing.MarkdownMessages;
@@ -600,6 +601,25 @@ public class ProjectIo
         result.setIncludeTOC( compileOptions.includeTOC() );
         result.setTocDepth( compileOptions.getTocDepth() );
         result.setEpubChapterLevel( compileOptions.getEpubChapterLevel() );
+        
+        NodeSeparators separators = new NodeSeparators();
+        result.setSeparators( separators );
+        
+        NodeSeparators originalSeparators = compileOptions.getSeparators();
+        if( originalSeparators != null ){
+            separators.setSeparatorSameLevel( originalSeparators.getSeparatorSameLevel() );
+            separators.setSeparatorHigherToLower( originalSeparators.getSeparatorHigherToLower() );
+            separators.setSeparatorLowerToHigher( originalSeparators.getSeparatorLowerToHigher() );
+            separators.setEndOfDocumentMarker( originalSeparators.getEndOfDocumentMarker());
+            
+            separators.setCustomSameLevel( originalSeparators.getCustomSameLevel() );
+            separators.setCustomHigherToLower( originalSeparators.getCustomHigherToLower() );
+            separators.setCustomLowerToHigher( originalSeparators.getCustomLowerToHigher() );
+            separators.setCustomEndOfDocument( originalSeparators.getCustomEndOfDocument() );
+        }
+        
+        result.setProjectContributorMarkup( compileOptions.getProjectContributorMarkup() );
+        result.setNodeContributorMarkup( compileOptions.getNodeContributorMarkup() );
         result.setIncludeContributors( compileOptions.includeContributors() );
         result.setIncludeContributorRoles( compileOptions.includeContributorRoles() );
         result.setIncludeTitlesOfFolders( compileOptions.includeTitlesOfFolders() );
@@ -613,8 +633,7 @@ public class ProjectIo
         result.setSeparatorFileFile( compileOptions.getSeparatorFileFile() );
         result.setSeparatorTitleFile( compileOptions.getSeparatorTitleFile() );
         result.setSeparatorTitleFolder( compileOptions.getSeparatorTitleFolder() );
-        result.setProjectContributorMarkup( compileOptions.getProjectContributorMarkup() );
-        result.setNodeContributorMarkup( compileOptions.getNodeContributorMarkup() );
+        
 
         return result;
     }
