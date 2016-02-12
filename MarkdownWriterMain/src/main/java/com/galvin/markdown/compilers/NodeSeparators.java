@@ -2,7 +2,7 @@ package com.galvin.markdown.compilers;
 
 public class NodeSeparators
 {
-    private String separatorSameLevel = Markup.SECTION_BREAK;
+    private String separatorSameLevel = Markup.PARAGRAPH_BREAK;
     private String separatorHigherToLower = Markup.PARAGRAPH_BREAK;
     private String separatorLowerToHigher = Markup.PARAGRAPH_BREAK;
     private String endOfDocumentMarker = "";
