@@ -207,9 +207,6 @@ extends BaseMessages
     
     public String menuBarDocuments(){ return getString( "menuBarDocuments" ); }
     public String menuBarDocumentsNewFile(){ return getString( "menuBarDocumentsNewFile" ); }
-//    public String menuBarDocumentsNewFolder(){ return getString( "menuBarDocumentsNewFolder" ); }
-//    public String menuBarDocumentsConvertToFile(){ return getString( "menuBarDocumentsConvertToFile" ); }
-//    public String menuBarDocumentsConvertToFolder(){ return getString( "menuBarDocumentsConvertToFolder" ); }
     public String menuBarDocumentsRename(){ return getString( "menuBarDocumentsRename" ); }
     public String menuBarDocumentsImportImages(){ return getString( "menuBarDocumentsImportImages" ); }
     public String menuBarDocumentsDelete(){ return getString( "menuBarDocumentsDelete" ); }
@@ -260,14 +257,11 @@ extends BaseMessages
     public String menuBarDocumentsNewChildText(){ return getString( "menuBarDocumentsNewChildText" ); }
     public String treeMenuAddSibling(){ return getString( "treeMenuAddSibling" ); }
     public String treeMenuAddText(){ return getString( "treeMenuAddText" ); }
-//    public String treeMenuAddFolder(){ return getString( "treeMenuAddFolder" ); }
     
     public String treeMenuRename(){ return getString( "treeMenuRename" ); }
     public String treeMenuDelete(){ return getString( "treeMenuDelete" ); }
     public String treeMenuDuplicate(){ return getString( "treeMenuDuplicate" ); }
     public String treeMenuJoin(){ return getString( "treeMenuJoin" ); }
-//    public String treeMenuConvertToFile(){ return getString( "treeMenuConvertToFile" ); }
-//    public String treeMenuConvertToFolder(){ return getString( "treeMenuConvertToFolder" ); }
     public String treeMenuEmptyTrash(){ return getString( "treeMenuEmptyTrash" ); }
     
     
@@ -410,7 +404,6 @@ extends BaseMessages
     public String compileDialogTitle(){ return getString( "compileDialogTitle" ); }
     public String outputCompileOptions(){ return getString( "outputCompileOptions" ); }
     public String includeCompileOptions(){ return getString( "includeCompileOptions" ); }
-    public String separatorCompileOptions(){ return getString( "separatorCompileOptions" ); }
     public String doCompile(){ return getString( "doCompile" ); }
     public String cancelCompile(){ return getString( "cancelCompile" ); }
     
@@ -443,6 +436,17 @@ extends BaseMessages
     public String includeTitlesOfFiles(){ return getString( "includeTitlesOfFiles" ); }
     public String includeSubtitlesOfFiles(){ return getString( "includeSubtitlesOfFiles" ); }
     public String includeTableOfContents(){ return getString( "includeTableOfContents" ); }
+    
+    ////////////////////////////
+    // Separator Compile Options
+    ////////////////////////////
+    
+    public String separatorCompileOptions(){ return getString( "separatorCompileOptions" ); }
+    public String separatorSameLevel(){ return getString( "separatorSameLevel" ); }
+    public String separatorHigherToLower(){ return getString( "separatorHigherToLower" ); }
+    public String separatorLowerToHigher(){ return getString( "separatorLowerToHigher" ); }
+    public String endOfDocumentMarker(){ return getString( "endOfDocumentMarker" ); }
+    public String separatorCustom(){ return getString( "separatorCustom" ); }
 
     /////////////////////
     // Contributor widget

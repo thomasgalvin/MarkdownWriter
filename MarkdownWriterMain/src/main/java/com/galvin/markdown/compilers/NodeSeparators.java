@@ -7,6 +7,11 @@ public class NodeSeparators
     private String separatorLowerToHigher = Markup.PARAGRAPH_BREAK;
     private String endOfDocumentMarker = "";
     
+    private String customSameLevel;
+    private String customHigherToLower;
+    private String customLowerToHigher;
+    private String customEndOfDocument;
+    
     public String getSeparatorSameLevel() {
         return separatorSameLevel;
     }
@@ -37,6 +42,38 @@ public class NodeSeparators
 
     public void setEndOfDocumentMarker( String endOfDocumentMarker ) {
         this.endOfDocumentMarker = endOfDocumentMarker;
+    }
+
+    public String getCustomSameLevel() {
+        return customSameLevel;
+    }
+
+    public void setCustomSameLevel( String customSameLevel ) {
+        this.customSameLevel = customSameLevel;
+    }
+
+    public String getCustomHigherToLower() {
+        return customHigherToLower;
+    }
+
+    public void setCustomHigherToLower( String customHigherToLower ) {
+        this.customHigherToLower = customHigherToLower;
+    }
+
+    public String getCustomLowerToHigher() {
+        return customLowerToHigher;
+    }
+
+    public void setCustomLowerToHigher( String customLowerToHigher ) {
+        this.customLowerToHigher = customLowerToHigher;
+    }
+
+    public String getCustomEndOfDocument() {
+        return customEndOfDocument;
+    }
+
+    public void setCustomEndOfDocument( String customEndOfDocument ) {
+        this.customEndOfDocument = customEndOfDocument;
     }
     
 }
