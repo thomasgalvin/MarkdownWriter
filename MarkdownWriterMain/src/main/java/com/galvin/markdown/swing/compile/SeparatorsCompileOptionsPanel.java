@@ -7,7 +7,8 @@ import com.galvin.markdown.swing.MarkdownMessages;
 import com.galvin.markdown.swing.MarkdownServer;
 import com.galvin.markdown.swing.editor.MarkdownEditor;
 import galvin.StringUtils;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -39,27 +40,83 @@ public class SeparatorsCompileOptionsPanel extends AbstractCompileOptionsPanel
     public SeparatorsCompileOptionsPanel( CompileDialog compileDialog ) {
         super( compileDialog );
         
-        setLayout( new GridLayout( 0, 1 ) );
+        setLayout( new GridBagLayout() );
         
-        add( separatorSameLevelLabel );
-        add( separatorSameLevel );
-        add( separatorSameLevelCustomScrollPane );
-        add( new JLabel( " " ) );
+        GridBagConstraints labelConstraints = new GridBagConstraints();
+        labelConstraints.gridx = 0;
+        labelConstraints.gridy = 0;
+        labelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        labelConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        labelConstraints.weightx = 1.0;
+        labelConstraints.weighty = 1.0;
+        labelConstraints.gridwidth = 1;
+        labelConstraints.gridheight = 1;
         
-        add( separatorHigherToLowerLabel );
-        add( separatorHigherToLower );
-        add( separatorHigherToLowerCustomScrollPane );
-        add( new JLabel( " " ) );
+        GridBagConstraints comboConstraints = new GridBagConstraints();
+        comboConstraints.gridx = 0;
+        comboConstraints.gridy = 1;
+        comboConstraints.fill = GridBagConstraints.HORIZONTAL;
+        comboConstraints.anchor = GridBagConstraints.LINE_START;
+        comboConstraints.weightx = 1.0;
+        comboConstraints.weighty = 1.0;
+        comboConstraints.gridwidth = 1;
+        comboConstraints.gridheight = 1;
         
-        add( separatorLowerToHigherLabel );
-        add( separatorLowerToHigher );
-        add( separatorLowerToHigherCustomScrollPane );
-        add( new JLabel( " " ) );
+        GridBagConstraints textConstraints = new GridBagConstraints();
+        textConstraints.gridx = 0;
+        textConstraints.gridy = 2;
+        textConstraints.fill = GridBagConstraints.HORIZONTAL;
+        textConstraints.anchor = GridBagConstraints.LINE_START;
+        textConstraints.weightx = 1.0;
+        textConstraints.weighty = 1.0;
+        textConstraints.gridwidth = 1;
+        textConstraints.gridheight = GridBagConstraints.REMAINDER;
         
-        add( endOfDocumentMarkerLabel );
-        add( endOfDocumentMarker );
-        add( endOfDocumentMarkerCustomScrollPane );
-        add( new JLabel( " " ) );
+        GridBagConstraints spacerConstraints = new GridBagConstraints();
+        spacerConstraints.gridx = 0;
+        spacerConstraints.gridy = 3;
+        spacerConstraints.fill = GridBagConstraints.HORIZONTAL;
+        spacerConstraints.anchor = GridBagConstraints.LINE_START;
+        spacerConstraints.weightx = 1.0;
+        spacerConstraints.weighty = 1.0;
+        spacerConstraints.gridwidth = 1;
+        spacerConstraints.gridheight = 1;
+        
+        add( separatorSameLevelLabel, labelConstraints );
+        add( separatorSameLevel, comboConstraints );
+        add( separatorSameLevelCustomScrollPane, textConstraints );
+        add( new JLabel( " " ), spacerConstraints );
+        
+//        labelConstraints.gridy++;
+//        comboConstraints.gridy++;
+//        textConstraints.gridy++;
+//        spacerConstraints.gridy++;
+//        labelConstraints.anchor = GridBagConstraints.LINE_START;
+//        
+//        add( separatorHigherToLowerLabel, labelConstraints );
+//        add( separatorHigherToLower, comboConstraints );
+//        add( separatorHigherToLowerCustomScrollPane );
+//        add( new JLabel( " " ), spacerConstraints );
+//        
+//        labelConstraints.gridy++;
+//        comboConstraints.gridy++;
+//        textConstraints.gridy++;
+//        spacerConstraints.gridy++;
+//        
+//        add( separatorLowerToHigherLabel, labelConstraints );
+//        add( separatorLowerToHigher, comboConstraints );
+//        add( separatorLowerToHigherCustomScrollPane, textConstraints );
+//        add( new JLabel( " " ), spacerConstraints );
+//        
+//        labelConstraints.gridy++;
+//        comboConstraints.gridy++;
+//        textConstraints.gridy++;
+//        spacerConstraints.gridy++;
+//        
+//        add( endOfDocumentMarkerLabel, labelConstraints );
+//        add( endOfDocumentMarker, comboConstraints );
+//        add( endOfDocumentMarkerCustomScrollPane, textConstraints );
+//        add( new JLabel( " " ), spacerConstraints );
     }
     
     @Override
