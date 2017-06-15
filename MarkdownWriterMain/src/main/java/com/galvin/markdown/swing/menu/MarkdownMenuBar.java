@@ -56,8 +56,7 @@ public class MarkdownMenuBar
     private JMenuItem editRedo = createMenuItem( messages.menuBarEditRedo(), listener );
     private JMenuItem editSelectAll = createMenuItem( messages.menuBarEditSelectAll(), listener );
     private JMenuItem editGoToLine = createMenuItem( messages.menuBarEditGoToLine(), listener );
-    private JMenuItem editPrependToSelectedLines = createMenuItem( messages.menuBarEditPrependToSelectedLines(), listener );
-    private JMenuItem editAppendToSelectedLines = createMenuItem( messages.menuBarEditAppendToSelectedLines(), listener );
+    private JMenuItem editPrependAppendToSelectedLines = createMenuItem( messages.menuBarEditPrependAppendToSelectedLines(), listener );
     private JMenuItem editFindInProject = createMenuItem( messages.menuBarEditFindInProject(), listener );
     private JMenuItem editFindNext = createMenuItem( messages.menuBarEditFindNext(), listener );
     private JMenuItem editToggleLiveSpellcheck = createMenuItem( messages.menuBarEditTurnLiveSpellcheckOff(), listener );
@@ -266,8 +265,7 @@ public class MarkdownMenuBar
         textToolsMenu.add( toolsTextDeleteToStartOfLine );
         textToolsMenu.add( toolsTextDeleteToEndOfLine );
         textToolsMenu.addSeparator();
-        textToolsMenu.add( editPrependToSelectedLines );
-        textToolsMenu.add( editAppendToSelectedLines );
+        textToolsMenu.add( editPrependAppendToSelectedLines );
 
         viewMenu.add( viewSplitVertical );
         viewMenu.add( viewSplitHorizontal );
@@ -279,17 +277,8 @@ public class MarkdownMenuBar
 
         documentsMenu.add( menuBarDocumentsNewFile );
         documentsMenu.add( menuBarDocumentsNewChildText );
-//        documentsMenu.add( menuBarDocumentsNewFolder );
         documentsMenu.addSeparator();
-//        documentsMenu.add( addSibling );
-//        addSibling.add( addSiblingText );
-//        addSibling.add( addSiblingFolder );
-//        documentsMenu.add( addChild );
-//        addChild.add( addChildText );
-//        addChild.add( addChildFolder );
         documentsMenu.addSeparator();
-//        documentsMenu.add( documentsConvertToFile );
-//        documentsMenu.add( documentsConvertToFolder );
         documentsMenu.add( documentsRename );
         documentsMenu.addSeparator();
         documentsMenu.add( documentsDuplicate );
@@ -526,13 +515,8 @@ public class MarkdownMenuBar
                     {
                         controller.editGoToLine();
                     }
-                    else if( source == editPrependToSelectedLines )
-                    {
-                        controller.editPrependToSelectedLines();
-                    }
-                    else if( source == editAppendToSelectedLines )
-                    {
-                        controller.editAppendToSelectedLines();
+                    else if( source == editPrependAppendToSelectedLines ){
+                        controller.editPrependAppendToSelectedLines();
                     }
                     else if( source == editFindInProject )
                     {

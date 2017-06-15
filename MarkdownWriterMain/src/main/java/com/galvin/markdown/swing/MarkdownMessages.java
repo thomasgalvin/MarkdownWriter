@@ -143,8 +143,11 @@ extends BaseMessages
     public String menuBarEditRedo(){ return getString( "menuBarEditRedo" ); }
     public String menuBarEditSelectAll(){ return getString( "menuBarEditSelectAll" ); }
     public String menuBarEditGoToLine(){ return getString( "menuBarEditGoToLine" ); }
+    
     public String menuBarEditPrependToSelectedLines(){ return getString( "menuBarEditPrependToSelectedLines" ); }
     public String menuBarEditAppendToSelectedLines(){ return getString( "menuBarEditAppendToSelectedLines" ); }
+    public String menuBarEditPrependAppendToSelectedLines(){ return getString( "menuBarEditPrependAppendToSelectedLines" ); }
+    
     public String menuBarEditFindInProject(){ return getString( "menuBarEditFindInProject" ); }
     public String menuBarEditFindNext(){ return getString( "menuBarEditFindNext" ); }
     public String menuBarEditTurnLiveSpellcheckOn(){ return getString( "menuBarEditTurnLiveSpellcheckOn" ); }
@@ -286,8 +289,11 @@ extends BaseMessages
     
     public String dialogMessageRename(){ return getString( "dialogMessageRename" ); }
     public String dialogMessageGoToLine(){ return getString( "dialogMessageGoToLine" ); }
+    public String dialogMessageAppendPrependDialogTitle(){ return getString( "dialogMessageAppendPrependDialogTitle" ); }
     public String dialogMessagePrependToLines(){ return getString( "dialogMessagePrependToLines" ); }
     public String dialogMessageAppendToLines(){ return getString( "dialogMessageAppendToLines" ); }
+    public String dialogMessageAppendPrependOkay(){ return getString( "dialogMessageAppendPrependOkay" ); }
+    public String dialogMessageAppendPrependCancel(){ return getString( "dialogMessageAppendPrependCancel" ); }
     public String dialogMessageSnapshotName(){ return getString( "dialogMessageSnapshotName" ); }
     
     public String dialogCloseWithoutSaving(){ return getString( "dialogCloseWithoutSaving" ); }

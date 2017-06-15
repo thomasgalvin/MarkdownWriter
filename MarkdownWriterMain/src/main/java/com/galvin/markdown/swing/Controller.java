@@ -12,6 +12,7 @@ import com.galvin.markdown.model.RecentProject;
 import com.galvin.markdown.preferences.Preferences;
 import com.galvin.markdown.swing.compile.CompileDialog;
 import com.galvin.markdown.swing.compile.CompileProgressDialog;
+import com.galvin.markdown.swing.dialogs.AppendPrependDialog;
 import com.galvin.markdown.swing.dialogs.FootnoteDialog;
 import com.galvin.markdown.swing.dialogs.HyperlinkEditorDialog;
 import com.galvin.markdown.swing.dialogs.OpenProgressDialog;
@@ -755,26 +756,12 @@ public class Controller {
             TextControlUtils.markup( editor, Markup.SUBSCRIPT_START, Markup.SUBSCRIPT_END );
         }
     }
-
-    public void editPrependToSelectedLines() {
+    
+    public void editPrependAppendToSelectedLines(){
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
-            Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
-                                                         messages.dialogMessagePrependToLines() );
-            if( result != null ) {
-                bookendSelectedLines( result.toString(), null );
-            }
-        }
-    }
-
-    public void editAppendToSelectedLines() {
-        MarkdownEditor editor = getCurrentEditor();
-        if( editor != null ) {
-            Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
-                                                         messages.dialogMessageAppendToLines() );
-            if( result != null ) {
-                bookendSelectedLines( null, result.toString() );
-            }
+            AppendPrependDialog dialog = new AppendPrependDialog(this);
+            dialog.setVisible( true );
         }
     }
 
