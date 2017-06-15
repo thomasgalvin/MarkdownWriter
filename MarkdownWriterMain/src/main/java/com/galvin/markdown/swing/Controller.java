@@ -1465,7 +1465,7 @@ public class Controller {
         }
     }
 
-    public void documentsSelectInTree() {
+    public void selectCurrentNodeInTree() {
         Node node = getNodeForCurrentDocument();
         projectFrame.getTree().selectNode( node.getUuid() );
     }

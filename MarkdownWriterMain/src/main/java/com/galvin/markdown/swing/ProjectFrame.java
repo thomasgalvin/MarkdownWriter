@@ -121,12 +121,7 @@ public class ProjectFrame
     }
 
     public void editNode( Node node ) {
-        System.out.println("###");
-        System.out.println("###");
-        System.out.println("###");
-        System.out.println("ProjectFrame: editNode()");
         if( node != null ) {
-            System.out.println("    node: " + node.getTitle() );
             project.setSelectedNode( node.getUuid() );
 
             boolean metadata = false;
@@ -134,7 +129,6 @@ public class ProjectFrame
             boolean styleSheet = false;
 
             if( NodeTypes.CONFIG.equals( node.getNodeType() ) ) {
-                System.out.println("    config; returning");
                 controller.nullSelection();
                 return;
             }
@@ -172,34 +166,28 @@ public class ProjectFrame
                 }
             }
             else {
-                System.out.println("    not synchronized");
                 MarkdownEditorPanel editorPanel = editorSplitPane.getCurrentComponent();
                 if( editorPanel != null ) {
-                    System.out.println("    got editor panel");
-                    
                     if( metadata ) {
-                        System.out.println("    metadata");
                         editorPanel.editMetadata( project );
                     }
                     else if( cover ) {
-                        System.out.println("    cover");
                         editorPanel.editCover( project );
                     }
                     else if( styleSheet ) {
-                        System.out.println("    style sheet");
                         editorPanel.editStylesheet( project );
                     }
                     else {
-                        System.out.println("    editing node");
                         editorPanel.edit( node );
                     }
 
                     if( editorPanel.getEditor() != null ) {
-                        System.out.println("    requesting focus");
                         editorPanel.getEditor().requestFocus();
                     }
                 }
             }
+            
+            controller.selectCurrentNodeInTree();
         }
         else {
             controller.nullSelection();

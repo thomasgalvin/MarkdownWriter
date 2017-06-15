@@ -344,6 +344,8 @@ public class MarkdownEditorPanel
         {
             listener.focusGained( event );
         }
+        
+        controller.selectCurrentNodeInTree();
     }
 
     public void focusLost( FocusEvent e )

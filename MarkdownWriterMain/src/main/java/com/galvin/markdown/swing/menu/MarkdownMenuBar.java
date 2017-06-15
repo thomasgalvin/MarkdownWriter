@@ -697,7 +697,7 @@ public class MarkdownMenuBar
                     }
                     else if( source == documentsSelectInTree )
                     {
-                        controller.documentsSelectInTree();
+                        controller.selectCurrentNodeInTree();
                     }
                     else if( source == documentsDuplicate )
                     {
