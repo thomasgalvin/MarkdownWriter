@@ -130,6 +130,14 @@ public class MarkdownMenuBar
     private JMenuItem toolsTextInsertCurrentDate = createMenuItem( messages.menuBarTextInsertCurrentDate(), listener );
     private JMenuItem toolsTextInsertCurrentTime = createMenuItem( messages.menuBarTextInsertCurrentTime(), listener );
     private JMenuItem toolsTextInsertCurrentDateAndTime = createMenuItem( messages.menuBarTextInsertCurrentDateAndTime(), listener );
+    
+    private JMenuItem toolsTextInsertLoremSentance = createMenuItem( messages.toolsTextInsertLoremSentence(), listener );
+    private JMenuItem toolsTextInsertLoremParagraph = createMenuItem( messages.toolsTextInsertLoremParagraph(), listener );
+    private JMenuItem toolsTextInsertSedUt = createMenuItem( messages.toolsTextInsertSedUt(), listener );
+    private JMenuItem toolsTextInsertAtVero = createMenuItem( messages.toolsTextInsertAtVero(), listener );
+    private JMenuItem toolsTextInsertGreekingParagraphs = createMenuItem( messages.toolsTextInsertGreekingParagraphs(), listener );
+    
+    
     private JMenu helpMenu = new JMenu( messages.menuBarHelp() );
     private JMenuItem helpShowHelp = createMenuItem( messages.menuBarHelpShow(), listener );
     private JMenuItem helpAbout = createMenuItem( messages.menuBarHelpAbout(), listener );
@@ -244,6 +252,12 @@ public class MarkdownMenuBar
         insertMenu.add( toolsTextInsertCurrentDate );
         insertMenu.add( toolsTextInsertCurrentTime );
         insertMenu.add( toolsTextInsertCurrentDateAndTime );
+        insertMenu.addSeparator();
+        insertMenu.add( toolsTextInsertLoremSentance );
+        insertMenu.add( toolsTextInsertLoremParagraph );
+        insertMenu.add( toolsTextInsertSedUt );
+        insertMenu.add( toolsTextInsertAtVero );
+        insertMenu.add( toolsTextInsertGreekingParagraphs );
 
         textToolsMenu.add( toolsTextSelectionToUpperCase );
         textToolsMenu.add( toolsTextSelectionToLowerCase );
@@ -786,6 +800,28 @@ public class MarkdownMenuBar
                     {
                         controller.toolsTextInsertCurrentDateAndTime();
                     }
+                    
+                    else if( source == toolsTextInsertLoremSentance )
+                    {
+                        controller.toolsTextInsertLoremSentance();
+                    }
+                    else if( source == toolsTextInsertLoremParagraph )
+                    {
+                        controller.toolsTextInsertLoremParagraph();
+                    }
+                    else if( source == toolsTextInsertSedUt )
+                    {
+                        controller.toolsTextInsertSedUt();
+                    }
+                    else if( source == toolsTextInsertAtVero )
+                    {
+                        controller.toolsTextInsertAtVero();
+                    }
+                    else if( source == toolsTextInsertGreekingParagraphs )
+                    {
+                        controller.toolsTextInsertGreekingParagraphs();
+                    }
+                    
                     else if( source == helpShowHelp )
                     {
                         MarkdownServer.helpShowHelp();

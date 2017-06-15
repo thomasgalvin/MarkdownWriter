@@ -25,6 +25,7 @@ import com.galvin.markdown.swing.preferences.PreferencesDialog;
 import com.galvin.markdown.swing.tree.MarkdownTree;
 import com.galvin.markdown.swing.tree.MarkdownTreeNode;
 import com.galvin.markdown.util.Utils;
+import galvin.Lorem;
 import galvin.StringUtils;
 import galvin.SystemUtils;
 import galvin.swing.GuiUtils;
@@ -1836,6 +1837,41 @@ public class Controller {
             String pattern = MarkdownServer.getPreferences().getGeneralPreferences().getDatetimeFormat();
             SimpleDateFormat format = new SimpleDateFormat( pattern );
             editor.replaceSelection( format.format( new Date() ) );
+        }
+    }
+    
+    public void toolsTextInsertLoremSentance(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Lorem.shortLoremIpsum() );
+        }
+    }
+    
+    public void toolsTextInsertLoremParagraph(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Lorem.loremIpsum() );
+        }
+    }
+    
+    public void toolsTextInsertSedUt(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Lorem.sedUt());
+        }
+    }
+    
+    public void toolsTextInsertAtVero(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Lorem.atVero());
+        }
+    }
+    
+    public void toolsTextInsertGreekingParagraphs(){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( Lorem.loremIpsumParagraphs());
         }
     }
 

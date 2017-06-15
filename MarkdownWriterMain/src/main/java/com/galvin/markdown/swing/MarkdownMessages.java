@@ -245,6 +245,12 @@ extends BaseMessages
     public String menuBarTextInsertCurrentTime(){ return getString( "menuBarTextInsertCurrentTime" ); }
     public String menuBarTextInsertCurrentDateAndTime(){ return getString( "menuBarTextInsertCurrentDateAndTime" ); }
     
+    public String toolsTextInsertLoremSentence(){ return getString( "toolsTextInsertLoremSentence" ); }
+    public String toolsTextInsertLoremParagraph(){ return getString( "toolsTextInsertLoremParagraph" ); }
+    public String toolsTextInsertSedUt(){ return getString( "toolsTextInsertSedUt" ); }
+    public String toolsTextInsertAtVero(){ return getString( "toolsTextInsertAtVero" ); }
+    public String toolsTextInsertGreekingParagraphs(){ return getString( "toolsTextInsertGreekingParagraphs" ); }
+    
     public String menuBarHelp(){ return getString( "menuBarHelp" ); }
     public String menuBarHelpShow(){ return getString( "menuBarHelpShow" ); }
     public String menuBarHelpAbout(){ return getString( "menuBarHelpAbout" ); }
