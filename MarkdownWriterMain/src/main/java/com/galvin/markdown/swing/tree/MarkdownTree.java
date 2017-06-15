@@ -69,10 +69,6 @@ public class MarkdownTree
         
         configNode = new Node();
         
-        System.out.println( "controller: " + controller );
-        System.out.println( "mssages: " + controller.getMessages() );
-        System.out.println( "title: " + controller.getMessages().projectMetadataWidgetConfig() );
-        
         configNode.setTitle( controller.getMessages().projectMetadataWidgetConfig() );
         configNode.setNodeType( NodeTypes.CONFIG );
         config = new MarkdownTreeNode( configNode  );

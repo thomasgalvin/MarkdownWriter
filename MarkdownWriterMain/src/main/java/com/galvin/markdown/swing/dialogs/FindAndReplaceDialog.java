@@ -13,7 +13,6 @@ import com.galvin.markdown.swing.dialogs.search.SearchResults;
 import com.galvin.markdown.swing.dialogs.search.SearchTool;
 import com.galvin.markdown.util.Utils;
 import galvin.swing.GuiUtils;
-import galvin.swing.text.DocumentSearch;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -30,7 +29,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.text.Document;
 
 public class FindAndReplaceDialog
     extends JDialog
@@ -125,64 +123,6 @@ public class FindAndReplaceDialog
         return result;
     }
 
-    private List<Document> getDocuments()
-        throws Exception
-    {
-        List<Document> result = new ArrayList();
-
-        if( currentDocumentRadioButton.isSelected() )
-        {
-            result.add( controller.getProjectFrame().getEditor().getDocument() );
-        }
-        else
-        {
-
-            List<Node> nodes = getNodes();
-            if( nodes != null && !nodes.isEmpty() )
-            {
-                for(Node node : nodes)
-                {
-                    if( node != null )
-                    {
-                        if( manuscriptCheckBox.isSelected() )
-                        {
-                            if( node.getManuscript() != null )
-                            {
-                                result.add( node.getManuscript() );
-                            }
-                        }
-
-                        if( descriptionCheckBox.isSelected() )
-                        {
-                            if( node.getDescription() != null )
-                            {
-                                result.add( node.getDescription() );
-                            }
-                        }
-
-                        if( summaryCheckBox.isSelected() )
-                        {
-                            if( node.getSummary() != null )
-                            {
-                                result.add( node.getSummary() );
-                            }
-                        }
-
-                        if( notesCheckBox.isSelected() )
-                        {
-                            if( node.getNotes() != null )
-                            {
-                                result.add( node.getNotes() );
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
     public void cancel()
     {
         setVisible( false );
@@ -229,7 +169,16 @@ public class FindAndReplaceDialog
         try
         {
             setVisible( false );
-            SearchResults results = SearchTool.findAll( getSearchTerm(), getIgnoreCase(), getDocuments() );
+            List<Node> nodes = getNodes();
+            boolean manuscript = manuscriptCheckBox.isSelected();
+            boolean description = descriptionCheckBox.isSelected();
+            boolean summary = summaryCheckBox.isSelected();
+            boolean notes = notesCheckBox.isSelected();
+            
+            SearchResults results = SearchTool.findAll( getSearchTerm(), getIgnoreCase(), 
+                                                        nodes, 
+                                                        manuscript, description, summary, notes);
+            
             SearchResultsDialog dialog = new SearchResultsDialog( controller, results );
             dialog.setVisible( true );
         }
@@ -244,12 +193,12 @@ public class FindAndReplaceDialog
     {
         try
         {
-            setVisible( false );
-            List<Document> documents = getDocuments();
-            DocumentSearch.replaceAllPlain( documents,
-                                            searchForTextField.getText(),
-                                            replaceWithTextField.getText(),
-                                            ignoreCaseCheckBox.isSelected() );
+//            setVisible( false );
+//            List<Document> documents = getDocuments();
+//            DocumentSearch.replaceAllPlain( documents,
+//                                            searchForTextField.getText(),
+//                                            replaceWithTextField.getText(),
+//                                            ignoreCaseCheckBox.isSelected() );
         }
         catch( Throwable t )
         {

@@ -65,4 +65,13 @@ public class SearchResult
     {
         this.location = location;
     }
+    
+    @Override
+    public String toString(){
+        if( document != null ){
+            return document.getNode().getTitle() + " @ " + location + ": " + snippet;
+        }
+        
+        return "@ " + location + ": " + snippet;
+    }
 }

@@ -7,120 +7,126 @@ import com.galvin.markdown.model.Node;
 import com.galvin.markdown.model.NodeSection;
 import com.galvin.markdown.swing.editor.MarkdownDocument;
 import galvin.StringUtils;
-import galvin.swing.text.DocumentUtils;
-import java.util.HashMap;
+import static galvin.StringUtils.neverNull;
 import java.util.List;
-import javax.swing.text.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SearchTool
-{
+public class SearchTool {
+    private static final Logger logger = LoggerFactory.getLogger( SearchTool.class );
 
-    public static SearchResults findAll( String searchText, boolean ignoreCase, List<Document> documents )
-    {
-        SearchResults result = new SearchResults( searchText, ignoreCase );
+    public static SearchResults findAll( String searchText, boolean ignoreCase,
+                                         List<Node> nodes,
+                                         boolean manuscript, boolean description, boolean summary, boolean notes ) {
+        SearchResults results = new SearchResults( searchText, ignoreCase );
 
-        HashMap<Node, NodeSearchResults> nodeResultsMap = new HashMap();
+        System.out.println( "Searching for: " + searchText + " ignore case? " + ignoreCase );
 
-        for(Document document : documents)
-        {
-            System.out.println( "Searching document: " + document );
-            
-            if( document instanceof MarkdownDocument )
-            {
-                MarkdownDocument markdownDocument = (MarkdownDocument) document;
-                Node node = markdownDocument.getNode();
+        if( ignoreCase ) {
+            searchText = searchText.toLowerCase();
+        }
 
-                NodeSearchResults nodeResults = getNodeResults( result, nodeResultsMap, node );
+        for( Node node : nodes ) {
+            System.out.println( "    searching node: " + node.getTitle() );
+            NodeSearchResults nodeHits = new NodeSearchResults(node);
 
-                String text = DocumentUtils.getText( document );
-                String actualText = text;
-                String actualSearchText = searchText;
-                
-                System.out.println( "text:\n" + text );
+            if( manuscript ) {
+                System.out.println( "        searching manuscript" );
+                addHits( node, nodeHits, NodeSection.MANUSCRIPT, searchText, ignoreCase );
+            }
 
-                if( ignoreCase )
-                {
-                    actualText = text.toLowerCase();
-                    actualSearchText = searchText.toLowerCase();
-                }
+            if( description ) {
+                System.out.println( "        searching description" );
+                addHits( node, nodeHits, NodeSection.DESCRIPTION, searchText, ignoreCase );
+            }
 
-                List<SearchResult> documentResults = getSearchResults( nodeResults, markdownDocument.getNodeSection() );
-                if( documentResults != null )
-                {
-                    int index = 0;
-                    while( index != -1 )
-                    {
-                        index = actualText.indexOf( actualSearchText, index );
-                        if( index != -1 )
-                        {
-                            String snippet = getSearchSnippet( text, index );
-                            SearchResult searchResult = new SearchResult( markdownDocument, searchText, snippet, index );
-                            documentResults.add( searchResult );
+            if( summary ) {
+                System.out.println( "        searching summary" );
+                addHits( node, nodeHits, NodeSection.SUMMARY, searchText, ignoreCase );
+            }
 
-                            index += searchText.length();
-                        }
-                    }
-                }
+            if( notes ) {
+                System.out.println( "        searching notes" );
+                addHits( node, nodeHits, NodeSection.NOTES, searchText, ignoreCase );
+            }
+
+            if( nodeHits.hasHits() ) {
+                results.getResults().add( nodeHits );
             }
         }
 
-        return result;
+        return results;
     }
 
-    public static List<SearchResult> getSearchResults( NodeSearchResults results, NodeSection section )
-    {
-        if( NodeSection.MANUSCRIPT.equals( section ) )
-        {
-            return results.getManuscriptResults();
+    private static void addHits( Node node,
+                                 NodeSearchResults nodeHits,
+                                 NodeSection section,
+                                 String searchText,
+                                 boolean ignoreCase ) {
+        String _body = neverNull( node.getManuscriptText() );
+        String body = _body;
+        if( ignoreCase ) {
+            body = body.toLowerCase();
         }
-        else if( NodeSection.DESCRIPTION.equals( section ) )
-        {
-            return results.getDescriptionResults();
-        }
-        else if( NodeSection.SUMMARY.equals( section ) )
-        {
-            return results.getSummaryResults();
-        }
-        else if( NodeSection.NOTES.equals( section ) )
-        {
-            return results.getNotesResults();
-        }
+        System.out.println( "            body: " + body.length() );
 
-        return null;
+        MarkdownDocument document = null;
+
+        int index = 0;
+        while( index != -1 ) {
+            index = body.indexOf( searchText, index );
+            if( index != -1 ) {
+                if( document == null ) {
+                    if( section == NodeSection.MANUSCRIPT ) {
+                        document = node.getManuscript();
+                    }
+                    else if( section == NodeSection.DESCRIPTION ) {
+                        document = node.getDescription();
+                    }
+                    else if( section == NodeSection.SUMMARY ) {
+                        document = node.getSummary();
+                    }
+                    else if( section == NodeSection.NOTES ) {
+                        document = node.getNotes();
+                    }
+                }
+
+                SearchResult hit = new SearchResult( document,
+                                                     searchText,
+                                                     getSearchSnippet( _body, index ),
+                                                     index );
+                nodeHits.getManuscriptResults().add( hit );
+                System.out.println( "            hit: " + hit );
+
+                index += searchText.length();
+            }
+        }
     }
 
-    public static String getSearchSnippet( String text, int index )
-    {
+    public static String getSearchSnippet( String text, int index ) {
         return getSearchSnippet( text, index, 50 );
     }
 
-    public static String getSearchSnippet( String text, int index, int padding )
-    {
+    public static String getSearchSnippet( String text, int index, int padding ) {
         int startIndex = index;
         int endIndex = index;
 
         startIndex -= padding;
-        if( startIndex < 0 )
-        {
+        if( startIndex < 0 ) {
             startIndex = 0;
         }
-        else
-        {
-            while( startIndex > 0 && !Character.isWhitespace( text.charAt( startIndex ) ) )
-            {
+        else {
+            while( startIndex > 0 && !Character.isWhitespace( text.charAt( startIndex ) ) ) {
                 startIndex--;
             }
         }
 
         endIndex += padding;
-        if( endIndex >= text.length() )
-        {
+        if( endIndex >= text.length() ) {
             endIndex = text.length();
         }
-        else
-        {
-            while( endIndex <= text.length() && !Character.isWhitespace( text.charAt( endIndex ) ) )
-            {
+        else {
+            while( endIndex <= text.length() && !Character.isWhitespace( text.charAt( endIndex ) ) ) {
                 endIndex--;
             }
         }
@@ -130,15 +136,4 @@ public class SearchTool
         return result;
     }
 
-    public static NodeSearchResults getNodeResults( SearchResults result, HashMap<Node, NodeSearchResults> nodeResults, Node node )
-    {
-        NodeSearchResults results = nodeResults.get( node );
-        if( results == null )
-        {
-            results = new NodeSearchResults( node );
-            nodeResults.put( node, results );
-            result.getResults().add( results );
-        }
-        return results;
-    }
 }

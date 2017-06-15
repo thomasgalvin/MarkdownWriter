@@ -26,8 +26,7 @@ import javax.swing.filechooser.FileFilter;
 import org.apache.commons.lang3.StringUtils;
 
 public class ProjectFrame
-    implements TreeSelectionListener
-{
+    implements TreeSelectionListener {
 
     private Controller controller;
     private Project project;
@@ -46,8 +45,7 @@ public class ProjectFrame
     private InsertImageDialog insertImageDialog;
     private MacroEditorDialog macroEditorDialog;
 
-    public ProjectFrame( Project project )
-    {
+    public ProjectFrame( Project project ) {
         this.project = project;
         controller = new Controller( this );
 
@@ -80,8 +78,7 @@ public class ProjectFrame
         imageChooser.setMultiSelectionEnabled( true );
 
         File projectFile = project.getProjectDirectory();
-        if( projectFile != null )
-        {
+        if( projectFile != null ) {
             fileChooser.setCurrentDirectory( projectFile );
             imageChooser.setCurrentDirectory( projectFile );
         }
@@ -94,289 +91,239 @@ public class ProjectFrame
         macroEditorDialog = new MacroEditorDialog( controller );
 
         registerWithMarkdownServer();
-        
+
         String selectedNode = project.getSelectedNode();
-        if( !StringUtils.isBlank( selectedNode ) ){
+        if( !StringUtils.isBlank( selectedNode ) ) {
             tree.selectNode( selectedNode );
         }
     }
 
-    public void registerWithMarkdownServer()
-    {
+    public void registerWithMarkdownServer() {
         MarkdownServer.registerProjectFrame( this );
     }
 
-    public void unregisterWithMarkdownServer()
-    {
+    public void unregisterWithMarkdownServer() {
         MarkdownServer.unregisterProjectFrame( this );
     }
 
-    public void unregisterWithMarkdownServerWithoutSaving()
-    {
+    public void unregisterWithMarkdownServerWithoutSaving() {
         MarkdownServer.unregisterWithMarkdownServerWithoutSaving( this );
     }
 
-    public void unregisterIfHidden()
-    {
-        if( !getWindow().isVisible() )
-        {
+    public void unregisterIfHidden() {
+        if( !getWindow().isVisible() ) {
             unregisterWithMarkdownServerWithoutSaving();
         }
     }
 
-    public void requestFocus()
-    {
+    public void requestFocus() {
         getWindow().requestFocus();
     }
 
-    public void editNode( Node node )
-    {
-        if( node != null )
-        {
+    public void editNode( Node node ) {
+        System.out.println("###");
+        System.out.println("###");
+        System.out.println("###");
+        System.out.println("ProjectFrame: editNode()");
+        if( node != null ) {
+            System.out.println("    node: " + node.getTitle() );
             project.setSelectedNode( node.getUuid() );
-            
+
             boolean metadata = false;
             boolean cover = false;
             boolean styleSheet = false;
-            
-            if( NodeTypes.CONFIG.equals( node.getNodeType() ) )
-            {
+
+            if( NodeTypes.CONFIG.equals( node.getNodeType() ) ) {
+                System.out.println("    config; returning");
                 controller.nullSelection();
                 return;
             }
-            else if( NodeTypes.METADATA.equals( node.getNodeType() ) )
-            {
+            else if( NodeTypes.METADATA.equals( node.getNodeType() ) ) {
                 metadata = true;
             }
-            else if( NodeTypes.COVER.equals( node.getNodeType() ) )
-            {
+            else if( NodeTypes.COVER.equals( node.getNodeType() ) ) {
                 cover = true;
             }
-            else if( NodeTypes.STYLESHEET.equals( node.getNodeType() ) )
-            {
+            else if( NodeTypes.STYLESHEET.equals( node.getNodeType() ) ) {
                 styleSheet = true;
             }
-            
-            if( project.synchronizeEditors() )
-            {
+
+            if( project.synchronizeEditors() ) {
                 MarkdownEditorPanel currentPanel = getEditorPanel();
 
                 List<MarkdownEditorPanel> editorPanels = getEditorSplitPane().getAllMarkdownEditorPanels();
-                for(MarkdownEditorPanel editorPanel : editorPanels)
-                {
-                    if( metadata )
-                    {
+                for( MarkdownEditorPanel editorPanel : editorPanels ) {
+                    if( metadata ) {
                         editorPanel.editMetadata( project );
                     }
-                    else if( cover )
-                    {
+                    else if( cover ) {
                         editorPanel.editCover( project );
                     }
-                    else if( styleSheet )
-                    {
+                    else if( styleSheet ) {
                         editorPanel.editStylesheet( project );
                     }
-                    else
-                    {
+                    else {
                         editorPanel.edit( node );
                     }
                 }
 
-                if( currentPanel != null )
-                {
+                if( currentPanel != null ) {
                     currentPanel.requestFocus();
                 }
             }
-            else
-            {
+            else {
+                System.out.println("    not synchronized");
                 MarkdownEditorPanel editorPanel = editorSplitPane.getCurrentComponent();
-                if( editorPanel != null )
-                {
-                    if( metadata )
-                    {
+                if( editorPanel != null ) {
+                    System.out.println("    got editor panel");
+                    
+                    if( metadata ) {
+                        System.out.println("    metadata");
                         editorPanel.editMetadata( project );
                     }
-                    else if( cover )
-                    {
+                    else if( cover ) {
+                        System.out.println("    cover");
                         editorPanel.editCover( project );
                     }
-                    else if( styleSheet )
-                    {
+                    else if( styleSheet ) {
+                        System.out.println("    style sheet");
                         editorPanel.editStylesheet( project );
                     }
-                    else
-                    {
+                    else {
+                        System.out.println("    editing node");
                         editorPanel.edit( node );
                     }
-                    
-                    if( editorPanel.getEditor() != null )
-                    {
+
+                    if( editorPanel.getEditor() != null ) {
+                        System.out.println("    requesting focus");
                         editorPanel.getEditor().requestFocus();
                     }
                 }
             }
         }
-        else
-        {
+        else {
             controller.nullSelection();
         }
     }
 
-    public void editProject( Project project )
-    {
-        if( project != null )
-        {
-            if( project.synchronizeEditors() )
-            {
+    public void editProject( Project project ) {
+        if( project != null ) {
+            if( project.synchronizeEditors() ) {
                 List<MarkdownEditorPanel> editorPanels = getEditorSplitPane().getAllMarkdownEditorPanels();
-                for(MarkdownEditorPanel editorPanel : editorPanels)
-                {
+                for( MarkdownEditorPanel editorPanel : editorPanels ) {
                     editorPanel.edit( project );
                 }
             }
-            else
-            {
+            else {
                 MarkdownEditorPanel editorPanel = editorSplitPane.getCurrentComponent();
-                if( editorPanel != null )
-                {
+                if( editorPanel != null ) {
                     editorPanel.edit( project );
                 }
             }
         }
-        else
-        {
+        else {
             controller.nullSelection();
         }
     }
 
-    public void valueChanged( TreeSelectionEvent e )
-    {
-        if( tree.getSelectionCount() == 1 )
-        {
+    @Override
+    public void valueChanged( TreeSelectionEvent e ) {
+        if( tree.getSelectionCount() == 1 ) {
             Object value = tree.getLastSelectedPathComponent();
-            if( value instanceof MarkdownTreeNode )
-            {
-                MarkdownTreeNode treeNode = (MarkdownTreeNode) value;
-                if( treeNode != null )
-                {
-                    Node node = treeNode.getNode();
-                    Project project = treeNode.getProject();
+            if( value instanceof MarkdownTreeNode ) {
+                MarkdownTreeNode treeNode = (MarkdownTreeNode)value;
+                Node node = treeNode.getNode();
+                Project project = treeNode.getProject();
 
-                    if( node != null )
-                    {
-                        editNode( node );
-                    }
-                    else if( project != null )
-                    {
-                        editProject( project );
-                    }
-                    else
-                    {
-                        controller.nullSelection();
-                    }
+                if( node != null ) {
+                    editNode( node );
                 }
-                else
-                {
+                else if( project != null ) {
+                    editProject( project );
+                }
+                else {
                     controller.nullSelection();
                 }
             }
-            else
-            {
+            else {
                 controller.nullSelection();
             }
         }
     }
 
-    public MarkdownEditorSplitPane getEditorSplitPane()
-    {
+    public MarkdownEditorSplitPane getEditorSplitPane() {
         return editorSplitPane;
     }
 
-    public JSplitPane getSplitPane()
-    {
+    public JSplitPane getSplitPane() {
         return splitPane;
     }
 
-    public MarkdownTree getTree()
-    {
+    public MarkdownTree getTree() {
         return tree;
     }
 
-    public JScrollPane getTreeScroll()
-    {
+    public JScrollPane getTreeScroll() {
         return treeScroll;
     }
 
-    public ProjectWindow getWindow()
-    {
+    public ProjectWindow getWindow() {
         return window;
     }
 
-    public Controller getController()
-    {
+    public Controller getController() {
         return controller;
     }
 
-    public CompileDialog getCompileDialog()
-    {
+    public CompileDialog getCompileDialog() {
         return compileDialog;
     }
 
-    public JFileChooser getSaveFileChooser()
-    {
+    public JFileChooser getSaveFileChooser() {
         fileChooser.setDialogType( JFileChooser.SAVE_DIALOG );
         return fileChooser;
     }
 
-    public JFileChooser getOpenFileChooser()
-    {
+    public JFileChooser getOpenFileChooser() {
         fileChooser.setDialogType( JFileChooser.OPEN_DIALOG );
         return fileChooser;
     }
 
-    public JFileChooser getImageFileChooser()
-    {
+    public JFileChooser getImageFileChooser() {
         return imageChooser;
     }
 
-    public MarkdownMenuBar getMenuBar()
-    {
+    public MarkdownMenuBar getMenuBar() {
         return menuBar;
     }
 
-    public MarkdownEditor getEditor()
-    {
+    public MarkdownEditor getEditor() {
         return getEditorSplitPane().getCurrentComponent().getEditor();
     }
 
-    public MarkdownEditorPanel getEditorPanel()
-    {
+    public MarkdownEditorPanel getEditorPanel() {
         return getEditorSplitPane().getCurrentComponent();
     }
 
-    public Node getCurrentNode()
-    {
+    public Node getCurrentNode() {
         return getEditorSplitPane().getCurrentComponent().getNode();
     }
 
-    public Project getProject()
-    {
+    public Project getProject() {
         project = ProjectIo.toProject( tree );
         return project;
     }
 
-    public FindAndReplaceDialog getFindAndReplaceDialog()
-    {
+    public FindAndReplaceDialog getFindAndReplaceDialog() {
         return findAndReplaceDialog;
     }
 
-    public InsertImageDialog getInsertImageDialog()
-    {
+    public InsertImageDialog getInsertImageDialog() {
         return insertImageDialog;
     }
 
-    public MacroEditorDialog getMacroEditorDialog()
-    {
+    public MacroEditorDialog getMacroEditorDialog() {
         return macroEditorDialog;
     }
+
 }

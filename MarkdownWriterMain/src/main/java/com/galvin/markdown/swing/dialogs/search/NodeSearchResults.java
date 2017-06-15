@@ -17,15 +17,18 @@ public class NodeSearchResults
     private List<SearchResult> summaryResults = new ArrayList();
     private List<SearchResult> notesResults = new ArrayList();
 
-    public NodeSearchResults()
-    {
-    }
-
     public NodeSearchResults( Node node )
     {
         this.node = node;
     }
 
+    public boolean hasHits(){
+        return !manuscriptResults.isEmpty() ||
+               !descriptionResults.isEmpty() ||
+               !summaryResults.isEmpty() ||
+               !notesResults.isEmpty();
+    }
+    
     public Node getNode()
     {
         return node;

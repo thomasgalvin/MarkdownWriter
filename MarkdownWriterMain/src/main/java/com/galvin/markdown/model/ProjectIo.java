@@ -487,6 +487,11 @@ public class ProjectIo
         result.setContributors( cloneContributors( node.getContributors() ) );
         result.setImageResource( cloneImageResource( node, projectDirectory, node.getImageResource(), shareDocuments ) );
 
+        result.setManuscriptText( node.getManuscriptText() );
+        result.setDescriptionText( node.getDescriptionText() );
+        result.setSummaryText( node.getSummaryText() );
+        result.setNotesText( node.getNotesText() );
+        
         for(String keyWord : node.getKeywords())
         {
             result.getKeywords().add( keyWord );
