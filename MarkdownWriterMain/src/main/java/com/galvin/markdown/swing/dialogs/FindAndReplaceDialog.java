@@ -13,6 +13,8 @@ import com.galvin.markdown.swing.dialogs.search.SearchResults;
 import com.galvin.markdown.swing.dialogs.search.SearchTool;
 import com.galvin.markdown.util.Utils;
 import galvin.swing.GuiUtils;
+import galvin.swing.text.DocumentSearch;
+import galvin.swing.text.ReplacementCount;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -26,13 +28,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.Document;
 
 public class FindAndReplaceDialog
-    extends JDialog
-{
+    extends JDialog {
 
     private Controller controller;
     private MarkdownMessages messages = MarkdownServer.getMessages();
@@ -54,13 +57,11 @@ public class FindAndReplaceDialog
     private JCheckBox ignoreCaseCheckBox = new JCheckBox( messages.findAndReplaceIgnoreCaseCheckbox() );
     private ButtonGroup buttonGroup = new ButtonGroup();
     private LayoutPanel layoutPanel = new LayoutPanel();
-    private JCheckBox[] multipleDocumentOptions = new JCheckBox[]
-    {
+    private JCheckBox[] multipleDocumentOptions = new JCheckBox[]{
         onlyDocumentsInManuscriptCheckBox, manuscriptCheckBox, summaryCheckBox, descriptionCheckBox, notesCheckBox
     };
 
-    public FindAndReplaceDialog( Controller controller )
-    {
+    public FindAndReplaceDialog( Controller controller ) {
         super( controller.getProjectFrame().getWindow() );
         this.controller = controller;
 
@@ -85,150 +86,155 @@ public class FindAndReplaceDialog
     }
 
     @Override
-    public void setVisible( boolean visible )
-    {
-        if( visible )
-        {
+    public void setVisible( boolean visible ) {
+        if( visible ) {
             searchForTextField.selectAll();
             searchForTextField.requestFocus();
-            
+
             replaceWithTextField.selectAll();
         }
         super.setVisible( visible );
     }
 
-    private List<Node> getNodes()
-        throws Exception
-    {
+    private List<Document> getDocuments() throws Exception {
+        List<Document> result = new ArrayList();
+        boolean manuscript = manuscriptCheckBox.isSelected();
+        boolean description = descriptionCheckBox.isSelected();
+        boolean summary = summaryCheckBox.isSelected();
+        boolean notes = notesCheckBox.isSelected();
+            
+        List<Node> nodes = getNodes();
+        for( Node node: nodes ){
+            if(manuscript){
+                result.add( node.getManuscript() );
+            }
+            
+            if(description){
+                result.add( node.getDescription() );
+            }
+            
+            if(summary){
+                result.add( node.getSummary() );
+            }
+            
+            if(notes){
+                result.add( node.getNotes() );
+            }
+        }
+        
+        return result;
+    }
+    
+    private List<Node> getNodes() throws Exception {
         Project project = ProjectIo.toProject( controller.getProjectFrame().getTree() );
 
         List<Node> result = null;
 
-        if( currentDocumentRadioButton.isSelected() )
-        {
+        if( currentDocumentRadioButton.isSelected() ) {
             Node node = controller.getProjectFrame().getCurrentNode();
             result = new ArrayList();
             result.add( node );
         }
-        else if( onlyDocumentsInManuscriptCheckBox.isSelected() )
-        {
+        else if( onlyDocumentsInManuscriptCheckBox.isSelected() ) {
             Node manuscript = project.getManuscript();
             result = Utils.flatten( manuscript.getChildNodes(), project.getProjectDirectory() );
         }
-        else
-        {
+        else {
             result = Utils.flatten( project.getChildNodes(), project.getProjectDirectory() );
         }
 
         return result;
     }
 
-    public void cancel()
-    {
+    public void cancel() {
         setVisible( false );
     }
 
-    public void setSearchTerm( String searchTerm )
-    {
+    public void setSearchTerm( String searchTerm ) {
         searchForTextField.setText( searchTerm );
     }
 
-    public String getSearchTerm()
-    {
+    public String getSearchTerm() {
         return searchForTextField.getText();
     }
 
-    public void setReplaceWith( String replaceWith )
-    {
+    public void setReplaceWith( String replaceWith ) {
         replaceWithTextField.setText( replaceWith );
     }
 
-    public String getReplaceWith()
-    {
+    public String getReplaceWith() {
         return replaceWithTextField.getText();
     }
 
-    public boolean getIgnoreCase()
-    {
+    public boolean getIgnoreCase() {
         return ignoreCaseCheckBox.isSelected();
     }
 
-    public void setIgnoreCase( boolean ignoreCase )
-    {
+    public void setIgnoreCase( boolean ignoreCase ) {
         ignoreCaseCheckBox.setSelected( ignoreCase );
     }
 
-    public void findNext()
-    {
+    public void findNext() {
         setVisible( false );
         controller.editFindNext();
     }
 
-    public void findAll()
-    {
-        try
-        {
+    public void findAll() {
+        try {
             setVisible( false );
             List<Node> nodes = getNodes();
             boolean manuscript = manuscriptCheckBox.isSelected();
             boolean description = descriptionCheckBox.isSelected();
             boolean summary = summaryCheckBox.isSelected();
             boolean notes = notesCheckBox.isSelected();
-            
-            SearchResults results = SearchTool.findAll( getSearchTerm(), getIgnoreCase(), 
-                                                        nodes, 
-                                                        manuscript, description, summary, notes);
-            
+
+            SearchResults results = SearchTool.findAll( getSearchTerm(), getIgnoreCase(),
+                                                        nodes,
+                                                        manuscript, description, summary, notes );
+
             SearchResultsDialog dialog = new SearchResultsDialog( controller, results );
             dialog.setVisible( true );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void replaceAll()
-    {
-        try
-        {
-//            setVisible( false );
-//            List<Document> documents = getDocuments();
-//            DocumentSearch.replaceAllPlain( documents,
-//                                            searchForTextField.getText(),
-//                                            replaceWithTextField.getText(),
-//                                            ignoreCaseCheckBox.isSelected() );
+    public void replaceAll() {
+        try {
+            setVisible( false );
+            List<Document> documents = getDocuments();
+            ReplacementCount count = DocumentSearch.replaceAllPlain( documents,
+                                                                     searchForTextField.getText(),
+                                                                     replaceWithTextField.getText(),
+                                                                     ignoreCaseCheckBox.isSelected() );
+            String message = "Replaced " + count.totalCount + " occurrence(s) in " + count.documentCount + " document(s)";
+            String replaceResults = "Replacement results";
+            JOptionPane.showMessageDialog(null, message, replaceResults, JOptionPane.INFORMATION_MESSAGE );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    private void currentDocumentOnly()
-    {
-        for(JCheckBox checkbox : multipleDocumentOptions)
-        {
+    private void currentDocumentOnly() {
+        for( JCheckBox checkbox : multipleDocumentOptions ) {
             checkbox.setEnabled( false );
         }
     }
 
-    private void allDocuments()
-    {
-        for(JCheckBox checkbox : multipleDocumentOptions)
-        {
+    private void allDocuments() {
+        for( JCheckBox checkbox : multipleDocumentOptions ) {
             checkbox.setEnabled( true );
         }
     }
 
     private class Listener
-        implements ActionListener
-    {
+        implements ActionListener {
 
-        public Listener()
-        {
+        public Listener() {
             searchForTextField.addActionListener( this );
             findNextButton.addActionListener( this );
             findAllButton.addActionListener( this );
@@ -242,60 +248,48 @@ public class FindAndReplaceDialog
             buttonGroup.add( allDocumentsRadioButton );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             Object source = e.getSource();
 
-            if( source == cancelButton )
-            {
+            if( source == cancelButton ) {
                 cancel();
             }
-            else if( source == findNextButton || source == searchForTextField )
-            {
+            else if( source == findNextButton || source == searchForTextField ) {
                 findNext();
             }
-            else if( source == findAllButton )
-            {
+            else if( source == findAllButton ) {
                 findAll();
             }
-            else if( source == replaceAllButton )
-            {
+            else if( source == replaceAllButton ) {
                 replaceAll();
             }
-            else if( source == currentDocumentRadioButton )
-            {
+            else if( source == currentDocumentRadioButton ) {
                 currentDocumentOnly();
             }
-            else if( source == allDocumentsRadioButton )
-            {
+            else if( source == allDocumentsRadioButton ) {
                 allDocuments();
             }
         }
+
     }
 
     private class LayoutPanel
-        extends JPanel
-    {
+        extends JPanel {
 
         private Dimension preferredSize;
-        private JComponent[] labels = new JComponent[]
-        {
+        private JComponent[] labels = new JComponent[]{
             searchForLabel, replaceWithLabel
         };
-        private JComponent[] fields = new JComponent[]
-        {
+        private JComponent[] fields = new JComponent[]{
             searchForTextField, replaceWithTextField
         };
-        private JComponent[] buttons = new JComponent[]
-        {
+        private JComponent[] buttons = new JComponent[]{
             findNextButton, findAllButton, replaceAllButton, cancelButton
         };
-        private JComponent[] checkboxes = new JComponent[]
-        {
+        private JComponent[] checkboxes = new JComponent[]{
             onlyDocumentsInManuscriptCheckBox, manuscriptCheckBox, summaryCheckBox, descriptionCheckBox, notesCheckBox, ignoreCaseCheckBox
         };
-        private JComponent[] radios = new JComponent[]
-        {
+        private JComponent[] radios = new JComponent[]{
             currentDocumentRadioButton, allDocumentsRadioButton
         };
         private Dimension labelSize = GuiUtils.sameSize( labels );
@@ -304,8 +298,7 @@ public class FindAndReplaceDialog
         private Dimension checkboxSize = GuiUtils.sameSize( checkboxes );
         private Dimension radioSize = GuiUtils.sameSize( radios );
 
-        public LayoutPanel()
-        {
+        public LayoutPanel() {
             setLayout( null );
 
             add( searchForLabel );
@@ -330,8 +323,7 @@ public class FindAndReplaceDialog
         }
 
         @Override
-        public void doLayout()
-        {
+        public void doLayout() {
             /*
             
              Search for:   [________________]
@@ -422,10 +414,10 @@ public class FindAndReplaceDialog
         }
 
         @Override
-        public Dimension getPreferredSize()
-        {
+        public Dimension getPreferredSize() {
             return preferredSize;
         }
+
     }
 
 }

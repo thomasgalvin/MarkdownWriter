@@ -13,10 +13,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import javax.swing.undo.UndoManager;
 
-public class MarkdownDocument
-    extends EditorDocument
-    implements Document
-{
+public class MarkdownDocument extends EditorDocument implements Document {
 
     private int selectionStart = -1;
     private int selectionEnd = -1;
