@@ -96,8 +96,6 @@ public class ProjectIo
     public static void write( Project project, File projectFile )
         throws IOException
     {
-        System.out.println( projectFile );
-
         for(Node node : project.getChildNodes())
         {
             prepareToSave( node, projectFile );
@@ -211,8 +209,6 @@ public class ProjectIo
         throws IOException
     {
         System.out.println( "ProjectIo: reading project: " + projectStructureDocument );
-        //System.out.println( "System memory:" );
-        //SystemUtils.printMemory();
 
         try
         {
@@ -255,7 +251,6 @@ public class ProjectIo
             }
 
             SystemUtils.printMemory();
-
             return result;
         }
         catch( JAXBException ex )

@@ -20,8 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MarkdownMenuBar
-    extends JMenuBar
-{
+    extends JMenuBar {
     private static final Logger logger = LoggerFactory.getLogger( MarkdownMenuBar.class );
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private Listener listener = new Listener();
@@ -129,23 +128,21 @@ public class MarkdownMenuBar
     private JMenuItem toolsTextInsertCurrentDate = createMenuItem( messages.menuBarTextInsertCurrentDate(), listener );
     private JMenuItem toolsTextInsertCurrentTime = createMenuItem( messages.menuBarTextInsertCurrentTime(), listener );
     private JMenuItem toolsTextInsertCurrentDateAndTime = createMenuItem( messages.menuBarTextInsertCurrentDateAndTime(), listener );
-    
     private JMenuItem toolsTextInsertLoremSentance = createMenuItem( messages.toolsTextInsertLoremSentence(), listener );
     private JMenuItem toolsTextInsertLoremParagraph = createMenuItem( messages.toolsTextInsertLoremParagraph(), listener );
     private JMenuItem toolsTextInsertSedUt = createMenuItem( messages.toolsTextInsertSedUt(), listener );
     private JMenuItem toolsTextInsertAtVero = createMenuItem( messages.toolsTextInsertAtVero(), listener );
     private JMenuItem toolsTextInsertGreekingParagraphs = createMenuItem( messages.toolsTextInsertGreekingParagraphs(), listener );
-    
-    
+
     private JMenu helpMenu = new JMenu( messages.menuBarHelp() );
     private JMenuItem helpShowHelp = createMenuItem( messages.menuBarHelpShow(), listener );
     private JMenuItem helpAbout = createMenuItem( messages.menuBarHelpAbout(), listener );
     private JMenuItem helpPreferences = createMenuItem( messages.menuBarHelpPreferences(), listener );
+    private JMenuItem helpMemory = createMenuItem( messages.helpMemory(), listener );
     private GroovyMenu groovyMenu;
     private RecentProjectsMenu recentProjectsMenu;
 
-    public MarkdownMenuBar( Controller controller )
-    {
+    public MarkdownMenuBar( Controller controller ) {
         this.controller = controller;
 
         fileNew = new NewProjectMenu( controller );
@@ -159,7 +156,7 @@ public class MarkdownMenuBar
         fileMenu.add( fileSaveAs );
         fileMenu.add( fileSaveCopyAs );
         fileMenu.addSeparator();
-        
+
         fileMenu.add( fileExportMenu );
         fileExportMenu.add( fileExportProject );
         fileExportMenu.add( fileExportProjectUsingCurrentOptions );
@@ -171,7 +168,7 @@ public class MarkdownMenuBar
         fileExportMenu.add( fileExportCurrentDocumentAndChildrenUsingCurrentOptions );
         fileExportMenu.addSeparator();
         fileExportMenu.add( fileShowExportDirectory );
-        
+
         fileMenu.add( filePreviewMenu );
         filePreviewMenu.add( filePreviewCurrentDocument );
         filePreviewMenu.add( filePreviewCurrentDocumentAndChildren );
@@ -182,8 +179,7 @@ public class MarkdownMenuBar
         fileMenu.add( fileClose );
         fileMenu.add( fileCloseWithoutSaving );
 
-        if( !SystemUtils.IS_MAC )
-        {
+        if( !SystemUtils.IS_MAC ) {
             fileMenu.addSeparator();
             fileMenu.add( fileExit );
         }
@@ -232,8 +228,8 @@ public class MarkdownMenuBar
         formatMenu.add( formatH4 );
         formatMenu.add( formatH5 );
         formatMenu.add( formatH6 );
-        
-        cssMenu.add(cssPagebreakBefore );
+
+        cssMenu.add( cssPagebreakBefore );
         cssMenu.add( cssPagebreakAfter );
         cssMenu.add( cssPagebreakBoth );
         cssMenu.addSeparator();
@@ -286,7 +282,6 @@ public class MarkdownMenuBar
         viewMenu.addSeparator();
         viewMenu.add( viewSynchronizeEditors );
         viewMenu.addSeparator();
-        
 
         documentsMenu.add( menuBarDocumentsNewFile );
         documentsMenu.add( menuBarDocumentsNewChildText );
@@ -311,15 +306,14 @@ public class MarkdownMenuBar
 
         helpMenu.add( helpShowHelp );
 
-        if( !SystemUtils.IS_MAC )
-        {
+        if( !SystemUtils.IS_MAC ) {
             helpMenu.addSeparator();
             helpMenu.add( helpAbout );
         }
 
-
         helpMenu.addSeparator();
         helpMenu.add( helpPreferences );
+        helpMenu.add( helpMemory );
 
         groovyMenu = new GroovyMenu( controller );
 
@@ -365,7 +359,6 @@ public class MarkdownMenuBar
 
         menuBarDocumentsNewFile.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY ) );
         menuBarDocumentsNewChildText.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
-//        menuBarDocumentsNewFolder.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
 
         toolsExpandMacro.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_SEMICOLON, SystemUtils.PREFERED_MODIFIER_KEY ) );
 
@@ -383,12 +376,12 @@ public class MarkdownMenuBar
         add( viewMenu );
         add( documentsMenu );
         add( helpMenu );
-        
+
         Preferences preferences = MarkdownServer.getPreferences();
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
         setBackground( editorPreferences.getBackgroundColor() );
         setForeground( editorPreferences.getTextColor() );
-        
+
         fileMenu.setForeground( editorPreferences.getTextColor() );
         editMenu.setForeground( editorPreferences.getTextColor() );
         viewMenu.setForeground( editorPreferences.getTextColor() );
@@ -397,222 +390,169 @@ public class MarkdownMenuBar
         groovyMenu.setForeground( editorPreferences.getTextColor() );
     }
 
-    private static JMenuItem createMenuItem( String label, ActionListener listener )
-    {
+    private static JMenuItem createMenuItem( String label, ActionListener listener ) {
         JMenuItem item = new JMenuItem( label );
         item.addActionListener( listener );
         return item;
     }
 
-    public void reloadGroovyScripts()
-    {
+    public void reloadGroovyScripts() {
         groovyMenu.reloadGroovyScripts();
     }
 
-    public void reloadRecentProjects()
-    {
+    public void reloadRecentProjects() {
         recentProjectsMenu.reloadRecentProjects();
     }
 
     private class Listener
-        implements ActionListener
-    {
+        implements ActionListener {
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             final Object source = e.getSource();
 
-            Thread thread = new Thread()
-            {
+            Thread thread = new Thread() {
                 @Override
-                public void run()
-                {
-                    if( source == fileNew )
-                    {
+                public void run() {
+                    if( source == fileNew ) {
                         controller.fileNew();
                     }
-                    else if( source == fileOpen )
-                    {
+                    else if( source == fileOpen ) {
                         controller.fileOpen();
                     }
-                    else if( source == fileSave )
-                    {
+                    else if( source == fileSave ) {
                         controller.fileSave();
                     }
-                    else if( source == fileSaveAs )
-                    {
+                    else if( source == fileSaveAs ) {
                         controller.fileSaveAs();
                     }
-                    else if( source == fileSaveCopyAs )
-                    {
+                    else if( source == fileSaveCopyAs ) {
                         controller.fileSaveCopyAs();
                     }
-                    else if( source == fileOpenTemplatesDir )
-                    {
+                    else if( source == fileOpenTemplatesDir ) {
                         controller.fileOpenTemplatesDir();
                     }
-                    else if( source == fileExportProject )
-                    {
+                    else if( source == fileExportProject ) {
                         controller.fileExportProject();
                     }
-                    else if( source == fileExportProjectUsingCurrentOptions )
-                    {
+                    else if( source == fileExportProjectUsingCurrentOptions ) {
                         controller.fileExportProjectUsingCurrentOptions();
                     }
-                    else if( source == fileExportCurrentDocument )
-                    {
+                    else if( source == fileExportCurrentDocument ) {
                         controller.fileExportCurrentDocument();
                     }
-                    else if( source == fileExportCurrentDocumentUsingCurrentOptions )
-                    {
+                    else if( source == fileExportCurrentDocumentUsingCurrentOptions ) {
                         controller.fileExportCurrentDocumentUsingCurrentOptions();
                     }
-                    else if( source == fileExportCurrentDocumentAndChildren )
-                    {
+                    else if( source == fileExportCurrentDocumentAndChildren ) {
                         controller.fileExportCurrentDocumentAndChildren();
                     }
-                    else if( source == fileExportCurrentDocumentAndChildrenUsingCurrentOptions )
-                    {
+                    else if( source == fileExportCurrentDocumentAndChildrenUsingCurrentOptions ) {
                         controller.fileExportCurrentDocumentAndChildrenUsingCurrentOptionst();
                     }
-                    else if( source == fileShowExportDirectory )
-                    {
+                    else if( source == fileShowExportDirectory ) {
                         controller.fileShowExportDirectory();
                     }
-                    else if( source == fileClose )
-                    {
-                        try
-                        {
+                    else if( source == fileClose ) {
+                        try {
                             controller.fileClose();
                         }
-                        catch( Throwable t )
-                        {
+                        catch( Throwable t ) {
                             logger.error( "Error in close event handler", t );
                             ThrowableDialog dialog = new ThrowableDialog( t );
                             dialog.setVisible( true );
                         }
                     }
-                    else if( source == fileCloseWithoutSaving )
-                    {
+                    else if( source == fileCloseWithoutSaving ) {
                         controller.fileCloseWithoutSaving();
                     }
-                    else if( source == fileExit )
-                    {
+                    else if( source == fileExit ) {
                         controller.fileExit();
                     }
-                    else if( source == editCut )
-                    {
+                    else if( source == editCut ) {
                         controller.editCut();
                     }
-                    else if( source == editCopy )
-                    {
+                    else if( source == editCopy ) {
                         controller.editCopy();
                     }
-                    else if( source == editPaste )
-                    {
+                    else if( source == editPaste ) {
                         controller.editPaste();
                     }
-                    else if( source == editUndo )
-                    {
+                    else if( source == editUndo ) {
                         controller.editUndo();
                     }
-                    else if( source == editRedo )
-                    {
+                    else if( source == editRedo ) {
                         controller.editRedo();
                     }
-                    else if( source == editSelectAll )
-                    {
+                    else if( source == editSelectAll ) {
                         controller.editSelectAll();
                     }
-                    else if( source == editGoToLine )
-                    {
+                    else if( source == editGoToLine ) {
                         controller.editGoToLine();
                     }
-                    else if( source == editPrependAppendToSelectedLines ){
+                    else if( source == editPrependAppendToSelectedLines ) {
                         controller.editPrependAppendToSelectedLines();
                     }
-                    else if( source == editFindInProject )
-                    {
+                    else if( source == editFindInProject ) {
                         controller.editFindInProject();
                     }
-                    else if( source == editFindNext )
-                    {
+                    else if( source == editFindNext ) {
                         controller.editFindNext();
                     }
-                    else if( source == editToggleLiveSpellcheck )
-                    {
+                    else if( source == editToggleLiveSpellcheck ) {
                         controller.editToggleLiveSpellcheck();
                     }
-                    else if( source == editShowUserDictionary )
-                    {
+                    else if( source == editShowUserDictionary ) {
                         controller.editShowUserDictionary();
                     }
-                    else if( source == formatBold )
-                    {
+                    else if( source == formatBold ) {
                         controller.formatBold();
                     }
-                    else if( source == formatItalic )
-                    {
+                    else if( source == formatItalic ) {
                         controller.formatItalic();
                     }
-                    else if( source == formatUnderline )
-                    {
+                    else if( source == formatUnderline ) {
                         controller.formatUnderline();
                     }
-                    else if( source == formatStrikethrough )
-                    {
+                    else if( source == formatStrikethrough ) {
                         controller.formatStrikethrough();
                     }
-                    else if( source == formatSmall )
-                    {
+                    else if( source == formatSmall ) {
                         controller.formatSmall();
                     }
-                    else if( source == formatCenter )
-                    {
+                    else if( source == formatCenter ) {
                         controller.formatCenter();
                     }
-                    else if( source == formatSuperscript )
-                    {
+                    else if( source == formatSuperscript ) {
                         controller.formatSuperscript();
                     }
-                    else if( source == formatSubscript )
-                    {
+                    else if( source == formatSubscript ) {
                         controller.formatSubcript();
                     }
-                    else if( source == formatBlockquote )
-                    {
+                    else if( source == formatBlockquote ) {
                         controller.formatBlockquote();
                     }
-                    else if( source == formatBulletedList )
-                    {
+                    else if( source == formatBulletedList ) {
                         controller.formatBulletedList();
                     }
-                    else if( source == formatCode )
-                    {
+                    else if( source == formatCode ) {
                         controller.formatCode();
                     }
-                    else if( source == formatH1 )
-                    {
+                    else if( source == formatH1 ) {
                         controller.formatH1();
                     }
-                    else if( source == formatH2 )
-                    {
+                    else if( source == formatH2 ) {
                         controller.formatH2();
                     }
-                    else if( source == formatH3 )
-                    {
+                    else if( source == formatH3 ) {
                         controller.formatH3();
                     }
-                    else if( source == formatH4 )
-                    {
+                    else if( source == formatH4 ) {
                         controller.formatH4();
                     }
-                    else if( source == formatH5 )
-                    {
+                    else if( source == formatH5 ) {
                         controller.formatH5();
                     }
-                    else if( source == formatH6 )
-                    {
+                    else if( source == formatH6 ) {
                         controller.formatH6();
                     }
                     else if( source == cssPagebreakBefore ) {
@@ -637,227 +577,180 @@ public class MarkdownMenuBar
                         controller.cssChapterPagebreakBoth();
                     }
 
-                    else if( source == formatInsertLink )
-                    {
+                    else if( source == formatInsertLink ) {
                         controller.formatInsertLink();
                     }
-                    else if( source == formatInsertImage )
-                    {
+                    else if( source == formatInsertImage ) {
                         controller.formatInsertImage();
                     }
-                    else if( source == formatInsertFootnote )
-                    {
+                    else if( source == formatInsertFootnote ) {
                         controller.formatInsertFootnote();
                     }
-                    else if( source == formatInsertPageBreak ){
+                    else if( source == formatInsertPageBreak ) {
                         controller.formatInsertPageBreak();
                     }
-                    else if( source == filePreviewCurrentDocument )
-                    {
+                    else if( source == filePreviewCurrentDocument ) {
                         controller.filePreview();
                     }
-                    else if( source == filePreviewCurrentDocumentAndChildren )
-                    {
+                    else if( source == filePreviewCurrentDocumentAndChildren ) {
                         controller.filePreviewWithChildren();
                     }
-                    else if( source == viewSplitHorizontal )
-                    {
+                    else if( source == viewSplitHorizontal ) {
                         controller.viewSplitHorizontal();
                     }
-                    else if( source == viewSplitVertical )
-                    {
+                    else if( source == viewSplitVertical ) {
                         controller.viewSplitVertical();
                     }
-                    else if( source == viewSplitUnsplit )
-                    {
+                    else if( source == viewSplitUnsplit ) {
                         controller.viewSplitUnsplit();
                     }
-                    else if( source == viewSynchronizeEditors )
-                    {
+                    else if( source == viewSynchronizeEditors ) {
                         controller.viewSynchronizeEditors();
                     }
-                    else if( source == menuBarDocumentsNewFile )
-                    {
+                    else if( source == menuBarDocumentsNewFile ) {
                         controller.documentsNewFile();
                     }
-                    else if( source == menuBarDocumentsNewChildText ){
+                    else if( source == menuBarDocumentsNewChildText ) {
                         controller.documentsNewChildFile();
                     }
-                    else if( source == documentsRename )
-                    {
+                    else if( source == documentsRename ) {
                         controller.documentsRename();
                     }
-                    else if( source == documentsImportImages )
-                    {
+                    else if( source == documentsImportImages ) {
                         controller.documentsImportImages();
                     }
-                    else if( source == documentsDelete )
-                    {
+                    else if( source == documentsDelete ) {
                         controller.documentsDelete();
                     }
-                    else if( source == documentsSelectInTree )
-                    {
+                    else if( source == documentsSelectInTree ) {
                         controller.selectCurrentNodeInTree();
                     }
-                    else if( source == documentsDuplicate )
-                    {
+                    else if( source == documentsDuplicate ) {
                         controller.documentsDuplicate();
                     }
-                    else if( source == documentsSplitAtCursor )
-                    {
+                    else if( source == documentsSplitAtCursor ) {
                         controller.documentsSplitAtCursor();
                     }
-                    else if( source == documentsSplitAtCursorMakeSelectionTitle )
-                    {
+                    else if( source == documentsSplitAtCursorMakeSelectionTitle ) {
                         controller.documentsSplitAtCursorMakeSelectionTitle();
                     }
-                    else if( source == documentsJoin )
-                    {
+                    else if( source == documentsJoin ) {
                         controller.documentsJoin();
                     }
-                    else if( source == documentsProjectStatistics )
-                    {
+                    else if( source == documentsProjectStatistics ) {
                         controller.documentsProjectStatistics();
                     }
-                    else if( source == documentsEmptyTrash )
-                    {
+                    else if( source == documentsEmptyTrash ) {
                         controller.documentsEmptyTrash();
                     }
-                    else if( source == toolsExpandMacro )
-                    {
+                    else if( source == toolsExpandMacro ) {
                         controller.toolsExpandMacro();
                     }
-                    else if( source == toolsEditMacros )
-                    {
+                    else if( source == toolsEditMacros ) {
                         controller.toolsEditMacros();
                     }
-                    else if( source == toolsTextSelectionToUpperCase )
-                    {
+                    else if( source == toolsTextSelectionToUpperCase ) {
                         controller.toolsTextSelectionToUpperCase();
                     }
-                    else if( source == toolsTextSelectionToLowerCase )
-                    {
+                    else if( source == toolsTextSelectionToLowerCase ) {
                         controller.toolsTextSelectionToLowerCase();
                     }
-                    else if( source == toolsTextSelectionToCamelCase )
-                    {
+                    else if( source == toolsTextSelectionToCamelCase ) {
                         controller.toolsTextSelectionToCamelCase();
                     }
-                    else if( source == toolsTextSelectionTabsToSpaces )
-                    {
+                    else if( source == toolsTextSelectionTabsToSpaces ) {
                         controller.toolsTextSelectionTabsToSpaces();
                     }
-                    else if( source == toolsTextSelectionSpacesToTabs )
-                    {
+                    else if( source == toolsTextSelectionSpacesToTabs ) {
                         controller.toolsTextSelectionSpacesToTabs();
                     }
-                    else if( source == toolsTextCondenseMultipleSpaces )
-                    {
+                    else if( source == toolsTextCondenseMultipleSpaces ) {
                         controller.toolsTextCondenseMultipleSpaces();
                     }
-                    else if( source == toolsTextShiftIndentLeft )
-                    {
+                    else if( source == toolsTextShiftIndentLeft ) {
                         controller.toolsTextShiftIndentLeft();
                     }
-                    else if( source == toolsTextShiftIndentRight )
-                    {
+                    else if( source == toolsTextShiftIndentRight ) {
                         controller.toolsTextShiftIndentRight();
                     }
-                    else if( source == toolsTextJoinLines )
-                    {
+                    else if( source == toolsTextJoinLines ) {
                         controller.toolsTextJoinLines();
                     }
-                    else if( source == toolsTextDeleteLines )
-                    {
+                    else if( source == toolsTextDeleteLines ) {
                         controller.toolsTextDeleteLines();
                     }
-                    else if( source == toolsTextDoubleNewlines )
-                    {
+                    else if( source == toolsTextDoubleNewlines ) {
                         controller.toolsTextDoubleNewlines();
                     }
-                    else if( source == toolsTextSingleNewlines )
-                    {
+                    else if( source == toolsTextSingleNewlines ) {
                         controller.toolsTextSingleNewlines();
                     }
-                    else if( source == toolsTextDeleteToStartOfLine )
-                    {
+                    else if( source == toolsTextDeleteToStartOfLine ) {
                         controller.toolsTextDeleteToStartOfLine();
                     }
-                    else if( source == toolsTextDeleteToEndOfLine )
-                    {
+                    else if( source == toolsTextDeleteToEndOfLine ) {
                         controller.toolsTextDeleteToEndOfLine();
                     }
-                    else if( source == toolsTextInsertCurrentDate )
-                    {
+                    else if( source == toolsTextInsertCurrentDate ) {
                         controller.toolsTextInsertCurrentDate();
                     }
-                    else if( source == toolsTextInsertCurrentTime )
-                    {
+                    else if( source == toolsTextInsertCurrentTime ) {
                         controller.toolsTextInsertCurrentTime();
                     }
-                    else if( source == toolsTextInsertCurrentDateAndTime )
-                    {
+                    else if( source == toolsTextInsertCurrentDateAndTime ) {
                         controller.toolsTextInsertCurrentDateAndTime();
                     }
-                    else if( source == toolsTextInsertLoremSentance )
-                    {
+                    else if( source == toolsTextInsertLoremSentance ) {
                         controller.toolsTextInsertLoremSentance();
                     }
-                    else if( source == toolsTextInsertLoremParagraph )
-                    {
+                    else if( source == toolsTextInsertLoremParagraph ) {
                         controller.toolsTextInsertLoremParagraph();
                     }
-                    else if( source == toolsTextInsertSedUt )
-                    {
+                    else if( source == toolsTextInsertSedUt ) {
                         controller.toolsTextInsertSedUt();
                     }
-                    else if( source == toolsTextInsertAtVero )
-                    {
+                    else if( source == toolsTextInsertAtVero ) {
                         controller.toolsTextInsertAtVero();
                     }
-                    else if( source == toolsTextInsertGreekingParagraphs )
-                    {
+                    else if( source == toolsTextInsertGreekingParagraphs ) {
                         controller.toolsTextInsertGreekingParagraphs();
                     }
-                    else if( source == helpShowHelp )
-                    {
+                    else if( source == helpShowHelp ) {
                         MarkdownServer.helpShowHelp();
                     }
-                    else if( source == helpAbout )
-                    {
+                    else if( source == helpAbout ) {
                         MarkdownServer.helpAbout();
                     }
-                    else if( source == helpPreferences )
-                    {
+                    else if( source == helpPreferences ) {
                         controller.helpPreferences();
+                    }
+                    else if( source == helpMemory ) {
+                        controller.showSystemMemory();
                     }
                 }
             };
             SwingUtilities.invokeLater( thread );
         }
+
     }
 
-    public void configure( Preferences preferences )
-    {
+    public void configure( Preferences preferences ) {
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
 
-        if( editorPreferences.liveSpellCheck() )
-        {
+        if( editorPreferences.liveSpellCheck() ) {
             editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOff() );
         }
-        else
-        {
+        else {
             editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOn() );
         }
 
         Project project = controller.getProject();
-        if( project.synchronizeEditors() )
-        {
+        if( project.synchronizeEditors() ) {
             viewSynchronizeEditors.setText( messages.menuBarViewStopSynchronizingEditors() );
         }
-        else
-        {
+        else {
             viewSynchronizeEditors.setText( messages.menuBarViewSynchronizeEditors() );
         }
     }
+
 }

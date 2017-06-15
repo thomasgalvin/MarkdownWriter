@@ -38,6 +38,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -46,6 +47,8 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -67,6 +70,8 @@ public class Controller {
     }
 
     public void fileOpen() {
+        System.gc();
+        
         JFileChooser fileChooser = getOpenFileChooser();
         int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserOpenProjectButton() );
         if( option == JFileChooser.APPROVE_OPTION ) {
@@ -94,9 +99,7 @@ public class Controller {
         public void run() {
             OpenProgressDialog dialog = new OpenProgressDialog();
             dialog.setVisible( true );
-
             MarkdownServer.fileOpen( projectStructureDocument );
-
             dialog.setVisible( false );
         }
 
@@ -2004,6 +2007,7 @@ public class Controller {
     ////////
     // Utils
     ////////
+    
     public ProjectFrame getProjectFrame() {
         return projectFrame;
     }
@@ -2060,18 +2064,6 @@ public class Controller {
         return null;
     }
 
-//    private SaveProjectDialog getSaveProjectDialog()
-//    {
-//        if( projectFrame != null )
-//        {
-//            if( projectFrame.getSaveFileChooser() != null )
-//            {
-//                return projectFrame.getSaveProjectDialog();
-//            }
-//        }
-//
-//        return MarkdownServer.getSaveProjectDialog();
-//    }
     private JFileChooser getOpenFileChooser() {
         if( projectFrame != null ) {
             if( projectFrame.getOpenFileChooser() != null ) {
@@ -2159,6 +2151,30 @@ public class Controller {
         return messages;
     }
 
+    public void showSystemMemory(){
+        StringBuilder memory = new StringBuilder();
+        memory.append( "Available processors: " );
+        memory.append( Runtime.getRuntime().availableProcessors() );
+        memory.append( " cores\n" );
+        
+        memory.append( "Free memory: " );
+        long free = Runtime.getRuntime().freeMemory() / 1048576;
+        memory.append( free );
+        memory.append( "MB\n" );
+        
+        memory.append( "Maximum memory: " );
+        long maxMemory = Runtime.getRuntime().maxMemory() / 1048576;
+        memory.append( maxMemory );
+        memory.append( "MB\n" );
+        
+        memory.append( "Total memory available to JVM: " );
+        long total = Runtime.getRuntime().totalMemory() / 1048576;
+        memory.append( total );
+        memory.append( "MB\n" );
+        
+        JOptionPane.showMessageDialog(null, memory.toString(), "System Memory", JOptionPane.INFORMATION_MESSAGE );
+    }
+    
     private static void stubCode() {
         System.out.println( "=========================" );
         System.out.println( "=========================" );

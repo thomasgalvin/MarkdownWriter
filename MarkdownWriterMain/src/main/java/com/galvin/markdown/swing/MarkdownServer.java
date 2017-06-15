@@ -358,6 +358,8 @@ public class MarkdownServer
 
                 dialog.setVisible( false );
                 newFrame.getWindow().setVisible( true );
+                
+                System.gc();
             }
         }
         catch( Throwable t )

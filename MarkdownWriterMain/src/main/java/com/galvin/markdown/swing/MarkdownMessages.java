@@ -255,6 +255,7 @@ extends BaseMessages
     public String menuBarHelpShow(){ return getString( "menuBarHelpShow" ); }
     public String menuBarHelpAbout(){ return getString( "menuBarHelpAbout" ); }
     public String menuBarHelpPreferences(){ return getString( "menuBarHelpPreferences" ); }
+    public String helpMemory(){ return getString( "helpMemory" ); }
     
     public String menuBarOpenTemplatesDir(){ return getString( "menuBarOpenTemplatesDir" ); }
     
