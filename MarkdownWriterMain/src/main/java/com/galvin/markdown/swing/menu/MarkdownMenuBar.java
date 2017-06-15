@@ -27,7 +27,6 @@ public class MarkdownMenuBar
     private Listener listener = new Listener();
     private Controller controller;
     private JMenu fileMenu = new JMenu( messages.menuBarFile() );
-    //private JMenuItem fileNew = createMenuItem( messages.menuBarFileNew(), listener );
     private JMenu fileNew;
     private JMenuItem fileOpen = createMenuItem( messages.menuBarFileOpen(), listener );
     private JMenuItem fileSave = createMenuItem( messages.menuBarFileSave(), listener );
@@ -800,7 +799,6 @@ public class MarkdownMenuBar
                     {
                         controller.toolsTextInsertCurrentDateAndTime();
                     }
-                    
                     else if( source == toolsTextInsertLoremSentance )
                     {
                         controller.toolsTextInsertLoremSentance();
@@ -821,7 +819,6 @@ public class MarkdownMenuBar
                     {
                         controller.toolsTextInsertGreekingParagraphs();
                     }
-                    
                     else if( source == helpShowHelp )
                     {
                         MarkdownServer.helpShowHelp();
