@@ -27,7 +27,7 @@ public class ExportCompleteDialog
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private JLabel successLabel = new JLabel();
     private JButton okayButton = new JButton( messages.success() );
-    private JButton openFolderButton = new JButton( messages.openExportFolder() );
+    private JButton openFolderButton = new JButton( messages.menuOpenExportFolder() );
     private LayoutPanel layoutPanel;
     private File exportDirectory;
     private List<CompileResults> results;

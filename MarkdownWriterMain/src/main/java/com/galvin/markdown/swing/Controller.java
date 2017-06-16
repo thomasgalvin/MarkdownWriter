@@ -562,7 +562,9 @@ public class Controller {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
-                                                         messages.goToLineDialogTitle() );
+                                                         messages.goToLine(),
+                                                         messages.goToLineDialogTitle(),
+                                                         JOptionPane.QUESTION_MESSAGE );
             if( result != null ) {
                 String value = result.toString();
                 try {
@@ -626,30 +628,6 @@ public class Controller {
         }
         else {
             Toolkit.getDefaultToolkit().beep();
-        }
-    }
-
-    public void editToggleLiveSpellcheck() {
-        Preferences preferences = MarkdownServer.getPreferences();
-
-        boolean spellCheck = !preferences.getEditorPreferences().liveSpellCheck();
-        preferences.getEditorPreferences().setLiveSpellCheck( spellCheck );
-        MarkdownServer.writePreferences();
-
-        if( spellCheck ) {
-            MarkdownServer.startSpellCheck();
-        }
-        else {
-            MarkdownServer.stopSpellCheck();
-        }
-
-        configureMenusAndEditors( preferences );
-
-        if( spellCheck ) {
-            getProject().startSpellCheck();
-        }
-        else {
-            getProject().stopSpellCheck();
         }
     }
 
@@ -1906,7 +1884,9 @@ public class Controller {
             originalName = messages.untitled();
         }
 
-        Object result = JOptionPane.showInputDialog( getPopupWindowOwner(), messages.renameDialogTitle(), originalName );
+        Object result = JOptionPane.showInputDialog( getPopupWindowOwner(), 
+                                                     messages.documentNameLabel(), 
+                                                     originalName );
         if( result != null ) {
             return result.toString();
         }

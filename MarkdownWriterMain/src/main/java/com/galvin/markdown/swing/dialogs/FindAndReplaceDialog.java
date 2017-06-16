@@ -396,7 +396,7 @@ public class FindAndReplaceDialog
             y += GuiUtils.PADDING;
 
             y += buttonSize.height + GuiUtils.PADDING;
-            preferredSize = new Dimension( 500, y );
+            preferredSize = new Dimension( 525, y );
 
             y = size.height - buttonSize.height - GuiUtils.PADDING;
 

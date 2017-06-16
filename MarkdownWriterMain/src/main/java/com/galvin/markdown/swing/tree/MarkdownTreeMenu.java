@@ -29,9 +29,9 @@ public class MarkdownTreeMenu
     private JMenuItem addChildText = new JMenuItem( messages.menuChild() );
 
     private JMenuItem rename = new JMenuItem( messages.menuRename() );
-    private JMenuItem delete = new JMenuItem( messages.menuDelete() );
+    private JMenuItem delete = new JMenuItem( messages.menuMoveToTrash() );
     private JMenuItem duplicate = new JMenuItem( messages.menuDuplicate() );
-    private JMenuItem join = new JMenuItem( messages.menuJoin() );
+    private JMenuItem join = new JMenuItem( messages.menuJoinDocuments() );
     
     private JMenu fileExportMenu = new JMenu( messages.menuExport() );
     private JMenuItem fileExportProject = new JMenuItem( messages.menuExportProject() );

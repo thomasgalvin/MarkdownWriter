@@ -145,7 +145,10 @@ public class MarkdownMessages
     /// Controller.java
     ///////////////////
     
+    public String goToLine(){ return "Go to line:"; };
     public String goToLineDialogTitle(){ return "Go to line"; };
+    
+    public String documentNameLabel(){ return "Document name:"; };
     
     public String errorOpen(){ return "Sorry, an error occurred while opening the project."; };
     public String errorSave(){ return "Sorry, an error occurred while saving the project."; };
@@ -180,7 +183,6 @@ public class MarkdownMessages
     /// ExportCompleteDialog.java
     /////////////////////////////
     
-    public String openExportFolder(){ return "Open export folder ..."; };
     public String exportCompleteLabel(){ return "Export complete:"; };
     
     /////////////////////
@@ -199,8 +201,8 @@ public class MarkdownMessages
     public String findAll(){ return "Find all ..."; };
     public String replaceAll(){ return "Replace all..."; };
     
-    public String currentDocument(){ return "Replace all..."; };
-    public String allDocuments(){ return "Replace all..."; };
+    public String currentDocument(){ return "Current document"; };
+    public String allDocuments(){ return "All documents"; };
     public String onlyManuscript(){ return "Only documents in the Manuscript (exclude research, etc)"; };
     public String ignoreCase(){ return "Ignore case"; };
     
@@ -245,24 +247,137 @@ public class MarkdownMessages
     /// MarkdownMenuBar.java
     ////////////////////////
     
-    public String menuNew(){ return "New ..."; };
+    public String menuCamelCase(){ return "Selection to camel case"; };
     public String menuChild(){ return "Add a child ..."; };
-    public String menuDelete(){ return "Delete ..."; };
-    public String menuDuplicate(){ return "Delete ..."; };
+    public String menuClose(){ return "Close"; };
+    public String menuCloseWithoutSave(){ return "Close without saving"; };
+    public String menuCondenseMultipleSpaces(){ return "Selection condense multiple spaces"; };
+    public String menuCopy(){ return "Copy"; };
+    public String menuCut(){ return "Cut"; };
+    
+    public String menuCSS(){ return "CSS rules"; };
+    public String cssPagebreakBefore(){ return "Page break before"; };
+    public String cssPagebreakAfter(){ return "Page break after"; };
+    public String cssPagebreakBoth(){ return "Page break both"; };
+    public String cssChapter(){ return "Chapter"; };
+    public String cssChapterPagebreakBefore(){ return "Chapter with page break before"; };
+    public String cssChapterPagebreakAfter(){ return "Chapter with page break after"; };
+    public String cssChapterPagebreakBoth(){ return "Chapter with page break both"; };
+    
+    public String menuDeleteLines(){ return "Delete lines"; };
+    public String menuDeleteToStartOfLine(){ return "Delete to start of line"; };
+    public String menuDeleteToEndOfLine(){ return "Delete to end of line"; };
+    public String menuDocuments(){ return "Documents"; };
+    public String menuDoubleNewlines(){ return "Single newlines to double"; };
+    public String menuDuplicate(){ return "Duplicate ..."; };
+    
+    public String menuEdit(){ return "Edit"; };
     public String menuEmptyTrash(){ return "Empty trash ..."; };
+    public String menuExit(){ return "Close"; };
     public String menuExport(){ return "Export"; };
-    public String menuExportProject(){ return "Export project ..."; };
-    public String menuExportProjectCurrentOptions(){ return "Export project with current options"; };
     public String menuExportDocument(){ return "Export document ..."; };
     public String menuExportDocumentCurrentOptions(){ return "Export current document with current options"; };
     public String menuExportDocumentAndChildren(){ return "Export current document and children"; };
     public String menuExportDocumentAndChildrenCurrentOptions(){ return "Export current document and children with current options"; };
-    public String menuJoin(){ return "Join selected documents"; };
+    public String menuExportProject(){ return "Export project ..."; };
+    public String menuExportProjectCurrentOptions(){ return "Export project with current options"; };
+    
+    public String menuFile(){ return "File"; };
+    public String menuFindReplace(){ return "Find/Replace ..."; };
+    public String menuFindNext(){ return "Find next"; };
+    
+    public String menuFormat(){ return "Format"; };
+    public String menuFormatBold(){ return "Bold"; };
+    public String menuFormatItalic(){ return "Italic"; };
+    public String menuFormatUnderline(){ return "Underline"; };
+    public String menuFormatStrikethrough(){ return "Strikethrough"; };
+    public String menuFormatSmall(){ return "Small"; };
+    public String menuFormatCenter(){ return "Center"; };
+    public String menuFormatSuperscript(){ return "Superscript"; };
+    public String menuFormatSubscript(){ return "Subscript"; };
+    public String menuFormatBlockquote(){ return "Blockquote"; };
+    public String menuFormatCode(){ return "Code"; };
+    public String menuFormatBulletedList(){ return "Bulleted list"; };
+    public String menuFormatH1(){ return "H1"; };
+    public String menuFormatH2(){ return "H2"; };
+    public String menuFormatH3(){ return "H3"; };
+    public String menuFormatH4(){ return "H4"; };
+    public String menuFormatH5(){ return "H5"; };
+    public String menuFormatH6(){ return "H6"; };
+    
+    public String menuGoToLine(){ return "Go to line ..."; };
+    public String menuGreekingLoremSentence(){ return "Lorem Ipsum sentence"; };
+    public String menuGreekingLoremParagraph(){ return "Lorem Ipsum paragraph"; };
+    public String menuGreekingSedUt(){ return "Sed ut paragraph"; };
+    public String menuGreekingAtVero(){ return "At vero paragraph"; };
+    public String menuGreekingParagraphs(){ return "Multiple Greeking paragraphs"; };
+    
+    public String menuHelp(){ return "Help"; };
+    public String menuHelpAbout(){ return "About Markdown Writer ..."; };
+    public String menuHelpPreferences(){ return "Preferences ..."; };
+    public String menuHelpMemory(){ return "Memory useage ..."; };
+    public String menuHelpShow(){ return "Show help ..."; };
+    
+    public String menuImportImages(){ return "Import images ..."; };
+    public String menuInsert(){ return "Insert"; };
+    public String menuInsertCurrentDate(){ return "Insert current date"; };
+    public String menuInsertCurrentTime(){ return "Insert current time"; };
+    public String menuInsertCurrentDateAndTime(){ return "Insert current date and time"; };
+    
+    public String menuInsertLink(){ return "Link ..."; };
+    public String menuInsertImage(){ return "Image ..."; };
+    public String menuInsertFootnote(){ return "Footnote ..."; };
+    public String menuInsertPageBreak(){ return "Page break"; };
+    
+    public String menuJoinDocuments(){ return "Join selected documents"; };
+    public String menuJoinLines(){ return "Join selected lines"; };
+    
+    public String menuLowerCase(){ return "Selection to lower case"; };
+    
+    public String menuMoveToTrash(){ return "Move to trash"; };
+    
+    public String menuNew(){ return "New"; };
+    
+    public String menuOpen(){ return "Open ..."; };
+    public String menuOpenTemplatesDir(){ return "Open teamplates folder..."; };
+    public String menuOpenExportFolder(){ return "Open export folder ..."; };
+    
+    public String menuPaste(){ return "Paste"; };
+    public String menuPrependAppendToSelectedLines(){ return "Prepend/Append to selected lines..."; };
     public String menuPreview(){ return "Preview"; };
     public String menuPreviewDocument(){ return "Preview current document..."; };
     public String menuPreviewDocumentAndChildren(){ return "Preview current document and children..."; };
+    
+    public String menuRedo(){ return "Redo"; };
     public String menuRename(){ return "Rename ..."; };
+    
+    public String menuSave(){ return "Save ..."; };
+    public String menuSaveAs(){ return "Save as ..."; };
+    public String menuSaveCopyAs(){ return "Save copy as ..."; };
+    public String menuSelectAll(){ return "Select all"; };
+    public String menuShowUserDictionary(){ return "Show user dictionary ..."; };
+    public String menuShiftIndentLeft(){ return "Shift indent left"; };
+    public String menuShiftIndentRight(){ return "Shift indent right"; };
     public String menuSibling(){ return "Add a sibling ..."; };
+    public String menuSingleNewlines(){ return "Double newlines to single"; };
+    public String menuSpacesToTabs(){ return "Selection spaces to tabs"; };
+    public String menuSplitAtCursor(){ return "Split at cursor ..."; };
+    public String menuSplitAtCursorTitle(){ return "Split at cursor and make selection title ..."; };
+
+    public String menuTabsToSpaces(){ return "Selection tabs to spaces"; };
+    public String menuTextTools(){ return "Text tools"; };
+    public String menuExpandMacro(){ return "Expand macro"; };
+    public String menuEditMacros(){ return "Edit macros ..."; };
+    
+    public String menuUndo(){ return "Undo"; };
+    public String menuUpperCase(){ return "Selection to upper case"; };
+    
+    public String menuView(){ return "View"; };
+    public String menuViewSplitHorizontal(){ return "Split horizontal"; };
+    public String menuViewSplitVertical(){ return "Split vertical"; };
+    public String menuViewUnsplit(){ return "Unsplit"; };
+    public String menuViewSynchronizeEditors(){ return "Synchronize editors"; };
+    public String menuViewUnsynchronizeEditors(){ return "Stop synchronizing editors"; };
     
     //////////////////////////
     /// MacroEditorDialog.java
@@ -303,10 +418,6 @@ public class MarkdownMessages
     public String noCover(){ return "No cover"; };
     public String errorSettingCoverImage(){ return "Sorry, an error occurred while setting the cover image."; };
     
-    //////////////////////////////
-    /// ProjectMetadataWidget.java
-    //////////////////////////////
-    
     ////////////////////////////////
     /// ProjectStatisticsDialog.java
     ////////////////////////////////
@@ -337,6 +448,13 @@ public class MarkdownMessages
     public String recentProjects(){ return "Recent projects"; };
     public String noRecentProjects(){ return "No recent projects"; };
     public String clearRecentProjects(){ return "Clear recent projects"; };
+
+    ////////////////////////////
+    /// SearchResultsDialog.java
+    ////////////////////////////
+    
+    public String searchResultsDialogTitle(){ return "Search results for: "; };
+    public String ignoringCase(){ return " (ignoring case)"; };
     
     //////////////////////
     /// WelcomeScreen.java
@@ -347,7 +465,7 @@ public class MarkdownMessages
     
     public String buttonCreateNew(){ return "Create a new project ..."; };
     public String buttonOpenRecent(){ return "Open a recent project ..."; };
-    public String buttonOpenExisting(){ return "Open an existing project ..."; };
+    public String buttonOpenExisting(){ return "Browse for an existing project ..."; };
     
     
 }

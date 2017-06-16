@@ -25,59 +25,58 @@ public class MarkdownMenuBar
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private Listener listener = new Listener();
     private Controller controller;
-    private JMenu fileMenu = new JMenu( messages.menuBarFile() );
+    private JMenu fileMenu = new JMenu( messages.menuFile() );
     private JMenu fileNew;
-    private JMenuItem fileOpen = createMenuItem( messages.menuBarFileOpen(), listener );
-    private JMenuItem fileSave = createMenuItem( messages.menuBarFileSave(), listener );
-    private JMenuItem fileSaveAs = createMenuItem( messages.menuBarFileSaveAs(), listener );
-    private JMenuItem fileSaveCopyAs = createMenuItem( messages.menuBarFileSaveCopyAs(), listener );
-    private JMenuItem fileOpenTemplatesDir = createMenuItem( messages.menuBarOpenTemplatesDir(), listener );
-    private JMenu fileExportMenu = new JMenu( messages.menuBarFileExport() );
-    private JMenuItem fileExportProject = createMenuItem( messages.menuBarFileExportProject(), listener );
-    private JMenuItem fileExportProjectUsingCurrentOptions = createMenuItem( messages.menuBarFileExportProjectUsingCurrentOptions(), listener );
-    private JMenuItem fileExportCurrentDocument = createMenuItem( messages.menuBarFileExportCurrentDocument(), listener );
-    private JMenuItem fileExportCurrentDocumentUsingCurrentOptions = createMenuItem( messages.menuBarFileExportCurrentDocumentUsingCurrentOptions(), listener );
-    private JMenuItem fileExportCurrentDocumentAndChildren = createMenuItem( messages.menuBarFileExportCurrentDocumentAndChildren(), listener );
-    private JMenuItem fileExportCurrentDocumentAndChildrenUsingCurrentOptions = createMenuItem( messages.menuBarFileExportCurrentDocumentAndChildrenUsingCurrentOptions(), listener );
-    private JMenuItem fileShowExportDirectory = createMenuItem( messages.menuBarFileShowExportDirectory(), listener );
-    private JMenu filePreviewMenu = new JMenu( messages.menuBarFilePreview() );
-    private JMenuItem filePreviewCurrentDocument = createMenuItem( messages.menuBarFilePreviewCurrentDocument(), listener );
-    private JMenuItem filePreviewCurrentDocumentAndChildren = createMenuItem( messages.menuBarFilePreviewCurrentDocumentAndChildren(), listener );
-    private JMenuItem fileClose = createMenuItem( messages.menuBarFileClose(), listener );
-    private JMenuItem fileCloseWithoutSaving = createMenuItem( messages.menuBarFileCloseWithoutSaving(), listener );
-    private JMenuItem fileExit = createMenuItem( messages.menuBarFileExit(), listener );
-    private JMenu editMenu = new JMenu( messages.menuBarEdit() );
-    private JMenuItem editCut = createMenuItem( messages.menuBarEditCut(), listener );
-    private JMenuItem editCopy = createMenuItem( messages.menuBarEditCopy(), listener );
-    private JMenuItem editPaste = createMenuItem( messages.menuBarEditPaste(), listener );
-    private JMenuItem editUndo = createMenuItem( messages.menuBarEditUndo(), listener );
-    private JMenuItem editRedo = createMenuItem( messages.menuBarEditRedo(), listener );
-    private JMenuItem editSelectAll = createMenuItem( messages.menuBarEditSelectAll(), listener );
-    private JMenuItem editGoToLine = createMenuItem( messages.menuBarEditGoToLine(), listener );
-    private JMenuItem editPrependAppendToSelectedLines = createMenuItem( messages.menuBarEditPrependAppendToSelectedLines(), listener );
-    private JMenuItem editFindInProject = createMenuItem( messages.menuBarEditFindInProject(), listener );
-    private JMenuItem editFindNext = createMenuItem( messages.menuBarEditFindNext(), listener );
-    private JMenuItem editToggleLiveSpellcheck = createMenuItem( messages.menuBarEditTurnLiveSpellcheckOff(), listener );
-    private JMenuItem editShowUserDictionary = createMenuItem( messages.menuBarEditShowUserDictionary(), listener );
-    private JMenu formatMenu = new JMenu( messages.menuBarFormat() );
-    private JMenuItem formatBold = createMenuItem( messages.menuBarFormatBold(), listener );
-    private JMenuItem formatItalic = createMenuItem( messages.menuBarFormatItalic(), listener );
-    private JMenuItem formatUnderline = createMenuItem( messages.menuBarFormatUnderline(), listener );
-    private JMenuItem formatStrikethrough = createMenuItem( messages.menuBarFormatStrikethrough(), listener );
-    private JMenuItem formatSmall = createMenuItem( messages.menuBarFormatSmall(), listener );
-    private JMenuItem formatCenter = createMenuItem( messages.menuBarFormatCenter(), listener );
-    private JMenuItem formatSuperscript = createMenuItem( messages.menuBarFormatSuperscript(), listener );
-    private JMenuItem formatSubscript = createMenuItem( messages.menuBarFormatSubscript(), listener );
-    private JMenuItem formatBlockquote = createMenuItem( messages.menuBarFormatBlockquote(), listener );
-    private JMenuItem formatCode = createMenuItem( messages.menuBarFormatCode(), listener );
-    private JMenuItem formatBulletedList = createMenuItem( messages.menuBarBulletedList(), listener );
-    private JMenuItem formatH1 = createMenuItem( messages.menuBarFormatH1(), listener );
-    private JMenuItem formatH2 = createMenuItem( messages.menuBarFormatH2(), listener );
-    private JMenuItem formatH3 = createMenuItem( messages.menuBarFormatH3(), listener );
-    private JMenuItem formatH4 = createMenuItem( messages.menuBarFormatH4(), listener );
-    private JMenuItem formatH5 = createMenuItem( messages.menuBarFormatH5(), listener );
-    private JMenuItem formatH6 = createMenuItem( messages.menuBarFormatH6(), listener );
-    private JMenu cssMenu = new JMenu( messages.menuBarCss() );
+    private JMenuItem fileOpen = createMenuItem( messages.menuOpen(), listener );
+    private JMenuItem fileSave = createMenuItem( messages.menuSave(), listener );
+    private JMenuItem fileSaveAs = createMenuItem( messages.menuSaveAs(), listener );
+    private JMenuItem fileSaveCopyAs = createMenuItem( messages.menuSaveCopyAs(), listener );
+    private JMenuItem fileOpenTemplatesDir = createMenuItem( messages.menuOpenTemplatesDir(), listener );
+    private JMenu fileExportMenu = new JMenu( messages.menuExport() );
+    private JMenuItem fileExportProject = createMenuItem( messages.menuExportProject(), listener );
+    private JMenuItem fileExportProjectUsingCurrentOptions = createMenuItem( messages.menuExportProjectCurrentOptions(), listener );
+    private JMenuItem fileExportCurrentDocument = createMenuItem( messages.menuExportDocument(), listener );
+    private JMenuItem fileExportCurrentDocumentUsingCurrentOptions = createMenuItem( messages.menuExportDocumentCurrentOptions(), listener );
+    private JMenuItem fileExportCurrentDocumentAndChildren = createMenuItem( messages.menuExportDocumentAndChildren(), listener );
+    private JMenuItem fileExportCurrentDocumentAndChildrenUsingCurrentOptions = createMenuItem( messages.menuExportDocumentAndChildrenCurrentOptions(), listener );
+    private JMenuItem fileShowExportDirectory = createMenuItem( messages.menuOpenExportFolder(), listener );
+    private JMenu filePreviewMenu = new JMenu( messages.menuPreview() );
+    private JMenuItem filePreviewCurrentDocument = createMenuItem( messages.menuPreviewDocument(), listener );
+    private JMenuItem filePreviewCurrentDocumentAndChildren = createMenuItem( messages.menuPreviewDocumentAndChildren(), listener );
+    private JMenuItem fileClose = createMenuItem( messages.menuClose(), listener );
+    private JMenuItem fileCloseWithoutSaving = createMenuItem( messages.menuCloseWithoutSave(), listener );
+    private JMenuItem fileExit = createMenuItem( messages.menuExit(), listener );
+    private JMenu editMenu = new JMenu( messages.menuEdit() );
+    private JMenuItem editCut = createMenuItem( messages.menuCut(), listener );
+    private JMenuItem editCopy = createMenuItem( messages.menuCopy(), listener );
+    private JMenuItem editPaste = createMenuItem( messages.menuPaste(), listener );
+    private JMenuItem editUndo = createMenuItem( messages.menuUndo(), listener );
+    private JMenuItem editRedo = createMenuItem( messages.menuRedo(), listener );
+    private JMenuItem editSelectAll = createMenuItem( messages.menuSelectAll(), listener );
+    private JMenuItem editGoToLine = createMenuItem( messages.menuGoToLine(), listener );
+    private JMenuItem editPrependAppendToSelectedLines = createMenuItem( messages.menuPrependAppendToSelectedLines(), listener );
+    private JMenuItem editFindReplace = createMenuItem( messages.menuFindReplace(), listener );
+    private JMenuItem editFindNext = createMenuItem( messages.menuFindNext(), listener );
+    private JMenuItem editShowUserDictionary = createMenuItem( messages.menuShowUserDictionary(), listener );
+    private JMenu formatMenu = new JMenu( messages.menuFormat() );
+    private JMenuItem formatBold = createMenuItem( messages.menuFormatBold(), listener );
+    private JMenuItem formatItalic = createMenuItem( messages.menuFormatItalic(), listener );
+    private JMenuItem formatUnderline = createMenuItem( messages.menuFormatUnderline(), listener );
+    private JMenuItem formatStrikethrough = createMenuItem( messages.menuFormatStrikethrough(), listener );
+    private JMenuItem formatSmall = createMenuItem( messages.menuFormatSmall(), listener );
+    private JMenuItem formatCenter = createMenuItem( messages.menuFormatCenter(), listener );
+    private JMenuItem formatSuperscript = createMenuItem( messages.menuFormatSuperscript(), listener );
+    private JMenuItem formatSubscript = createMenuItem( messages.menuFormatSubscript(), listener );
+    private JMenuItem formatBlockquote = createMenuItem( messages.menuFormatBlockquote(), listener );
+    private JMenuItem formatCode = createMenuItem( messages.menuFormatCode(), listener );
+    private JMenuItem formatBulletedList = createMenuItem( messages.menuFormatBulletedList(), listener );
+    private JMenuItem formatH1 = createMenuItem( messages.menuFormatH1(), listener );
+    private JMenuItem formatH2 = createMenuItem( messages.menuFormatH2(), listener );
+    private JMenuItem formatH3 = createMenuItem( messages.menuFormatH3(), listener );
+    private JMenuItem formatH4 = createMenuItem( messages.menuFormatH4(), listener );
+    private JMenuItem formatH5 = createMenuItem( messages.menuFormatH5(), listener );
+    private JMenuItem formatH6 = createMenuItem( messages.menuFormatH6(), listener );
+    private JMenu cssMenu = new JMenu( messages.menuCSS() );
     private JMenuItem cssPagebreakBefore = createMenuItem( messages.cssPagebreakBefore(), listener );
     private JMenuItem cssPagebreakAfter = createMenuItem( messages.cssPagebreakAfter(), listener );
     private JMenuItem cssPagebreakBoth = createMenuItem( messages.cssPagebreakBoth(), listener );
@@ -85,60 +84,59 @@ public class MarkdownMenuBar
     private JMenuItem cssChapterPagebreakBefore = createMenuItem( messages.cssChapterPagebreakBefore(), listener );
     private JMenuItem cssChapterPagebreakAfter = createMenuItem( messages.cssChapterPagebreakAfter(), listener );
     private JMenuItem cssChapterPagebreakBoth = createMenuItem( messages.cssChapterPagebreakBoth(), listener );
-    private JMenu insertMenu = new JMenu( messages.menuBarFormatInsert() );
-    private JMenuItem formatInsertLink = createMenuItem( messages.menuBarFormatInsertLink(), listener );
-    private JMenuItem formatInsertImage = createMenuItem( messages.menuBarFormatInsertImage(), listener );
-    private JMenuItem formatInsertFootnote = createMenuItem( messages.menuBarFormatInsertFootnote(), listener );
-    private JMenuItem formatInsertPageBreak = createMenuItem( messages.menuBarFormatInsertPageBreak(), listener );
-    private JMenu viewMenu = new JMenu( messages.menuBarView() );
-    private JMenuItem viewSplitHorizontal = createMenuItem( messages.menuBarViewSplitHorizontal(), listener );
-    private JMenuItem viewSplitVertical = createMenuItem( messages.menuBarViewSplitVertical(), listener );
-    private JMenuItem viewSplitUnsplit = createMenuItem( messages.menuBarViewUnsplit(), listener );
-    private JMenuItem viewSynchronizeEditors = createMenuItem( messages.menuBarViewSynchronizeEditors(), listener );
-    private JMenu documentsMenu = new JMenu( messages.menuBarDocuments() );
-    private JMenuItem menuBarDocumentsNewFile = createMenuItem( messages.menuBarDocumentsNewFile(), listener );
-    private JMenuItem menuBarDocumentsNewChildText = createMenuItem( messages.menuBarDocumentsNewChildText(), listener );
-    private JMenuItem documentsRename = createMenuItem( messages.menuBarDocumentsRename(), listener );
-    private JMenuItem documentsImportImages = createMenuItem( messages.menuBarDocumentsImportImages(), listener );
-    private JMenuItem documentsDelete = createMenuItem( messages.menuBarDocumentsDelete(), listener );
-    private JMenuItem documentsDuplicate = createMenuItem( messages.menuBarDocumentsDuplicate(), listener );
-    private JMenuItem documentsJoin = createMenuItem( messages.menuBarDocumentsJoin(), listener );
-    private JMenuItem documentsSplitAtCursor = createMenuItem( messages.menuBarDocumentsSplitAtCurson(), listener );
-    private JMenuItem documentsSplitAtCursorMakeSelectionTitle = createMenuItem( messages.menuBarDocumentsSplitMakeSelectionTitle(), listener );
-    private JMenuItem documentsProjectStatistics = createMenuItem( messages.menuBarDocumentsStatistics(), listener );
-    private JMenuItem documentsEmptyTrash = createMenuItem( messages.menuBarDocumentsEmptyTrash(), listener );
-    private JMenuItem documentsSelectInTree = createMenuItem( messages.menuBarDocumentsSelectInTree(), listener );
-    private JMenu textToolsMenu = new JMenu( messages.menuBarTextTools() );
-    private JMenuItem toolsExpandMacro = createMenuItem( messages.menuBarExpandMacro(), listener );
-    private JMenuItem toolsEditMacros = createMenuItem( messages.menuBarEditMacros(), listener );
-    private JMenuItem toolsTextSelectionToUpperCase = createMenuItem( messages.menuBarTextSelectionToUpperCase(), listener );
-    private JMenuItem toolsTextSelectionToLowerCase = createMenuItem( messages.menuBarTextSelectionToLowerCase(), listener );
-    private JMenuItem toolsTextSelectionToCamelCase = createMenuItem( messages.menuBarTextSelectionToCamelCase(), listener );
-    private JMenuItem toolsTextSelectionTabsToSpaces = createMenuItem( messages.menuBarTextSelectionTabsToSpaces(), listener );
-    private JMenuItem toolsTextSelectionSpacesToTabs = createMenuItem( messages.menuBarTextSelectionSpacesToTabs(), listener );
-    private JMenuItem toolsTextCondenseMultipleSpaces = createMenuItem( messages.menuBarTextSelectionCondenseMultipleSpaces(), listener );
-    private JMenuItem toolsTextShiftIndentLeft = createMenuItem( messages.menuBarTextShiftIndentLeft(), listener );
-    private JMenuItem toolsTextShiftIndentRight = createMenuItem( messages.menuBarTextShiftIndentRight(), listener );
-    private JMenuItem toolsTextJoinLines = createMenuItem( messages.menuBarTextJoinLines(), listener );
-    private JMenuItem toolsTextDeleteLines = createMenuItem( messages.menuBarTextDeleteLines(), listener );
-    private JMenuItem toolsTextDeleteToStartOfLine = createMenuItem( messages.menuBarTextDeleteToStartOfLine(), listener );
-    private JMenuItem toolsTextDeleteToEndOfLine = createMenuItem( messages.menuBarTextDeleteToEndOfLine(), listener );
-    private JMenuItem toolsTextDoubleNewlines = createMenuItem( messages.menuBarTextDoubleNewlines(), listener );
-    private JMenuItem toolsTextSingleNewlines = createMenuItem( messages.menuBarTextSingleNewlines(), listener );
-    private JMenuItem toolsTextInsertCurrentDate = createMenuItem( messages.menuBarTextInsertCurrentDate(), listener );
-    private JMenuItem toolsTextInsertCurrentTime = createMenuItem( messages.menuBarTextInsertCurrentTime(), listener );
-    private JMenuItem toolsTextInsertCurrentDateAndTime = createMenuItem( messages.menuBarTextInsertCurrentDateAndTime(), listener );
-    private JMenuItem toolsTextInsertLoremSentance = createMenuItem( messages.toolsTextInsertLoremSentence(), listener );
-    private JMenuItem toolsTextInsertLoremParagraph = createMenuItem( messages.toolsTextInsertLoremParagraph(), listener );
-    private JMenuItem toolsTextInsertSedUt = createMenuItem( messages.toolsTextInsertSedUt(), listener );
-    private JMenuItem toolsTextInsertAtVero = createMenuItem( messages.toolsTextInsertAtVero(), listener );
-    private JMenuItem toolsTextInsertGreekingParagraphs = createMenuItem( messages.toolsTextInsertGreekingParagraphs(), listener );
+    private JMenu insertMenu = new JMenu( messages.menuInsert() );
+    private JMenuItem formatInsertLink = createMenuItem( messages.menuInsertLink(), listener );
+    private JMenuItem formatInsertImage = createMenuItem( messages.menuInsertImage(), listener );
+    private JMenuItem formatInsertFootnote = createMenuItem( messages.menuInsertFootnote(), listener );
+    private JMenuItem formatInsertPageBreak = createMenuItem( messages.menuInsertPageBreak(), listener );
+    private JMenu viewMenu = new JMenu( messages.menuView() );
+    private JMenuItem viewSplitHorizontal = createMenuItem( messages.menuViewSplitHorizontal(), listener );
+    private JMenuItem viewSplitVertical = createMenuItem( messages.menuViewSplitVertical(), listener );
+    private JMenuItem viewSplitUnsplit = createMenuItem( messages.menuViewUnsplit(), listener );
+    private JMenuItem viewSynchronizeEditors = createMenuItem( messages.menuViewSynchronizeEditors(), listener );
+    private JMenu documentsMenu = new JMenu( messages.menuDocuments() );
+    private JMenuItem menuDocumentsNewFile = createMenuItem( messages.menuSibling(), listener );
+    private JMenuItem menuDocumentsNewChildText = createMenuItem( messages.menuChild(), listener );
+    private JMenuItem documentsRename = createMenuItem( messages.menuRename(), listener );
+    private JMenuItem documentsImportImages = createMenuItem( messages.menuImportImages(), listener );
+    private JMenuItem documentsDelete = createMenuItem( messages.menuMoveToTrash(), listener );
+    private JMenuItem documentsDuplicate = createMenuItem( messages.menuDuplicate(), listener );
+    private JMenuItem documentsJoin = createMenuItem( messages.menuJoinDocuments(), listener );
+    private JMenuItem documentsSplitAtCursor = createMenuItem( messages.menuSplitAtCursor(), listener );
+    private JMenuItem documentsSplitAtCursorMakeSelectionTitle = createMenuItem( messages.menuSplitAtCursorTitle(), listener );
+    private JMenuItem documentsProjectStatistics = createMenuItem( messages.statisticsDialogTitle(), listener );
+    private JMenuItem documentsEmptyTrash = createMenuItem( messages.menuEmptyTrash(), listener );
+    private JMenu textToolsMenu = new JMenu( messages.menuTextTools() );
+    private JMenuItem toolsExpandMacro = createMenuItem( messages.menuExpandMacro(), listener );
+    private JMenuItem toolsEditMacros = createMenuItem( messages.menuEditMacros(), listener );
+    private JMenuItem toolsUpperCase = createMenuItem( messages.menuUpperCase(), listener );
+    private JMenuItem toolsLowerCase = createMenuItem( messages.menuLowerCase(), listener );
+    private JMenuItem toolsCamelCase = createMenuItem( messages.menuCamelCase(), listener );
+    private JMenuItem toolsTabsToSpaces = createMenuItem( messages.menuTabsToSpaces(), listener );
+    private JMenuItem toolsSpacesToTabs = createMenuItem( messages.menuSpacesToTabs(), listener );
+    private JMenuItem toolsTextCondenseMultipleSpaces = createMenuItem( messages.menuCondenseMultipleSpaces(), listener );
+    private JMenuItem toolsTextShiftIndentLeft = createMenuItem( messages.menuShiftIndentLeft(), listener );
+    private JMenuItem toolsTextShiftIndentRight = createMenuItem( messages.menuShiftIndentRight(), listener );
+    private JMenuItem toolsTextJoinLines = createMenuItem( messages.menuJoinLines(), listener );
+    private JMenuItem toolsTextDeleteLines = createMenuItem( messages.menuDeleteLines(), listener );
+    private JMenuItem toolsTextDeleteToStartOfLine = createMenuItem( messages.menuDeleteToStartOfLine(), listener );
+    private JMenuItem toolsTextDeleteToEndOfLine = createMenuItem( messages.menuDeleteToEndOfLine(), listener );
+    private JMenuItem toolsTextDoubleNewlines = createMenuItem( messages.menuDoubleNewlines(), listener );
+    private JMenuItem toolsTextSingleNewlines = createMenuItem( messages.menuSingleNewlines(), listener );
+    private JMenuItem toolsTextInsertCurrentDate = createMenuItem( messages.menuInsertCurrentDate(), listener );
+    private JMenuItem toolsTextInsertCurrentTime = createMenuItem( messages.menuInsertCurrentTime(), listener );
+    private JMenuItem toolsTextInsertCurrentDateAndTime = createMenuItem( messages.menuInsertCurrentDateAndTime(), listener );
+    private JMenuItem toolsTextInsertLoremSentance = createMenuItem( messages.menuGreekingLoremSentence(), listener );
+    private JMenuItem toolsTextInsertLoremParagraph = createMenuItem( messages.menuGreekingLoremParagraph(), listener );
+    private JMenuItem toolsTextInsertSedUt = createMenuItem( messages.menuGreekingSedUt(), listener );
+    private JMenuItem toolsTextInsertAtVero = createMenuItem( messages.menuGreekingAtVero(), listener );
+    private JMenuItem toolsTextInsertGreekingParagraphs = createMenuItem( messages.menuGreekingParagraphs(), listener );
 
-    private JMenu helpMenu = new JMenu( messages.menuBarHelp() );
-    private JMenuItem helpShowHelp = createMenuItem( messages.menuBarHelpShow(), listener );
-    private JMenuItem helpAbout = createMenuItem( messages.menuBarHelpAbout(), listener );
-    private JMenuItem helpPreferences = createMenuItem( messages.menuBarHelpPreferences(), listener );
-    private JMenuItem helpMemory = createMenuItem( messages.helpMemory(), listener );
+    private JMenu helpMenu = new JMenu( messages.menuHelp() );
+    private JMenuItem helpShowHelp = createMenuItem( messages.menuHelpShow(), listener );
+    private JMenuItem helpAbout = createMenuItem( messages.menuHelpAbout(), listener );
+    private JMenuItem helpPreferences = createMenuItem( messages.menuHelpPreferences(), listener );
+    private JMenuItem helpMemory = createMenuItem( messages.menuHelpMemory(), listener );
     private GroovyMenu groovyMenu;
     private RecentProjectsMenu recentProjectsMenu;
 
@@ -194,7 +192,7 @@ public class MarkdownMenuBar
         editMenu.add( editSelectAll );
         editMenu.add( editGoToLine );
         editMenu.addSeparator();
-        editMenu.add( editFindInProject );
+        editMenu.add( editFindReplace );
         editMenu.add( editFindNext );
         editMenu.addSeparator();
         editMenu.add( formatMenu );
@@ -205,7 +203,6 @@ public class MarkdownMenuBar
         editMenu.add( toolsExpandMacro );
         editMenu.add( toolsEditMacros );
         editMenu.addSeparator();
-        editMenu.add( editToggleLiveSpellcheck );
         editMenu.add( editShowUserDictionary );
 
         formatMenu.add( formatBold );
@@ -254,12 +251,12 @@ public class MarkdownMenuBar
         insertMenu.add( toolsTextInsertAtVero );
         insertMenu.add( toolsTextInsertGreekingParagraphs );
 
-        textToolsMenu.add( toolsTextSelectionToUpperCase );
-        textToolsMenu.add( toolsTextSelectionToLowerCase );
-        textToolsMenu.add( toolsTextSelectionToCamelCase );
+        textToolsMenu.add( toolsUpperCase );
+        textToolsMenu.add( toolsLowerCase );
+        textToolsMenu.add( toolsCamelCase );
         textToolsMenu.addSeparator();
-        textToolsMenu.add( toolsTextSelectionTabsToSpaces );
-        textToolsMenu.add( toolsTextSelectionSpacesToTabs );
+        textToolsMenu.add( toolsTabsToSpaces );
+        textToolsMenu.add( toolsSpacesToTabs );
         textToolsMenu.add( toolsTextCondenseMultipleSpaces );
         textToolsMenu.addSeparator();
         textToolsMenu.add( toolsTextDoubleNewlines );
@@ -283,8 +280,8 @@ public class MarkdownMenuBar
         viewMenu.add( viewSynchronizeEditors );
         viewMenu.addSeparator();
 
-        documentsMenu.add( menuBarDocumentsNewFile );
-        documentsMenu.add( menuBarDocumentsNewChildText );
+        documentsMenu.add( menuDocumentsNewFile );
+        documentsMenu.add( menuDocumentsNewChildText );
         documentsMenu.addSeparator();
         documentsMenu.addSeparator();
         documentsMenu.add( documentsRename );
@@ -297,7 +294,6 @@ public class MarkdownMenuBar
         documentsMenu.addSeparator();
         documentsMenu.add( documentsImportImages );
         documentsMenu.addSeparator();
-        documentsMenu.add( documentsSelectInTree );
         documentsMenu.addSeparator();
         documentsMenu.add( documentsProjectStatistics );
         documentsMenu.addSeparator();
@@ -344,7 +340,7 @@ public class MarkdownMenuBar
         editSelectAll.setAccelerator( KeyStroke.getKeyStroke( 'A', SystemUtils.PREFERED_MODIFIER_KEY ) );
         editGoToLine.setAccelerator( KeyStroke.getKeyStroke( 'L', SystemUtils.PREFERED_MODIFIER_KEY ) );
 
-        editFindInProject.setAccelerator( KeyStroke.getKeyStroke( 'F', SystemUtils.PREFERED_MODIFIER_KEY ) );
+        editFindReplace.setAccelerator( KeyStroke.getKeyStroke( 'F', SystemUtils.PREFERED_MODIFIER_KEY ) );
         editFindNext.setAccelerator( KeyStroke.getKeyStroke( 'G', SystemUtils.PREFERED_MODIFIER_KEY ) );
 
         formatBold.setAccelerator( KeyStroke.getKeyStroke( 'B', SystemUtils.PREFERED_MODIFIER_KEY ) );
@@ -357,13 +353,13 @@ public class MarkdownMenuBar
 
         documentsRename.setAccelerator( KeyStroke.getKeyStroke( 'R', SystemUtils.PREFERED_MODIFIER_KEY ) );
 
-        menuBarDocumentsNewFile.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY ) );
-        menuBarDocumentsNewChildText.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+        menuDocumentsNewFile.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY ) );
+        menuDocumentsNewChildText.setAccelerator( KeyStroke.getKeyStroke( 'N', SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
 
         toolsExpandMacro.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_SEMICOLON, SystemUtils.PREFERED_MODIFIER_KEY ) );
 
-        toolsTextSelectionToUpperCase.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_U, SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
-        toolsTextSelectionToLowerCase.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_L, SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+        toolsUpperCase.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_U, SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
+        toolsLowerCase.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_L, SystemUtils.PREFERED_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
 
         toolsTextShiftIndentLeft.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
         toolsTextShiftIndentRight.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, SystemUtils.SECONDARY_MODIFIER_KEY | ActionEvent.SHIFT_MASK ) );
@@ -492,14 +488,11 @@ public class MarkdownMenuBar
                     else if( source == editPrependAppendToSelectedLines ) {
                         controller.editPrependAppendToSelectedLines();
                     }
-                    else if( source == editFindInProject ) {
+                    else if( source == editFindReplace ) {
                         controller.editFindInProject();
                     }
                     else if( source == editFindNext ) {
                         controller.editFindNext();
-                    }
-                    else if( source == editToggleLiveSpellcheck ) {
-                        controller.editToggleLiveSpellcheck();
                     }
                     else if( source == editShowUserDictionary ) {
                         controller.editShowUserDictionary();
@@ -607,10 +600,10 @@ public class MarkdownMenuBar
                     else if( source == viewSynchronizeEditors ) {
                         controller.viewSynchronizeEditors();
                     }
-                    else if( source == menuBarDocumentsNewFile ) {
+                    else if( source == menuDocumentsNewFile ) {
                         controller.documentsNewFile();
                     }
-                    else if( source == menuBarDocumentsNewChildText ) {
+                    else if( source == menuDocumentsNewChildText ) {
                         controller.documentsNewChildFile();
                     }
                     else if( source == documentsRename ) {
@@ -621,9 +614,6 @@ public class MarkdownMenuBar
                     }
                     else if( source == documentsDelete ) {
                         controller.documentsDelete();
-                    }
-                    else if( source == documentsSelectInTree ) {
-                        controller.selectCurrentNodeInTree();
                     }
                     else if( source == documentsDuplicate ) {
                         controller.documentsDuplicate();
@@ -649,19 +639,19 @@ public class MarkdownMenuBar
                     else if( source == toolsEditMacros ) {
                         controller.toolsEditMacros();
                     }
-                    else if( source == toolsTextSelectionToUpperCase ) {
+                    else if( source == toolsUpperCase ) {
                         controller.toolsTextSelectionToUpperCase();
                     }
-                    else if( source == toolsTextSelectionToLowerCase ) {
+                    else if( source == toolsLowerCase ) {
                         controller.toolsTextSelectionToLowerCase();
                     }
-                    else if( source == toolsTextSelectionToCamelCase ) {
+                    else if( source == toolsCamelCase ) {
                         controller.toolsTextSelectionToCamelCase();
                     }
-                    else if( source == toolsTextSelectionTabsToSpaces ) {
+                    else if( source == toolsTabsToSpaces ) {
                         controller.toolsTextSelectionTabsToSpaces();
                     }
-                    else if( source == toolsTextSelectionSpacesToTabs ) {
+                    else if( source == toolsSpacesToTabs ) {
                         controller.toolsTextSelectionSpacesToTabs();
                     }
                     else if( source == toolsTextCondenseMultipleSpaces ) {
@@ -737,19 +727,12 @@ public class MarkdownMenuBar
     public void configure( Preferences preferences ) {
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
 
-        if( editorPreferences.liveSpellCheck() ) {
-            editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOff() );
-        }
-        else {
-            editToggleLiveSpellcheck.setText( messages.menuBarEditTurnLiveSpellcheckOn() );
-        }
-
         Project project = controller.getProject();
         if( project.synchronizeEditors() ) {
-            viewSynchronizeEditors.setText( messages.menuBarViewStopSynchronizingEditors() );
+            viewSynchronizeEditors.setText( messages.menuViewUnsynchronizeEditors() );
         }
         else {
-            viewSynchronizeEditors.setText( messages.menuBarViewSynchronizeEditors() );
+            viewSynchronizeEditors.setText( messages.menuViewSynchronizeEditors() );
         }
     }
 

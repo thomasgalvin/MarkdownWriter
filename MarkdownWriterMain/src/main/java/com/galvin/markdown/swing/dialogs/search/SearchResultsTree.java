@@ -48,6 +48,7 @@ public class SearchResultsTree
             expandRow( i );
         }
 
+        setRootVisible(false);
         addTreeSelectionListener( this );
     }
 
