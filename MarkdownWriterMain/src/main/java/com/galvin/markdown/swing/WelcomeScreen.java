@@ -14,36 +14,31 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class WelcomeScreen
-{
+public class WelcomeScreen {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
-    private JLabel newProjectsLabel = new JLabel( messages.welcomeScreenNewProjectsLabel() );
+    private JLabel projectTemplatesLabel = new JLabel( messages.labelProjectTemplates() );
     private JComboBox newProjectsComboBox = new JComboBox( MarkdownServer.getProjectTemplates() );
-    private JButton newProjectButton = new JButton( messages.welcomeScreenNewProject() );
-    private JLabel recentProjectsLabel = new JLabel( messages.welcomeScreenRecentProjectsLabel() );
-    private JButton openRecentProjectButton = new JButton( messages.welcomeScreenRecentProjectsButton() );
+    private JButton newProjectButton = new JButton( messages.buttonCreateNew() );
+    private JLabel recentProjectsLabel = new JLabel( messages.labelRecentProjects() );
+    private JButton openRecentProjectButton = new JButton( messages.buttonOpenRecent() );
     private JComboBox recentProjectsComboBox = new JComboBox( MarkdownServer.getRecentProjects() );
-    private JButton openProjectButton = new JButton( messages.welcomeScreenOpenProject() );
-    private ApplicationWindow window = new ApplicationWindow( messages.welcomeScreenTitle() );
-    private Dimension buttonSize = GuiUtils.sameSize( new JComponent[]
-    {
+    private JButton openProjectButton = new JButton( messages.buttonOpenExisting() );
+    private ApplicationWindow window = new ApplicationWindow( messages.application() );
+    private Dimension buttonSize = GuiUtils.sameSize( new JComponent[]{
         newProjectButton,
         openProjectButton,
         openRecentProjectButton
     } );
-    private Dimension labelSize = GuiUtils.sameSize( new JComponent[]
-    {
-        newProjectsLabel, recentProjectsLabel
+    private Dimension labelSize = GuiUtils.sameSize( new JComponent[]{
+        projectTemplatesLabel, recentProjectsLabel
     } );
-    private Dimension comboBoxSize = GuiUtils.sameSize( new JComponent[]
-    {
+    private Dimension comboBoxSize = GuiUtils.sameSize( new JComponent[]{
         newProjectsComboBox, recentProjectsComboBox
     } );
     private LayoutPanel layoutPanel = new LayoutPanel();
 
-    public WelcomeScreen()
-    {
+    public WelcomeScreen() {
         window.getContentPane().setLayout( new BorderLayout() );
         window.getContentPane().add( layoutPanel, BorderLayout.CENTER );
         window.pack();
@@ -55,25 +50,21 @@ public class WelcomeScreen
         new Listener();
     }
 
-    public void setVisible( boolean visible )
-    {
+    public void setVisible( boolean visible ) {
         window.setVisible( visible );
 
-        if( visible )
-        {
+        if( visible ) {
             window.toFront();
             window.requestFocus();
         }
     }
 
     private class LayoutPanel
-        extends JPanel
-    {
+        extends JPanel {
 
-        public LayoutPanel()
-        {
+        public LayoutPanel() {
             setLayout( null );
-            add( newProjectsLabel );
+            add( projectTemplatesLabel );
             add( newProjectsComboBox );
             add( newProjectButton );
             add( openProjectButton );
@@ -84,8 +75,7 @@ public class WelcomeScreen
         }
 
         @Override
-        public void doLayout()
-        {
+        public void doLayout() {
             Dimension size = getSize();
 
             comboBoxSize.width = size.width;
@@ -98,7 +88,7 @@ public class WelcomeScreen
             int x2 = size.width - buttonSize.width - GuiUtils.PADDING;
             int y = GuiUtils.PADDING;
 
-            newProjectsLabel.setLocation( x1, y );
+            projectTemplatesLabel.setLocation( x1, y );
             y += labelSize.height + GuiUtils.PADDING;
 
             newProjectsComboBox.setLocation( x1, y );
@@ -120,59 +110,49 @@ public class WelcomeScreen
 
             setPreferredSize( new Dimension( 750, y ) );
         }
+
     }
 
     private class Listener
-        implements ActionListener
-    {
+        implements ActionListener {
 
-        public Listener()
-        {
+        public Listener() {
             newProjectButton.addActionListener( this );
             openProjectButton.addActionListener( this );
             openRecentProjectButton.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             new ActionThread( e ).start();
         }
+
     }
 
     private class ActionThread
-        extends Thread
-    {
+        extends Thread {
 
         private ActionEvent e;
 
-        public ActionThread( ActionEvent e )
-        {
+        public ActionThread( ActionEvent e ) {
             this.e = e;
         }
 
         @Override
-        public void run()
-        {
+        public void run() {
             Object source = e.getSource();
-            if( source == newProjectButton )
-            {
-                ProjectTemplate template = (ProjectTemplate) newProjectsComboBox.getSelectedItem();
+            if( source == newProjectButton ) {
+                ProjectTemplate template = (ProjectTemplate)newProjectsComboBox.getSelectedItem();
                 MarkdownServer.welcomeNewProject( template );
             }
-            else if( source == openProjectButton )
-            {
+            else if( source == openProjectButton ) {
                 MarkdownServer.welcomeOpenProject();
             }
-            else if( source == openRecentProjectButton )
-            {
+            else if( source == openRecentProjectButton ) {
                 Object selectedObject = recentProjectsComboBox.getSelectedItem();
-                if( selectedObject != null )
-                {
-                    if( selectedObject instanceof RecentProject )
-                    {
-                        RecentProject recentProject = (RecentProject) selectedObject;
-                        if( recentProject.getProjectFile() != null )
-                        {
+                if( selectedObject != null ) {
+                    if( selectedObject instanceof RecentProject ) {
+                        RecentProject recentProject = (RecentProject)selectedObject;
+                        if( recentProject.getProjectFile() != null ) {
                             MarkdownServer.welcomeOpenRecentProject( recentProject.getProjectFile() );
                         }
                     }
@@ -181,5 +161,7 @@ public class WelcomeScreen
 
             MarkdownServer.checkForOpenProjects();
         }
+
     }
+
 }

@@ -18,155 +18,134 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 public class InsertImageDialog
-        extends JDialog
-{
+    extends JDialog {
 
     private static MarkdownMessages messages = MarkdownServer.getMessages();
     private ScaledImage image;
     private JComboBox imageComboBox = new JComboBox();
-    private JButton cancelButton = new JButton( messages.dialogImageInsertCancel() );
-    private JButton insertImageButton = new JButton( messages.dialogImageInsertOkay() );
+    private JButton cancelButton = new JButton( messages.cancel() );
+    private JButton insertImageButton = new JButton( messages.okay() );
     private LayoutPanel layoutPanel = new LayoutPanel();
     private Controller controller;
-    private JButton[] buttons = new JButton[]
-    {
+    private JButton[] buttons = new JButton[]{
         cancelButton, insertImageButton
     };
     private Dimension buttonSize = GuiUtils.sameSize( buttons );
     private Dimension comboBoxSize = GuiUtils.preferredSize( imageComboBox );
 
-    public InsertImageDialog( Controller controller )
-    {
+    public InsertImageDialog( Controller controller ) {
+        super( controller.getProjectFrame().getWindow() );
+        setTitle( messages.imageDialogTitle() );
+
         this.controller = controller;
         setLayout( new BorderLayout() );
         getContentPane().add( layoutPanel, BorderLayout.CENTER );
-        
+
         setSize( new Dimension( 500, 500 ) );
         GuiUtils.center( this );
-        
+
         refreshImageList();
         refreshImage();
         new ImageSelectionListener();
         new ButtonListener();
         GuiUtils.closeOnEscape( this );
     }
-    
+
     @Override
-    public void setVisible( boolean visible )
-    {
-        if( visible )
-        {
+    public void setVisible( boolean visible ) {
+        if( visible ) {
             refreshImageList();
         }
-        
+
         super.setVisible( visible );
     }
 
-    public void insertImage()
-    {
+    public void insertImage() {
         Object selection = imageComboBox.getSelectedItem();
-        if( selection instanceof Node )
-        {
+        if( selection instanceof Node ) {
             Node node = (Node)selection;
             controller.formatInsertImage( node );
         }
     }
 
-    public void refreshImage()
-    {
-        if( image != null )
-        {
+    public void refreshImage() {
+        if( image != null ) {
             layoutPanel.remove( image );
         }
         image = null;
 
         Object selection = imageComboBox.getSelectedItem();
-        if( selection != null && selection instanceof Node )
-        {
-            Node node = ( Node ) selection;
+        if( selection != null && selection instanceof Node ) {
+            Node node = (Node)selection;
 
             ImageResource resource = node.getImageResource();
-            if( resource != null )
-            {
+            if( resource != null ) {
                 ImageIcon imageIcon = resource.getImageIcon();
-                if( imageIcon != null )
-                {
+                if( imageIcon != null ) {
                     image = new ScaledImage( imageIcon );
                 }
             }
         }
 
-        if( image != null )
-        {
+        if( image != null ) {
             layoutPanel.add( image );
         }
         GuiUtils.forceRepaint( this );
     }
-    
-    public void refreshImageList()
-    {
+
+    public void refreshImageList() {
         Object selection = imageComboBox.getSelectedItem();
         imageComboBox.removeAllItems();
-        
+
         Node resourceNode = controller.getProjectFrame().getProject().getResources();
-        if( resourceNode != null )
-        {
-            for( Node node : resourceNode.getChildNodes() )
-            {
+        if( resourceNode != null ) {
+            for( Node node : resourceNode.getChildNodes() ) {
                 imageComboBox.addItem( node );
             }
         }
-        
-        if( selection != null )
-        {
+
+        if( selection != null ) {
             imageComboBox.setSelectedItem( selection );
         }
     }
 
     private class ImageSelectionListener
-            implements ActionListener
-    {
-        public ImageSelectionListener()
-        {
+        implements ActionListener {
+        public ImageSelectionListener() {
             imageComboBox.addActionListener( this );
         }
 
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             refreshImage();
         }
+
     }
 
     private class ButtonListener
-            implements ActionListener
-    {
+        implements ActionListener {
 
-        public ButtonListener()
-        {
+        public ButtonListener() {
             cancelButton.addActionListener( this );
             insertImageButton.addActionListener( this );
         }
 
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             setVisible( false );
 
             Object source = e.getSource();
-            if( source == insertImageButton )
-            {
+            if( source == insertImageButton ) {
                 insertImage();
             }
         }
-    }
-    
-    private class LayoutPanel
-            extends JPanel
-    {
 
-        public LayoutPanel()
-        {
+    }
+
+    private class LayoutPanel
+        extends JPanel {
+
+        public LayoutPanel() {
             setLayout( null );
             add( imageComboBox );
             add( cancelButton );
@@ -174,8 +153,7 @@ public class InsertImageDialog
         }
 
         @Override
-        public void doLayout()
-        {
+        public void doLayout() {
             Dimension size = getSize();
 
             comboBoxSize.width = size.width - GuiUtils.PADDING;
@@ -192,8 +170,7 @@ public class InsertImageDialog
             x -= buttonSize.width + GuiUtils.PADDING;
             cancelButton.setLocation( x, y );
 
-            if( image != null )
-            {
+            if( image != null ) {
                 int imageWidth = size.width - GuiUtils.PADDING * 2;
                 int imageHeight = size.height - GuiUtils.PADDING * 4 - buttonSize.height - comboBoxSize.height;
                 Dimension imageSize = new Dimension( imageWidth, imageHeight );
@@ -205,5 +182,7 @@ public class InsertImageDialog
                 image.setLocation( x, y );
             }
         }
+
     }
+
 }

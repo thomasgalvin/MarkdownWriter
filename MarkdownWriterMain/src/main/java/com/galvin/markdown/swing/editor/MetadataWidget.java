@@ -1,5 +1,5 @@
 /**
- Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
+ * Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.swing.editor;
 
@@ -35,74 +35,63 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class MetadataWidget
-    extends JPanel
-{
+    extends JPanel {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
-    private static final IdentifierScheme[] IDENTIFIER_SCHEMES = new IdentifierScheme[]
-    {
+    private static final IdentifierScheme[] IDENTIFIER_SCHEMES = new IdentifierScheme[]{
         IdentifierScheme.ISBN, IdentifierScheme.UUID, IdentifierScheme.URI, IdentifierScheme.CUSTOM
     };
-    private JLabel titleLabel = new JLabel( messages.metadataWidgetTitle() );
+    private JLabel titleLabel = new JLabel( messages.labelTitle() );
     private JTextField titleField = new JTextField();
-    private JLabel subtitleLabel = new JLabel( messages.metadataWidgetSubtitle() );
+    private JLabel subtitleLabel = new JLabel( messages.labelSubtitle() );
     private JTextField subtitleField = new JTextField();
-    private JLabel createdLabel = new JLabel( messages.metadataWidgetCreatedDate() );
+    private JLabel createdLabel = new JLabel( messages.labelCreated() );
     private JLabel createdValueLabel = new JLabel();
-    private JLabel modifiedLabel = new JLabel( messages.metadataWidgetModifiedDate() );
+    private JLabel modifiedLabel = new JLabel( messages.labelModified() );
     private JLabel modifiedValueLabel = new JLabel();
-    private JLabel languageLabel = new JLabel( messages.metadataWidgetLanguage() );
+    private JLabel languageLabel = new JLabel( messages.labelLanguage() );
     private LanguageSelector languageSelector = new LanguageSelector();
-    private JLabel identifierLabel = new JLabel( messages.metadataWidgetIdentifier() );
+    private JLabel identifierLabel = new JLabel( messages.labelIdentifier() );
     private JTextField identifierField = new JTextField();
     private JComboBox identifierSchemeComboBox = new JComboBox( IDENTIFIER_SCHEMES );
-    private JLabel genresLabel = new JLabel( messages.metadataWidgetGenres() );
+    private JLabel genresLabel = new JLabel( messages.labelGenres() );
     private JTextArea genresTextArea = new JTextArea();
     private JScrollPane genresScrollPane = new JScrollPane( genresTextArea );
-    private JLabel topicsLabel = new JLabel( messages.metadataWidgetTopics() );
+    private JLabel topicsLabel = new JLabel( messages.labelTopics() );
     private JTextArea topicsTextArea = new JTextArea();
     private JScrollPane topicsScrollPane = new JScrollPane( topicsTextArea );
-    private JLabel keywordsLabel = new JLabel( messages.metadataWidgetKeywords() );
+    private JLabel keywordsLabel = new JLabel( messages.labelKeywords() );
     private JTextArea keywordsTextArea = new JTextArea();
     private JScrollPane keywordsScrollPane = new JScrollPane( keywordsTextArea );
-    private JLabel contributorsLabel = new JLabel( messages.metadataWidgetContributors() );
+    private JLabel contributorsLabel = new JLabel( messages.labelContributors() );
     private List<ContributorBundle> contributorBundles = new ArrayList();
-    private JButton addContributorButton = new JButton( messages.metadataWidgetAddContributor() );
-    private JButton removeContributorButton = new JButton( messages.metadataWidgetRemoveContributor() );
-    private JLabel[] nodeLabels = new JLabel[]
-    {
+    private JButton addContributorButton = new JButton( messages.addContributor() );
+    private JButton removeContributorButton = new JButton( messages.removeContributor() );
+    private JLabel[] nodeLabels = new JLabel[]{
         titleLabel, subtitleLabel, createdLabel, createdValueLabel, modifiedLabel, modifiedValueLabel, keywordsLabel, contributorsLabel
     };
-    private JLabel[] allLabels = new JLabel[]
-    {
+    private JLabel[] allLabels = new JLabel[]{
         titleLabel, subtitleLabel, createdLabel, createdValueLabel, modifiedLabel, modifiedValueLabel, keywordsLabel, contributorsLabel, languageLabel, identifierLabel, genresLabel, topicsLabel
     };
-    private JTextField[] nodeTextFields = new JTextField[]
-    {
+    private JTextField[] nodeTextFields = new JTextField[]{
         titleField, subtitleField
     };
-    private JTextField[] allTextFields = new JTextField[]
-    {
+    private JTextField[] allTextFields = new JTextField[]{
         titleField, subtitleField, identifierField
     };
-    private JTextArea[] nodeTextAreas = new JTextArea[]
-    {
+    private JTextArea[] nodeTextAreas = new JTextArea[]{
         keywordsTextArea
     };
-    private JTextArea[] allTextAreas = new JTextArea[]
-    {
+    private JTextArea[] allTextAreas = new JTextArea[]{
         keywordsTextArea, genresTextArea, topicsTextArea
     };
-    private JScrollPane[] nodeScrollPanes = new JScrollPane[]
-    {
+    private JScrollPane[] nodeScrollPanes = new JScrollPane[]{
         keywordsScrollPane
     };
-    private JScrollPane[] allScrollPanes = new JScrollPane[]
-    {
+    private JScrollPane[] allScrollPanes = new JScrollPane[]{
         keywordsScrollPane, genresScrollPane, topicsScrollPane
     };
-    private JButton[] buttons = new JButton[]
-    {
+    private JButton[] buttons = new JButton[]{
         addContributorButton, removeContributorButton
     };
     private Dimension labelSize;
@@ -119,29 +108,25 @@ public class MetadataWidget
     private boolean ignoreAllChanges;
     private Controller controller;
 
-    public MetadataWidget( Controller controller, Project project )
-    {
+    public MetadataWidget( Controller controller, Project project ) {
         this.controller = controller;
         fullMetadata = true;
         init();
         setProject( project );
     }
 
-    public MetadataWidget( Controller controller, Node node )
-    {
+    public MetadataWidget( Controller controller, Node node ) {
         this.controller = controller;
         fullMetadata = false;
         init();
         setNode( node );
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         setProject( project );
     }
 
-    private void setProject( Project project )
-    {
+    private void setProject( Project project ) {
         this.project = project;
         ignoreAllChanges = true;
 
@@ -149,37 +134,31 @@ public class MetadataWidget
         subtitleField.setText( StringUtils.neverNull( project.getSubtitle() ) );
 
         Calendar calendar = project.getCreatedDate();
-        if( calendar != null )
-        {
+        if( calendar != null ) {
             Date date = calendar.getTime();
             createdValueLabel.setText( Utils.DATE_FORMAT.format( date ) );
         }
 
         calendar = project.getModifiedDate();
-        if( calendar != null )
-        {
+        if( calendar != null ) {
             Date date = calendar.getTime();
             modifiedValueLabel.setText( Utils.DATE_FORMAT.format( date ) );
         }
 
         IdentifierScheme scheme = project.getIdentifierScheme();
-        if( scheme != null )
-        {
+        if( scheme != null ) {
             identifierSchemeComboBox.setSelectedItem( scheme );
         }
-        else
-        {
+        else {
             identifierSchemeComboBox.setSelectedItem( IdentifierScheme.ISBN );
         }
         identifierField.setText( StringUtils.neverNull( project.getIdentifier() ) );
 
         LanguageCode language = project.getLangauge();
-        if( language != null )
-        {
+        if( language != null ) {
             languageSelector.setSelectedItem( language );
         }
-        else
-        {
+        else {
             languageSelector.setSelectedItem( LanguageCode.ENGLISH_US );
         }
 
@@ -187,21 +166,18 @@ public class MetadataWidget
         genresTextArea.setText( StringUtils.cat( project.getGenres() ) );
         topicsTextArea.setText( StringUtils.cat( project.getTopics() ) );
 
-        for( ContributorBundle bundle : contributorBundles )
-        {
+        for( ContributorBundle bundle : contributorBundles ) {
             remove( bundle.widget );
         }
 
-        for( Contributor contributor : project.getContributors() )
-        {
+        for( Contributor contributor : project.getContributors() ) {
             addContributor( contributor );
         }
 
         ignoreAllChanges = false;
     }
 
-    private void setNode( Node node )
-    {
+    private void setNode( Node node ) {
         this.node = node;
         ignoreAllChanges = true;
 
@@ -209,35 +185,30 @@ public class MetadataWidget
         subtitleField.setText( StringUtils.neverNull( node.getSubtitle() ) );
 
         Calendar calendar = node.getCreatedDate();
-        if( calendar != null )
-        {
+        if( calendar != null ) {
             Date date = calendar.getTime();
             createdValueLabel.setText( Utils.DATE_FORMAT.format( date ) );
         }
 
         calendar = node.getModifiedDate();
-        if( calendar != null )
-        {
+        if( calendar != null ) {
             Date date = calendar.getTime();
             modifiedValueLabel.setText( Utils.DATE_FORMAT.format( date ) );
         }
 
         keywordsTextArea.setText( StringUtils.cat( node.getKeywords() ) );
 
-        for( Contributor contributor : node.getContributors() )
-        {
+        for( Contributor contributor : node.getContributors() ) {
             addContributor( contributor );
         }
 
         ignoreAllChanges = false;
     }
 
-    private void init()
-    {
+    private void init() {
         setLayout( null );
 
-        if( fullMetadata )
-        {
+        if( fullMetadata ) {
             labelSize = GuiUtils.sameSize( allLabels );
             scrollPaneSize = GuiUtils.sameSize( allScrollPanes );
             textFieldSize = GuiUtils.sameSize( allTextFields );
@@ -245,39 +216,32 @@ public class MetadataWidget
             add( languageSelector );
             add( identifierSchemeComboBox );
 
-            for( JComponent component : allLabels )
-            {
+            for( JComponent component : allLabels ) {
                 add( component );
             }
 
-            for( JComponent component : allScrollPanes )
-            {
+            for( JComponent component : allScrollPanes ) {
                 add( component );
             }
 
-            for( JComponent component : allTextFields )
-            {
+            for( JComponent component : allTextFields ) {
                 add( component );
             }
         }
-        else
-        {
+        else {
             labelSize = GuiUtils.sameSize( nodeLabels );
             scrollPaneSize = GuiUtils.sameSize( nodeScrollPanes );
             textFieldSize = GuiUtils.sameSize( nodeTextFields );
 
-            for( JComponent component : nodeLabels )
-            {
+            for( JComponent component : nodeLabels ) {
                 add( component );
             }
 
-            for( JComponent component : nodeScrollPanes )
-            {
+            for( JComponent component : nodeScrollPanes ) {
                 add( component );
             }
 
-            for( JComponent component : nodeTextFields )
-            {
+            for( JComponent component : nodeTextFields ) {
                 add( component );
             }
         }
@@ -287,7 +251,6 @@ public class MetadataWidget
         identifierFieldSize = new Dimension( textFieldSize.width, textFieldSize.height );
         comboBoxSize = GuiUtils.preferredSize( identifierSchemeComboBox );
 
-
         buttonSize = GuiUtils.sameSize( buttons );
         add( addContributorButton );
 
@@ -296,8 +259,7 @@ public class MetadataWidget
     }
 
     @Override
-    public void doLayout()
-    {
+    public void doLayout() {
         Dimension size = getSize();
 
         textFieldSize.width = size.width - labelSize.width - GuiUtils.PADDING * 3;
@@ -342,8 +304,7 @@ public class MetadataWidget
         modifiedValueLabel.setLocation( fieldX, y );
         y += rowHeight;
 
-        if( fullMetadata )
-        {
+        if( fullMetadata ) {
             languageLabel.setLocation( labelX, y );
             languageSelector.setLocation( fieldX, y );
             y += languageSelectorSize.height + GuiUtils.PADDING;
@@ -359,8 +320,7 @@ public class MetadataWidget
         keywordsScrollPane.setLocation( labelX, y );
         y += scrollPaneSize.height + GuiUtils.PADDING;
 
-        if( fullMetadata )
-        {
+        if( fullMetadata ) {
             genresLabel.setLocation( labelX, y );
             y += labelSize.height + GuiUtils.PADDING;
             genresScrollPane.setLocation( labelX, y );
@@ -375,12 +335,9 @@ public class MetadataWidget
         contributorsLabel.setLocation( labelX, y );
         y += labelSize.height + GuiUtils.PADDING;
 
-        if( !contributorBundles.isEmpty() )
-        {
-            for( ContributorBundle bundle : contributorBundles )
-            {
-                if( contriutorWidgetSize == null )
-                {
+        if( !contributorBundles.isEmpty() ) {
+            for( ContributorBundle bundle : contributorBundles ) {
+                if( contriutorWidgetSize == null ) {
                     contriutorWidgetSize = GuiUtils.preferredSize( bundle.widget );
                     contriutorWidgetSize.width = size.width - GuiUtils.PADDING * 2;
                 }
@@ -404,23 +361,21 @@ public class MetadataWidget
         setPreferredSize( new Dimension( 500, y ) );
     }
 
-    private class ContributorBundle
-    {
+    private class ContributorBundle {
 
         public ContributorWidget widget;
         public JButton removeButton;
 
-        public ContributorBundle( ContributorWidget widget, JButton removeButton )
-        {
+        public ContributorBundle( ContributorWidget widget, JButton removeButton ) {
             this.widget = widget;
             this.removeButton = removeButton;
         }
+
     }
 
-    private ContributorBundle addContributor()
-    {
+    private ContributorBundle addContributor() {
         ContributorWidget widget = new ContributorWidget();
-        removeContributorButton = new JButton( messages.metadataWidgetRemoveContributor() );
+        removeContributorButton = new JButton( messages.removeContributor() );
         removeContributorButton.setSize( buttonSize );
 
         add( widget );
@@ -429,10 +384,8 @@ public class MetadataWidget
         final ContributorBundle result = new ContributorBundle( widget, removeContributorButton );
         contributorBundles.add( result );
 
-        removeContributorButton.addActionListener( new ActionListener()
-        {
-            public void actionPerformed( ActionEvent e )
-            {
+        removeContributorButton.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
                 removeContributor( result );
             }
         } );
@@ -445,8 +398,7 @@ public class MetadataWidget
         return result;
     }
 
-    private void removeContributor( ContributorBundle bundle )
-    {
+    private void removeContributor( ContributorBundle bundle ) {
         contributorBundles.remove( bundle );
         remove( bundle.widget );
         remove( bundle.removeButton );
@@ -454,37 +406,31 @@ public class MetadataWidget
         updateMetadata();
     }
 
-    public void addContributor( Contributor contributor )
-    {
+    public void addContributor( Contributor contributor ) {
         ContributorBundle bundle = addContributor();
         bundle.widget.setContributor( contributor );
         updateMetadata();
     }
 
-    public void updateMetadata()
-    {
-        if( ignoreAllChanges )
-        {
+    public void updateMetadata() {
+        if( ignoreAllChanges ) {
             return;
         }
 
-        if( project != null )
-        {
+        if( project != null ) {
             project.setTitle( titleField.getText() );
             project.setSubtitle( subtitleField.getText() );
             project.setLangauge( languageSelector.getSelectedItem() );
-            project.setIdentifierScheme( (IdentifierScheme) identifierSchemeComboBox.getSelectedItem() );
+            project.setIdentifierScheme( (IdentifierScheme)identifierSchemeComboBox.getSelectedItem() );
             project.setIdentifier( identifierField.getText() );
             project.setKeywords( StringUtils.tokenizeToList( keywordsTextArea.getText(), "\n" ) );
             project.setGenres( StringUtils.tokenizeToList( genresTextArea.getText(), "\n" ) );
             project.setTopics( StringUtils.tokenizeToList( topicsTextArea.getText(), "\n" ) );
 
             project.getContributors().clear();
-            for( ContributorBundle bundle : contributorBundles )
-            {
+            for( ContributorBundle bundle : contributorBundles ) {
                 Contributor contributor = bundle.widget.getContributor();
-                if( contributor != null )
-                {
+                if( contributor != null ) {
                     project.getContributors().add( contributor );
                 }
 
@@ -492,18 +438,15 @@ public class MetadataWidget
 
             controller.repaintTree();
         }
-        else if( node != null )
-        {
+        else if( node != null ) {
             node.setTitle( titleField.getText() );
             node.setSubtitle( subtitleField.getText() );
             node.setKeywords( StringUtils.tokenizeToList( keywordsTextArea.getText(), "\n" ) );
 
             node.getContributors().clear();
-            for( ContributorBundle bundle : contributorBundles )
-            {
+            for( ContributorBundle bundle : contributorBundles ) {
                 Contributor contributor = bundle.widget.getContributor();
-                if( contributor != null )
-                {
+                if( contributor != null ) {
                     node.getContributors().add( contributor );
                 }
 
@@ -514,11 +457,9 @@ public class MetadataWidget
     }
 
     private class Listener
-        implements ActionListener, DocumentListener
-    {
+        implements ActionListener, DocumentListener {
 
-        public Listener()
-        {
+        public Listener() {
             titleField.getDocument().addDocumentListener( this );
             subtitleField.getDocument().addDocumentListener( this );
             languageSelector.addActionListener( this );
@@ -530,109 +471,52 @@ public class MetadataWidget
             addContributorButton.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             Object source = e.getSource();
-            if( source == addContributorButton )
-            {
+            if( source == addContributorButton ) {
                 addContributor();
             }
-            else
-            {
+            else {
                 updateMetadata();
             }
         }
 
-        public void insertUpdate( DocumentEvent e )
-        {
+        public void insertUpdate( DocumentEvent e ) {
             updateMetadata();
         }
 
-        public void removeUpdate( DocumentEvent e )
-        {
+        public void removeUpdate( DocumentEvent e ) {
             updateMetadata();
         }
 
-        public void changedUpdate( DocumentEvent e )
-        {
-            if( e.toString().compareTo( "[]" ) != 0 )
-            {
+        public void changedUpdate( DocumentEvent e ) {
+            if( e.toString().compareTo( "[]" ) != 0 ) {
                 updateMetadata();
             }
         }
+
     }
 
     private class ContributorListener
-        implements ActionListener, DocumentListener
-    {
+        implements ActionListener, DocumentListener {
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             updateMetadata();
         }
 
-        public void insertUpdate( DocumentEvent e )
-        {
+        public void insertUpdate( DocumentEvent e ) {
             updateMetadata();
         }
 
-        public void removeUpdate( DocumentEvent e )
-        {
+        public void removeUpdate( DocumentEvent e ) {
             updateMetadata();
         }
 
-        public void changedUpdate( DocumentEvent e )
-        {
-            if( e.toString().compareTo( "[]" ) != 0 )
-            {
+        public void changedUpdate( DocumentEvent e ) {
+            if( e.toString().compareTo( "[]" ) != 0 ) {
                 updateMetadata();
             }
         }
+
     }
-//    public static void main( String[] args )
-//    {
-//        try
-//        {
-//            Project project = new Project();
-//            project.setTitle( "Title" );
-//            project.setSubtitle( "Subtitle" );
-//            project.setIdentifierScheme( IdentifierScheme.UUID );
-//            project.setIdentifier( UUID.randomUUID().toString() );
-//
-//            project.getKeywords().add( "Keyword One" );
-//            project.getKeywords().add( "Keyword Two" );
-//            project.getKeywords().add( "Keyword Three" );
-//
-//            project.getGenres().add( "New Adult" );
-//            project.getGenres().add( "Paranormal" );
-//            project.getGenres().add( "Vampires" );
-//
-//            project.getTopics().add( "Sex" );
-//            project.getTopics().add( "Violence" );
-//            project.getTopics().add( "Sexy Violence" );
-//            project.getTopics().add( "Violent Sex" );
-//
-//            Node node = new Node();
-//            node.setTitle( "Title" );
-//            node.setSubtitle( "Subtitle" );
-//
-//            node.getKeywords().add( "Keyword One" );
-//            node.getKeywords().add( "Keyword Two" );
-//            node.getKeywords().add( "Keyword Three" );
-//
-//            //MetadataWidget widget = new MetadataWidget( project );
-//            MetadataWidget widget = new MetadataWidget( node );
-//
-//            ApplicationWindow window = new ApplicationWindow( "Metadata" );
-//            window.getContentPane().setLayout( new BorderLayout() );
-//            window.getContentPane().add( widget, BorderLayout.CENTER );
-//            window.pack();
-//            window.placeOnSecondaryScreen();
-//            window.setVisible( true );
-//        }
-//        catch( Throwable t )
-//        {
-//            t.printStackTrace();
-//        }
-//    }
 }

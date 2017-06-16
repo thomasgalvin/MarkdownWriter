@@ -12,8 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class ProjectMetadataWidget
-        extends JPanel
-{
+    extends JPanel {
 
     private static MarkdownMessages messages = MarkdownServer.getMessages();
     private MetadataSelectionComboBox comboBox;
@@ -25,10 +24,9 @@ public class ProjectMetadataWidget
     private JScrollPane styleSheetScrollPane;
     private Controller controller;
 
-    public ProjectMetadataWidget( Controller controller )
-    {
+    public ProjectMetadataWidget( Controller controller ) {
         this.controller = controller;
-        
+
         comboBox = new MetadataSelectionComboBox();
         metadataWidget = new MetadataWidget( controller, controller.getProjectFrame().getProject() );
         metadataScrollPane = new JScrollPane( metadataWidget );
@@ -36,69 +34,60 @@ public class ProjectMetadataWidget
         coverImageScrollPane = new JScrollPane( coverImagePanel );
         styleSheetPanel = new StyleSheetPanel( controller );
         styleSheetScrollPane = new JScrollPane( styleSheetPanel );
-        
+
         setLayout( new BorderLayout() );
         add( comboBox, BorderLayout.NORTH );
         add( metadataScrollPane, BorderLayout.CENTER );
-        
+
         new Listener();
     }
-    
-    public void update()
-    {
+
+    public void update() {
         coverImagePanel.refresh();
         metadataWidget.refresh();
     }
-    
-    public void updateSelection()
-    {
+
+    public void updateSelection() {
         remove( metadataScrollPane );
         remove( coverImageScrollPane );
         remove( styleSheetScrollPane );
-        
+
         int index = comboBox.getSelectedIndex();
-        if( index == 0 )
-        {
+        if( index == 0 ) {
             add( metadataScrollPane );
         }
-        else if( index == 1 )
-        {
+        else if( index == 1 ) {
             add( coverImageScrollPane );
         }
-        else if( index == 2 )
-        {
+        else if( index == 2 ) {
             add( styleSheetScrollPane );
         }
-        
+
         GuiUtils.forceRepaint( this );
     }
 
     private class MetadataSelectionComboBox
-            extends JComboBox
-    {
+        extends JComboBox {
 
-        public MetadataSelectionComboBox()
-        {
-            super( new String[]
-                    {
-                        MarkdownServer.getMessages().projectMetadataWidgetMetadata(),
-                        MarkdownServer.getMessages().projectMetadataWidgetCover(),
-                        MarkdownServer.getMessages().projectMetadataWidgetStyleSheet(),
-                    } );
+        public MetadataSelectionComboBox() {
+            super( new String[]{
+                messages.metadata(),
+                messages.coverImage(),
+                messages.styleSheet(), } );
         }
+
     }
-    
+
     private class Listener
-    implements ActionListener
-    {
-        public Listener()
-        {
+        implements ActionListener {
+        public Listener() {
             comboBox.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             updateSelection();
         }
+
     }
+
 }

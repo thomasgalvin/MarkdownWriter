@@ -31,83 +31,72 @@ import javax.swing.text.Document;
 
 public class MarkdownEditorPanel
     extends JPanel
-    implements FocusListener
-{
+    implements FocusListener {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private Node node;
     private Project project;
     private ProjectMetadataWidget projectMetadataWidget;
-    
+
     private MetadataWidget projectMetadataEditor;
     private ProjectCoverPanel projectCoverPanel;
     private StyleSheetPanel styleSheetPanel;
-    
+
     private MarkdownEditor editor;
     private ScaledImage imageLabel;
     private StatisticsLabel statisticLabel;
     private MarkdownSectionSelectionComboBox comboBox = new MarkdownSectionSelectionComboBox();
     private ResourceSectionSelectionComboBox resourceComboBox = new ResourceSectionSelectionComboBox();
     private Controller controller;
-    
+
     private Color backgroundColor;
     private Color textColor;
 
-    public MarkdownEditorPanel( Controller controller )
-    {
+    public MarkdownEditorPanel( Controller controller ) {
         this.controller = controller;
         setLayout( new BorderLayout() );
         new SectionSelectionActionListener();
-        
+
         Preferences preferences = MarkdownServer.getPreferences();
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
         backgroundColor = editorPreferences.getBackgroundColor();
         textColor = editorPreferences.getTextColor();
-        
-        setBackground( backgroundColor  );
+
+        setBackground( backgroundColor );
         setForeground( textColor );
-        
-        if( !SystemUtils.IS_MAC )
-        {
-            comboBox.setBackground( backgroundColor  );
+
+        if( !SystemUtils.IS_MAC ) {
+            comboBox.setBackground( backgroundColor );
             comboBox.setForeground( textColor );
         }
     }
 
-    public void edit( Node node )
-    {
+    public void edit( Node node ) {
         this.node = node;
         this.project = null;
 
         removeAll();
-        if( node != null )
-        {
+        if( node != null ) {
             String nodeType = node.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 changeSection( resourceComboBox.getNodeSection() );
             }
-            else
-            {
+            else {
                 changeSection( comboBox.getNodeSection() );
             }
         }
-        else
-        {
+        else {
             GuiUtils.forceRepaint( this );
         }
     }
 
-    public void editMetadata( Project project )
-    {
+    public void editMetadata( Project project ) {
         this.project = project;
         this.node = null;
 
         removeAll();
-        if( project != null )
-        {
-            if( projectMetadataEditor == null )
-            {
+        if( project != null ) {
+            if( projectMetadataEditor == null ) {
                 projectMetadataEditor = new MetadataWidget( controller, project );
             }
 
@@ -116,17 +105,14 @@ public class MarkdownEditorPanel
             GuiUtils.forceRepaint( this );
         }
     }
-    
-    public void editStylesheet( Project project )
-    {
+
+    public void editStylesheet( Project project ) {
         this.project = project;
         this.node = null;
 
         removeAll();
-        if( project != null )
-        {
-            if( styleSheetPanel == null )
-            {
+        if( project != null ) {
+            if( styleSheetPanel == null ) {
                 styleSheetPanel = new StyleSheetPanel( controller );
             }
 
@@ -135,17 +121,14 @@ public class MarkdownEditorPanel
             GuiUtils.forceRepaint( this );
         }
     }
-    
-    public void editCover( Project project )
-    {
+
+    public void editCover( Project project ) {
         this.project = project;
         this.node = null;
 
         removeAll();
-        if( project != null )
-        {
-            if( projectCoverPanel == null )
-            {
+        if( project != null ) {
+            if( projectCoverPanel == null ) {
                 projectCoverPanel = new ProjectCoverPanel( controller );
             }
 
@@ -154,17 +137,14 @@ public class MarkdownEditorPanel
             GuiUtils.forceRepaint( this );
         }
     }
-    
-    public void edit( Project project )
-    {
+
+    public void edit( Project project ) {
         this.project = project;
         this.node = null;
 
         removeAll();
-        if( project != null )
-        {
-            if( projectMetadataWidget == null )
-            {
+        if( project != null ) {
+            if( projectMetadataWidget == null ) {
                 projectMetadataWidget = new ProjectMetadataWidget( controller );
             }
 
@@ -174,17 +154,13 @@ public class MarkdownEditorPanel
         }
     }
 
-    public NodeSection getNodeSection()
-    {
-        if( node != null )
-        {
+    public NodeSection getNodeSection() {
+        if( node != null ) {
             String nodeType = node.getNodeType();
-            if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 return resourceComboBox.getNodeSection();
             }
-            else
-            {
+            else {
                 return comboBox.getNodeSection();
             }
         }
@@ -192,8 +168,7 @@ public class MarkdownEditorPanel
         return NodeSection.MANUSCRIPT;
     }
 
-    public void changeSection( NodeSection nodeSection )
-    {
+    public void changeSection( NodeSection nodeSection ) {
 //        if( editor != null )
 //        {
 //            editor.removeFocusListener( this );
@@ -201,100 +176,84 @@ public class MarkdownEditorPanel
 //        }
 //        editor = null;
 
-        if( statisticLabel != null )
-        {
+        if( statisticLabel != null ) {
             statisticLabel.remove();
         }
         statisticLabel = null;
 
-        if( imageLabel != null )
-        {
+        if( imageLabel != null ) {
             imageLabel.removeFocusListener( this );
             remove( imageLabel );
         }
         imageLabel = null;
 
-        if( node != null )
-        {
+        if( node != null ) {
             removeAll();
 
             String nodeType = node.getNodeType();
             if( NodeTypes.MANUSCRIPT.equals( nodeType )
                 || NodeTypes.RESOURCES.equals( nodeType )
                 || NodeTypes.TRASH.equals( nodeType )
-                || NodeTypes.PROJECT.equals( nodeType ) )
-            {
+                || NodeTypes.PROJECT.equals( nodeType ) ) {
                 GuiUtils.forceRepaint( this );
                 return;
             }
-            else if( NodeTypes.RESOURCE.equals( nodeType ) )
-            {
+            else if( NodeTypes.RESOURCE.equals( nodeType ) ) {
                 add( resourceComboBox, BorderLayout.NORTH );
             }
-            else
-            {
+            else {
                 add( comboBox, BorderLayout.NORTH );
             }
 
             MarkdownDocument document = null;
-            if( NodeSection.MANUSCRIPT.equals( nodeSection ) )
-            {
+            if( NodeSection.MANUSCRIPT.equals( nodeSection ) ) {
                 document = node.getManuscript();
             }
-            else if( NodeSection.DESCRIPTION.equals( nodeSection ) )
-            {
+            else if( NodeSection.DESCRIPTION.equals( nodeSection ) ) {
                 document = node.getDescription();
             }
-            else if( NodeSection.SUMMARY.equals( nodeSection ) )
-            {
+            else if( NodeSection.SUMMARY.equals( nodeSection ) ) {
                 document = node.getSummary();
             }
-            else if( NodeSection.NOTES.equals( nodeSection ) )
-            {
+            else if( NodeSection.NOTES.equals( nodeSection ) ) {
                 document = node.getNotes();
             }
 
-            if( document != null )
-            {
-                if( editor == null )
-                {
+            if( document != null ) {
+                if( editor == null ) {
                     editor = new MarkdownEditor( document );
                     editor.addFocusListener( this );
                 }
-                else
-                {
+                else {
                     editor.setDocument( document );
                 }
-                
+
                 int selectionStart = document.getSelectionStart();
-                
-                if( selectionStart != -1 ){
+
+                if( selectionStart != -1 ) {
                     editor.setCaretPosition( selectionStart );
-                    
+
                     int selectionEnd = document.getSelectionEnd();
-                    if( selectionEnd != -1 ){
+                    if( selectionEnd != -1 ) {
                         editor.moveCaretPosition( selectionEnd );
                     }
                 }
 
                 statisticLabel = new StatisticsLabel( document );
-                statisticLabel.setBackground( backgroundColor  );
+                statisticLabel.setBackground( backgroundColor );
                 statisticLabel.setForeground( textColor );
 
                 add( editor.getScrollPane(), BorderLayout.CENTER );
                 add( statisticLabel, BorderLayout.SOUTH );
                 requestFocus();
             }
-            else if( NodeSection.IMAGE_RESOURCE.equals( nodeSection ) )
-            {
+            else if( NodeSection.IMAGE_RESOURCE.equals( nodeSection ) ) {
                 imageLabel = new ScaledImage( node.getImageResource().getImageIcon() );
                 imageLabel.addFocusListener( this );
                 add( imageLabel, BorderLayout.CENTER );
             }
-            else if( NodeSection.METADATA.equals( nodeSection ) )
-            {
-                if( node != null )
-                {
+            else if( NodeSection.METADATA.equals( nodeSection ) ) {
+                if( node != null ) {
                     MetadataWidget metadataWidget = new MetadataWidget( controller, node );
                     JScrollPane scrollPane = new JScrollPane( metadataWidget );
                     add( scrollPane, BorderLayout.CENTER );
@@ -306,207 +265,169 @@ public class MarkdownEditorPanel
         GuiUtils.forceRepaint( this );
     }
 
-    public Node getNode()
-    {
+    public Node getNode() {
         return node;
     }
 
-    public Project getProject()
-    {
+    public Project getProject() {
         return project;
     }
 
-    public MarkdownEditor getEditor()
-    {
+    public MarkdownEditor getEditor() {
         return editor;
     }
 
     @Override
-    public void requestFocus()
-    {
-        if( editor != null )
-        {
+    public void requestFocus() {
+        if( editor != null ) {
             editor.requestFocus();
         }
     }
 
     @Override
-    public synchronized void addFocusListener( FocusListener focusListener )
-    {
+    public synchronized void addFocusListener( FocusListener focusListener ) {
         super.addFocusListener( focusListener );
     }
 
-    public void focusGained( FocusEvent e )
-    {
+    public void focusGained( FocusEvent e ) {
         FocusEvent event = new FocusEvent( this, new Random().nextInt() );
 
-        for( FocusListener listener : getFocusListeners() )
-        {
+        for( FocusListener listener : getFocusListeners() ) {
             listener.focusGained( event );
         }
-        
+
         controller.selectCurrentNodeInTree();
     }
 
-    public void focusLost( FocusEvent e )
-    {
+    public void focusLost( FocusEvent e ) {
         FocusEvent event = new FocusEvent( this, new Random().nextInt() );
 
-        for( FocusListener listener : getFocusListeners() )
-        {
+        for( FocusListener listener : getFocusListeners() ) {
             listener.focusLost( event );
         }
     }
 
     private class MarkdownSectionSelectionComboBox
-        extends JComboBox
-    {
+        extends JComboBox {
 
-        public MarkdownSectionSelectionComboBox()
-        {
-            super( new String[]
-            {
-                MarkdownServer.getMessages().nodeSectionMauscript(),
-                MarkdownServer.getMessages().nodeSectionDescription(),
-                MarkdownServer.getMessages().nodeSectionSummary(),
-                MarkdownServer.getMessages().nodeSectionNotes(),
-                MarkdownServer.getMessages().nodeSectionMetadata(),
-            } );
+        public MarkdownSectionSelectionComboBox() {
+            super( new String[]{
+                MarkdownServer.getMessages().manuscript(),
+                MarkdownServer.getMessages().description(),
+                MarkdownServer.getMessages().summary(),
+                MarkdownServer.getMessages().notes(),
+                MarkdownServer.getMessages().metadata(), } );
         }
 
-        public NodeSection getNodeSection()
-        {
+        public NodeSection getNodeSection() {
             int index = getSelectedIndex();
 
-            if( index == 4 )
-            {
+            if( index == 4 ) {
                 return NodeSection.METADATA;
             }
-            else if( index == 3 )
-            {
+            else if( index == 3 ) {
                 return NodeSection.NOTES;
             }
-            else if( index == 2 )
-            {
+            else if( index == 2 ) {
                 return NodeSection.SUMMARY;
             }
-            else if( index == 1 )
-            {
+            else if( index == 1 ) {
                 return NodeSection.DESCRIPTION;
             }
-            else
-            {
+            else {
                 return NodeSection.MANUSCRIPT;
             }
         }
 
-        public void setOpposingSelection()
-        {
+        public void setOpposingSelection() {
             resourceComboBox.setSelectedIndex( getSelectedIndex() );
         }
+
     }
 
     private class ResourceSectionSelectionComboBox
-        extends JComboBox
-    {
+        extends JComboBox {
 
-        public ResourceSectionSelectionComboBox()
-        {
-            super( new String[]
-            {
-                MarkdownServer.getMessages().nodeSectionImageResource(),
-                MarkdownServer.getMessages().nodeSectionDescription(),
-                MarkdownServer.getMessages().nodeSectionSummary(),
-                MarkdownServer.getMessages().nodeSectionNotes(),
-                MarkdownServer.getMessages().nodeSectionMetadata(),
-            } );
+        public ResourceSectionSelectionComboBox() {
+            super( new String[]{
+                MarkdownServer.getMessages().imageResource(),
+                MarkdownServer.getMessages().description(),
+                MarkdownServer.getMessages().summary(),
+                MarkdownServer.getMessages().notes(),
+                MarkdownServer.getMessages().metadata(), } );
 
         }
 
-        public NodeSection getNodeSection()
-        {
+        public NodeSection getNodeSection() {
             int index = getSelectedIndex();
 
-            if( index == 4 )
-            {
+            if( index == 4 ) {
                 return NodeSection.METADATA;
             }
-            else if( index == 3 )
-            {
+            else if( index == 3 ) {
                 return NodeSection.NOTES;
             }
-            else if( index == 2 )
-            {
+            else if( index == 2 ) {
                 return NodeSection.SUMMARY;
             }
-            else if( index == 1 )
-            {
+            else if( index == 1 ) {
                 return NodeSection.DESCRIPTION;
             }
-            else
-            {
+            else {
                 return NodeSection.IMAGE_RESOURCE;
             }
         }
 
-        public void setOpposingSelection()
-        {
+        public void setOpposingSelection() {
             comboBox.setSelectedIndex( getSelectedIndex() );
         }
+
     }
 
     private class SectionSelectionActionListener
-        implements ActionListener
-    {
+        implements ActionListener {
 
-        public SectionSelectionActionListener()
-        {
+        public SectionSelectionActionListener() {
             comboBox.addActionListener( this );
             resourceComboBox.addActionListener( this );
         }
 
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
 
             Object source = e.getSource();
-            if( source == comboBox )
-            {
+            if( source == comboBox ) {
                 comboBox.setOpposingSelection();
                 changeSection( comboBox.getNodeSection() );
             }
-            else if( source == resourceComboBox )
-            {
+            else if( source == resourceComboBox ) {
                 resourceComboBox.setOpposingSelection();
                 changeSection( resourceComboBox.getNodeSection() );
             }
         }
+
     }
 
     private class StatisticsLabel
         extends JLabel
-        implements DocumentListener
-    {
+        implements DocumentListener {
 
         private Document document;
         private int cpw;
         private int wpp;
 
-        public StatisticsLabel( Document document )
-        {
+        public StatisticsLabel( Document document ) {
             this.document = document;
             document.addDocumentListener( this );
 
             refresh();
         }
 
-        public void remove()
-        {
+        public void remove() {
             document.removeDocumentListener( this );
         }
 
-        public void refresh()
-        {
+        public void refresh() {
             Preferences preferences = MarkdownServer.getPreferences();
             GeneralPreferences generalPreferences = preferences.getGeneralPreferences();
 
@@ -518,31 +439,29 @@ public class MarkdownEditorPanel
             long pages = Math.max( 1, words / wpp );
 
             long remainder = words - ( pages * wpp );
-            if( remainder > 0 )
-            {
+            if( remainder > 0 ) {
                 pages++;
             }
 
             StringBuilder text = new StringBuilder();
             text.append( "<html><center>" );
 
-            if( node != null )
-            {
+            if( node != null ) {
                 text.append( node.getTitle() );
                 text.append( ": &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" );
             }
 
-            text.append( messages.dialogStatisticsCharacters() );
+            text.append( messages.characterLabel() );
             text.append( " " );
             text.append( Utils.NUMBER_FORMATTER.format( chars ) );
             text.append( " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" );
 
-            text.append( messages.dialogStatisticsWords() );
+            text.append( messages.wordsLabel() );
             text.append( " " );
             text.append( Utils.NUMBER_FORMATTER.format( words ) );
             text.append( " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" );
 
-            text.append( messages.dialogStatisticsPages() );
+            text.append( messages.pagesLabel() );
             text.append( " " );
             text.append( Utils.NUMBER_FORMATTER.format( pages ) );
             text.append( "</center></html>" );
@@ -550,22 +469,20 @@ public class MarkdownEditorPanel
             setText( text.toString() );
         }
 
-        public void insertUpdate( DocumentEvent de )
-        {
+        public void insertUpdate( DocumentEvent de ) {
             refresh();
         }
 
-        public void removeUpdate( DocumentEvent de )
-        {
+        public void removeUpdate( DocumentEvent de ) {
             refresh();
         }
 
-        public void changedUpdate( DocumentEvent de )
-        {
-            if( de.toString().compareTo( "[]" ) != 0 )
-            {
+        public void changedUpdate( DocumentEvent de ) {
+            if( de.toString().compareTo( "[]" ) != 0 ) {
                 refresh();
             }
         }
+
     }
+
 }

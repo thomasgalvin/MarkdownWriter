@@ -9,29 +9,27 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 
 public class FileTemplate
-    extends ProjectTemplate
-{
+    extends ProjectTemplate {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private File projectStructureDocument;
     private Project project;
 
-    public FileTemplate( File projectStructureDocument ) throws IOException
-    {
+    public FileTemplate( File projectStructureDocument ) throws IOException {
         this.projectStructureDocument = projectStructureDocument;
         project = ProjectIo.readProject( projectStructureDocument, true );
 
         setTitle( project.getTitle() );
-        setDescription( messages.projectTemplateFromFile() );
+        setDescription( messages.customeTemplateDesc() );
     }
 
     @Override
-    public Project getProject()
-    {
+    public Project getProject() {
         GregorianCalendar date = new GregorianCalendar();
         project.setCreatedDate( date );
         project.setModifiedDate( date );
 
         return project;
     }
+
 }

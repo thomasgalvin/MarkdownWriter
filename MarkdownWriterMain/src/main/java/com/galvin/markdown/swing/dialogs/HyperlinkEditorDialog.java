@@ -1,5 +1,5 @@
 /**
-Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
+ * Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.swing.dialogs;
 
@@ -20,104 +20,90 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class HyperlinkEditorDialog
-extends JDialog
-{
+    extends JDialog {
     private MarkdownMessages messages = MarkdownServer.getMessages();
-    private JLabel textLabel = new JLabel( messages.dialogHyperlinkText() );
+    private JLabel textLabel = new JLabel( messages.hyperlinkTextLabel() );
     private JTextField textField = new JTextField();
-    private JLabel urlLabel = new JLabel( messages.dialogHyperlinkUrl() );
+    private JLabel urlLabel = new JLabel( messages.hyperlinkUrlLabel() );
     private JTextField urlField = new JTextField();
-    private JButton okButton = new JButton( messages.dialogHyperlinkOk() );
-    private JButton cancelButton = new JButton( messages.dialogHyperlinkCancel() );
+    private JButton okButton = new JButton( messages.okay() );
+    private JButton cancelButton = new JButton( messages.cancel() );
     private LayoutPanel layoutPanel = new LayoutPanel();
     private Controller controller;
-    
-    public HyperlinkEditorDialog( Controller controller )
-    {
+
+    public HyperlinkEditorDialog( Controller controller ) {
         super( controller.getProjectFrame().getWindow() );
-        setTitle( messages.dialogHyperlinkTitle() );
+        setTitle( messages.hyperlinkDialogTitle() );
         setModal( true );
         this.controller = controller;
-        
+
         layoutPanel.doLayout();
-        
+
         getContentPane().setLayout( new BorderLayout() );
         getContentPane().add( layoutPanel );
         getContentPane().setPreferredSize( layoutPanel.getPreferredSize() );
         pack();
         GuiUtils.center( this );
-        
+
         new Listener();
         GuiUtils.closeOnEscape( this );
     }
-    
-    public void setText( String text )
-    {
+
+    public void setText( String text ) {
         textField.setText( text );
     }
-    
-    public void setUrl( String url )
-    {
+
+    public void setUrl( String url ) {
         urlField.setText( url );
     }
-    
+
     @Override
-    public void setVisible( boolean visible )
-    {
-        if( visible )
-        {
-            if( !StringUtils.empty( textField.getText() ) )
-            {
+    public void setVisible( boolean visible ) {
+        if( visible ) {
+            if( !StringUtils.empty( textField.getText() ) ) {
                 urlField.requestFocus();
             }
-            
+
             textField.selectAll();
             urlField.selectAll();
         }
         super.setVisible( visible );
     }
-    
-    public void insertLink()
-    {
+
+    public void insertLink() {
         String text = textField.getText();
         String url = urlField.getText();
         controller.formatInsertLink( text, url );
     }
-    
+
     private class Listener
-    implements ActionListener
-    {
-        public Listener()
-        {
+        implements ActionListener {
+        public Listener() {
             okButton.addActionListener( this );
             cancelButton.addActionListener( this );
             textField.addActionListener( this );
             urlField.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             Object source = e.getSource();
-            
-            if( source == cancelButton )
-            {
+
+            if( source == cancelButton ) {
                 setVisible( false );
             }
-            else if( source == okButton || source == textField || source == urlField )
-            {
+            else if( source == okButton || source == textField || source == urlField ) {
                 setVisible( false );
                 insertLink();
             }
         }
+
     }
-    
+
     private class LayoutPanel
-            extends JPanel
-    {
+        extends JPanel {
         private Dimension preferredSize;
 
-        public LayoutPanel()
-        {
+        public LayoutPanel() {
             setLayout( null );
 
             add( textLabel );
@@ -129,70 +115,67 @@ extends JDialog
         }
 
         @Override
-        public void doLayout()
-        {
+        public void doLayout() {
             Dimension size = getSize();
             size.width -= GuiUtils.PADDING * 2;
             size.height -= GuiUtils.PADDING * 2;
 
-            JComponent[] labels = new JComponent[]
-            {
+            JComponent[] labels = new JComponent[]{
                 textLabel, urlLabel
             };
             Dimension labelSize = GuiUtils.sameSize( labels );
-            
-            JComponent[] fields = new JComponent[]
-            {
+
+            JComponent[] fields = new JComponent[]{
                 textField, urlField
             };
-            
+
             Dimension fieldSize = GuiUtils.sameSize( fields );
             fieldSize.width = size.width - labelSize.width;
             fieldSize.width -= GuiUtils.PADDING;
             textField.setSize( fieldSize );
             urlField.setSize( fieldSize );
-            
-            JComponent[] buttons = new JComponent[]
-            {
+
+            JComponent[] buttons = new JComponent[]{
                 okButton, cancelButton
             };
             Dimension buttonSize = GuiUtils.sameSize( buttons );
-            
-            int rowHeight = Math.max(  labelSize.height, fieldSize.height );
-            
+
+            int rowHeight = Math.max( labelSize.height, fieldSize.height );
+
             int labelX = GuiUtils.PADDING;
             int fieldX = GuiUtils.PADDING + labelSize.width + GuiUtils.PADDING;
             int y = GuiUtils.PADDING;
-            
+
             textLabel.setLocation( labelX, y );
             textField.setLocation( fieldX, y );
-            
+
             y += rowHeight;
             y += GuiUtils.PADDING;
-            
+
             urlLabel.setLocation( labelX, y );
             urlField.setLocation( fieldX, y );
-            
+
             y += rowHeight;
             y += GuiUtils.PADDING;
-            
+
             int saveButtonX = ( size.width - buttonSize.width ) + GuiUtils.PADDING;
             int cancelButtonX = saveButtonX - GuiUtils.PADDING - buttonSize.width;
             okButton.setLocation( saveButtonX, y );
             cancelButton.setLocation( cancelButtonX, y );
-            
+
             y += buttonSize.height;
             y += GuiUtils.PADDING;
-            
+
             int width = labelSize.width + 300 + GuiUtils.PADDING * 4;
             int height = y;
             preferredSize = new Dimension( width, height );
         }
-        
+
         @Override
-        public Dimension getPreferredSize()
-        {
+        public Dimension getPreferredSize() {
             return preferredSize;
         }
+
     }
+
 }

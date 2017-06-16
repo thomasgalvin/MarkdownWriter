@@ -39,22 +39,22 @@ public class FindAndReplaceDialog
 
     private Controller controller;
     private MarkdownMessages messages = MarkdownServer.getMessages();
-    private JLabel searchForLabel = new JLabel( messages.findAndReplaceSearchForLabel() );
+    private JLabel searchForLabel = new JLabel( messages.searchLabel() );
     private JTextField searchForTextField = new JTextField();
-    private JLabel replaceWithLabel = new JLabel( messages.findAndReplaceReplaceWithLabel() );
+    private JLabel replaceWithLabel = new JLabel( messages.replaceLabel() );
     private JTextField replaceWithTextField = new JTextField();
-    private JButton findNextButton = new JButton( messages.findAndReplaceFindNextButton() );
-    private JButton findAllButton = new JButton( messages.findAndReplaceFindAllButton() );
-    private JButton replaceAllButton = new JButton( messages.findAndReplaceReplaceAllButton() );
-    private JButton cancelButton = new JButton( messages.findAndReplaceCancelButton() );
-    private JRadioButton currentDocumentRadioButton = new JRadioButton( messages.findAndReplaceCurrentDocumentRadioButton() );
-    private JRadioButton allDocumentsRadioButton = new JRadioButton( messages.findAndReplaceAllDocumentsRadioButton() );
-    private JCheckBox onlyDocumentsInManuscriptCheckBox = new JCheckBox( messages.findAndReplaceOnlyDocumentsInManuscriptCheckbox() );
-    private JCheckBox manuscriptCheckBox = new JCheckBox( messages.findAndReplaceManuscriptCheckbox() );
-    private JCheckBox summaryCheckBox = new JCheckBox( messages.findAndReplaceSummaryCheckbox() );
-    private JCheckBox descriptionCheckBox = new JCheckBox( messages.findAndReplaceDescriptionCheckbox() );
-    private JCheckBox notesCheckBox = new JCheckBox( messages.findAndReplaceNotesCheckbox() );
-    private JCheckBox ignoreCaseCheckBox = new JCheckBox( messages.findAndReplaceIgnoreCaseCheckbox() );
+    private JButton findNextButton = new JButton( messages.next() );
+    private JButton findAllButton = new JButton( messages.findAll() );
+    private JButton replaceAllButton = new JButton( messages.replaceAll() );
+    private JButton cancelButton = new JButton( messages.cancel() );
+    private JRadioButton currentDocumentRadioButton = new JRadioButton( messages.currentDocument() );
+    private JRadioButton allDocumentsRadioButton = new JRadioButton( messages.allDocuments() );
+    private JCheckBox onlyDocumentsInManuscriptCheckBox = new JCheckBox( messages.onlyManuscript() );
+    private JCheckBox manuscriptCheckBox = new JCheckBox( messages.manuscript() );
+    private JCheckBox summaryCheckBox = new JCheckBox( messages.summary() );
+    private JCheckBox descriptionCheckBox = new JCheckBox( messages.description() );
+    private JCheckBox notesCheckBox = new JCheckBox( messages.notes() );
+    private JCheckBox ignoreCaseCheckBox = new JCheckBox( messages.ignoreCase() );
     private ButtonGroup buttonGroup = new ButtonGroup();
     private LayoutPanel layoutPanel = new LayoutPanel();
     private JCheckBox[] multipleDocumentOptions = new JCheckBox[]{
@@ -62,7 +62,7 @@ public class FindAndReplaceDialog
     };
 
     public FindAndReplaceDialog( Controller controller ) {
-        super( controller.getProjectFrame().getWindow() );
+        super( controller.getProjectFrame().getWindow(), MarkdownServer.getMessages().findReplaceDialogTitle() );
         this.controller = controller;
 
         layoutPanel.doLayout();

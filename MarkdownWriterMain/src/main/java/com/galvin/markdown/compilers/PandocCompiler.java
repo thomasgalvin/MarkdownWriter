@@ -299,7 +299,7 @@ public class PandocCompiler
         }
 
         if( StringUtils.empty( title ) ) {
-            title = messages.titleUntitledProject();
+            title = messages.untitled();
         }
 
         StringBuilder metadataSection = new StringBuilder();
@@ -560,7 +560,7 @@ public class PandocCompiler
         }
         else {
             MarkdownMessages messages = MarkdownServer.getMessages();
-            String error = messages.errorExportFormatOnlySupportedOnMacPlaceholder();
+            String error = messages.exportFormatMacOnly();
             error = StringUtils.replaceAll( error, "${format}", format.getName() );
             throw new UnsupportedOperationException( error );
         }

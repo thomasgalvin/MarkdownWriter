@@ -1,5 +1,5 @@
 /**
-Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
+ * Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.swing.compile;
 
@@ -22,8 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class CompileDialog
-    extends JDialog
-{
+    extends JDialog {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private FormatsCompileOptionsPanel formatOptions;
@@ -31,38 +30,36 @@ public class CompileDialog
     private SeparatorsCompileOptionsPanel separatorOptions;
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JPanel buttonPanel = new JPanel();
-    private JButton cancelButton = new JButton( messages.cancelCompile() );
-    private JButton compileButton = new JButton( messages.doCompile() );
+    private JButton cancelButton = new JButton( messages.cancel() );
+    private JButton compileButton = new JButton( messages.compile() );
     private Controller controller;
     private CompileOptions compileOptions;
     private Project project;
 
-    public CompileDialog( Controller controller )
-    {
+    public CompileDialog( Controller controller ) {
         this( controller, controller.getProjectFrame().getProject() );
     }
-    
-    public CompileDialog( Controller controller, Project project )
-    {
-        setTitle( messages.compileDialogTitle() );
+
+    public CompileDialog( Controller controller, Project project ) {
+        setTitle( messages.compile() );
         this.controller = controller;
         this.project = project;
-        
+
         formatOptions = new FormatsCompileOptionsPanel( this );
         generalOptions = new GeneralCompileOptionsPanel( this );
         separatorOptions = new SeparatorsCompileOptionsPanel( this );
 
-        tabbedPane.add( messages.outputCompileOptions(), formatOptions );
-        tabbedPane.add( messages.includeCompileOptions(), generalOptions );
-        tabbedPane.add( messages.separatorCompileOptions(), separatorOptions );
+        tabbedPane.add( messages.output(), formatOptions );
+        tabbedPane.add( messages.include(), generalOptions );
+        tabbedPane.add( messages.separators(), separatorOptions );
 
-        GuiUtils.sameSize( new JComponent[] { cancelButton, compileButton } );
-        
+        GuiUtils.sameSize( new JComponent[]{ cancelButton, compileButton } );
+
         buttonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
         buttonPanel.add( cancelButton );
         buttonPanel.add( new JLabel( " " ) );
         buttonPanel.add( compileButton );
-        
+
         getContentPane().setLayout( new BorderLayout() );
         getContentPane().add( tabbedPane, BorderLayout.CENTER );
         getContentPane().add( buttonPanel, BorderLayout.SOUTH );
@@ -72,38 +69,32 @@ public class CompileDialog
         new Listener();
     }
 
-    public void setCompileOptions( CompileOptions compileOptions )
-    {
+    public void setCompileOptions( CompileOptions compileOptions ) {
         this.compileOptions = compileOptions;
-        if( compileOptions != null )
-        {
+        if( compileOptions != null ) {
             formatOptions.loadPreferences( compileOptions );
             generalOptions.loadPreferences( compileOptions );
             separatorOptions.loadPreferences( compileOptions );
         }
     }
-    
-    public void doCompile()
-    {
+
+    public void doCompile() {
         writePrefences();
         controller.fileExportProject( compileOptions );
     }
-    
-    public void updatePreferences()
-    {
+
+    public void updatePreferences() {
         formatOptions.updatePreferences();
         generalOptions.updatePreferences();
         separatorOptions.updatePreferences();
     }
-    
-    public void writePrefences()
-    {
+
+    public void writePrefences() {
         Project targetProject = project;
-        if( targetProject == null )
-        {
+        if( targetProject == null ) {
             targetProject = controller.getProjectFrame().getProject();
         }
-        compileOptions.setProject(  project );
+        compileOptions.setProject( project );
         formatOptions.writePreferences( compileOptions );
         generalOptions.writePreferences( compileOptions );
         separatorOptions.writePreferences( compileOptions );
@@ -111,13 +102,11 @@ public class CompileDialog
         targetProject.setCompileOptions( compileOptions );
     }
 
-    public FormatsCompileOptionsPanel getFormatOptions()
-    {
+    public FormatsCompileOptionsPanel getFormatOptions() {
         return formatOptions;
     }
 
-    public GeneralCompileOptionsPanel getGeneralOptions()
-    {
+    public GeneralCompileOptionsPanel getGeneralOptions() {
         return generalOptions;
     }
 
@@ -125,45 +114,38 @@ public class CompileDialog
         return separatorOptions;
     }
 
-    public void cancel()
-    {
+    public void cancel() {
         setVisible( false );
         writePrefences();
     }
-    
-    
+
     @Override
-    public void setVisible( boolean visible )
-    {
-        if( visible )
-        {
+    public void setVisible( boolean visible ) {
+        if( visible ) {
             updatePreferences();
         }
-        
+
         super.setVisible( visible );
     }
-    
+
     private class Listener
-    implements ActionListener
-    {
-        public Listener()
-        {
+        implements ActionListener {
+        public Listener() {
             compileButton.addActionListener( this );
             cancelButton.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent ae )
-        {
+        public void actionPerformed( ActionEvent ae ) {
             Object source = ae.getSource();
-            if( source == compileButton )
-            {
+            if( source == compileButton ) {
                 setVisible( false );
                 doCompile();
             }
-            else if( source == cancelButton )
-            {
+            else if( source == cancelButton ) {
                 cancel();
             }
         }
+
     }
+
 }

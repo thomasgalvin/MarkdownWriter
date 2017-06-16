@@ -1,26 +1,24 @@
 package com.galvin.markdown.swing;
 
-import galvin.BaseMessages;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Locale;
 import org.apache.commons.io.IOUtils;
 
 public class MarkdownMessages
-extends BaseMessages
+//extends BaseMessages
 {
-    private static final String MESSAGE_BUNDLE_NAME = "MarkdownMessageBundle";
+//    private static final String MESSAGE_BUNDLE_NAME = "MarkdownMessageBundle";
     private static final String DEFAULT_CSS_TEMPLATE = "/com/galvin/markdown/default-styles.css";
     
-    public MarkdownMessages()
-    {
-        this( new Locale( "en", "US" ) );
-    }
-    
-    public MarkdownMessages( Locale locale )
-    {
-        super( MESSAGE_BUNDLE_NAME, locale );
-    }
+//    public MarkdownMessages()
+//    {
+//        this( new Locale( "en", "US" ) );
+//    }
+//    
+//    public MarkdownMessages( Locale locale )
+//    {
+//        super( MESSAGE_BUNDLE_NAME, locale );
+//    }
     
     /////////////////
     // Default CSS //
@@ -43,523 +41,313 @@ extends BaseMessages
         return "";
     }
     
-    ////////////////
-    // Window titles
-    ////////////////
-    
-    public String applicationTitle(){ return getString( "applicationTitle" ); }
-    public String previewTitle(){ return getString( "previewTitle" ); }
-    public String helpApplicationGuide(){ return getString( "helpApplicationGuide" ); }
-    public String helpMarkdownCompleteGuide(){ return getString( "helpMarkdownCompleteGuide" ); }
-    public String helpMarkdownCheetSheet(){ return getString( "helpMarkdownCheetSheet" ); }
+    //////////
+    /// Common 
+    //////////
 
-    /////////////////
-    // Welcome screen
-    /////////////////
-    
-    public String welcomeScreenTitle(){ return getString( "welcomeScreenTitle" ); }
-    public String welcomeScreenNewProjectsLabel(){ return getString( "welcomeScreenNewProjectsLabel" ); }
-    public String welcomeScreenNewProject(){ return getString( "welcomeScreenNewProject" ); }
-    public String welcomeScreenOpenProject(){ return getString( "welcomeScreenOpenProject" ); }
-    public String welcomeScreenRecentProjectsLabel(){ return getString( "welcomeScreenRecentProjectsLabel" ); }
-    public String welcomeScreenRecentProjectsButton(){ return getString( "welcomeScreenRecentProjectsButton" ); }
-    
-    //////////////////
-    // Document titles
-    //////////////////
-    
-    public String titleManuscript(){ return getString( "titleManuscript" ); }
-    public String titleResearch(){ return getString( "titleResearch" ); }
-    public String titleResources(){ return getString( "titleResources" ); }
-    public String titleTrash(){ return getString( "titleTrash" ); }
-    public String titleUntitled(){ return getString( "titleUntitled" ); }
-    public String titleUntitledProject(){ return getString( "titleUntitledProject" ); }
-    public String titleUntitledDocument(){ return getString( "titleUntitledDocument" ); }
-    public String titleUntitledFolder(){ return getString( "titleUntitledFolder" ); }
-    public String titleTableOfContents(){ return getString( "titleTableOfContents" ); }
-    public String titleCover(){ return getString( "titleCover" ); }
-    
-    ////////////////
-    // Node sections
-    ////////////////
-    
-    public String nodeSectionMauscript(){ return getString( "nodeSectionMauscript" ); }
-    public String nodeSectionDescription(){ return getString( "nodeSectionDescription" ); }
-    public String nodeSectionSummary(){ return getString( "nodeSectionSummary" ); }
-    public String nodeSectionNotes(){ return getString( "nodeSectionNotes" ); }
-    public String nodeSectionMetadata(){ return getString( "nodeSectionMetadata" ); }
-    public String nodeSectionImageResource(){ return getString( "nodeSectionImageResource" ); }
-    
-    public String fileChooserProjectSave(){ return getString( "fileChooserProjectSave" ); }
-    public String fileChooserProjectCancel(){ return getString( "fileChooserProjectCancel" ); }
-    
-    public String fileChooserTitleSave(){ return getString( "fileChooserTitleSave" ); }
-    public String fileChooserTitleSaveAs(){ return getString( "fileChooserTitleSaveAs" ); }
-    
-    
-    public String fileChooserProjectFilterDescription(){ return getString( "fileChooserProjectFilterDescription" ); }
-    public String fileChooserImageFilterDescription(){ return getString( "fileChooserImageFilterDescription" ); }
-    
-    ///////////
-    // Menu bar
-    ///////////
-    
-    public String menuBarFile(){ return getString( "menuBarFile" ); }
-    public String menuBarFileNew(){ return getString( "menuBarFileNew" ); }
-    public String menuBarFileOpen(){ return getString( "menuBarFileOpen" ); }
-    public String menuBarFileSave(){ return getString( "menuBarFileSave" ); }
-    public String menuBarFileSaveAs(){ return getString( "menuBarFileSaveAs" ); }
-    public String menuBarFileSaveCopyAs(){ return getString( "menuBarFileCopySaveAs" ); }
-    public String menuBarFileTakeSnapshot(){ return getString( "menuBarFileTakeSnapshot" ); }
-    public String menuBarFileOpenSnapshotsDir(){ return getString( "menuBarFileOpenSnapshotsDir" ); }
-    
-    
-    public String menuBarFileExport(){ return getString( "menuBarFileExport" ); }
-    public String menuBarFileExportProject(){ return getString( "menuBarFileExportProject" ); }
-    public String menuBarFileExportProjectUsingCurrentOptions(){ return getString( "menuBarFileExportProjectUsingCurrentOptions" ); }
-    public String menuBarFileExportCurrentDocument(){ return getString( "menuBarFileExportCurrentDocument" ); }
-    public String menuBarFileExportCurrentDocumentUsingCurrentOptions(){ return getString( "menuBarFileExportCurrentDocumentUsingCurrentOptions" ); }
-    public String menuBarFileExportCurrentDocumentAndChildren(){ return getString( "menuBarFileExportCurrentDocumentAndChildren" ); }
-    public String menuBarFileExportCurrentDocumentAndChildrenUsingCurrentOptions(){ return getString( "menuBarFileExportCurrentDocumentAndChildrenUsingCurrentOptions" ); }
-    public String menuBarFileShowExportDirectory(){ return getString( "menuBarFileShowExportDirectory" ); }
-    public String menuBarFileClearExportDirectory(){ return getString( "menuBarFileClearExportDirectory" ); }
-    
-    public String menuBarFilePreview(){ return getString( "menuBarFilePreview" ); }
-    public String menuBarFilePreviewCurrentDocument(){ return getString( "menuBarFilePreviewCurrentDocument" ); }
-    public String menuBarFilePreviewCurrentDocumentAndChildren(){ return getString( "menuBarFilePreviewCurrentDocumentAndChildren" ); }
-    
-    public String menuBarFileClose(){ return getString( "menuBarFileClose" ); }
-    public String menuBarFileCloseWithoutSaving(){ return getString( "menuBarFileCloseWithoutSaving" ); }
-    public String menuBarFileExit(){ return getString( "menuBarFileExit" ); }
-    public String menuBarFileRecentProjects(){ return getString( "menuBarFileRecentProjects" ); }
-    public String menuBarFileNoRecentProjects(){ return getString( "menuBarFileNoRecentProjects" ); }
-    public String menuBarFileClearRecentProjects(){ return getString( "menuBarFileClearRecentProjects" ); }
-    
-    public String menuBarEdit(){ return getString( "menuBarEdit" ); }
-    public String menuBarEditCut(){ return getString( "menuBarEditCut" ); }
-    public String menuBarEditCopy(){ return getString( "menuBarEditCopy" ); }
-    public String menuBarEditPaste(){ return getString( "menuBarEditPaste" ); }
-    public String menuBarEditUndo(){ return getString( "menuBarEditUndo" ); }
-    public String menuBarEditRedo(){ return getString( "menuBarEditRedo" ); }
-    public String menuBarEditSelectAll(){ return getString( "menuBarEditSelectAll" ); }
-    public String menuBarEditGoToLine(){ return getString( "menuBarEditGoToLine" ); }
-    
-    public String menuBarEditPrependToSelectedLines(){ return getString( "menuBarEditPrependToSelectedLines" ); }
-    public String menuBarEditAppendToSelectedLines(){ return getString( "menuBarEditAppendToSelectedLines" ); }
-    public String menuBarEditPrependAppendToSelectedLines(){ return getString( "menuBarEditPrependAppendToSelectedLines" ); }
-    
-    public String menuBarEditFindInProject(){ return getString( "menuBarEditFindInProject" ); }
-    public String menuBarEditFindNext(){ return getString( "menuBarEditFindNext" ); }
-    public String menuBarEditTurnLiveSpellcheckOn(){ return getString( "menuBarEditTurnLiveSpellcheckOn" ); }
-    public String menuBarEditTurnLiveSpellcheckOff(){ return getString( "menuBarEditTurnLiveSpellcheckOff" ); }
-    public String menuBarEditShowUserDictionary(){ return getString( "menuBarEditShowUserDictionary" ); }
-    
-    public String menuBarGroovy(){ return getString( "menuBarGroovy" ); }
-    public String menuBarGroovyReload(){ return getString( "menuBarGroovyReload" ); }
-    public String menuBarGroovyNoScripts(){ return getString( "menuBarGroovyNoScripts" ); }
-    public String menuBarGroovyOpenDir(){ return getString( "menuBarGroovyOpenDir" ); }
-    
-    public String menuBarFormat(){ return getString( "menuBarFormat" ); }
-    public String menuBarFormatBold(){ return getString( "menuBarFormatBold" ); }
-    public String menuBarFormatItalic(){ return getString( "menuBarFormatItalic" ); }
-    public String menuBarFormatUnderline(){ return getString( "menuBarFormatUnderline" ); }
-    public String menuBarFormatStrikethrough(){ return getString( "menuBarFormatStrikethrough" ); }
-    public String menuBarFormatSmall(){ return getString( "menuBarFormatSmall" ); }
-    public String menuBarFormatCenter(){ return getString( "menuBarFormatCenter" ); }
-    public String menuBarFormatSuperscript(){ return getString( "menuBarFormatSuperscript" ); }
-    public String menuBarFormatSubscript(){ return getString( "menuBarFormatSubscript" ); }
-    public String menuBarFormatBlockquote(){ return getString( "menuBarFormatBlockquote" ); }
-    public String menuBarFormatCode(){ return getString( "menuBarFormatCode" ); }
-    public String menuBarBulletedList(){ return getString( "menuBarBulletedList" ); }
-    public String menuBarFormatH1(){ return getString( "menuBarFormatH1" ); }
-    public String menuBarFormatH2(){ return getString( "menuBarFormatH2" ); }
-    public String menuBarFormatH3(){ return getString( "menuBarFormatH3" ); }
-    public String menuBarFormatH4(){ return getString( "menuBarFormatH4" ); }
-    public String menuBarFormatH5(){ return getString( "menuBarFormatH5" ); }
-    public String menuBarFormatH6(){ return getString( "menuBarFormatH6" ); }
-    
-    public String menuBarCss(){ return getString( "menuBarCss" ); }
-    public String cssPagebreakBefore(){ return getString( "cssPagebreakBefore" ); }
-    public String cssPagebreakAfter(){ return getString( "cssPagebreakAfter" ); }
-    public String cssPagebreakBoth(){ return getString( "cssPagebreakBoth" ); }
-    public String cssChapter(){ return getString( "cssChapter" ); }
-    public String cssChapterPagebreakBefore(){ return getString( "cssChapterPagebreakBefore" ); }
-    public String cssChapterPagebreakAfter(){ return getString( "cssChapterPagebreakAfter" ); }
-    public String cssChapterPagebreakBoth(){ return getString( "cssChapterPagebreakBoth" ); }
-    
-    public String menuBarFormatInsert(){ return getString( "menuBarFormatInsert" ); }
-    public String menuBarFormatInsertLink(){ return getString( "menuBarFormatInsertLink" ); }
-    public String menuBarFormatInsertImage(){ return getString( "menuBarFormatInsertImage" ); }
-    public String menuBarFormatInsertFootnote(){ return getString( "menuBarFormatInsertFootnote" ); }
-    public String menuBarFormatInsertPageBreak(){ return getString( "menuBarFormatInsertPageBreak" ); }
-    
-    public String menuBarView(){ return getString( "menuBarView" ); }
-    public String menuBarViewSplitHorizontal(){ return getString( "menuBarViewSplitHorizontal" ); }
-    public String menuBarViewSplitVertical(){ return getString( "menuBarViewSplitVertical" ); }
-    public String menuBarViewUnsplit(){ return getString( "menuBarViewUnsplit" ); }
-    public String menuBarViewSynchronizeEditors(){ return getString( "menuBarViewSynchronizeEditors" ); }
-    public String menuBarViewStopSynchronizingEditors(){ return getString( "menuBarViewStopSynchronizingEditors" ); }
-    public String menuBarViewShowLineNumbers(){ return getString( "menuBarViewShowLineNumbers" ); }
-    public String menuBarViewHideLineNumbers(){ return getString( "menuBarViewHideLineNumbers" ); }
-    public String menuBarViewShowLineHighlitghts(){ return getString( "menuBarViewShowLineHighlitghts" ); }
-    public String menuBarViewHideLineHighlitghts(){ return getString( "menuBarViewHideLineHighlitghts" ); }
-    public String menuBarViewTurnWordWrapOn(){ return getString( "menuBarViewTurnWordWrapOn" ); }
-    public String menuBarViewTurnWordWrapOff(){ return getString( "menuBarViewTurnWordWrapOff" ); }
-    public String menuBarViewShowInvisibles(){ return getString( "menuBarViewShowInvisibles" ); }
-    public String menuBarViewHideInvisibles(){ return getString( "menuBarViewHideInvisibles" ); }
-    
-    public String menuBarDocuments(){ return getString( "menuBarDocuments" ); }
-    public String menuBarDocumentsNewFile(){ return getString( "menuBarDocumentsNewFile" ); }
-    public String menuBarDocumentsRename(){ return getString( "menuBarDocumentsRename" ); }
-    public String menuBarDocumentsImportImages(){ return getString( "menuBarDocumentsImportImages" ); }
-    public String menuBarDocumentsDelete(){ return getString( "menuBarDocumentsDelete" ); }
-    public String menuBarDocumentsDuplicate(){ return getString( "menuBarDocumentsDuplicate" ); }
-    public String menuBarDocumentsSplitAtCurson(){ return getString( "menuBarDocumentsSplitAtCurson" ); }
-    public String menuBarDocumentsSplitMakeSelectionTitle(){ return getString( "menuBarDocumentsSplitMakeSelectionTitle" ); }
-    public String menuBarDocumentsJoin(){ return getString( "menuBarDocumentsJoin" ); }
-    public String menuBarDocumentsStatistics(){ return getString( "menuBarDocumentsStatistics" ); }
-    public String menuBarDocumentsEmptyTrash(){ return getString( "menuBarDocumentsEmptyTrash" ); }
-    public String menuBarDocumentsSelectInTree(){ return getString( "menuBarDocumentsSelectInTree" ); }
-    
-    public String menuBarTextTools(){ return getString( "menuBarTextTools" ); }
-    public String menuBarExpandMacro(){ return getString( "menuBarExpandMacro" ); }
-    public String menuBarEditMacros(){ return getString( "menuBarEditMacros" ); }
-    
-    public String menuBarTextSelectionToUpperCase(){ return getString( "menuBarTextSelectionToUpperCase" ); }
-    public String menuBarTextSelectionToLowerCase(){ return getString( "menuBarTextSelectionToLowerCase" ); }
-    public String menuBarTextSelectionToCamelCase(){ return getString( "menuBarTextSelectionToCamelCase" ); }
-    public String menuBarTextSelectionTabsToSpaces(){ return getString( "menuBarTextSelectionTabsToSpaces" ); }
-    public String menuBarTextSelectionSpacesToTabs(){ return getString( "menuBarTextSelectionSpacesToTabs" ); }
-    public String menuBarTextSelectionCondenseMultipleSpaces(){ return getString( "menuBarTextSelectionCondenseMultipleSpaces" ); }
-    public String menuBarTextShiftIndentLeft(){ return getString( "menuBarTextShiftIndentLeft" ); }
-    public String menuBarTextShiftIndentRight(){ return getString( "menuBarTextShiftIndentRight" ); }
-    public String menuBarTextJoinLines(){ return getString( "menuBarTextJoinLines" ); }
-    public String menuBarTextDeleteLines(){ return getString( "menuBarTextDeleteLines" ); }
-    public String menuBarTextDeleteToStartOfLine(){ return getString( "menuBarTextDeleteToStartOfLine" ); }
-    public String menuBarTextDeleteToEndOfLine(){ return getString( "menuBarTextDeleteToEndOfLine" ); }
-    
-    public String menuBarTextDoubleNewlines(){ return getString( "menuBarTextDoubleNewlines" ); }
-    public String menuBarTextSingleNewlines(){ return getString( "menuBarTextSingleNewlines" ); }
-    
-    public String menuBarTextInsertCurrentDate(){ return getString( "menuBarTextInsertCurrentDate" ); }
-    public String menuBarTextInsertCurrentTime(){ return getString( "menuBarTextInsertCurrentTime" ); }
-    public String menuBarTextInsertCurrentDateAndTime(){ return getString( "menuBarTextInsertCurrentDateAndTime" ); }
-    
-    public String toolsTextInsertLoremSentence(){ return getString( "toolsTextInsertLoremSentence" ); }
-    public String toolsTextInsertLoremParagraph(){ return getString( "toolsTextInsertLoremParagraph" ); }
-    public String toolsTextInsertSedUt(){ return getString( "toolsTextInsertSedUt" ); }
-    public String toolsTextInsertAtVero(){ return getString( "toolsTextInsertAtVero" ); }
-    public String toolsTextInsertGreekingParagraphs(){ return getString( "toolsTextInsertGreekingParagraphs" ); }
-    
-    public String menuBarHelp(){ return getString( "menuBarHelp" ); }
-    public String menuBarHelpShow(){ return getString( "menuBarHelpShow" ); }
-    public String menuBarHelpAbout(){ return getString( "menuBarHelpAbout" ); }
-    public String menuBarHelpPreferences(){ return getString( "menuBarHelpPreferences" ); }
-    public String helpMemory(){ return getString( "helpMemory" ); }
-    
-    public String menuBarOpenTemplatesDir(){ return getString( "menuBarOpenTemplatesDir" ); }
-    
-    //////////////////
-    // Tree popup menu
-    //////////////////
-    
-    public String treeMenuAddChild(){ return getString( "treeMenuAddChild" ); }
-    public String menuBarDocumentsNewChildText(){ return getString( "menuBarDocumentsNewChildText" ); }
-    public String treeMenuAddSibling(){ return getString( "treeMenuAddSibling" ); }
-    public String treeMenuAddText(){ return getString( "treeMenuAddText" ); }
-    
-    public String treeMenuRename(){ return getString( "treeMenuRename" ); }
-    public String treeMenuDelete(){ return getString( "treeMenuDelete" ); }
-    public String treeMenuDuplicate(){ return getString( "treeMenuDuplicate" ); }
-    public String treeMenuJoin(){ return getString( "treeMenuJoin" ); }
-    public String treeMenuEmptyTrash(){ return getString( "treeMenuEmptyTrash" ); }
-    
-    
-    //////////////////////
-    // Save project dialog
-    //////////////////////
-    
-    public String fileChooserSaveProjectTitle(){ return getString( "fileChooserSaveProjectTitle" ); }
-    public String fileChooserSaveProjectButton(){ return getString( "fileChooserSaveProjectButton" ); }
-    
-    public String fileChooserOpenProjectTitle(){ return getString( "fileChooserOpenProjectTitle" ); }
-    public String fileChooserOpenProjectButton(){ return getString( "fileChooserOpenProjectButton" ); }
-    
-    public String fileChooserProjectName(){ return getString( "fileChooserProjectName" ); }
-    public String fileChooserProjectLocation(){ return getString( "fileChooserProjectLocation" ); }
-    public String fileChooserProjectLocationButton(){ return getString( "fileChooserProjectLocationButton" ); }
-    public String fileChooserProjectWillBeSavedAs(){ return getString( "fileChooserProjectWillBeSavedAs" ); }
-    
-    //////////
-    // Dialogs
-    //////////
-    
-    public String dialogMessageRename(){ return getString( "dialogMessageRename" ); }
-    public String dialogMessageGoToLine(){ return getString( "dialogMessageGoToLine" ); }
-    public String dialogMessageAppendPrependDialogTitle(){ return getString( "dialogMessageAppendPrependDialogTitle" ); }
-    public String dialogMessagePrependToLines(){ return getString( "dialogMessagePrependToLines" ); }
-    public String dialogMessageAppendToLines(){ return getString( "dialogMessageAppendToLines" ); }
-    public String dialogMessageAppendPrependOkay(){ return getString( "dialogMessageAppendPrependOkay" ); }
-    public String dialogMessageAppendPrependCancel(){ return getString( "dialogMessageAppendPrependCancel" ); }
-    public String dialogMessageSnapshotName(){ return getString( "dialogMessageSnapshotName" ); }
-    
-    public String dialogCloseWithoutSaving(){ return getString( "dialogCloseWithoutSaving" ); }
-    public String dialogCloseWithoutSavingTitle(){ return getString( "dialogCloseWithoutSavingTitle" ); }
-    
-    public String dialogEmptyTrash(){ return getString( "dialogEmptyTrash" ); }
-    public String dialogEmptyTrashTitle(){ return getString( "dialogEmptyTrashTitle" ); }
-    
-    public String dialogClearExportDir(){ return getString( "dialogClearExportDir" ); }
-    public String dialogClearExportDirTitle(){ return getString( "dialogClearExportDirTitle" ); }
-    
-    public String dialogHyperlinkTitle(){ return getString( "dialogHyperlinkTitle" ); }
-    public String dialogHyperlinkText(){ return getString( "dialogHyperlinkText" ); }
-    public String dialogHyperlinkUrl(){ return getString( "dialogHyperlinkUrl" ); }
-    public String dialogHyperlinkCancel(){ return getString( "dialogHyperlinkCancel" ); }
-    public String dialogHyperlinkOk(){ return getString( "dialogHyperlinkOk" ); }
-    
-    public String dialogFootnoteTitle(){ return getString( "dialogFootnoteTitle" ); }
-    public String dialogFootnoteText(){ return getString( "dialogFootnoteText" ); }
-    public String dialogFootnoteBody(){ return getString( "dialogFootnoteBody" ); }
-    public String dialogFootnoteCancel(){ return getString( "dialogFootnoteCancel" ); }
-    public String dialogFootnoteOk(){ return getString( "dialogFootnoteOk" ); }
-    
-    public String dialogImageInsertCancel(){ return getString( "dialogImageInsertCancel" ); }
-    public String dialogImageInsertOkay(){ return getString( "dialogImageInsertOkay" ); }
-    
-    public String dialogMacrosTitle(){ return getString( "dialogMacrosTitle" ); }
-    public String dialogMacrosGlobal(){ return getString( "dialogMacrosGlobal" ); }
-    public String dialogMacrosProject(){ return getString( "dialogMacrosProject" ); }
-    
-    public String dialogCompileProgressTitle(){ return getString( "dialogCompileProgressTitle" ); }
-    public String dialogCompileProgressLabel(){ return getString( "dialogCompileProgressLabel" ); }
-    
-    public String dialogOpenProgressTitle(){ return getString( "dialogOpenProgressTitle" ); }
-    public String dialogOpenProgressLabel(){ return getString( "dialogOpenProgressLabel" ); }
-    
-    public String dialogStatisticsTitle(){ return getString( "dialogStatisticsTitle" ); }
-    public String dialogStatisticsCharacters(){ return getString( "dialogStatisticsCharacters" ); }
-    public String dialogStatisticsWords(){ return getString( "dialogStatisticsWords" ); }
-    public String dialogStatisticsPages(){ return getString( "dialogStatisticsPages" ); }
-    public String dialogStatisticsCharactersPerWord(){ return getString( "dialogStatisticsCharactersPerWord" ); }
-    public String dialogStatisticsWordsPerPage(){ return getString( "dialogStatisticsWordsPerPage" ); }
-    public String dialogStatisticsDone(){ return getString( "dialogStatisticsDone" ); }
-    public String dialogStatisticsRefresh(){ return getString( "dialogStatisticsRefresh" ); }
-    
-    public String dialogRenameWindowTitle(){ return getString( "dialogRenameWindowTitle" ); }
-    public String dialogRenameTitle(){ return getString( "dialogRenameTitle" ); }
-    public String dialogRenameSubTitle(){ return getString( "dialogRenameSubTitle" ); }
-    public String dialogRenameOkay(){ return getString( "dialogRenameOkay" ); }
-    public String dialogRenameCancel(){ return getString( "dialogRenameCancel" ); }
-    
-    ///////////////////
-    // Find and Replace
-    ///////////////////
-    
-    public String findAndReplaceSearchForLabel(){ return getString( "findAndReplaceSearchForLabel" ); }
-    public String findAndReplaceReplaceWithLabel(){ return getString( "findAndReplaceReplaceWithLabel" ); }
-    public String findAndReplaceFindNextButton(){ return getString( "findAndReplaceFindNextButton" ); }
-    public String findAndReplaceFindAllButton(){ return getString( "findAndReplaceFindAllButton" ); }
-    public String findAndReplaceReplaceAllButton(){ return getString( "findAndReplaceReplaceAllButton" ); }
-    public String findAndReplaceCancelButton(){ return getString( "findAndReplaceCancelButton" ); }
-    public String findAndReplaceCurrentDocumentRadioButton(){ return getString( "findAndReplaceCurrentDocumentRadioButton" ); }
-    public String findAndReplaceAllDocumentsRadioButton(){ return getString( "findAndReplaceAllDocumentsRadioButton" ); }
-    public String findAndReplaceOnlyDocumentsInManuscriptCheckbox(){ return getString( "findAndReplaceOnlyDocumentsInManuscriptCheckbox" ); }
-    public String findAndReplaceManuscriptCheckbox(){ return getString( "findAndReplaceManuscriptCheckbox" ); }
-    public String findAndReplaceSummaryCheckbox(){ return getString( "findAndReplaceSummaryCheckbox" ); }
-    public String findAndReplaceDescriptionCheckbox(){ return getString( "findAndReplaceDescriptionCheckbox" ); }
-    public String findAndReplaceNotesCheckbox(){ return getString( "findAndReplaceNotesCheckbox" ); }
-    public String findAndReplaceIgnoreCaseCheckbox(){ return getString( "findAndReplaceIgnoreCaseCheckbox" ); }
-    
-    //////////////
-    // Preferences
-    //////////////
-    
-    public String preferences(){ return getString( "preferences" ); }
-    public String preferencesGeneral(){ return getString( "preferencesGeneral" ); }
-    public String preferencesMarkdown(){ return getString( "preferencesMarkdown" ); }
-    
-    ///////////////////////
-    // Markdown Preferences
-    ///////////////////////
-    
-    public String markdownEngine(){ return getString( "markdownEngine" ); }
-    public String pdfLatexPath(){ return getString( "pdfLatexPath" ); }
-    public String multiMarkdownSmartQuotes(){ return getString( "multiMarkdownSmartQuotes" ); }
-    public String multiMarkdownNotes(){ return getString( "multiMarkdownNotes" ); }
-    public String multiMarkdownProcessHtml(){ return getString( "multiMarkdownProcessHtml" ); }
-    public String multiMarkdownGenerateHeaderIDs(){ return getString( "multiMarkdownGenerateHeaderIDs" ); }
-    public String setGlobalMakdownPreferences(){ return getString( "setGlobalMakdownPreferences" ); }
-    public String pandocPath(){ return getString( "pandocPath" ); }
-    public String kindleGenPath(){ return getString( "kindleGenPath" ); }
-    
-    ////////////////////////////////
-    //Document separator preferences
-    ////////////////////////////////
-    
-    public String compileOptionsFolderFolder(){ return getString( "compileOptionsFolderFolder" ); }
-    public String compileOptionsFolderFile(){ return getString( "compileOptionsFolderFile" ); }
-    public String compileOptionsFileFolder(){ return getString( "compileOptionsFileFolder" ); }
-    public String compileOptionsFileFile(){ return getString( "compileOptionsFileFile" ); }
-    public String compileOptionsTitleFolder(){ return getString( "compileOptionsTitleFolder" ); }
-    public String compileOptionsTitleFile(){ return getString( "compileOptionsTitleFile" ); }
-    
-    public String compileOptionsLineBreak(){ return getString( "compileOptionsLineBreak" ); }
-    public String compileOptionsParagraphBreak(){ return getString( "compileOptionsParagraphBreak" ); }
-    public String compileOptionsPageBreak(){ return getString( "compileOptionsPageBreak" ); }
-    public String compileOptionsHR(){ return getString( "compileOptionsHR" ); }
-    public String compileOptionsCustom(){ return getString( "compileOptionsCustom" ); }
-    
-    /////////////////
-    //Compile Options
-    /////////////////
-    
-    public String compileDialogTitle(){ return getString( "compileDialogTitle" ); }
-    public String outputCompileOptions(){ return getString( "outputCompileOptions" ); }
-    public String includeCompileOptions(){ return getString( "includeCompileOptions" ); }
-    public String doCompile(){ return getString( "doCompile" ); }
-    public String cancelCompile(){ return getString( "cancelCompile" ); }
-    
-    public String dialogMessageCompileSuccess(){ return getString( "dialogMessageCompileSuccess" ); }
-    public String dialogMessageCompileSuccessTitle(){ return getString( "dialogMessageCompileSuccessTitle" ); }
-    public String dialogMessageCompileSuccessOpenFolder(){ return getString( "dialogMessageCompileSuccessOpenFolder" ); }
-    public String dialogMessageCompileSuccessOkay(){ return getString( "dialogMessageCompileSuccessOkay" ); }
-    
-    public String dialogMessageCompileResultSuccess(){ return getString( "dialogMessageCompileResultSuccess" ); }
-    public String dialogMessageCompileResultFailure(){ return getString( "dialogMessageCompileResultFailure" ); }
-    
-    public String dialogMessageCompileNoResults(){ return getString( "dialogMessageCompileNoResults" ); }
-    public String dialogMessageCompileNoResultsTitle(){ return getString( "dialogMessageCompileNoResultsTitle" ); }
-    
-    /////////////////////////
-    //General Compile Options
-    /////////////////////////
-    
-    public String importFormat(){ return getString( "importFormat" ); }
-    public String outputDirectory(){ return getString( "outputDirectory" ); }
-    public String chooseOutputDirectory(){ return getString( "chooseOutputDirectory" ); }
-    public String includeManuscript(){ return getString( "includeManuscript" ); }
-    public String includeDescription(){ return getString( "includeDescription" ); }
-    public String includeNotes(){ return getString( "includeNotes" ); }
-    public String includeSummary(){ return getString( "includeSummary" ); }
-    public String includeContributors(){ return getString( "includeContributors" ); }
-    public String includeContributorRoles(){ return getString( "includeContributorRoles" ); }
-    public String includeTitlesOfFolders(){ return getString( "includeTitlesOfFolders" ); }
-    public String includeSubtitlesOfFolders(){ return getString( "includeSubtitlesOfFolders" ); }
-    public String includeTitlesOfFiles(){ return getString( "includeTitlesOfFiles" ); }
-    public String includeSubtitlesOfFiles(){ return getString( "includeSubtitlesOfFiles" ); }
-    public String includeTableOfContents(){ return getString( "includeTableOfContents" ); }
+    public String application(){ return "Markdown Writer"; };    
+    public String errorDialogTitle(){ return "Error"; };
+    
+    public String cancel(){ return "Cancel"; };
+    public String create(){ return "Create"; };
+    public String ellipsis(){ return "..."; };
+    public String global(){ return "Global"; };
+    public String next(){ return "Next"; };
+    public String okay(){ return "Okay"; };
+    public String open(){ return "Open"; };
+    public String progress(){ return "Progress"; };
+    public String project(){ return "Project"; };
+    public String refresh(){ return "Refresh"; };
+    public String save(){ return "Save"; };
+    public String success(){ return "Success"; };
+    public String successLabel(){ return "Success:"; };
+    public String failureLabel(){ return "Failure:"; };
+    
+    public String renameDialogTitle(){ return "Rename"; };
+    
+    ///////////////////////////
+    /// Document/Section Titles
+    ///////////////////////////
+    
+    public String untitled(){ return "Untitled"; };
+    public String config(){ return "Config"; };
+    public String coverImage(){ return "Cover Image"; };
+    public String description(){ return "Description"; };
+    public String imageResource(){ return "Image Resource"; };
+    public String manuscript(){ return "Manuscript"; };
+    public String metadata(){ return "Metadata"; };
+    public String notes(){ return "Notes"; };
+    public String research(){ return "Research"; };
+    public String resources(){ return "Resources"; };
+    public String styleSheet(){ return "Style Sheet"; };
+    public String summary(){ return "Summary"; };
+    public String trash(){ return "Trash"; };
+    
+    ////////////
+    /// Metadata
+    ////////////
+    
+    
+    public String labelContributors(){ return "Contributors:"; };
+    public String labelCreated(){ return "Created:"; };
+    public String labelGenres(){ return "Genres:"; };
+    public String labelGlobal(){ return "Global:"; };
+    public String labelIdentifier(){ return "Identifier:"; };
+    public String labelKeywords(){ return "Keywords:"; };
+    public String labelLanguage(){ return "Language:"; };
+    public String labelMetadata(){ return "Metadata:"; };
+    public String labelModified(){ return "Modified:"; };
+    public String labelName(){ return "Name:"; };
+    public String labelProgress(){ return "Progress:"; };
+    public String labelProject(){ return "Project:"; };
+    public String labelRole(){ return "Role:"; };
+    public String labelSortByName(){ return "Sort By Name:"; };
+    public String labelSubtitle(){ return "Subtitle:"; };
+    public String labelTitle(){ return "Title:"; };
+    public String labelTopics(){ return "Topics:"; };
     
     ////////////////////////////
-    // Separator Compile Options
+    /// AppendPrependDialog.java
     ////////////////////////////
     
-    public String separatorCompileOptions(){ return getString( "separatorCompileOptions" ); }
-    public String separatorSameLevel(){ return getString( "separatorSameLevel" ); }
-    public String separatorHigherToLower(){ return getString( "separatorHigherToLower" ); }
-    public String separatorLowerToHigher(){ return getString( "separatorLowerToHigher" ); }
-    public String endOfDocumentMarker(){ return getString( "endOfDocumentMarker" ); }
-    public String separatorCustom(){ return getString( "separatorCustom" ); }
+    public String appendToLinesLabel(){ return "Append to lines:"; };
+    public String prependToLinesLabel(){ return "Prepend to lines:"; };
+    public String appendPrependDialogTitle(){ return "Append/Prepend"; };
+    
+    //////////////////////
+    /// CompileDialog.java
+    //////////////////////
+    
+    public String exportFormatMacOnly(){ return "Sorry, export to ${format} is only supported on Mac."; };
+    
+    public String output(){ return "Output"; };
+    public String include(){ return "Include"; };
+    public String separators(){ return "Separators"; };
+    
+    public String compile(){ return "Compile"; };
+    
+    public String labelInputFormat(){ return "Input format:"; };
+    public String labelOutputDir(){ return "Output folder:"; };
+    
+    public String separatorSame(){ return "Same level:"; };
+    public String separatorHighterToLower(){ return "Higher to lower:"; };
+    public String separatorLowerToHighter(){ return "Lower to higher:"; };
+    public String endOfDocument(){ return "End of document:"; };
+    
+    //////////////////////
+    /// CompileThread.java
+    //////////////////////
+    
+    public String noSupportedFormats(){ return "No supported formats were selected for export."; };
+    public String noSupportedFormatsDialogTitle(){ return "Nothing to export"; };
+    
+    ///////////////////
+    /// Controller.java
+    ///////////////////
+    
+    public String goToLineDialogTitle(){ return "Go to line"; };
+    
+    public String errorOpen(){ return "Sorry, an error occurred while opening the project."; };
+    public String errorSave(){ return "Sorry, an error occurred while saving the project."; };
+    public String errorAbout(){ return "Sorry, an error occurred loading the about file."; };
+    public String errorHelp(){ return "Sorry, an error occurred loading the help file."; };
+    public String errorCompile(){ return "Sorry, an error occurred while compiling the project."; };
+    public String errorPreview(){ return "Sorry, an error occurred while generating the preview."; };
+    
+    public String saveLegacyVersion(){ return "This project is in a legacy format; you will have to save it as a new file."; };
+    public String saveLegacyVersionDialogTitle(){ return "Conversion required"; };
+    
+    public String closeWithoutSave(){ return "Are you sure you want to close without saving? UNSAVED CHANGES WILL BE LOST."; };
+    public String closeWithoutSaveDialogTitle(){ return "Close without saving?"; };
+    
+    public String emptyTrash(){ return "Are you sure you want to empty the trash. THIS CANNOT BE UNDONE."; };
+    public String emptyTrashDialogTitle(){ return "Empty trash?"; };
+    
+    public String errorImport(){ return "Sorry, an error occurred while importing the file."; };
+    public String errorDuplicateNode(){ return "Sorry, an error occurred while duplicating the selected node."; };
+    public String errorSplit(){ return "Sorry, an error occurred while splitting the current document."; };
+    public String errorEmptyTrash(){ return "Sorry, an error occurred while emptying the trash."; };
+    public String errorScript(){ return "Sorry, an error occurred while executing this script."; };
+    
+    /////////////////////
+    /// EmptyProject.java
+    /////////////////////
+    
+    public String emptyProjectTitle(){ return "Empty project"; };
+    public String emptyProjectDesc(){ return "An empty project"; };
+    
+    /////////////////////////////
+    /// ExportCompleteDialog.java
+    /////////////////////////////
+    
+    public String openExportFolder(){ return "Open export folder ..."; };
+    public String exportCompleteLabel(){ return "Export complete:"; };
+    
+    /////////////////////
+    /// FileTemplate.java
+    /////////////////////
+    
+    public String customeTemplateDesc(){ return "A custome project template file"; };
+    
+    /////////////////////////////
+    /// FindAndReplaceDialog.java
+    /////////////////////////////
+    
+    public String findReplaceDialogTitle(){ return "Find / Replace"; };
+    public String searchLabel(){ return "Search:"; };
+    public String replaceLabel(){ return "Replace:"; };
+    public String findAll(){ return "Find all ..."; };
+    public String replaceAll(){ return "Replace all..."; };
+    
+    public String currentDocument(){ return "Replace all..."; };
+    public String allDocuments(){ return "Replace all..."; };
+    public String onlyManuscript(){ return "Only documents in the Manuscript (exclude research, etc)"; };
+    public String ignoreCase(){ return "Ignore case"; };
+    
+    ///////////////////////
+    /// FootnoteDialog.java
+    ///////////////////////
+    
+    public String footnoteDialogTitle(){ return "Add a footnote"; };
+    public String footnoteNameLabel(){ return "Footnote name:"; };
+    public String footnoteBodyLabel(){ return "Footnote body:"; };
+    
+    ///////////////////
+    /// GroovyMenu.java
+    ///////////////////
 
+    public String groovy(){ return "Groovy"; };
+    public String groovyReload(){ return "Reload scripts"; };
+    public String groovyOpenDir(){ return "Open script folder"; };
+    public String groovyNoScripts(){ return "No scripts available"; };
+    
+    //////////////////////////////
+    /// HyperlinkEditorDialog.java
+    //////////////////////////////
+    
+    public String hyperlinkDialogTitle(){ return "Add a hyperlink"; };
+    public String hyperlinkTextLabel(){ return "Text:"; };
+    public String hyperlinkUrlLabel(){ return "URL:"; };
+    
+    ////////////////////////
+    /// ImageFileFilter.java
+    ////////////////////////
+    
+    public String imageFilterDesc(){ return "Images (JPEGs, PNGs, GIFs)"; };
+    
+    //////////////////////////
+    /// InsertImageDialog.java
+    //////////////////////////
+    
+    public String imageDialogTitle(){ return "Insert an image"; };
+    
+    ////////////////////////
+    /// MarkdownMenuBar.java
+    ////////////////////////
+    
+    public String menuNew(){ return "New ..."; };
+    public String menuChild(){ return "Add a child ..."; };
+    public String menuDelete(){ return "Delete ..."; };
+    public String menuDuplicate(){ return "Delete ..."; };
+    public String menuEmptyTrash(){ return "Empty trash ..."; };
+    public String menuExport(){ return "Export"; };
+    public String menuExportProject(){ return "Export project ..."; };
+    public String menuExportProjectCurrentOptions(){ return "Export project with current options"; };
+    public String menuExportDocument(){ return "Export document ..."; };
+    public String menuExportDocumentCurrentOptions(){ return "Export current document with current options"; };
+    public String menuExportDocumentAndChildren(){ return "Export current document and children"; };
+    public String menuExportDocumentAndChildrenCurrentOptions(){ return "Export current document and children with current options"; };
+    public String menuJoin(){ return "Join selected documents"; };
+    public String menuPreview(){ return "Preview"; };
+    public String menuPreviewDocument(){ return "Preview current document..."; };
+    public String menuPreviewDocumentAndChildren(){ return "Preview current document and children..."; };
+    public String menuRename(){ return "Rename ..."; };
+    public String menuSibling(){ return "Add a sibling ..."; };
+    
+    //////////////////////////
+    /// MacroEditorDialog.java
+    //////////////////////////
+    
+    public String macrosDialogTitle(){ return "Macros"; };
+    
+    ////////////////////////////////
+    /// MarkdownPreferencePanel.java
+    ////////////////////////////////
+    
+    public String pandocPathLabel(){ return "`pandoc` path:"; };
+    public String pdfLatexPathLabel(){ return "`pdflatex` path:"; };
+    public String kindleGenPathLabel(){ return "`kindlegen` path:"; };
+    
+    /////////////////////////
+    /// MarkdownTreeMenu.java
+    /////////////////////////
+    
+    ///////////////////////
+    /// MetadataWidget.java
+    ///////////////////////
+    
+    public String addContributor(){ return "Add contributor"; };
+    public String removeContributor(){ return "Remove contributor"; };
+    
     /////////////////////
-    // Contributor widget
+    /// NovelProject.java
     /////////////////////
     
-    public String contributorWidgetName(){ return getString( "contributorWidgetName" ); }
-    public String contributorWidgetSortByName(){ return getString( "contributorWidgetSortByName" ); }
-    public String contributorWidgetRole(){ return getString( "contributorWidgetRole" ); }
+    public String novelTitle(){ return "Novel"; };
+    public String novelDesc(){ return "A novel template with beat sheets"; };
     
-    //////////////////
-    // Metadata widget
-    //////////////////
+    //////////////////////////
+    /// ProjectCoverPanel.java
+    //////////////////////////
     
-    public String metadataWidgetTitle(){ return getString( "metadataWidgetTitle" ); }
-    public String metadataWidgetSubtitle(){ return getString( "metadataWidgetSubtitle" ); }
-    public String metadataWidgetCreatedDate(){ return getString( "metadataWidgetCreatedDate" ); }
-    public String metadataWidgetModifiedDate(){ return getString( "metadataWidgetModifiedDate" ); }
-    public String metadataWidgetLanguage(){ return getString( "metadataWidgetLanguage" ); }
-    public String metadataWidgetIdentifierScheme(){ return getString( "metadataWidgetIdentifierScheme" ); }
-    public String metadataWidgetIdentifier(){ return getString( "metadataWidgetIdentifier" ); }
-    public String metadataWidgetGenres(){ return getString( "metadataWidgetGenres" ); }
-    public String metadataWidgetTopics(){ return getString( "metadataWidgetTopics" ); }
-    public String metadataWidgetKeywords(){ return getString( "metadataWidgetKeywords" ); }
-    public String metadataWidgetContributors(){ return getString( "metadataWidgetContributors" ); }
-    public String metadataWidgetAddContributor(){ return getString( "metadataWidgetAddContributor" ); }
-    public String metadataWidgetRemoveContributor(){ return getString( "metadataWidgetRemoveContributor" ); }
+    public String noCover(){ return "No cover"; };
+    public String errorSettingCoverImage(){ return "Sorry, an error occurred while setting the cover image."; };
     
-    public String projectMetadataWidgetConfig(){ return getString( "projectMetadataWidgetConfig" ); }
-    public String projectMetadataWidgetMetadata(){ return getString( "projectMetadataWidgetMetadata" ); }
-    public String projectMetadataWidgetCover(){ return getString( "projectMetadataWidgetCover" ); }
-    public String projectMetadataWidgetStyleSheet(){ return getString( "projectMetadataWidgetStyleSheet" ); }
-    public String projectMetadataNoCover(){ return getString( "projectMetadataNoCover" ); }
+    //////////////////////////////
+    /// ProjectMetadataWidget.java
+    //////////////////////////////
     
-    ////////////////////
-    // Project templates
-    ////////////////////
+    ////////////////////////////////
+    /// ProjectStatisticsDialog.java
+    ////////////////////////////////
     
-    public String projectTemplateEmptyTitle(){ return getString( "projectTemplateEmptyTitle" ); }
-    public String projectTemplateEmpty(){ return getString( "projectTemplateEmpty" ); }
+    public String statisticsDialogTitle(){ return "Project Statistics"; };
+    public String characterLabel(){ return "Characters:"; };
+    public String wordsLabel(){ return "Words:"; };
+    public String pagesLabel(){ return "Pages:"; };
+    public String cpwLabel(){ return "Chars/Word:"; };
+    public String wppLabel(){ return "Words/Page:"; };
     
-    public String projectTemplateNovelTitle(){ return getString( "projectTemplateNovelTitle" ); }
-    public String projectTemplateNovel(){ return getString( "projectTemplateNovel" ); }
+    /////////////////////////////
+    /// ProjectXmlFileFilter.java
+    /////////////////////////////
     
-    public String projectTemplateFromFile(){ return getString( "projectTemplateFromFile" ); }
+    public String mdpFilterDesc(){ return "Markdown Project XML (*.mdp.xml)"; };
     
-    /////////////////
-    // Error messages
-    /////////////////
+    //////////////////////
+    /// RecentProject.java
+    //////////////////////
     
-    public String errorMissingProjectFile(){ return getString( "errorMissingProjectFile" ); }
+    public String projectFileMissing(){ return "Project file not found"; };
     
-    public String errorDuringCompile(){ return getString( "errorDuringCompile" ); }
-    public String errorDuringCompileTitle(){ return getString( "errorDuringCompileTitle" ); }
+    ///////////////////////////
+    /// RecentProjectsMenu.java
+    ///////////////////////////
     
-    public String errorDuringSave(){ return getString( "errorDuringSave" ); }
-    public String errorDuringSaveTitle(){ return getString( "errorDuringSaveTitle" ); }
+    public String recentProjects(){ return "Recent projects"; };
+    public String noRecentProjects(){ return "No recent projects"; };
+    public String clearRecentProjects(){ return "Clear recent projects"; };
     
-    public String saveLegacyVersion(){ return getString( "saveLegacyVersion" ); }
-    public String saveLegacyVersionTitle(){ return getString( "saveLegacyVersionTitle" ); }
+    //////////////////////
+    /// WelcomeScreen.java
+    //////////////////////
     
-    public String errorDuringOpen(){ return getString( "errorDuringOpen" ); }
-    public String errorDuringOpenTitle(){ return getString( "errorDuringOpenTitle" ); }
+    public String labelProjectTemplates(){ return "Project templates:"; };
+    public String labelRecentProjects(){ return "Recent project:"; };
     
-    public String errorDuringNew(){ return getString( "errorDuringNew" ); }
-    public String errorDuringNewTitle(){ return getString( "errorDuringNewTitle" ); }
+    public String buttonCreateNew(){ return "Create a new project ..."; };
+    public String buttonOpenRecent(){ return "Open a recent project ..."; };
+    public String buttonOpenExisting(){ return "Open an existing project ..."; };
     
-    public String errorDuringDuplicate(){ return getString( "errorDuringDuplicate" ); }
-    public String errorDuringDuplicateTitle(){ return getString( "errorDuringDuplicateTitle" ); }
     
-    public String errorDuringSplit(){ return getString( "errorDuringSplit" ); }
-    public String errorDuringSplitTitle(){ return getString( "errorDuringSplitTitle" ); }
-    
-    public String errorPreview(){ return getString( "errorPreview" ); }
-    public String errorPreviewTitle(){ return getString( "errorPreviewTitle" ); }
-    
-    public String errorExportFormatOnlySupportedOnMac(){ return getString( "errorExportFormatOnlySupportedOnMac" ); }
-    public String errorExportFormatOnlySupportedOnMacPlaceholder(){ return getString( "errorExportFormatOnlySupportedOnMacPlaceholder" ); }
-    public String errorExportFormatOnlySupportedOnMacTitle(){ return getString( "errorExportFormatOnlySupportedOnMacTitle" ); }
-    
-    public String errorLoadingHelpFile(){ return getString( "errorLoadingHelpFile" ); }
-    public String errorLoadingHelpFileTitle(){ return getString( "errorLoadingHelpFileTitle" ); }
-    
-    public String errorImportingImages(){ return getString( "errorImportingImages" ); }
-    public String errorImportingImagesTitle(){ return getString( "errorImportingImagesTitle" ); }
-    
-    public String errorBlockquote(){ return getString( "errorBlockquote" ); }
-    public String errorBlockquoteTitle(){ return getString( "errorBlockquoteTitle" ); }
-    
-    public String errorSettingCoverImage(){ return getString( "errorSettingCoverImage" ); }
-    public String errorSettingCoverImageTitle(){ return getString( "errorSettingCoverImageTitle" ); }
-    
-    public String errorExecutingGroovy(){ return getString( "errorExecutingGroovy" ); }
-    public String errorExecutingGroovyTitle(){ return getString( "errorExecutingGroovyTitle" ); }
-    
-    public String errorWontDeleteExportDir(){ return getString( "errorWontDeleteExportDir" ); }
-    public String errorWontDeleteExportDirTitle(){ return getString( "errorWontDeleteExportDirTitle" ); }
-    
-    public String errorEmptyingTrash(){ return getString( "errorEmptyingTrash" ); }
-    public String errorEmptyingTrashTitle(){ return getString( "errorEmptyingTrashTitle" ); }
-    
-    public String errorTakingSnapshot(){ return getString( "errorTakingSnapshot" ); }
-    public String errorTakingSnapshotTitle(){ return getString( "errorTakingSnapshotTitle" ); }
 }

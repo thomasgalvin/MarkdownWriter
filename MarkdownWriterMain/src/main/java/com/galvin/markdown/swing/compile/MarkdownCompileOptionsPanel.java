@@ -1,5 +1,5 @@
 /**
-Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
+ * Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.swing.compile;
 
@@ -14,62 +14,54 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class MarkdownCompileOptionsPanel
-extends AbstractCompileOptionsPanel
-{
+    extends AbstractCompileOptionsPanel {
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private MarkdownPreferencePanel markdownOptions = new MarkdownPreferencePanel( false );
-    private JButton setGlobalMakdownPreferences = new JButton( messages.setGlobalMakdownPreferences() );
+    private JButton setGlobalMakdownPreferences = new JButton( messages.global() );
     private JPanel buttonPanel = new JPanel();
-    
-    public MarkdownCompileOptionsPanel( CompileDialog compileDialog )
-    {
+
+    public MarkdownCompileOptionsPanel( CompileDialog compileDialog ) {
         super( compileDialog );
         setLayout( new BorderLayout() );
         add( markdownOptions, BorderLayout.CENTER );
-        
+
         buttonPanel.setLayout( new BorderLayout() );
         buttonPanel.add( setGlobalMakdownPreferences, BorderLayout.EAST );
-        
+
         add( buttonPanel, BorderLayout.SOUTH );
-        
+
         new Listener();
     }
-    
-    public void loadGlobalPreferences()
-    {
+
+    public void loadGlobalPreferences() {
         markdownOptions.loadGlobalPreferences();
     }
-    
-    public void loadPreferences( MarkdownPreferences preferences )
-    {
+
+    public void loadPreferences( MarkdownPreferences preferences ) {
         markdownOptions.loadPreferences( preferences );
     }
-    
-    public void writeGlobalPreferences()
-    {
+
+    public void writeGlobalPreferences() {
         markdownOptions.writeGlobalPreferences();
     }
-    
-    public void writePreferences( MarkdownPreferences preferences )
-    {
+
+    public void writePreferences( MarkdownPreferences preferences ) {
         markdownOptions.writePreferences( preferences );
     }
-    
+
     private class Listener
-    implements ActionListener
-    {
-        public Listener()
-        {
+        implements ActionListener {
+        public Listener() {
             setGlobalMakdownPreferences.addActionListener( this );
         }
-        
-        public void actionPerformed( ActionEvent ae )
-        {
+
+        public void actionPerformed( ActionEvent ae ) {
             Object source = ae.getSource();
-            if( source == setGlobalMakdownPreferences )
-            {
+            if( source == setGlobalMakdownPreferences ) {
                 writeGlobalPreferences();
             }
         }
+
     }
+
 }

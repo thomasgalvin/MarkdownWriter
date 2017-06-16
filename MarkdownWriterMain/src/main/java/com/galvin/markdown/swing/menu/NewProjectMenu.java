@@ -18,7 +18,7 @@ public class NewProjectMenu
 
     public NewProjectMenu( Controller controller )
     {
-        setText( messages.menuBarFileNew() );
+        setText( messages.menuNew() );
         this.controller = controller;
         
         for( ProjectTemplate template : MarkdownServer.getProjectTemplates() )

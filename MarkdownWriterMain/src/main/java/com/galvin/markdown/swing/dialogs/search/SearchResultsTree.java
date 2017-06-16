@@ -66,7 +66,7 @@ public class SearchResultsTree
             root.add( nodeSearchResultsNode );
 
             if( !manuscriptResults.isEmpty() ) {
-                DefaultMutableTreeNode manuscriptResultsNode = new DefaultMutableTreeNode( messages.nodeSectionMauscript() );
+                DefaultMutableTreeNode manuscriptResultsNode = new DefaultMutableTreeNode( messages.manuscript() );
                 nodeSearchResultsNode.add( manuscriptResultsNode );
                 for( SearchResult searchResult : manuscriptResults ) {
                     DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode( searchResult );
@@ -75,7 +75,7 @@ public class SearchResultsTree
             }
 
             if( !descriptionResults.isEmpty() ) {
-                DefaultMutableTreeNode descriptionResultsNode = new DefaultMutableTreeNode( messages.nodeSectionDescription() );
+                DefaultMutableTreeNode descriptionResultsNode = new DefaultMutableTreeNode( messages.description() );
                 nodeSearchResultsNode.add( descriptionResultsNode );
                 for( SearchResult searchResult : descriptionResults ) {
                     DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode( searchResult );
@@ -84,7 +84,7 @@ public class SearchResultsTree
             }
 
             if( !summaryResults.isEmpty() ) {
-                DefaultMutableTreeNode summaryResultsNode = new DefaultMutableTreeNode( messages.nodeSectionSummary() );
+                DefaultMutableTreeNode summaryResultsNode = new DefaultMutableTreeNode( messages.summary() );
                 nodeSearchResultsNode.add( summaryResultsNode );
                 for( SearchResult searchResult : summaryResults ) {
                     DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode( searchResult );
@@ -93,7 +93,7 @@ public class SearchResultsTree
             }
 
             if( !notesResults.isEmpty() ) {
-                DefaultMutableTreeNode notesResultsNode = new DefaultMutableTreeNode( messages.nodeSectionNotes() );
+                DefaultMutableTreeNode notesResultsNode = new DefaultMutableTreeNode( messages.notes() );
                 nodeSearchResultsNode.add( notesResultsNode );
                 for( SearchResult searchResult : notesResults ) {
                     DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode( searchResult );
@@ -105,15 +105,6 @@ public class SearchResultsTree
 
     @Override
     public void valueChanged( TreeSelectionEvent tse ) {
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "***" );
-        System.out.println( "SearchResultsTree: valueChanged()" );
-
         if( getSelectionCount() == 1 ) {
             Object value = getLastSelectedPathComponent();
             if( value instanceof DefaultMutableTreeNode ) {
@@ -121,7 +112,6 @@ public class SearchResultsTree
                 Object userObject = defaultMutableTreeNode.getUserObject();
 
                 if( userObject instanceof NodeSearchResults ) {
-                    System.out.println( "    NodeSearchResults" );
                     NodeSearchResults nodeSearchResults = (NodeSearchResults)userObject;
                     Node node = nodeSearchResults.getNode();
                     controller.getProjectFrame().editNode( node );
@@ -129,12 +119,9 @@ public class SearchResultsTree
                     SwingUtilities.invokeLater( new DocumentSelectionThread( node, null, -1, -1) );
                 }
                 else if( userObject instanceof SearchResult ) {
-                    System.out.println( "    SearchResult" );
                     SearchResult searchResult = (SearchResult)userObject;
                     MarkdownDocument document = searchResult.getDocument();
-                    System.out.println("    document: " + document);
                     Node node = document.getNode();
-                    System.out.println("    node: " + node.getTitle() );
 
                     int selectionStart = searchResult.getLocation();
                     int selectionEnd = selectionStart + searchResult.getSearchTerm().length();

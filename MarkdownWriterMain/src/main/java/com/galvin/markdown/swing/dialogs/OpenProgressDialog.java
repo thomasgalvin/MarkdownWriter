@@ -19,8 +19,8 @@ extends JDialog
     {
         MarkdownMessages messages = MarkdownServer.getMessages();
         
-        setTitle( messages.dialogOpenProgressTitle() );
-        label = new JLabel( messages.dialogOpenProgressLabel() );
+        setTitle( messages.progress() );
+        label = new JLabel( messages.labelProgress() );
         
         progressBar = new JProgressBar();
         progressBar.setIndeterminate( true );

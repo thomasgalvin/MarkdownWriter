@@ -20,21 +20,21 @@ public class AppendPrependDialog extends JDialog {
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private Controller controller;
     
-    private JLabel prependLabel = new JLabel( messages.dialogMessagePrependToLines() );
+    private JLabel prependLabel = new JLabel( messages.prependToLinesLabel() );
     private JTextField prepend = new JTextField();
     
-    private JLabel appendLabel = new JLabel( messages.dialogMessageAppendToLines() );
+    private JLabel appendLabel = new JLabel( messages.appendToLinesLabel() );
     private JTextField append = new JTextField();
     
-    private JButton okButton = new JButton( messages.dialogMessageAppendPrependOkay() );
-    private JButton cancelButton = new JButton( messages.dialogMessageAppendPrependCancel() );
+    private JButton okButton = new JButton( messages.okay() );
+    private JButton cancelButton = new JButton( messages.cancel() );
     
     private LayoutPanel layoutPanel = new LayoutPanel();
 
     public AppendPrependDialog( Controller controller ) {
         super( controller.getProjectFrame().getWindow() );
         this.controller = controller;
-        setTitle( messages.dialogMessageAppendPrependDialogTitle() );
+        setTitle( messages.appendPrependDialogTitle() );
         setModal( true );
         
         layoutPanel.doLayout();

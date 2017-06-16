@@ -30,10 +30,9 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-public class ProjectIo
-{
+public class ProjectIo {
 
-    public static final String[] PROJECT_MODEL_VERSIONS = new String[] { "2.0" };
+    public static final String[] PROJECT_MODEL_VERSIONS = new String[]{ "2.0" };
     public static final String PROJECT_MODEL_VERSION = "2.0";
     public static final int BACKUP_COUNT = 10;
     public static final String PROJECT_STRUCTURE_DOCUMENT = "project.mdp.xml";
@@ -58,33 +57,25 @@ public class ProjectIo
     /////////////////
     // Write projects
     /////////////////
-    public static boolean needsSaving( MarkdownTree tree )
-    {
-        if( tree.needsSaving() )
-        {
+    public static boolean needsSaving( MarkdownTree tree ) {
+        if( tree.needsSaving() ) {
             return true;
         }
-        else
-        {
-            MarkdownTreeNode root = (MarkdownTreeNode) tree.getRootNode();
+        else {
+            MarkdownTreeNode root = (MarkdownTreeNode)tree.getRootNode();
             return needsSaving( root );
         }
     }
 
-    public static boolean needsSaving( MarkdownTreeNode treeNode )
-    {
+    public static boolean needsSaving( MarkdownTreeNode treeNode ) {
         Node node = treeNode.getNode();
-        if( node != null && node.needsSaving() )
-        {
+        if( node != null && node.needsSaving() ) {
             return true;
         }
-        else
-        {
-            for(int i = 0; i < treeNode.getChildCount(); i++)
-            {
-                MarkdownTreeNode child = (MarkdownTreeNode) treeNode.getChildAt( i );
-                if( needsSaving( child ) )
-                {
+        else {
+            for( int i = 0; i < treeNode.getChildCount(); i++ ) {
+                MarkdownTreeNode child = (MarkdownTreeNode)treeNode.getChildAt( i );
+                if( needsSaving( child ) ) {
                     return true;
                 }
             }
@@ -94,28 +85,23 @@ public class ProjectIo
     }
 
     public static void write( Project project, File projectFile )
-        throws IOException
-    {
-        for(Node node : project.getChildNodes())
-        {
+        throws IOException {
+        for( Node node : project.getChildNodes() ) {
             prepareToSave( node, projectFile );
         }
 
         JAXBContext context;
-        try
-        {
+        try {
             project.setProjectModelVersion( PROJECT_MODEL_VERSION );
             project.setStyleSheetFromDocument();
 
-            try
-            {
+            try {
                 System.out.println( "Reading in project dictionary: " + project.getProjectDictionaryFile() );
                 String projctDictionaryText = FileUtils.readFileToString( project.getProjectDictionaryFile() );
                 //System.out.println( projctDictionaryText );
                 project.setProjectDictionaryText( projctDictionaryText );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 System.out.println( "Error writing project dictionary" );
                 t.printStackTrace();
                 project.setProjectDictionaryText( null );
@@ -123,7 +109,7 @@ public class ProjectIo
 
             /// two-stage save ///
             File tempFile = SystemUtils.getTempFileWithExtension( PROJECT_STRUCTURE_DOCUMENT_EXTENSION );
-            
+
             context = JAXBContext.newInstance( Project.class );
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
@@ -131,48 +117,39 @@ public class ProjectIo
             tempFile.renameTo( projectFile );
 
             project.setUnsupportedLegacyVersion( false );
-            for( Node node : project.getChildNodes() )
-            {
+            for( Node node : project.getChildNodes() ) {
                 markeNeedsSaving( node, false );
             }
         }
-        catch( JAXBException ex )
-        {
+        catch( JAXBException ex ) {
             ex.printStackTrace();
             throw new IOException( "Unable to write xml output", ex );
         }
     }
 
     private static void prepareToSave( Node node, File projectDirectory )
-        throws IOException
-    {
-        if( node != null )
-        {
+        throws IOException {
+        if( node != null ) {
             node.prepareToSave();
 
-            for(Node child : node.getChildNodes())
-            {
+            for( Node child : node.getChildNodes() ) {
                 prepareToSave( child, projectDirectory );
             }
         }
     }
-    
-    private static void markeNeedsSaving( Node node, boolean needsSaving )
-    {
-        if( node != null )
-        {
+
+    private static void markeNeedsSaving( Node node, boolean needsSaving ) {
+        if( node != null ) {
             node.setNeedsSaving( needsSaving );
 
-            for(Node child : node.getChildNodes())
-            {
+            for( Node child : node.getChildNodes() ) {
                 markeNeedsSaving( child, needsSaving );
             }
         }
     }
 
     public static void write( MarkdownTree tree, File projectDirectory )
-        throws IOException
-    {
+        throws IOException {
         Project project = toProject( tree );
         write( project, projectDirectory );
     }
@@ -180,18 +157,14 @@ public class ProjectIo
     ////////////////
     // Read projects
     ////////////////
-    public static boolean isProjectModelVersionSupported( Project project )
-    {
+    public static boolean isProjectModelVersionSupported( Project project ) {
         String modelVersion = project.getProjectModelVersion();
-        if( modelVersion != null )
-        {
+        if( modelVersion != null ) {
             modelVersion = modelVersion.trim();
         }
 
-        for(String supportedVersion : PROJECT_MODEL_VERSIONS)
-        {
-            if( supportedVersion.equals( modelVersion ) )
-            {
+        for( String supportedVersion : PROJECT_MODEL_VERSIONS ) {
+            if( supportedVersion.equals( modelVersion ) ) {
                 return true;
             }
         }
@@ -200,25 +173,21 @@ public class ProjectIo
     }
 
     public static Project readProject( File projectStructureDocument )
-        throws IOException
-    {
+        throws IOException {
         return readProject( projectStructureDocument, true );
     }
 
     public static Project readProject( File projectStructureDocument, boolean loadDocuments )
-        throws IOException
-    {
+        throws IOException {
         System.out.println( "ProjectIo: reading project: " + projectStructureDocument );
 
-        try
-        {
+        try {
             File projectDirectory = projectStructureDocument.getParentFile();
             JAXBContext context = JAXBContext.newInstance( Project.class );
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            Project result = (Project) unmarshaller.unmarshal( projectStructureDocument );
+            Project result = (Project)unmarshaller.unmarshal( projectStructureDocument );
 
-            if( !isProjectModelVersionSupported( result ) )
-            {
+            if( !isProjectModelVersionSupported( result ) ) {
                 result = LegacyProjectIo.readProject( projectStructureDocument, loadDocuments );
                 result.setUnsupportedLegacyVersion( true );
                 return result;
@@ -229,57 +198,46 @@ public class ProjectIo
             result.setParent();
             result.readStyleSheetIntoDocument();
 
-            if( result.getProjectDictionaryFile() == null )
-            {
+            if( result.getProjectDictionaryFile() == null ) {
                 result.setProjectDictionaryFile( SystemUtils.getTempFile( ProjectIo.PROJECT_DICTIONARY_DOCUMENT ) );
             }
             FileUtils.writeStringToFile( result.getProjectDictionaryFile(), StringUtils.neverNull( result.getProjectDictionaryText() ) );
 
-            for(Node node : result.getChildNodes())
-            {
+            for( Node node : result.getChildNodes() ) {
                 read( node );
             }
 
             EditorPreferences preferences = MarkdownServer.getPreferences().getEditorPreferences();
-            if( preferences.liveSpellCheck() )
-            {
+            if( preferences.liveSpellCheck() ) {
                 result.startSpellCheck();
             }
-            else
-            {
+            else {
                 result.stopSpellCheck();
             }
 
             SystemUtils.printMemory();
             return result;
         }
-        catch( JAXBException ex )
-        {
+        catch( JAXBException ex ) {
             throw new IOException( "Unable to read xml", ex );
         }
     }
 
-    public static void read( Node node )
-    {
-        if( node != null )
-        {
+    public static void read( Node node ) {
+        if( node != null ) {
             node.loadAllDocuments();
 
-            for(Node child : node.getChildNodes())
-            {
+            for( Node child : node.getChildNodes() ) {
                 read( child );
             }
         }
     }
 
     public static Node createImageResource( File file )
-        throws IOException
-    {
-        if( file != null && file.canRead() )
-        {
+        throws IOException {
+        if( file != null && file.canRead() ) {
             String mimeType = MimeTypes.getMimeType( file );
-            if( MimeTypes.isImage( mimeType ) )
-            {
+            if( MimeTypes.isImage( mimeType ) ) {
                 ImageResource imageResource = new ImageResource();
                 imageResource.setMimeType( mimeType );
 
@@ -305,11 +263,9 @@ public class ProjectIo
     // Write preferences
     ////////////////////
     public static void write( Preferences preferences, File preferencesFile )
-        throws IOException
-    {
+        throws IOException {
         JAXBContext context;
-        try
-        {
+        try {
             File tempFile = SystemUtils.getTempFileWithExtension( ".xml" );
             context = JAXBContext.newInstance( Preferences.class );
             Marshaller marshaller = context.createMarshaller();
@@ -317,8 +273,7 @@ public class ProjectIo
             marshaller.marshal( preferences, tempFile );
             tempFile.renameTo( preferencesFile );
         }
-        catch( JAXBException ex )
-        {
+        catch( JAXBException ex ) {
             throw new IOException( "Unable to write xml output", ex );
         }
     }
@@ -327,18 +282,15 @@ public class ProjectIo
     // Read preferences
     ///////////////////
     public static Preferences readPreferences( File preferencesFile )
-        throws IOException
-    {
-        try
-        {
+        throws IOException {
+        try {
             JAXBContext context = JAXBContext.newInstance( Preferences.class );
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            Preferences result = (Preferences) unmarshaller.unmarshal( preferencesFile );
+            Preferences result = (Preferences)unmarshaller.unmarshal( preferencesFile );
 
             return result;
         }
-        catch( JAXBException ex )
-        {
+        catch( JAXBException ex ) {
             throw new IOException( "Unable to read xml", ex );
         }
     }
@@ -346,29 +298,24 @@ public class ProjectIo
     //////////////////
     // Tree to Project
     //////////////////
-    public static Project toProject( MarkdownTree tree )
-    {
-        MarkdownTreeNode root = (MarkdownTreeNode) tree.getRootNode();
+    public static Project toProject( MarkdownTree tree ) {
+        MarkdownTreeNode root = (MarkdownTreeNode)tree.getRootNode();
         Project project = root.getProject();
 
         List<Node> nodeList = project.getChildNodes();
         nodeList.clear();
 
         List<MarkdownTreeNode> treeNodes = new ArrayList();
-        for(int i = 0; i < root.getChildCount(); i++)
-        {
+        for( int i = 0; i < root.getChildCount(); i++ ) {
             TreeNode treeNode = root.getChildAt( i );
-            if( treeNode instanceof MarkdownTreeNode )
-            {
-                MarkdownTreeNode markdownTreeNode = (MarkdownTreeNode) treeNode;
-                if( !markdownTreeNode.ignoreWhenSaving() )
-                {
-                    treeNodes.add( (MarkdownTreeNode) root.getChildAt( i ) );
+            if( treeNode instanceof MarkdownTreeNode ) {
+                MarkdownTreeNode markdownTreeNode = (MarkdownTreeNode)treeNode;
+                if( !markdownTreeNode.ignoreWhenSaving() ) {
+                    treeNodes.add( (MarkdownTreeNode)root.getChildAt( i ) );
                 }
             }
-            else
-            {
-                treeNodes.add( (MarkdownTreeNode) root.getChildAt( i ) );
+            else {
+                treeNodes.add( (MarkdownTreeNode)root.getChildAt( i ) );
             }
         }
 
@@ -377,10 +324,8 @@ public class ProjectIo
         return project;
     }
 
-    private static void add( List<Node> nodeList, List<MarkdownTreeNode> treeNodes, MarkdownTree tree )
-    {
-        for(MarkdownTreeNode treeNode : treeNodes)
-        {
+    private static void add( List<Node> nodeList, List<MarkdownTreeNode> treeNodes, MarkdownTree tree ) {
+        for( MarkdownTreeNode treeNode : treeNodes ) {
             Node childNode = treeNode.getNode();
             childNode.setExpanded( tree.isExpanded( treeNode ) );
             nodeList.add( childNode );
@@ -389,9 +334,8 @@ public class ProjectIo
             childNodeList.clear();
 
             List<MarkdownTreeNode> childTreeNodes = new ArrayList();
-            for(int i = 0; i < treeNode.getChildCount(); i++)
-            {
-                childTreeNodes.add( (MarkdownTreeNode) treeNode.getChildAt( i ) );
+            for( int i = 0; i < treeNode.getChildCount(); i++ ) {
+                childTreeNodes.add( (MarkdownTreeNode)treeNode.getChildAt( i ) );
             }
 
             add( childNodeList, childTreeNodes, tree );
@@ -402,8 +346,7 @@ public class ProjectIo
     // Clone
     ////////
     public static Project clone( Project project, boolean shareDocuments, boolean reuseUuid )
-        throws IOException
-    {
+        throws IOException {
         Project result = new Project();
 
         result.setUuid( project.getUuid() );
@@ -419,18 +362,15 @@ public class ProjectIo
         result.setCompileOptions( clone( project.getCompileOptions() ) );
         result.getCompileOptions().setProject( result );
 
-        for(String value : project.getGenres())
-        {
+        for( String value : project.getGenres() ) {
             result.getGenres().add( value );
         }
 
-        for(String value : project.getTopics())
-        {
+        for( String value : project.getTopics() ) {
             result.getTopics().add( value );
         }
 
-        for(String value : project.getKeywords())
-        {
+        for( String value : project.getKeywords() ) {
             result.getKeywords().add( value );
         }
 
@@ -445,12 +385,10 @@ public class ProjectIo
     }
 
     public static List<Node> cloneNodes( List<Node> nodes, File projectDirectory, boolean shareDocuments, boolean reuseUuid )
-        throws IOException
-    {
+        throws IOException {
         List<Node> result = new ArrayList();
 
-        for(Node node : nodes)
-        {
+        for( Node node : nodes ) {
             result.add( clone( node, projectDirectory, shareDocuments, reuseUuid ) );
         }
 
@@ -458,18 +396,15 @@ public class ProjectIo
     }
 
     public static Node clone( Node node, File projectDirectory, boolean shareDocuments, boolean reuseUuid )
-        throws IOException
-    {
+        throws IOException {
         return clone( node, projectDirectory, shareDocuments, reuseUuid, true );
     }
 
     public static Node clone( Node node, File projectDirectory, boolean shareDocuments, boolean reuseUuid, boolean cloneChildren )
-        throws IOException
-    {
+        throws IOException {
         Node result = new Node();
 
-        if( reuseUuid )
-        {
+        if( reuseUuid ) {
             result.setUuid( node.getUuid() );
         }
 
@@ -486,21 +421,18 @@ public class ProjectIo
         result.setDescriptionText( node.getDescriptionText() );
         result.setSummaryText( node.getSummaryText() );
         result.setNotesText( node.getNotesText() );
-        
-        for(String keyWord : node.getKeywords())
-        {
+
+        for( String keyWord : node.getKeywords() ) {
             result.getKeywords().add( keyWord );
         }
 
-        if( shareDocuments )
-        {
+        if( shareDocuments ) {
             result.setManuscript( node.getManuscript() );
             result.setDescription( node.getDescription() );
             result.setSummary( node.getSummary() );
             result.setNotes( node.getNotes() );
         }
-        else
-        {
+        else {
             DocumentUtils.copyText( node.getManuscript(), result.getManuscript() );
             result.getManuscript().setNeedsSaving( true );
 
@@ -517,10 +449,8 @@ public class ProjectIo
             result.setCursorEnd( node.getCursorEnd() );
         }
 
-        if( cloneChildren )
-        {
-            for(Node child : node.getChildNodes())
-            {
+        if( cloneChildren ) {
+            for( Node child : node.getChildNodes() ) {
                 result.getChildNodes().add( clone( child, projectDirectory, shareDocuments, reuseUuid ) );
             }
         }
@@ -528,20 +458,17 @@ public class ProjectIo
         return result;
     }
 
-    public static List<Contributor> cloneContributors( List<Contributor> contributors )
-    {
+    public static List<Contributor> cloneContributors( List<Contributor> contributors ) {
         List<Contributor> result = new ArrayList();
 
-        for(Contributor contributor : contributors)
-        {
+        for( Contributor contributor : contributors ) {
             result.add( clone( contributor ) );
         }
 
         return result;
     }
 
-    public static Contributor clone( Contributor contributor )
-    {
+    public static Contributor clone( Contributor contributor ) {
         Contributor result = new Contributor();
 
         result.setName( contributor.getName() );
@@ -552,26 +479,21 @@ public class ProjectIo
     }
 
     public static ImageResource cloneImageResource( Node node, File projectDirectory, ImageResource imageResource, boolean shareDocuments )
-        throws IOException
-    {
+        throws IOException {
         ImageResource result = null;
 
-        if( imageResource != null )
-        {
+        if( imageResource != null ) {
             result = new ImageResource();
             result.setImageIcon( imageResource.getImageIcon() );
             result.setMimeType( imageResource.getMimeType() );
 
-            if( shareDocuments )
-            {
+            if( shareDocuments ) {
                 result.setImageIcon( imageResource.getImageIcon() );
                 result.setBytes( imageResource.getBytes() );
             }
-            else
-            {
+            else {
                 byte[] bytes = imageResource.getBytes();
-                if( bytes != null )
-                {
+                if( bytes != null ) {
                     result.setBytes( bytes );
 
                     ImageIcon imageIcon = new ImageIcon( bytes );
@@ -586,8 +508,7 @@ public class ProjectIo
     }
 
     public static CompileOptions clone( CompileOptions compileOptions )
-        throws IOException
-    {
+        throws IOException {
         CompileOptions result = new CompileOptions( compileOptions.getProject() );
 
         result.getExportFormats().clear();
@@ -601,23 +522,23 @@ public class ProjectIo
         result.setIncludeTOC( compileOptions.includeTOC() );
         result.setTocDepth( compileOptions.getTocDepth() );
         result.setEpubChapterLevel( compileOptions.getEpubChapterLevel() );
-        
+
         NodeSeparators separators = new NodeSeparators();
         result.setSeparators( separators );
-        
+
         NodeSeparators originalSeparators = compileOptions.getSeparators();
-        if( originalSeparators != null ){
+        if( originalSeparators != null ) {
             separators.setSeparatorSameLevel( originalSeparators.getSeparatorSameLevel() );
             separators.setSeparatorHigherToLower( originalSeparators.getSeparatorHigherToLower() );
             separators.setSeparatorLowerToHigher( originalSeparators.getSeparatorLowerToHigher() );
-            separators.setEndOfDocumentMarker( originalSeparators.getEndOfDocumentMarker());
-            
+            separators.setEndOfDocumentMarker( originalSeparators.getEndOfDocumentMarker() );
+
             separators.setCustomSameLevel( originalSeparators.getCustomSameLevel() );
             separators.setCustomHigherToLower( originalSeparators.getCustomHigherToLower() );
             separators.setCustomLowerToHigher( originalSeparators.getCustomLowerToHigher() );
             separators.setCustomEndOfDocument( originalSeparators.getCustomEndOfDocument() );
         }
-        
+
         result.setProjectContributorMarkup( compileOptions.getProjectContributorMarkup() );
         result.setNodeContributorMarkup( compileOptions.getNodeContributorMarkup() );
         result.setIncludeContributors( compileOptions.includeContributors() );
@@ -633,22 +554,18 @@ public class ProjectIo
         result.setSeparatorFileFile( compileOptions.getSeparatorFileFile() );
         result.setSeparatorTitleFile( compileOptions.getSeparatorTitleFile() );
         result.setSeparatorTitleFolder( compileOptions.getSeparatorTitleFolder() );
-        
 
         return result;
     }
 
-    public static void join( List<Node> nodes )
-    {
-        if( nodes != null && nodes.size() > 1 )
-        {
+    public static void join( List<Node> nodes ) {
+        if( nodes != null && nodes.size() > 1 ) {
             StringBuilder manuscript = new StringBuilder();
             StringBuilder description = new StringBuilder();
             StringBuilder summary = new StringBuilder();
             StringBuilder notes = new StringBuilder();
 
-            for(int i = 0; i < nodes.size(); i++)
-            {
+            for( int i = 0; i < nodes.size(); i++ ) {
                 Node node = nodes.get( i );
                 boolean padding = i > 0;
 
@@ -673,12 +590,9 @@ public class ProjectIo
         }
     }
 
-    private static void joinIfNecessary( StringBuilder target, String text, boolean padding )
-    {
-        if( !StringUtils.empty( text ) )
-        {
-            if( padding )
-            {
+    private static void joinIfNecessary( StringBuilder target, String text, boolean padding ) {
+        if( !StringUtils.empty( text ) ) {
+            if( padding ) {
                 target.append( Markup.LINE_BREAK );
             }
             target.append( text );
@@ -688,43 +602,36 @@ public class ProjectIo
     ////////////
     // To String
     ////////////
-    public static String toString( Project project )
-    {
+    public static String toString( Project project ) {
         return toString( project, false );
     }
 
-    public static String toString( Project project, boolean includeManuscript )
-    {
+    public static String toString( Project project, boolean includeManuscript ) {
         StringBuilder builder = new StringBuilder();
         builder.append( "Project: " );
         builder.append( project.getTitle() );
         builder.append( "\n" );
 
-        for(Node node : project.getChildNodes())
-        {
+        for( Node node : project.getChildNodes() ) {
             toString( builder, node, 1, includeManuscript );
         }
         return builder.toString();
     }
 
-    private static void toString( StringBuilder builder, Node node, int indent, boolean includeManuscript )
-    {
-        for(int i = 0; i < indent; i++)
-        {
+    private static void toString( StringBuilder builder, Node node, int indent, boolean includeManuscript ) {
+        for( int i = 0; i < indent; i++ ) {
             builder.append( "  " );
         }
         builder.append( node.getTitle() );
 
-        if( includeManuscript )
-        {
+        if( includeManuscript ) {
             builder.append( ": " );
             builder.append( DocumentUtils.getText( node.getManuscript() ) );
         }
 
         builder.append( "\n" );
 
-        for(Node child : node.getChildNodes())
-        {
+        for( Node child : node.getChildNodes() ) {
             toString( builder, child, indent + 1, includeManuscript );
         }
     }
@@ -733,23 +640,20 @@ public class ProjectIo
     // Trash
     ////////
     public static void removeFromProject( Node node, File projectDirectory )
-        throws IOException
-    {
+        throws IOException {
         stopSpellCheck( node );
     }
 
     //////////////
     // Spell Check
     //////////////
-    public static void stopSpellCheck( Node node )
-    {
+    public static void stopSpellCheck( Node node ) {
         node.getManuscript().stopSpellCheck();
         node.getDescription().stopSpellCheck();
         node.getSummary().stopSpellCheck();
         node.getNotes().stopSpellCheck();
 
-        for(Node child : node.getChildNodes())
-        {
+        for( Node child : node.getChildNodes() ) {
             stopSpellCheck( child );
         }
     }
@@ -758,8 +662,7 @@ public class ProjectIo
     // Utils
     ////////
     private static File getNodeDirectory( Node node, File projectDirectory )
-        throws IOException
-    {
+        throws IOException {
         String nodeDir = node.getUuid();
         File result = new File( projectDirectory, DOCUMENTS_DIRECTORY );
         result = new File( result, nodeDir );
@@ -768,42 +671,35 @@ public class ProjectIo
     }
 
     private static File getNodeFile( Node node, File projectDirectory, String document )
-        throws IOException
-    {
+        throws IOException {
         File result = getNodeDirectory( node, projectDirectory );
         result = new File( result, document );
         return result;
     }
 
     public static File getImageBinary( Node node, File projectDirectory )
-        throws IOException
-    {
+        throws IOException {
         File gifFile = getNodeFile( node, projectDirectory, RESOURCE_GIF );
-        if( gifFile.exists() )
-        {
+        if( gifFile.exists() ) {
             return gifFile;
         }
 
         File jpgFile = getNodeFile( node, projectDirectory, RESOURCE_JPG );
-        if( jpgFile.exists() )
-        {
+        if( jpgFile.exists() ) {
             return jpgFile;
         }
 
         File pngFile = getNodeFile( node, projectDirectory, RESOURCE_PNG );
-        if( pngFile.exists() )
-        {
+        if( pngFile.exists() ) {
             return pngFile;
         }
 
         return null;
     }
 
-    public static String createImageCode( Node resourceNode )
-    {
+    public static String createImageCode( Node resourceNode ) {
         ImageResource resource = resourceNode.getImageResource();
-        if( resource != null )
-        {
+        if( resource != null ) {
             String title = resourceNode.getTitle();
             StringBuilder result = new StringBuilder( 25 );
             result.append( "![](" );
@@ -815,21 +711,17 @@ public class ProjectIo
         return "";
     }
 
-    public static void setCreationDate( Project project )
-    {
-        for(Node node : project.getChildNodes())
-        {
+    public static void setCreationDate( Project project ) {
+        for( Node node : project.getChildNodes() ) {
             setCreationDate( node, new GregorianCalendar() );
         }
     }
 
-    public static void setCreationDate( Node node, GregorianCalendar calendar )
-    {
+    public static void setCreationDate( Node node, GregorianCalendar calendar ) {
         node.setCreatedDate( calendar );
         node.setModifiedDate( calendar );
 
-        for(Node child : node.getChildNodes())
-        {
+        for( Node child : node.getChildNodes() ) {
             setCreationDate( child, calendar );
         }
     }
@@ -837,13 +729,11 @@ public class ProjectIo
     ////////////////
     // Project Stubs
     ////////////////
-    public static Project createDefaultProject()
-    {
+    public static Project createDefaultProject() {
         return new EmptyProject().getProject();
     }
 
-    public static Project createDummyProject()
-    {
+    public static Project createDummyProject() {
         MarkdownMessages messages = MarkdownServer.getMessages();
 
         Project project = new Project();
@@ -857,13 +747,13 @@ public class ProjectIo
         project.getContributors().add( carroll );
 
         Node root = new Node();
-        root.setTitle( messages.titleUntitled() );
+        root.setTitle( messages.untitled() );
         root.setNodeType( NodeTypes.PROJECT );
         root.setCreatedDate( new GregorianCalendar() );
         root.setModifiedDate( new GregorianCalendar() );
 
         Node manuscript = new Node();
-        manuscript.setTitle( messages.titleManuscript() );
+        manuscript.setTitle( messages.manuscript() );
         manuscript.setNodeType( NodeTypes.MANUSCRIPT );
         manuscript.setCreatedDate( new GregorianCalendar() );
         manuscript.setModifiedDate( new GregorianCalendar() );
@@ -927,21 +817,21 @@ public class ProjectIo
         loremFolder.getChildNodes().add( loremFile );
 
         Node research = new Node();
-        research.setTitle( messages.titleResearch() );
+        research.setTitle( messages.research() );
         research.setNodeType( NodeTypes.MARKDOWN );
         research.setCreatedDate( new GregorianCalendar() );
         research.setModifiedDate( new GregorianCalendar() );
         project.getChildNodes().add( research );
 
         Node resources = new Node();
-        resources.setTitle( messages.titleResources() );
+        resources.setTitle( messages.resources() );
         resources.setNodeType( NodeTypes.RESOURCES );
         resources.setCreatedDate( new GregorianCalendar() );
         resources.setModifiedDate( new GregorianCalendar() );
         project.getChildNodes().add( resources );
 
         Node trash = new Node();
-        trash.setTitle( messages.titleTrash() );
+        trash.setTitle( messages.trash() );
         trash.setNodeType( NodeTypes.TRASH );
         trash.setCreatedDate( new GregorianCalendar() );
         trash.setModifiedDate( new GregorianCalendar() );
@@ -962,10 +852,10 @@ public class ProjectIo
     }
 
     public static String getDefaultStyleSheet()
-        throws IOException
-    {
+        throws IOException {
         InputStream inputStream = ProjectIo.class.getResourceAsStream( DEFAULT_STYLE_SHEET );
         String css = IOUtils.toString( inputStream );
         return css;
     }
+
 }

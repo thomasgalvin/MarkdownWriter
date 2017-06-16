@@ -11,37 +11,33 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 public class NovelProject
-        extends ProjectTemplate
-{
+    extends ProjectTemplate {
 
     private static final String NOVEL_ZIP_FILE = "/com/galvin/markdown/templates/Novel.mdp.xml";
     private static MarkdownMessages messages = MarkdownServer.getMessages();
-    
-    public NovelProject()
-    {
-        super( messages.projectTemplateNovelTitle(), messages.projectTemplateNovel() );
+
+    public NovelProject() {
+        super( messages.novelTitle(), messages.novelDesc() );
     }
 
-    public Project getProject()
-    {
-        try
-        {
+    public Project getProject() {
+        try {
             InputStream stream = NovelProject.class.getResourceAsStream( NOVEL_ZIP_FILE );
             String source = IOUtils.toString( stream );
-            
+
             File projectFile = SystemUtils.getTempFileWithExtension( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION );
             FileUtils.writeStringToFile( projectFile, source );
-            
+
             Project result = ProjectIo.readProject( projectFile );
             result.setProjectDirectory( null );
             result.resetUuid();
             return result;
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
         }
 
         return null;
     }
+
 }

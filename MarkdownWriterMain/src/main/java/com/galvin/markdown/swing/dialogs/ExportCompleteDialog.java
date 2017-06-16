@@ -26,8 +26,8 @@ public class ExportCompleteDialog
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private JLabel successLabel = new JLabel();
-    private JButton okayButton = new JButton( messages.dialogMessageCompileSuccessOkay() );
-    private JButton openFolderButton = new JButton( messages.dialogMessageCompileSuccessOpenFolder() );
+    private JButton okayButton = new JButton( messages.success() );
+    private JButton openFolderButton = new JButton( messages.openExportFolder() );
     private LayoutPanel layoutPanel;
     private File exportDirectory;
     private List<CompileResults> results;
@@ -41,7 +41,7 @@ public class ExportCompleteDialog
         
         StringBuilder builder = new StringBuilder();
         builder.append( "<html>" );
-        builder.append( messages.dialogMessageCompileSuccess() );
+        builder.append( messages.exportCompleteLabel() );
         builder.append( "<br><ul>" );
         
         for( CompileResults result : results )
@@ -54,13 +54,13 @@ public class ExportCompleteDialog
             if( success )
             {
                 builder.append( "<font color='green'>" );
-                builder.append( messages.dialogMessageCompileResultSuccess() );
+                builder.append( messages.successLabel() );
                 builder.append( "</font>" );
             }
             else
             {
                 builder.append( "<font color='red'>" );
-                builder.append( messages.dialogMessageCompileResultFailure() );
+                builder.append( messages.failureLabel() );
                 builder.append( "</font>" );
             }
             builder.append( "</li>" );
@@ -71,7 +71,7 @@ public class ExportCompleteDialog
         
         layoutPanel = new LayoutPanel();
         
-        setTitle( messages.dialogMessageCompileSuccessTitle() );
+        setTitle( messages.success() );
         setLayout( new BorderLayout() );
         add( layoutPanel, BorderLayout.CENTER );
         pack();

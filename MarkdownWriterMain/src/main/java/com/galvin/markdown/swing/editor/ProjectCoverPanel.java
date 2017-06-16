@@ -17,16 +17,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ProjectCoverPanel
-        extends JPanel
-{
+    extends JPanel {
 
     private static MarkdownMessages messages = MarkdownServer.getMessages();
     private ScaledImage image;
     private JComboBox imageComboBox;
     private Controller controller;
 
-    public ProjectCoverPanel( Controller controller )
-    {
+    public ProjectCoverPanel( Controller controller ) {
         this.controller = controller;
         setLayout( new BorderLayout() );
 
@@ -34,33 +32,28 @@ public class ProjectCoverPanel
 
         refresh();
 
-        if( cover != null )
-        {
+        if( cover != null ) {
             imageComboBox.setSelectedItem( cover );
         }
-        else
-        {
-            imageComboBox.setSelectedItem( messages.projectMetadataNoCover() );
+        else {
+            imageComboBox.setSelectedItem( messages.noCover() );
         }
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         removeAll();
 
         Vector<Object> values = new Vector();
-        values.add( messages.projectMetadataNoCover() );
+        values.add( messages.noCover() );
 
         Project project = controller.getProjectFrame().getProject();
         Node resourceNode = project.getResources();
-        if( resourceNode != null )
-        {
+        if( resourceNode != null ) {
             values.addAll( resourceNode.getChildNodes() );
         }
 
-        Object selection = messages.projectMetadataNoCover();
-        if( imageComboBox != null )
-        {
+        Object selection = messages.noCover();
+        if( imageComboBox != null ) {
             selection = imageComboBox.getSelectedItem();
         }
 
@@ -72,68 +65,58 @@ public class ProjectCoverPanel
         refreshImage();
     }
 
-    public void refreshImage()
-    {
-        if( image != null )
-        {
+    public void refreshImage() {
+        if( image != null ) {
             remove( image );
         }
 
         image = null;
 
         Object selection = imageComboBox.getSelectedItem();
-        if( selection instanceof Node )
-        {
-            Node node = ( Node ) selection;
+        if( selection instanceof Node ) {
+            Node node = (Node)selection;
             image = new ScaledImage( node.getImageResource().getImageIcon() );
         }
 
-        if( image != null )
-        {
+        if( image != null ) {
             add( image, BorderLayout.CENTER );
         }
-        else
-        {
+        else {
             add( new JLabel( "" ), BorderLayout.CENTER );
         }
         GuiUtils.forceRepaint( this );
     }
 
-    public void updateCover()
-    {
+    public void updateCover() {
         Object selection = imageComboBox.getSelectedItem();
-        if( selection instanceof Node )
-        {
-            try
-            {
-                Node node = ( Node ) selection;
+        if( selection instanceof Node ) {
+            try {
+                Node node = (Node)selection;
                 Project project = controller.getProjectFrame().getProject();
                 project.setCover( node );
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 JOptionPane.showMessageDialog( controller.getPopupWindowOwner(),
                                                messages.errorSettingCoverImage(),
-                                               messages.errorSettingCoverImageTitle(),
+                                               messages.errorDialogTitle(),
                                                JOptionPane.ERROR_MESSAGE );
                 t.printStackTrace();
             }
         }
-        else
-        {
+        else {
             controller.getProjectFrame().getProject().setCover( null );
         }
         refreshImage();
     }
 
     private class Listener
-            implements ActionListener
-    {
+        implements ActionListener {
 
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             updateCover();
         }
+
     }
+
 }

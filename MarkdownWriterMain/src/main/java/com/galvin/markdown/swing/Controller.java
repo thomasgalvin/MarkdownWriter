@@ -68,9 +68,9 @@ public class Controller {
 
     public void fileOpen() {
         System.gc();
-        
+
         JFileChooser fileChooser = getOpenFileChooser();
-        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserOpenProjectButton() );
+        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.open() );
         if( option == JFileChooser.APPROVE_OPTION ) {
             File projectStructureDocument = fileChooser.getSelectedFile();
             fileOpen( projectStructureDocument );
@@ -109,6 +109,14 @@ public class Controller {
     public boolean fileNeedsSaving() {
         return ProjectIo.needsSaving( projectFrame.getTree() );
     }
+    
+    private void saveError( Throwable t ){
+        t.printStackTrace();
+        JOptionPane.showMessageDialog( getPopupWindowOwner(),
+                                       messages.errorSave(),
+                                       messages.errorDialogTitle(),
+                                       JOptionPane.ERROR_MESSAGE );
+    }
 
     public void fileSave() {
         Project project = projectFrame.getProject();
@@ -121,11 +129,7 @@ public class Controller {
                     projectFrame.getTree().setNeedsSaving( false );
                 }
                 catch( Throwable t ) {
-                    t.printStackTrace();
-                    JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                                   messages.errorDuringSave(),
-                                                   messages.errorDuringSaveTitle(),
-                                                   JOptionPane.ERROR_MESSAGE );
+                    saveError(t);
                 }
 
                 return;
@@ -140,7 +144,7 @@ public class Controller {
     public void fileSaveLegacyVersionAs() {
         JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                        messages.saveLegacyVersion(),
-                                       messages.saveLegacyVersionTitle(),
+                                       messages.saveLegacyVersionDialogTitle(),
                                        JOptionPane.INFORMATION_MESSAGE );
         File newFile = fileSaveCopyAs();
         if( newFile != null ) {
@@ -155,7 +159,7 @@ public class Controller {
 
     public void fileSaveAs() {
         JFileChooser fileChooser = projectFrame.getSaveFileChooser();
-        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserSaveProjectButton() );
+        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.save() );
         if( option == JFileChooser.APPROVE_OPTION ) {
             File file = fileChooser.getSelectedFile();
             if( file != null ) {
@@ -194,11 +198,7 @@ public class Controller {
             MarkdownServer.addRecentProject( recentProject );
         }
         catch( Throwable t ) {
-            t.printStackTrace();
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringSave(),
-                                           messages.errorDuringSaveTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
+            saveError(t);
         }
 
         MarkdownServer.checkForOpenProjects();
@@ -206,7 +206,7 @@ public class Controller {
 
     public File fileSaveCopyAs() {
         JFileChooser fileChooser = projectFrame.getSaveFileChooser();
-        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserSaveProjectButton() );
+        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.save() );
         if( option == JFileChooser.APPROVE_OPTION ) {
             File file = fileChooser.getSelectedFile();
             if( file != null ) {
@@ -246,16 +246,21 @@ public class Controller {
             MarkdownServer.addRecentProject( recentProject );
         }
         catch( Throwable t ) {
-            t.printStackTrace();
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringSave(),
-                                           messages.errorDuringSaveTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
+            saveError(t);
         }
 
         MarkdownServer.checkForOpenProjects();
     }
 
+    private void exportError(Throwable t ){
+        t.printStackTrace();
+        JOptionPane.showMessageDialog( getPopupWindowOwner(),
+                                       messages.errorCompile(),
+                                       messages.errorDialogTitle(),
+                                       JOptionPane.ERROR_MESSAGE );
+            
+    }
+    
     public void fileExportProject() {
         fileSave();
         projectFrame.getCompileDialog().setVisible( true );
@@ -277,11 +282,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -299,11 +300,7 @@ public class Controller {
             fileExportCurrentDocument( currentNode );
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -314,11 +311,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -344,11 +337,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -358,11 +347,7 @@ public class Controller {
             fileExportCurrentDocumentUsingCurrentOptions( currentNode );
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -373,11 +358,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -401,11 +382,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -415,11 +392,7 @@ public class Controller {
             fileExportCurrentDocumentAndChildren( currentNode );
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -444,11 +417,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -458,11 +427,7 @@ public class Controller {
             fileExportCurrentDocumentAndChildrenUsingCurrentOptionst( currentNode );
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -486,11 +451,7 @@ public class Controller {
             }
         }
         catch( Throwable t ) {
-            JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringCompile(),
-                                           messages.errorDuringCompileTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
-            t.printStackTrace();
+            exportError(t);
         }
     }
 
@@ -529,8 +490,8 @@ public class Controller {
         }
         else {
             int result = JOptionPane.showConfirmDialog( getPopupWindowOwner(),
-                                                        messages.dialogCloseWithoutSaving(),
-                                                        messages.dialogCloseWithoutSavingTitle(),
+                                                        messages.closeWithoutSave(),
+                                                        messages.closeWithoutSaveDialogTitle(),
                                                         JOptionPane.YES_NO_OPTION );
             if( result == JOptionPane.YES_OPTION ) {
                 doFileCloseWithoutSaving();
@@ -601,7 +562,7 @@ public class Controller {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             Object result = JOptionPane.showInputDialog( getPopupWindowOwner(),
-                                                         messages.dialogMessageGoToLine() );
+                                                         messages.goToLineDialogTitle() );
             if( result != null ) {
                 String value = result.toString();
                 try {
@@ -757,11 +718,11 @@ public class Controller {
             TextControlUtils.markup( editor, Markup.SUBSCRIPT_START, Markup.SUBSCRIPT_END );
         }
     }
-    
-    public void editPrependAppendToSelectedLines(){
+
+    public void editPrependAppendToSelectedLines() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
-            AppendPrependDialog dialog = new AppendPrependDialog(this);
+            AppendPrependDialog dialog = new AppendPrependDialog( this );
             dialog.setVisible( true );
         }
     }
@@ -843,6 +804,7 @@ public class Controller {
     ////////////
     //Formatting
     ////////////
+    
     public void formatBlockquote() {
         bookendSelectedLines( Markup.BLOCKQUOTE, null );
     }
@@ -899,50 +861,50 @@ public class Controller {
             TextControlUtils.bookendLine( editor, Markup.H6, Markup.SPACE );
         }
     }
-    
-    public void cssPagebreakBefore(){
+
+    public void cssPagebreakBefore() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_BEFORE );
         }
     }
-    
-    public void cssPagebreakAfter(){
+
+    public void cssPagebreakAfter() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_AFTER );
         }
     }
-    
-    public void cssPagebreakBoth(){
+
+    public void cssPagebreakBoth() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_PAGEBREAK_BOTH );
         }
     }
-    
-    public void cssChapter(){
+
+    public void cssChapter() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER );
         }
     }
-    
-    public void cssChapterPagebreakBefore(){
+
+    public void cssChapterPagebreakBefore() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_BEFORE );
         }
     }
-    
-    public void cssChapterPagebreakAfter(){
+
+    public void cssChapterPagebreakAfter() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_AFTER );
         }
     }
-    
-    public void cssChapterPagebreakBoth(){
+
+    public void cssChapterPagebreakBoth() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             TextControlUtils.addToEndOfLine( editor, Markup.STYLE_CHAPTER_WITH_PAGEBREAK_BOTH );
@@ -1011,13 +973,13 @@ public class Controller {
         }
     }
 
-    public void formatInsertPageBreak(){
+    public void formatInsertPageBreak() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             editor.replaceSelection( Markup.PAGE_BREAK );
         }
     }
-    
+
     public void formatInsertFootnote() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
@@ -1074,7 +1036,7 @@ public class Controller {
 
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            messages.errorPreview(),
-                                           messages.errorPreviewTitle(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
             t.printStackTrace();
         }
@@ -1167,12 +1129,12 @@ public class Controller {
         String name = showRenameDialog();
         if( !StringUtils.empty( name ) ) {
             int depth = getDepth( treeNode );
-            
+
             if( child ) {
                 depth++;
             }
-            
-            if( depth > 6 ){
+
+            if( depth > 6 ) {
                 depth = 6;
             }
 
@@ -1206,7 +1168,7 @@ public class Controller {
             }
 
             projectFrame.getTree().select( newTreeNode );
-            
+
         }
     }
 
@@ -1237,12 +1199,12 @@ public class Controller {
         if( treeNode != null ) {
             Node currentNode = treeNode.getNode();
             String nodeType = currentNode.getNodeType();
-            
+
             if( NodeTypes.RESOURCE.equals( nodeType ) || NodeTypes.RESOURCES.equals( nodeType ) ) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
-            
+
             documentsNewSiblingFile( treeNode );
         }
     }
@@ -1267,7 +1229,7 @@ public class Controller {
 
     public void documentsImportImages() {
         JFileChooser fileChooser = getImageFileChooser();
-        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.fileChooserOpenProjectButton() );
+        int option = fileChooser.showDialog( getPopupWindowOwner(), messages.open() );
         if( option == JFileChooser.APPROVE_OPTION ) {
             File[] files = fileChooser.getSelectedFiles();
             documentsImportImages( files );
@@ -1283,8 +1245,8 @@ public class Controller {
         catch( Throwable t ) {
             t.printStackTrace();
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorImportingImages(),
-                                           messages.errorImportingImagesTitle(),
+                                           messages.errorImport(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
         }
     }
@@ -1360,8 +1322,8 @@ public class Controller {
         }
         catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringDuplicate(),
-                                           messages.errorDuringDuplicateTitle(),
+                                           messages.errorDuplicateNode(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
             t.printStackTrace();
         }
@@ -1440,8 +1402,8 @@ public class Controller {
         }
         catch( Throwable t ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorDuringSplit(),
-                                           messages.errorDuringSplitTitle(),
+                                           messages.errorSplit(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
             t.printStackTrace();
         }
@@ -1479,8 +1441,8 @@ public class Controller {
 
     public void documentsEmptyTrash() {
         int result = JOptionPane.showConfirmDialog( getPopupWindowOwner(),
-                                                    messages.dialogEmptyTrash(),
-                                                    messages.dialogEmptyTrashTitle(),
+                                                    messages.emptyTrash(),
+                                                    messages.emptyTrashDialogTitle(),
                                                     JOptionPane.YES_NO_OPTION );
         if( result == JOptionPane.YES_OPTION ) {
             doDocumentsEmptyTrash();
@@ -1507,8 +1469,8 @@ public class Controller {
 
         if( error ) {
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
-                                           messages.errorEmptyingTrash(),
-                                           messages.errorEmptyingTrashTitle(),
+                                           messages.errorEmptyTrash(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
         }
     }
@@ -1839,39 +1801,39 @@ public class Controller {
             editor.replaceSelection( format.format( new Date() ) );
         }
     }
-    
-    public void toolsTextInsertLoremSentance(){
+
+    public void toolsTextInsertLoremSentance() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             editor.replaceSelection( Lorem.shortLoremIpsum() );
         }
     }
-    
-    public void toolsTextInsertLoremParagraph(){
+
+    public void toolsTextInsertLoremParagraph() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             editor.replaceSelection( Lorem.loremIpsum() );
         }
     }
-    
-    public void toolsTextInsertSedUt(){
+
+    public void toolsTextInsertSedUt() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
-            editor.replaceSelection( Lorem.sedUt());
+            editor.replaceSelection( Lorem.sedUt() );
         }
     }
-    
-    public void toolsTextInsertAtVero(){
+
+    public void toolsTextInsertAtVero() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
-            editor.replaceSelection( Lorem.atVero());
+            editor.replaceSelection( Lorem.atVero() );
         }
     }
-    
-    public void toolsTextInsertGreekingParagraphs(){
+
+    public void toolsTextInsertGreekingParagraphs() {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
-            editor.replaceSelection( Lorem.loremIpsumParagraphs());
+            editor.replaceSelection( Lorem.loremIpsumParagraphs() );
         }
     }
 
@@ -1925,13 +1887,13 @@ public class Controller {
     // Renaming
     ///////////
     public void projectRenamed() {
-        String title = messages.titleUntitled();
+        String title = messages.untitled();
         Project project = projectFrame.getProject();
         if( project != null ) {
             title = project.getTitle();
         }
 
-        projectFrame.getWindow().setTitle( title + " - " + messages.applicationTitle() );
+        projectFrame.getWindow().setTitle( title + " - " + messages.application() );
         projectFrame.getTree().projectRenamed();
     }
 
@@ -1941,10 +1903,10 @@ public class Controller {
 
     public String showRenameDialog( String originalName ) {
         if( StringUtils.empty( originalName ) ) {
-            originalName = messages.titleUntitled();
+            originalName = messages.untitled();
         }
 
-        Object result = JOptionPane.showInputDialog( getPopupWindowOwner(), messages.dialogMessageRename(), originalName );
+        Object result = JOptionPane.showInputDialog( getPopupWindowOwner(), messages.renameDialogTitle(), originalName );
         if( result != null ) {
             return result.toString();
         }
@@ -1980,7 +1942,7 @@ public class Controller {
 
             JOptionPane.showMessageDialog( getPopupWindowOwner(),
                                            message.toString(),
-                                           messages.errorExecutingGroovyTitle(),
+                                           messages.errorScript(),
                                            JOptionPane.ERROR_MESSAGE );
         }
     }
@@ -2004,7 +1966,6 @@ public class Controller {
     ////////
     // Utils
     ////////
-    
     public ProjectFrame getProjectFrame() {
         return projectFrame;
     }
@@ -2148,30 +2109,30 @@ public class Controller {
         return messages;
     }
 
-    public void showSystemMemory(){
+    public void showSystemMemory() {
         StringBuilder memory = new StringBuilder();
         memory.append( "Available processors: " );
         memory.append( Runtime.getRuntime().availableProcessors() );
         memory.append( " cores\n" );
-        
+
         memory.append( "Free memory: " );
         long free = Runtime.getRuntime().freeMemory() / 1048576;
         memory.append( free );
         memory.append( "MB\n" );
-        
+
         memory.append( "Maximum memory: " );
         long maxMemory = Runtime.getRuntime().maxMemory() / 1048576;
         memory.append( maxMemory );
         memory.append( "MB\n" );
-        
+
         memory.append( "Total memory available to JVM: " );
         long total = Runtime.getRuntime().totalMemory() / 1048576;
         memory.append( total );
         memory.append( "MB\n" );
-        
-        JOptionPane.showMessageDialog(null, memory.toString(), "System Memory", JOptionPane.INFORMATION_MESSAGE );
+
+        JOptionPane.showMessageDialog( null, memory.toString(), "System Memory", JOptionPane.INFORMATION_MESSAGE );
     }
-    
+
     private static void stubCode() {
         System.out.println( "=========================" );
         System.out.println( "=========================" );

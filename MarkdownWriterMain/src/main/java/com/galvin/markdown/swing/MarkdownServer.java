@@ -25,8 +25,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class MarkdownServer
-{
+public class MarkdownServer {
 
     public static final String PROGRAM_NAME = "MarkdownWriter";
     public static final String PROGRAM_VERSION = "1.0";
@@ -44,26 +43,20 @@ public class MarkdownServer
     private static MarkdownSocket markdownSocket;
     private static ProjectWindow currentWindow;
 
-    public static Preferences getPreferences()
-    {
-        if( preferences == null )
-        {
+    public static Preferences getPreferences() {
+        if( preferences == null ) {
             File preferencesFile = getPreferencesFile();
-            if( preferencesFile.exists() && preferencesFile.canRead() )
-            {
-                try
-                {
+            if( preferencesFile.exists() && preferencesFile.canRead() ) {
+                try {
                     preferences = ProjectIo.readPreferences( preferencesFile );
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
         }
 
-        if( preferences == null )
-        {
+        if( preferences == null ) {
             preferences = new Preferences();
             writePreferences();
         }
@@ -71,12 +64,9 @@ public class MarkdownServer
         return preferences;
     }
 
-    public static ProjectFrame getProjectFrame( File projectStructureDocument )
-    {
-        for( ProjectFrame frame : projectFrames )
-        {
-            if( projectStructureDocument.equals( frame.getProject().getProjectFile()) )
-            {
+    public static ProjectFrame getProjectFrame( File projectStructureDocument ) {
+        for( ProjectFrame frame : projectFrames ) {
+            if( projectStructureDocument.equals( frame.getProject().getProjectFile() ) ) {
                 return frame;
             }
         }
@@ -84,132 +74,104 @@ public class MarkdownServer
         return null;
     }
 
-    public static void setCurrentWindow( ProjectWindow projectWindow )
-    {
+    public static void setCurrentWindow( ProjectWindow projectWindow ) {
         currentWindow = projectWindow;
     }
 
-    public static ProjectWindow getCurrentWindow()
-    {
+    public static ProjectWindow getCurrentWindow() {
         return currentWindow;
     }
 
-    public static void focusCurrentWindow()
-    {
-        if( currentWindow != null )
-        {
+    public static void focusCurrentWindow() {
+        if( currentWindow != null ) {
             currentWindow.toFront();
             currentWindow.requestFocus();
         }
     }
 
-    public static void registerProjectFrame( ProjectFrame projectFrame )
-    {
-        if( !projectFrames.contains( projectFrame ) )
-        {
+    public static void registerProjectFrame( ProjectFrame projectFrame ) {
+        if( !projectFrames.contains( projectFrame ) ) {
             projectFrames.add( projectFrame );
         }
     }
 
-    public static void unregisterProjectFrame( ProjectFrame projectFrame )
-    {
-        if( !projectFrame.getController().fileNeedsSaving() )
-        {
-            if( projectFrames.contains( projectFrame ) )
-            {
+    public static void unregisterProjectFrame( ProjectFrame projectFrame ) {
+        if( !projectFrame.getController().fileNeedsSaving() ) {
+            if( projectFrames.contains( projectFrame ) ) {
                 projectFrames.remove( projectFrame );
-                if( projectFrames.isEmpty() )
-                {
+                if( projectFrames.isEmpty() ) {
                     noOpenProjects();
                 }
             }
         }
-        else
-        {
+        else {
             projectFrame.getWindow().setVisible( true );
         }
     }
 
-    public static void unregisterWithMarkdownServerWithoutSaving( ProjectFrame projectFrame )
-    {
-        if( projectFrames.contains( projectFrame ) )
-        {
+    public static void unregisterWithMarkdownServerWithoutSaving( ProjectFrame projectFrame ) {
+        if( projectFrames.contains( projectFrame ) ) {
             projectFrames.remove( projectFrame );
-            if( projectFrames.isEmpty() )
-            {
+            if( projectFrames.isEmpty() ) {
                 noOpenProjects();
             }
         }
     }
 
-    public static void checkForOpenProjects()
-    {
-        if( projectFrames.isEmpty() )
-        {
+    public static void checkForOpenProjects() {
+        if( projectFrames.isEmpty() ) {
             noOpenProjects();
         }
     }
 
-    private static void noOpenProjects()
-    {
+    private static void noOpenProjects() {
         System.exit( 0 );
     }
 
-    public static void writePreferences()
-    {
+    public static void writePreferences() {
         File preferencesFile = getPreferencesFile();
         preferencesFile.getParentFile().mkdirs();
 
-        try
-        {
+        try {
             ProjectIo.write( preferences, preferencesFile );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
         }
     }
 
-    public static File getPreferencesDir()
-    {
+    public static File getPreferencesDir() {
         return SystemUtils.getPreferencesDirectory( PROGRAM_NAME, PROGRAM_VERSION );
     }
 
-    public static File getPreferencesFile()
-    {
+    public static File getPreferencesFile() {
         File preferencesDir = getPreferencesDir();
         File preferencesFile = new File( preferencesDir, PREFERENCES_FILE );
         return preferencesFile;
     }
 
-    public static File getGroovyScriptsDir()
-    {
+    public static File getGroovyScriptsDir() {
         File result = new File( getPreferencesDir(), GROOVY_SCRIPTS_DIR );
         result.mkdirs();
         return result;
     }
 
-    public static File getTemplatesDir()
-    {
+    public static File getTemplatesDir() {
         File result = new File( getPreferencesDir(), TEMPLATES_DIR );
         result.mkdirs();
         return result;
     }
 
-    public static MarkdownMessages getMessages()
-    {
-        if( messages == null )
-        {
+    public static MarkdownMessages getMessages() {
+        if( messages == null ) {
             messages = new MarkdownMessages();
         }
 
         return messages;
     }
 
-    public static JFileChooser getOpenFileChooser()
-    {
-        if( fileChooser == null )
-        {
+    public static JFileChooser getOpenFileChooser() {
+        if( fileChooser == null ) {
             fileChooser = new JFileChooser( System.getProperty( "user.home" ) );
             fileChooser.setFileFilter( new ProjectXmlFileFilter() );
             fileChooser.setMultiSelectionEnabled( false );
@@ -220,10 +182,8 @@ public class MarkdownServer
         return fileChooser;
     }
 
-    public static JFileChooser getSaveFileChooser()
-    {
-        if( fileChooser == null )
-        {
+    public static JFileChooser getSaveFileChooser() {
+        if( fileChooser == null ) {
             fileChooser = new JFileChooser( System.getProperty( "user.home" ) );
             fileChooser.setFileFilter( new ProjectXmlFileFilter() );
             fileChooser.setMultiSelectionEnabled( false );
@@ -234,10 +194,8 @@ public class MarkdownServer
         return fileChooser;
     }
 
-    public static JFileChooser getImageFileChooser()
-    {
-        if( imageChooser == null )
-        {
+    public static JFileChooser getImageFileChooser() {
+        if( imageChooser == null ) {
             imageChooser = new JFileChooser( System.getProperty( "user.home" ) );
             imageChooser.setFileFilter( new ImageFileFilter() );
             imageChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
@@ -248,29 +206,23 @@ public class MarkdownServer
         return imageChooser;
     }
 
-    public static PreferencesDialog getPreferencesDialog()
-    {
-        if( preferencesDialog == null )
-        {
+    public static PreferencesDialog getPreferencesDialog() {
+        if( preferencesDialog == null ) {
             preferencesDialog = new PreferencesDialog();
         }
 
         return preferencesDialog;
     }
 
-    public static MarkdownCompiler getCompiler()
-    {
+    public static MarkdownCompiler getCompiler() {
         return getCompiler( getPreferences().getMarkdownPreferences() );
     }
 
-    public static MarkdownCompiler getCompiler( MarkdownPreferences markdownPreferences )
-    {
-        //return new BaseCompiler();
+    public static MarkdownCompiler getCompiler( MarkdownPreferences markdownPreferences ) {
         return new PandocCompiler();
     }
 
-    public static void welcomeNewProject()
-    {
+    public static void welcomeNewProject() {
         welcomeScreen.setVisible( false );
 
         Project project = ProjectIo.createDefaultProject();
@@ -278,37 +230,39 @@ public class MarkdownServer
         projectFrame.getController().fileSaveAs();
     }
 
-    public static void welcomeNewProject( ProjectTemplate template )
-    {
+    public static void welcomeNewProject( ProjectTemplate template ) {
         welcomeScreen.setVisible( false );
 
         Project project = template.getProject();
         project.setNeedsSaving( true );
-        
+
         ProjectIo.setCreationDate( project );
         ProjectFrame projectFrame = new ProjectFrame( project );
         projectFrame.getController().fileSaveAs();
         projectFrame.getWindow().setVisible( true );
     }
+    
+    private static void openError(Throwable t){
+        t.printStackTrace();
+        JOptionPane.showMessageDialog( null,
+                                       messages.errorOpen(),
+                                       messages.errorDialogTitle(),
+                                       JOptionPane.ERROR_MESSAGE );
+    }
 
-    public static void welcomeOpenProject()
-    {
+    public static void welcomeOpenProject() {
         welcomeScreen.setVisible( false );
 
         JFileChooser fileChooser = getOpenFileChooser();
-        int option = fileChooser.showDialog( null, messages.fileChooserOpenProjectButton() );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
-            try
-            {
+        int option = fileChooser.showDialog( null, messages.open() );
+        if( option == JFileChooser.APPROVE_OPTION ) {
+            try {
                 File projectStructureDocument = fileChooser.getSelectedFile();
                 ProjectFrame existingFrame = MarkdownServer.getProjectFrame( projectStructureDocument );
-                if( existingFrame != null )
-                {
+                if( existingFrame != null ) {
                     existingFrame.requestFocus();
                 }
-                else
-                {
+                else {
                     OpenProgressDialog dialog = new OpenProgressDialog();
                     dialog.setVisible( true );
 
@@ -320,33 +274,26 @@ public class MarkdownServer
 
                     dialog.setVisible( false );
                     newFrame.getWindow().setVisible( true );
+                    
+                    System.gc();
                 }
             }
-            catch( Throwable t )
-            {
-                t.printStackTrace();
-                JOptionPane.showMessageDialog( null,
-                                               messages.errorDuringOpen(),
-                                               messages.errorDuringOpenTitle(),
-                                               JOptionPane.ERROR_MESSAGE );
+            catch( Throwable t ) {
+                openError(t);
             }
         }
 
         checkForOpenProjects();
     }
 
-    public static void fileOpen( File projectStructureDocument )
-    {
-        try
-        {
+    public static void fileOpen( File projectStructureDocument ) {
+        try {
             ProjectFrame existingFrame = MarkdownServer.getProjectFrame( projectStructureDocument );
-            if( existingFrame != null )
-            {
+            if( existingFrame != null ) {
                 existingFrame.getWindow().toFront();
                 existingFrame.requestFocus();
             }
-            else
-            {
+            else {
                 OpenProgressDialog dialog = new OpenProgressDialog();
                 dialog.setVisible( true );
 
@@ -358,28 +305,21 @@ public class MarkdownServer
 
                 dialog.setVisible( false );
                 newFrame.getWindow().setVisible( true );
-                
+
                 System.gc();
             }
         }
-        catch( Throwable t )
-        {
-            t.printStackTrace();
-            JOptionPane.showMessageDialog( null,
-                                           messages.errorDuringOpen(),
-                                           messages.errorDuringOpenTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
+        catch( Throwable t ) {
+            openError(t);
         }
 
         MarkdownServer.checkForOpenProjects();
     }
 
-    public static void welcomeOpenRecentProject( File projectStructureDocument )
-    {
+    public static void welcomeOpenRecentProject( File projectStructureDocument ) {
         welcomeScreen.setVisible( false );
 
-        try
-        {
+        try {
             OpenProgressDialog dialog = new OpenProgressDialog();
             dialog.setVisible( true );
 
@@ -391,36 +331,28 @@ public class MarkdownServer
 
             dialog.setVisible( false );
             newFrame.getWindow().setVisible( true );
+            
+            System.gc();
         }
-        catch( Throwable t )
-        {
-            t.printStackTrace();
-            JOptionPane.showMessageDialog( null,
-                                           messages.errorDuringOpen(),
-                                           messages.errorDuringOpenTitle(),
-                                           JOptionPane.ERROR_MESSAGE );
+        catch( Throwable t ) {
+            openError(t);
         }
 
         checkForOpenProjects();
     }
 
-    public static void reloadRecentProjects()
-    {
-        for( ProjectFrame projectFrame : projectFrames )
-        {
+    public static void reloadRecentProjects() {
+        for( ProjectFrame projectFrame : projectFrames ) {
             projectFrame.getMenuBar().reloadRecentProjects();
         }
     }
 
-    public static RecentProject[] getRecentProjects()
-    {
+    public static RecentProject[] getRecentProjects() {
         List<RecentProject> recentProjects = getPreferences().getRecentProjects();
         Iterator<RecentProject> iterator = recentProjects.iterator();
-        while( iterator.hasNext() )
-        {
+        while( iterator.hasNext() ) {
             RecentProject project = iterator.next();
-            if( !project.getProjectFile().exists() )
-            {
+            if( !project.getProjectFile().exists() ) {
                 iterator.remove();
             }
         }
@@ -430,26 +362,20 @@ public class MarkdownServer
         return result;
     }
 
-    public static ProjectTemplate[] getProjectTemplates()
-    {
+    public static ProjectTemplate[] getProjectTemplates() {
         List<ProjectTemplate> result = new ArrayList();
         result.add( new EmptyProject() );
         result.add( new NovelProject() );
 
         File templatesDir = getTemplatesDir();
-        for( File file : templatesDir.listFiles() )
-        {
-            if( file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) )
-            {
-                if( file.exists() && file.canRead() )
-                {
-                    try
-                    {
+        for( File file : templatesDir.listFiles() ) {
+            if( file.getName().endsWith( ProjectIo.PROJECT_STRUCTURE_DOCUMENT_EXTENSION ) ) {
+                if( file.exists() && file.canRead() ) {
+                    try {
                         FileTemplate template = new FileTemplate( file );
                         result.add( template );
                     }
-                    catch( Throwable t )
-                    {
+                    catch( Throwable t ) {
                         t.printStackTrace();
                     }
                 }
@@ -461,14 +387,12 @@ public class MarkdownServer
         return array;
     }
 
-    public static void addRecentProject( RecentProject recentProject )
-    {
+    public static void addRecentProject( RecentProject recentProject ) {
         List<RecentProject> recentProjects = getPreferences().getRecentProjects();
         recentProjects.remove( recentProject );
         recentProjects.add( 0, recentProject );
 
-        if( recentProjects.size() > RECENT_PROJECTS_SIZE )
-        {
+        if( recentProjects.size() > RECENT_PROJECTS_SIZE ) {
             recentProjects = recentProjects.subList( 0, RECENT_PROJECTS_SIZE );
             getPreferences().setRecentProjects( recentProjects );
         }
@@ -477,66 +401,38 @@ public class MarkdownServer
         reloadRecentProjects();
     }
 
-    public static void clearRecentProjects()
-    {
+    public static void clearRecentProjects() {
         getPreferences().getRecentProjects().clear();
         writePreferences();
         reloadRecentProjects();
     }
 
-    public static void alreadyRunning()
-    {
+    public static void alreadyRunning() {
         System.out.println( "Already running!" );
         System.exit( 0 );
     }
 
-    public static void main( String[] args )
-    {
-        
-        //show args
-//        System.out.println( "args:" );
-//        StringBuilder builder = new StringBuilder();
-//        for( String arg : args )
-//        {
-//            builder.append( arg );
-//            builder.append( "\n" );
-//            System.out.println( "    " + arg );
-//        }
-//        JTextArea text = new JTextArea( builder.toString() );
-//        ApplicationWindow textWindow = new ApplicationWindow( "Args" );
-//        textWindow.getContentPane().add( new JScrollPane( text ) );
-//        textWindow.setSize( 500, 500 );
-//        textWindow.center();
-//        textWindow.setVisible( true );
-//        textWindow.setExitOnClose( false );
-        
-        if( MarkdownSocket.alreadyRunning( args ) )
-        {
+    public static void main( String[] args ) {
+        if( MarkdownSocket.alreadyRunning( args ) ) {
             alreadyRunning();
         }
-        else
-        {
+        else {
             markdownSocket = new MarkdownSocket();
             markdownSocket.acceptConnections();
         }
 
-        if( SystemUtils.IS_MAC )
-        {
-            try
-            {
+        if( SystemUtils.IS_MAC ) {
+            try {
                 MacUtils.registerApplicationListener( "com.galvin.markdown.swing.MarkdownApplicationAdapter" );
-                System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Markdown Writer");
-                
+                System.setProperty( "com.apple.mrj.application.apple.menu.about.name", "Markdown Writer" );
+
                 System.out.println( "Setting Mac's Open File Handler..." );
-                
-                OpenFilesHandler handler = new OpenFilesHandler()
-                {
-                    public void openFiles( AppEvent.OpenFilesEvent ofe )
-                    {
+
+                OpenFilesHandler handler = new OpenFilesHandler() {
+                    public void openFiles( AppEvent.OpenFilesEvent ofe ) {
                         List<File> files = ofe.getFiles();
                         System.out.println( "OpenFilesHandler: Opening " + files.size() + " double-clicked files" );
-                        for( File file : files )
-                        {
+                        for( File file : files ) {
                             System.out.println( "    opening file: " + file );
                             fileOpen( file );
                         }
@@ -544,96 +440,71 @@ public class MarkdownServer
                 };
                 com.apple.eawt.Application macApp = com.apple.eawt.Application.getApplication();
                 macApp.setOpenFileHandler( handler );
-                
-//                MRJOpenDocumentHandler mrjHandler = new MRJOpenDocumentHandler()
-//                {
-//                    public void handleOpenFile( File file )
-//                    {
-//                        System.out.println( "MRJOpenDocumentHandler: opening file: " + file );
-//                        fileOpen( file );
-//                    }
-//                };
-//                com.apple.mrj.MRJApplicationUtils.registerOpenDocumentHandler( mrjHandler );
-                
             }
-            catch( Throwable t )
-            {
+            catch( Throwable t ) {
                 t.printStackTrace();
             }
         }
 
-        try
-        {
+        try {
             welcomeScreen.setVisible( true );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             t.printStackTrace();
         }
     }
-    
-    public static void exit()
-    {
+
+    public static void exit() {
         List<ProjectFrame> tmp = new ArrayList();
         tmp.addAll( projectFrames );
-        
-        for( ProjectFrame projectFrame : tmp )
-        {
+
+        for( ProjectFrame projectFrame : tmp ) {
             projectFrame.getController().fileClose();
         }
 
         checkForOpenProjects();
     }
 
-    public static void helpAbout()
-    {
-        try
-        {
+    public static void helpAbout() {
+        try {
             Desktop.getDesktop().browse( HelpFiles.getAbout().toURI() );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( null,
-                                           messages.errorLoadingHelpFile(),
-                                           messages.errorLoadingHelpFileTitle(),
+                                           messages.errorAbout(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
             t.printStackTrace();
         }
     }
 
-    public static void helpShowHelp()
-    {
-        try
-        {
+    public static void helpShowHelp() {
+        try {
             Desktop.getDesktop().browse( HelpFiles.getApplicationHelp().toURI() );
         }
-        catch( Throwable t )
-        {
+        catch( Throwable t ) {
             JOptionPane.showMessageDialog( null,
-                                           messages.errorLoadingHelpFile(),
-                                           messages.errorLoadingHelpFileTitle(),
+                                           messages.errorHelp(),
+                                           messages.errorDialogTitle(),
                                            JOptionPane.ERROR_MESSAGE );
             t.printStackTrace();
         }
     }
-    
-    public static void startSpellCheck()
-    {
-        for( ProjectFrame projectFrame : projectFrames )
-        {
+
+    public static void startSpellCheck() {
+        for( ProjectFrame projectFrame : projectFrames ) {
             Preferences preferences = getPreferences();
             projectFrame.getProject().startSpellCheck();
             projectFrame.getController().configureMenusAndEditors( preferences );
         }
     }
-    
-    public static void stopSpellCheck()
-    {
-        for( ProjectFrame projectFrame : projectFrames )
-        {
+
+    public static void stopSpellCheck() {
+        for( ProjectFrame projectFrame : projectFrames ) {
             Preferences preferences = getPreferences();
             projectFrame.getProject().stopSpellCheck();
             projectFrame.getController().configureMenusAndEditors( preferences );
         }
     }
+
 }

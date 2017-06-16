@@ -22,51 +22,46 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class FormatsCompileOptionsPanel
-    extends AbstractCompileOptionsPanel
-{
+    extends AbstractCompileOptionsPanel {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
-    
-    private JLabel importFormatLabel = new JLabel( messages.importFormat() );
+
+    private JLabel importFormatLabel = new JLabel( messages.labelInputFormat() );
     private ImportFormatComboBox importFormatComboBox = new ImportFormatComboBox();
-    
-    private JLabel outputDirectoryLabel = new JLabel( messages.outputDirectory() );
+
+    private JLabel outputDirectoryLabel = new JLabel( messages.labelOutputDir() );
     private JTextField outputDirectoryField = new JTextField();
-    private JButton chooseOutputDirectoryButton = new JButton( messages.chooseOutputDirectory() );
-    
+    private JButton chooseOutputDirectoryButton = new JButton( messages.ellipsis() );
+
     private List<ExportFormatCheckBox> checkboxes = new ArrayList();
     private JFileChooser fileChooser = new JFileChooser();
-    
+
     private Dimension comboSize = GuiUtils.preferredSize( importFormatComboBox );
-    
-    private Dimension labelSize = GuiUtils.sameSize( new JComponent[]
-        {
-            importFormatLabel, outputDirectoryLabel
-        } );
-    
-    private Dimension fieldSize = GuiUtils.sameSize( new JComponent[]
-        {
-            outputDirectoryField
-        } );
-    
+
+    private Dimension labelSize = GuiUtils.sameSize( new JComponent[]{
+        importFormatLabel, outputDirectoryLabel
+    } );
+
+    private Dimension fieldSize = GuiUtils.sameSize( new JComponent[]{
+        outputDirectoryField
+    } );
+
     private Dimension buttonSize = GuiUtils.preferredSize( chooseOutputDirectoryButton );
     private Dimension checkBoxSize;
 
-    public FormatsCompileOptionsPanel( CompileDialog compileDialog )
-    {
+    public FormatsCompileOptionsPanel( CompileDialog compileDialog ) {
         super( compileDialog );
         setLayout( null );
-        
+
         add( importFormatLabel );
         add( importFormatComboBox );
-        
+
         add( outputDirectoryLabel );
         add( outputDirectoryField );
         add( chooseOutputDirectoryButton );
 
         List<JComponent> components = new ArrayList();
-        for(ExportFormat format : ExportFormat.FORMATS)
-        {
+        for( ExportFormat format : ExportFormat.FORMATS ) {
             ExportFormatCheckBox checkBox = new ExportFormatCheckBox( format );
             checkboxes.add( checkBox );
             add( checkBox );
@@ -81,20 +76,19 @@ public class FormatsCompileOptionsPanel
     }
 
     @Override
-    public void doLayout()
-    {
+    public void doLayout() {
         Dimension size = getSize();
         int x = GuiUtils.PADDING;
         int y = GuiUtils.PADDING;
 
-        importFormatLabel.setLocation( x,y );
+        importFormatLabel.setLocation( x, y );
         y += labelSize.height + GuiUtils.PADDING;
-        
+
         comboSize.width = size.width - GuiUtils.PADDING * 2;
         importFormatComboBox.setSize( comboSize );
-        importFormatComboBox.setLocation( x,y );
+        importFormatComboBox.setLocation( x, y );
         y += comboSize.height + GuiUtils.PADDING;
-        
+
         outputDirectoryLabel.setLocation( x, y );
         y += labelSize.height + GuiUtils.PADDING;
 
@@ -109,8 +103,7 @@ public class FormatsCompileOptionsPanel
         chooseOutputDirectoryButton.setLocation( buttonX, y );
         y += Math.max( fieldSize.height, buttonSize.height );
 
-        for(ExportFormatCheckBox checkBox : checkboxes)
-        {
+        for( ExportFormatCheckBox checkBox : checkboxes ) {
             checkBox.setLocation( x, y );
             y += checkBoxSize.height + GuiUtils.PADDING;
         }
@@ -122,97 +115,79 @@ public class FormatsCompileOptionsPanel
     }
 
     @Override
-    public void updatePreferences()
-    {
+    public void updatePreferences() {
         super.updatePreferences();
         List<ExportFormat> supportedFormats = MarkdownServer.getCompiler().getSupportedFormats();
-        for(ExportFormatCheckBox checkBox : checkboxes)
-        {
+        for( ExportFormatCheckBox checkBox : checkboxes ) {
             checkBox.setEnabled( supportedFormats );
         }
     }
 
-    public void clearAllFormats()
-    {
-        for(ExportFormatCheckBox checkBox : checkboxes)
-        {
+    public void clearAllFormats() {
+        for( ExportFormatCheckBox checkBox : checkboxes ) {
             checkBox.setSelected( false );
         }
     }
 
-    public void loadPreferences( CompileOptions compileOptions )
-    {
+    public void loadPreferences( CompileOptions compileOptions ) {
         importFormatComboBox.setSelectedFormat( compileOptions.getImportFormat() );
-        
+
         File outputDirectory = compileOptions.getOutputDirectory();
-        if( outputDirectory != null )
-        {
+        if( outputDirectory != null ) {
             outputDirectoryField.setText( outputDirectory.getAbsolutePath() );
             fileChooser.setSelectedFile( outputDirectory );
         }
-        else
-        {
+        else {
             outputDirectoryField.setText( System.getProperty( "user.home" ) );
             fileChooser.setSelectedFile( new File( System.getProperty( "user.home" ) ) );
         }
 
         clearAllFormats();
-        for(ExportFormatCheckBox checkBox : checkboxes)
-        {
+        for( ExportFormatCheckBox checkBox : checkboxes ) {
             checkBox.setSelected( compileOptions.getExportFormats() );
         }
     }
 
-    public void writePreferences( CompileOptions compileOptions )
-    {
+    public void writePreferences( CompileOptions compileOptions ) {
         compileOptions.setImportFormat( importFormatComboBox.getSelectedFormat() );
-        
+
         String outputDirectory = outputDirectoryField.getText();
-        if( StringUtils.empty( outputDirectory ) )
-        {
+        if( StringUtils.empty( outputDirectory ) ) {
             compileOptions.setOutputDirectory( new File( System.getProperty( "user.home" ) ) );
         }
-        else
-        {
+        else {
             compileOptions.setOutputDirectory( new File( outputDirectory ) );
         }
 
         compileOptions.getExportFormats().clear();
-        for(ExportFormatCheckBox checkBox : checkboxes)
-        {
-            if( checkBox.isSelected() )
-            {
+        for( ExportFormatCheckBox checkBox : checkboxes ) {
+            if( checkBox.isSelected() ) {
                 compileOptions.getExportFormats().add( checkBox.getExportFormat() );
             }
         }
     }
 
-    public void chooseOutputDirectory()
-    {
+    public void chooseOutputDirectory() {
         int option = fileChooser.showSaveDialog( this );
-        if( option == JFileChooser.APPROVE_OPTION )
-        {
+        if( option == JFileChooser.APPROVE_OPTION ) {
             outputDirectoryField.setText( fileChooser.getSelectedFile().getAbsolutePath() );
         }
     }
 
     private class Listener
-        implements ActionListener
-    {
+        implements ActionListener {
 
-        public Listener()
-        {
+        public Listener() {
             chooseOutputDirectoryButton.addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             Object source = e.getSource();
-            if( source == chooseOutputDirectoryButton )
-            {
+            if( source == chooseOutputDirectoryButton ) {
                 chooseOutputDirectory();
             }
         }
+
     }
 
 }

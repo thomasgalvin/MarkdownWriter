@@ -11,25 +11,21 @@ import javax.swing.JMenuItem;
 import org.apache.commons.lang3.StringUtils;
 
 public class RecentProjectsMenu
-    extends JMenu
-{
+    extends JMenu {
 
     private MarkdownMessages messages = MarkdownServer.getMessages();
     private Controller controller;
-    private JMenuItem noRecentProjectsItem = new JMenuItem( messages.menuBarFileNoRecentProjects() );
-    private JMenuItem clearRecentProjectsItem = new JMenuItem( messages.menuBarFileClearRecentProjects() );
+    private JMenuItem noRecentProjectsItem = new JMenuItem( messages.noRecentProjects() );
+    private JMenuItem clearRecentProjectsItem = new JMenuItem( messages.clearRecentProjects() );
 
-    public RecentProjectsMenu( Controller controller )
-    {
-        setText( messages.menuBarFileRecentProjects() );
+    public RecentProjectsMenu( Controller controller ) {
+        setText( messages.recentProjects() );
         this.controller = controller;
         noRecentProjectsItem.setEnabled( false );
 
-        clearRecentProjectsItem.addActionListener( new ActionListener()
-        {
+        clearRecentProjectsItem.addActionListener( new ActionListener() {
 
-            public void actionPerformed( ActionEvent ae )
-            {
+            public void actionPerformed( ActionEvent ae ) {
                 MarkdownServer.clearRecentProjects();
             }
         } );
@@ -37,65 +33,59 @@ public class RecentProjectsMenu
         reloadRecentProjects();
     }
 
-    public void reloadRecentProjects()
-    {
+    public void reloadRecentProjects() {
         removeAll();
 
         RecentProject[] recentProjects = MarkdownServer.getRecentProjects();
-        if( recentProjects.length > 0 )
-        {
+        if( recentProjects.length > 0 ) {
 
             add( clearRecentProjectsItem );
             addSeparator();
 
-            for(RecentProject recentProject : recentProjects)
-            {
+            for( RecentProject recentProject : recentProjects ) {
                 add( new RecentProjectMenuItem( recentProject ) );
             }
         }
-        else
-        {
+        else {
             add( noRecentProjectsItem );
         }
     }
 
     private class RecentProjectMenuItem
         extends JMenuItem
-        implements ActionListener
-    {
+        implements ActionListener {
 
         private RecentProject recentProject;
 
-        public RecentProjectMenuItem( RecentProject recentProject )
-        {
+        public RecentProjectMenuItem( RecentProject recentProject ) {
             super( name( recentProject ) );
-            
-            if( recentProject.getProjectFile() != null ){
+
+            if( recentProject.getProjectFile() != null ) {
                 setToolTipText( recentProject.getProjectFile().getAbsolutePath() );
             }
-            
+
             this.recentProject = recentProject;
             addActionListener( this );
         }
 
-        public void actionPerformed( ActionEvent e )
-        {
+        public void actionPerformed( ActionEvent e ) {
             controller.fileOpen( recentProject.getProjectFile() );
         }
+
     }
 
     private static String name( RecentProject recentProject ) {
         String result = "";
-        if( recentProject != null &&
-            recentProject.getProjectFile() != null )
-        {
+        if( recentProject != null
+            && recentProject.getProjectFile() != null ) {
             result = recentProject.getProjectFile().getName();
         }
-        
-        if( StringUtils.isBlank( result ) ){
+
+        if( StringUtils.isBlank( result ) ) {
             result = "Untitled";
         }
-        
+
         return result;
     }
+
 }

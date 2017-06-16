@@ -1,5 +1,5 @@
 /**
- Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
+ * Copyright &copy 2012 Thomas Galvin - All Rights Reserved.
  */
 package com.galvin.markdown.swing.tree;
 
@@ -33,8 +33,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 public class MarkdownTree
-    extends DragAndDropTree
-{
+    extends DragAndDropTree {
 
     private static final int ROW_HEIGHT = 22;
     private Controller controller;
@@ -50,8 +49,7 @@ public class MarkdownTree
     private Node coverImageNode;
     private boolean needsSaving;
 
-    public MarkdownTree( Controller controller, Project project )
-    {
+    public MarkdownTree( Controller controller, Project project ) {
         super( new MarkdownTreeNode( project ) );
         this.project = project;
         this.controller = controller;
@@ -59,45 +57,44 @@ public class MarkdownTree
         setLargeModel( true );
         setCellRenderer( new MarkdownTreeCellRenderer() );
         setRowHeight( ROW_HEIGHT );
-        
+
         Preferences preferences = MarkdownServer.getPreferences();
         EditorPreferences editorPreferences = preferences.getEditorPreferences();
         setBackground( editorPreferences.getBackgroundColor() );
         setForeground( editorPreferences.getTextColor() );
 
-        MarkdownTreeNode root = (MarkdownTreeNode) getRootNode();
-        
+        MarkdownTreeNode root = (MarkdownTreeNode)getRootNode();
+
         configNode = new Node();
-        
-        configNode.setTitle( controller.getMessages().projectMetadataWidgetConfig() );
+
+        configNode.setTitle( controller.getMessages().config() );
         configNode.setNodeType( NodeTypes.CONFIG );
-        config = new MarkdownTreeNode( configNode  );
+        config = new MarkdownTreeNode( configNode );
         config.setIgnoreWhenSaving( true );
         root.add( config );
-        
+
         metadataNode = new Node();
-        metadataNode.setTitle( controller.getMessages().projectMetadataWidgetMetadata() );
+        metadataNode.setTitle( controller.getMessages().metadata() );
         metadataNode.setNodeType( NodeTypes.METADATA );
-        metadata = new MarkdownTreeNode( metadataNode  );
+        metadata = new MarkdownTreeNode( metadataNode );
         metadata.setIgnoreWhenSaving( true );
         config.add( metadata );
-        
+
         styleSheetNode = new Node();
-        styleSheetNode.setTitle( controller.getMessages().projectMetadataWidgetStyleSheet());
+        styleSheetNode.setTitle( controller.getMessages().styleSheet() );
         styleSheetNode.setNodeType( NodeTypes.STYLESHEET );
-        styleSheet = new MarkdownTreeNode( styleSheetNode  );
+        styleSheet = new MarkdownTreeNode( styleSheetNode );
         styleSheet.setIgnoreWhenSaving( true );
         config.add( styleSheet );
-        
+
         coverImageNode = new Node();
-        coverImageNode.setTitle( controller.getMessages().projectMetadataWidgetCover());
+        coverImageNode.setTitle( controller.getMessages().coverImage() );
         coverImageNode.setNodeType( NodeTypes.COVER );
-        coverImage = new MarkdownTreeNode( coverImageNode  );
+        coverImage = new MarkdownTreeNode( coverImageNode );
         coverImage.setIgnoreWhenSaving( true );
         config.add( coverImage );
-        
-        for( Node node : project.getChildNodes() )
-        {
+
+        for( Node node : project.getChildNodes() ) {
             addNodes( root, node );
         }
 
@@ -110,23 +107,19 @@ public class MarkdownTree
         addMouseListener( new ClickListener() );
     }
 
-    public void projectRenamed()
-    {
+    public void projectRenamed() {
         getRootNode().setUserObject( project.getTitle() );
     }
 
-    public MarkdownTreeNode addNodes( MarkdownTreeNode parentNode, Node markdownNode )
-    {
+    public MarkdownTreeNode addNodes( MarkdownTreeNode parentNode, Node markdownNode ) {
         MarkdownTreeNode treeNode = new MarkdownTreeNode( markdownNode );
         parentNode.add( treeNode );
 
-        if( NodeTypes.TRASH.equals( markdownNode.getNodeType() ) )
-        {
+        if( NodeTypes.TRASH.equals( markdownNode.getNodeType() ) ) {
             trash = treeNode;
         }
 
-        for( Node node : markdownNode.getChildNodes() )
-        {
+        for( Node node : markdownNode.getChildNodes() ) {
             addNodes( treeNode, node );
         }
         needsSaving = true;
@@ -134,44 +127,34 @@ public class MarkdownTree
         return treeNode;
     }
 
-    private void doExpansion( List<Node> nodes )
-    {
-        for( Node node : nodes )
-        {
+    private void doExpansion( List<Node> nodes ) {
+        for( Node node : nodes ) {
             doExpansion( node.getChildNodes() );
 
             MarkdownTreeNode treeNode = getNode( node.getUuid() );
-            if( treeNode != null )
-            {
+            if( treeNode != null ) {
                 setExpanded( treeNode, node.isExpanded() );
             }
         }
     }
 
-    public void deleteFromTree( DefaultMutableTreeNode node )
-    {
-        if( trash != null && node != null )
-        {
-            DefaultTreeModel model = (DefaultTreeModel) getModel();
+    public void deleteFromTree( DefaultMutableTreeNode node ) {
+        if( trash != null && node != null ) {
+            DefaultTreeModel model = (DefaultTreeModel)getModel();
             model.removeNodeFromParent( node );
         }
     }
 
-    public void deleteFromTree( List<DefaultMutableTreeNode> nodes )
-    {
-        for( DefaultMutableTreeNode node : nodes )
-        {
+    public void deleteFromTree( List<DefaultMutableTreeNode> nodes ) {
+        for( DefaultMutableTreeNode node : nodes ) {
             deleteFromTree( node );
         }
     }
 
-    public void moveToTrash( DefaultMutableTreeNode node )
-    {
-        if( trash != null && node != null )
-        {
-            DefaultTreeModel model = (DefaultTreeModel) getModel();
-            if( !trash.isNodeDescendant( node ) )
-            {
+    public void moveToTrash( DefaultMutableTreeNode node ) {
+        if( trash != null && node != null ) {
+            DefaultTreeModel model = (DefaultTreeModel)getModel();
+            if( !trash.isNodeDescendant( node ) ) {
                 model.removeNodeFromParent( node );
                 int index = trash.getChildCount();
                 model.insertNodeInto( node, trash, index );
@@ -180,21 +163,16 @@ public class MarkdownTree
         }
     }
 
-    public void moveToTrash( List<DefaultMutableTreeNode> nodes )
-    {
-        if( trash != null && nodes != null )
-        {
-            for( DefaultMutableTreeNode node : nodes )
-            {
+    public void moveToTrash( List<DefaultMutableTreeNode> nodes ) {
+        if( trash != null && nodes != null ) {
+            for( DefaultMutableTreeNode node : nodes ) {
                 moveToTrash( node );
             }
         }
     }
 
-    public void emptyTrash()
-    {
-        if( trash != null )
-        {
+    public void emptyTrash() {
+        if( trash != null ) {
             trash.removeAllChildren();
             needsSaving = true;
             GuiUtils.forceRepaint( this );
@@ -202,37 +180,31 @@ public class MarkdownTree
     }
 
     @Override
-    public void addChild( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode )
-    {
+    public void addChild( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode ) {
         super.addChild( target, newNode );
         needsSaving = true;
     }
 
     @Override
-    public void addSibling( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode )
-    {
+    public void addSibling( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode ) {
         super.addSibling( target, newNode );
         needsSaving = true;
     }
 
     @Override
-    public void addSiblingAfter( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode )
-    {
+    public void addSiblingAfter( DefaultMutableTreeNode target, DefaultMutableTreeNode newNode ) {
         super.addSiblingAfter( target, newNode );
         needsSaving = true;
     }
 
     public void addImageResource( File file )
-        throws IOException
-    {
+        throws IOException {
         addImageResource( file, file.getName() );
     }
 
     public void addImageResource( File file, String name )
-        throws IOException
-    {
-        if( MimeTypes.isImage( file ) )
-        {
+        throws IOException {
+        if( MimeTypes.isImage( file ) ) {
             Node node = ProjectIo.createImageResource( file );
             node.setTitle( name );
             setUniqueResourceName( node );
@@ -242,16 +214,13 @@ public class MarkdownTree
         }
     }
 
-    private void setUniqueResourceName( Node node )
-    {
+    private void setUniqueResourceName( Node node ) {
         Node resources = project.getResources();
         MarkdownTreeNode resourcesNode = getNode( resources.getUuid() );
-        if( resourcesNode != null )
-        {
+        if( resourcesNode != null ) {
             int count = 0;
             String title = node.getTitle();
-            while( resourceWithNameExists( resourcesNode, title ) )
-            {
+            while( resourceWithNameExists( resourcesNode, title ) ) {
                 count++;
                 title = node.getTitle() + " (" + count + ")";
             }
@@ -259,14 +228,11 @@ public class MarkdownTree
         }
     }
 
-    private boolean resourceWithNameExists( MarkdownTreeNode resourcesNode, String title )
-    {
+    private boolean resourceWithNameExists( MarkdownTreeNode resourcesNode, String title ) {
         int childCount = resourcesNode.getChildCount();
-        for( int i = 0; i < childCount; i++ )
-        {
-            MarkdownTreeNode child = (MarkdownTreeNode) resourcesNode.getChildAt( i );
-            if( title.equals( child.getTitle() ) )
-            {
+        for( int i = 0; i < childCount; i++ ) {
+            MarkdownTreeNode child = (MarkdownTreeNode)resourcesNode.getChildAt( i );
+            if( title.equals( child.getTitle() ) ) {
                 return true;
             }
         }
@@ -274,75 +240,61 @@ public class MarkdownTree
         return false;
     }
 
-    public void addImageResource( MarkdownTreeNode treeNode )
-    {
+    public void addImageResource( MarkdownTreeNode treeNode ) {
         Node resources = project.getResources();
         MarkdownTreeNode resourcesNode = getNode( resources.getUuid() );
-        if( resourcesNode != null )
-        {
+        if( resourcesNode != null ) {
             String title = StringUtils.neverNull( treeNode.getTitle() ).toLowerCase();
             int addIndex = 0;
 
             int childCount = resourcesNode.getChildCount();
-            for( int i = 0; i < childCount; i++ )
-            {
-                MarkdownTreeNode child = (MarkdownTreeNode) resourcesNode.getChildAt( i );
+            for( int i = 0; i < childCount; i++ ) {
+                MarkdownTreeNode child = (MarkdownTreeNode)resourcesNode.getChildAt( i );
                 String childTitle = StringUtils.neverNull( child.getTitle() ).toLowerCase();
-                if( childTitle.compareTo( title ) > 0 )
-                {
+                if( childTitle.compareTo( title ) > 0 ) {
                     addIndex = i;
                     break;
                 }
             }
 
-            DefaultTreeModel model = (DefaultTreeModel) getModel();
+            DefaultTreeModel model = (DefaultTreeModel)getModel();
             model.insertNodeInto( treeNode, resourcesNode, addIndex );
             project = ProjectIo.toProject( this );
         }
     }
 
-    public void selectNode( String uuid )
-    {
+    public void selectNode( String uuid ) {
         MarkdownTreeNode treeNode = getNode( uuid );
-        if( treeNode != null )
-        {
+        if( treeNode != null ) {
             select( treeNode );
         }
     }
 
-    public MarkdownTreeNode getNode( String uuid )
-    {
-        MarkdownTreeNode treeNode = (MarkdownTreeNode) getRootNode();
+    public MarkdownTreeNode getNode( String uuid ) {
+        MarkdownTreeNode treeNode = (MarkdownTreeNode)getRootNode();
         return getNode( uuid, treeNode );
     }
 
-    private MarkdownTreeNode getNode( String uuid, MarkdownTreeNode treeNode )
-    {
+    private MarkdownTreeNode getNode( String uuid, MarkdownTreeNode treeNode ) {
         Project nodeProject = treeNode.getProject();
-        if( nodeProject != null )
-        {
-            if( uuid.equals( nodeProject.getUuid() ) )
-            {
+        if( nodeProject != null ) {
+            if( uuid.equals( nodeProject.getUuid() ) ) {
                 return treeNode;
             }
         }
 
         Node node = treeNode.getNode();
-        if( node != null )
-        {
-            if( uuid.equals( node.getUuid() ) )
-            {
+        if( node != null ) {
+            if( uuid.equals( node.getUuid() ) ) {
                 return treeNode;
             }
         }
 
         int childCount = treeNode.getChildCount();
-        for( int i = 0; i < childCount; i++ )
-        {
-            MarkdownTreeNode child = (MarkdownTreeNode) treeNode.getChildAt( i );
+        for( int i = 0; i < childCount; i++ ) {
+            MarkdownTreeNode child = (MarkdownTreeNode)treeNode.getChildAt( i );
             MarkdownTreeNode result = getNode( uuid, child );
-            if( result != null )
-            {
+            if( result != null ) {
                 return result;
             }
         }
@@ -351,56 +303,43 @@ public class MarkdownTree
     }
 
     @Override
-    public void drop( DropTargetDropEvent dropTargetDropEvent )
-    {
+    public void drop( DropTargetDropEvent dropTargetDropEvent ) {
         boolean handled = false;
-        for( DataFlavor dataFlavor : dropTargetDropEvent.getCurrentDataFlavors() )
-        {
-            if( dataFlavor.isFlavorJavaFileListType() )
-            {
+        for( DataFlavor dataFlavor : dropTargetDropEvent.getCurrentDataFlavors() ) {
+            if( dataFlavor.isFlavorJavaFileListType() ) {
                 handled = true;
                 dropTargetDropEvent.acceptDrop( DnDConstants.ACTION_REFERENCE );
                 Transferable transferable = dropTargetDropEvent.getTransferable();
 
-                try
-                {
+                try {
                     Object object = transferable.getTransferData( dataFlavor );
-                    List files = (List) object;
-                    for( Object fileObject : files )
-                    {
-                        File file = (File) fileObject;
+                    List files = (List)object;
+                    for( Object fileObject : files ) {
+                        File file = (File)fileObject;
                         addImageResource( file );
                     }
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
-            else
-            {
+            else {
                 List<DraggableTreeNode> droppedNodes = getDroppedNodes( dropTargetDropEvent );
-                for( DraggableTreeNode droppedNode : droppedNodes )
-                {
-                    MarkdownTreeNode treeNode = (MarkdownTreeNode) droppedNode;
+                for( DraggableTreeNode droppedNode : droppedNodes ) {
+                    MarkdownTreeNode treeNode = (MarkdownTreeNode)droppedNode;
                     Node node = treeNode.getNode();
-                    if( node != null )
-                    {
+                    if( node != null ) {
                         node.setNeedsSaving( true );
 
-                        if( node.getImageResource() != null )
-                        {
-                            try
-                            {
+                        if( node.getImageResource() != null ) {
+                            try {
                                 File imageFile = ProjectIo.getImageBinary( node, node.getProjectDirectory() );
-                                if( imageFile != null )
-                                {
+                                if( imageFile != null ) {
                                     addImageResource( imageFile, node.getTitle() );
                                     handled = true;
                                 }
                             }
-                            catch( Throwable t )
-                            {
+                            catch( Throwable t ) {
                                 t.printStackTrace();
                             }
                         }
@@ -409,8 +348,7 @@ public class MarkdownTree
             }
         }
 
-        if( !handled )
-        {
+        if( !handled ) {
             super.drop( dropTargetDropEvent );
         }
 
@@ -418,28 +356,22 @@ public class MarkdownTree
     }
 
     @Override
-    public void insertNodeAbove( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode )
-    {
-        if( isLocal( droppedNode ) )
-        {
+    public void insertNodeAbove( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode ) {
+        if( isLocal( droppedNode ) ) {
             super.insertNodeAbove( droppedNode, dropTargetNode );
             return;
         }
 
-        if( droppedNode instanceof MarkdownTreeNode )
-        {
-            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode) droppedNode;
+        if( droppedNode instanceof MarkdownTreeNode ) {
+            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode)droppedNode;
             Node node = droppedMarkdownTreeNode.getNode();
-            if( node != null )
-            {
-                try
-                {
+            if( node != null ) {
+                try {
                     Node clonedNode = ProjectIo.clone( node, node.getProjectDirectory(), false, false );
-                    MarkdownTreeNode root = (MarkdownTreeNode) getRootNode();
+                    MarkdownTreeNode root = (MarkdownTreeNode)getRootNode();
                     droppedNode = addNodes( root, clonedNode );
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
@@ -449,28 +381,22 @@ public class MarkdownTree
     }
 
     @Override
-    public void insertNodeBelow( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode )
-    {
-        if( isLocal( droppedNode ) )
-        {
+    public void insertNodeBelow( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode ) {
+        if( isLocal( droppedNode ) ) {
             super.insertNodeBelow( droppedNode, dropTargetNode );
             return;
         }
 
-        if( droppedNode instanceof MarkdownTreeNode )
-        {
-            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode) droppedNode;
+        if( droppedNode instanceof MarkdownTreeNode ) {
+            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode)droppedNode;
             Node node = droppedMarkdownTreeNode.getNode();
-            if( node != null )
-            {
-                try
-                {
+            if( node != null ) {
+                try {
                     Node clonedNode = ProjectIo.clone( node, node.getProjectDirectory(), false, false );
-                    MarkdownTreeNode root = (MarkdownTreeNode) getRootNode();
+                    MarkdownTreeNode root = (MarkdownTreeNode)getRootNode();
                     droppedNode = addNodes( root, clonedNode );
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
@@ -480,28 +406,22 @@ public class MarkdownTree
     }
 
     @Override
-    public void insertNodeAsNewChild( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode )
-    {
-        if( isLocal( droppedNode ) )
-        {
+    public void insertNodeAsNewChild( DraggableTreeNode droppedNode, DraggableTreeNode dropTargetNode ) {
+        if( isLocal( droppedNode ) ) {
             super.insertNodeAsNewChild( droppedNode, dropTargetNode );
             return;
         }
 
-        if( droppedNode instanceof MarkdownTreeNode )
-        {
-            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode) droppedNode;
+        if( droppedNode instanceof MarkdownTreeNode ) {
+            MarkdownTreeNode droppedMarkdownTreeNode = (MarkdownTreeNode)droppedNode;
             Node node = droppedMarkdownTreeNode.getNode();
-            if( node != null )
-            {
-                try
-                {
+            if( node != null ) {
+                try {
                     Node clonedNode = ProjectIo.clone( node, node.getProjectDirectory(), false, false );
-                    MarkdownTreeNode root = (MarkdownTreeNode) getRootNode();
+                    MarkdownTreeNode root = (MarkdownTreeNode)getRootNode();
                     droppedNode = addNodes( root, clonedNode );
                 }
-                catch( Throwable t )
-                {
+                catch( Throwable t ) {
                     t.printStackTrace();
                 }
             }
@@ -510,32 +430,25 @@ public class MarkdownTree
         super.insertNodeAsNewChild( droppedNode, dropTargetNode );
     }
 
-    private boolean isLocal( DraggableTreeNode droppedNode )
-    {
-        if( droppedNode instanceof MarkdownTreeNode )
-        {
-            MarkdownTreeNode markdownTreeNode = (MarkdownTreeNode) droppedNode;
+    private boolean isLocal( DraggableTreeNode droppedNode ) {
+        if( droppedNode instanceof MarkdownTreeNode ) {
+            MarkdownTreeNode markdownTreeNode = (MarkdownTreeNode)droppedNode;
             String uuid = null;
 
             Node node = markdownTreeNode.getNode();
-            if( node != null )
-            {
+            if( node != null ) {
                 uuid = node.getUuid();
             }
-            else
-            {
+            else {
                 Project project = markdownTreeNode.getProject();
-                if( project != null )
-                {
+                if( project != null ) {
                     uuid = project.getUuid();
                 }
             }
 
-            if( !StringUtils.empty( uuid ) )
-            {
+            if( !StringUtils.empty( uuid ) ) {
                 MarkdownTreeNode loadedNode = getNode( uuid );
-                if( loadedNode != null )
-                {
+                if( loadedNode != null ) {
                     return true;
                 }
             }
@@ -544,47 +457,41 @@ public class MarkdownTree
         return false;
     }
 
-    public Controller getController()
-    {
+    public Controller getController() {
         return controller;
     }
 
-    public boolean needsSaving()
-    {
+    public boolean needsSaving() {
         return needsSaving;
     }
 
-    public void setNeedsSaving( boolean needsSaving )
-    {
+    public void setNeedsSaving( boolean needsSaving ) {
         this.needsSaving = needsSaving;
     }
 
     private class ClickListener
-        extends MouseAdapter
-    {
+        extends MouseAdapter {
 
         @Override
-        public void mouseReleased( MouseEvent event )
-        {
-            if( SwingUtilities.isRightMouseButton( event ) )
-            {
+        public void mouseReleased( MouseEvent event ) {
+            if( SwingUtilities.isRightMouseButton( event ) ) {
                 Point point = event.getPoint();
                 Component sourceConponent = event.getComponent();
                 TreePath path = getPathForLocation( point.x, point.y );
                 TreePath[] paths = getSelectionPaths();
 
-                if( path != null )
-                {
-                    MarkdownTreeNode node = (MarkdownTreeNode) path.getLastPathComponent();
+                if( path != null ) {
+                    MarkdownTreeNode node = (MarkdownTreeNode)path.getLastPathComponent();
                     MarkdownTreeMenu menu = new MarkdownTreeMenu( MarkdownTree.this, node, paths );
 
                     menu.show( sourceConponent, event.getX(), event.getY() );
-                    if( menu.getParent().getX() == 0 )
-                    {
+                    if( menu.getParent().getX() == 0 ) {
                         menu.show( sourceConponent, event.getX(), event.getY() - menu.getHeight() );
                     }
                 }
             }
         }
+
     }
+
 }

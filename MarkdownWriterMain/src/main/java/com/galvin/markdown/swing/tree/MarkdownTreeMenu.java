@@ -25,27 +25,27 @@ public class MarkdownTreeMenu
     private TreePath[] paths;
     private MarkdownMessages messages = MarkdownServer.getMessages();
 
-    private JMenuItem addSiblingText = new JMenuItem( messages.menuBarDocumentsNewFile() );
-    private JMenuItem addChildText = new JMenuItem( messages.menuBarDocumentsNewChildText() );
+    private JMenuItem addSiblingText = new JMenuItem( messages.menuSibling() );
+    private JMenuItem addChildText = new JMenuItem( messages.menuChild() );
 
-    private JMenuItem rename = new JMenuItem( messages.treeMenuRename() );
-    private JMenuItem delete = new JMenuItem( messages.treeMenuDelete() );
-    private JMenuItem duplicate = new JMenuItem( messages.treeMenuDuplicate() );
-    private JMenuItem join = new JMenuItem( messages.treeMenuJoin() );
+    private JMenuItem rename = new JMenuItem( messages.menuRename() );
+    private JMenuItem delete = new JMenuItem( messages.menuDelete() );
+    private JMenuItem duplicate = new JMenuItem( messages.menuDuplicate() );
+    private JMenuItem join = new JMenuItem( messages.menuJoin() );
     
-    private JMenu fileExportMenu = new JMenu( messages.menuBarFileExport() );
-    private JMenuItem fileExportProject = new JMenuItem( messages.menuBarFileExportProject() );
-    private JMenuItem fileExportProjectUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportProjectUsingCurrentOptions() );
-    private JMenuItem fileExportCurrentDocument = new JMenuItem( messages.menuBarFileExportCurrentDocument() );
-    private JMenuItem fileExportCurrentDocumentUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportCurrentDocumentUsingCurrentOptions() );
-    private JMenuItem fileExportCurrentDocumentAndChildren = new JMenuItem( messages.menuBarFileExportCurrentDocumentAndChildren() );
-    private JMenuItem fileExportCurrentDocumentAndChildrenUsingCurrentOptions = new JMenuItem( messages.menuBarFileExportCurrentDocumentAndChildrenUsingCurrentOptions() );
+    private JMenu fileExportMenu = new JMenu( messages.menuExport() );
+    private JMenuItem fileExportProject = new JMenuItem( messages.menuExportProject() );
+    private JMenuItem fileExportProjectUsingCurrentOptions = new JMenuItem( messages.menuExportProjectCurrentOptions() );
+    private JMenuItem fileExportCurrentDocument = new JMenuItem( messages.menuExportDocument() );
+    private JMenuItem fileExportCurrentDocumentUsingCurrentOptions = new JMenuItem( messages.menuExportDocumentCurrentOptions() );
+    private JMenuItem fileExportCurrentDocumentAndChildren = new JMenuItem( messages.menuExportDocumentAndChildren() );
+    private JMenuItem fileExportCurrentDocumentAndChildrenUsingCurrentOptions = new JMenuItem( messages.menuExportDocumentAndChildrenCurrentOptions() );
     
-    private JMenu filePreviewMenu = new JMenu( messages.menuBarFilePreview() );
-    private JMenuItem filePreviewCurrentDocument = new JMenuItem( messages.menuBarFilePreviewCurrentDocument() );
-    private JMenuItem filePreviewCurrentDocumentAndChildren = new JMenuItem( messages.menuBarFilePreviewCurrentDocumentAndChildren() );
+    private JMenu filePreviewMenu = new JMenu( messages.menuPreview() );
+    private JMenuItem filePreviewCurrentDocument = new JMenuItem( messages.menuPreviewDocument() );
+    private JMenuItem filePreviewCurrentDocumentAndChildren = new JMenuItem( messages.menuPreviewDocumentAndChildren() );
 
-    private JMenuItem emptyTrash = new JMenuItem( messages.treeMenuEmptyTrash() );
+    private JMenuItem emptyTrash = new JMenuItem( messages.menuEmptyTrash() );
 
     public MarkdownTreeMenu( MarkdownTree tree, MarkdownTreeNode treeNode, TreePath[] paths ) {
         this.tree = tree;
