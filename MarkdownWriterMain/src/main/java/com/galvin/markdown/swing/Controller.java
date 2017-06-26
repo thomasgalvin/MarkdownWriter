@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
@@ -994,7 +995,7 @@ public class Controller {
             DocumentUtils.appendText( editor.getDocument(), footnoteBody.toString() );
         }
     }
-
+    
     public void filePreview() {
         filePreview( false );
     }
@@ -1812,6 +1813,13 @@ public class Controller {
         MarkdownEditor editor = getCurrentEditor();
         if( editor != null ) {
             editor.replaceSelection( Lorem.loremIpsumParagraphs() );
+        }
+    }
+
+    public void textToolsInsertUUID() {
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            editor.replaceSelection( UUID.randomUUID().toString() );
         }
     }
 

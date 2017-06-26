@@ -131,6 +131,7 @@ public class MarkdownMenuBar
     private JMenuItem toolsTextInsertSedUt = createMenuItem( messages.menuGreekingSedUt(), listener );
     private JMenuItem toolsTextInsertAtVero = createMenuItem( messages.menuGreekingAtVero(), listener );
     private JMenuItem toolsTextInsertGreekingParagraphs = createMenuItem( messages.menuGreekingParagraphs(), listener );
+    private JMenuItem toolsTextInsertUUID = createMenuItem( messages.menuUUID(), listener );
 
     private JMenu helpMenu = new JMenu( messages.menuHelp() );
     private JMenuItem helpShowHelp = createMenuItem( messages.menuHelpShow(), listener );
@@ -250,6 +251,8 @@ public class MarkdownMenuBar
         insertMenu.add( toolsTextInsertSedUt );
         insertMenu.add( toolsTextInsertAtVero );
         insertMenu.add( toolsTextInsertGreekingParagraphs );
+        insertMenu.addSeparator();
+        insertMenu.add( toolsTextInsertUUID );
 
         textToolsMenu.add( toolsUpperCase );
         textToolsMenu.add( toolsLowerCase );
@@ -704,6 +707,9 @@ public class MarkdownMenuBar
                     }
                     else if( source == toolsTextInsertGreekingParagraphs ) {
                         controller.toolsTextInsertGreekingParagraphs();
+                    }
+                    else if( source == toolsTextInsertUUID ) {
+                        controller.textToolsInsertUUID();
                     }
                     else if( source == helpShowHelp ) {
                         MarkdownServer.helpShowHelp();

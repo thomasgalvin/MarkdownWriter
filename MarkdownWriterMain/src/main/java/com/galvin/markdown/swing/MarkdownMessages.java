@@ -311,6 +311,7 @@ public class MarkdownMessages
     public String menuGreekingSedUt(){ return "Sed ut paragraph"; };
     public String menuGreekingAtVero(){ return "At vero paragraph"; };
     public String menuGreekingParagraphs(){ return "Multiple Greeking paragraphs"; };
+    public String menuUUID(){ return "Unique ID (UUID)"; };
     
     public String menuHelp(){ return "Help"; };
     public String menuHelpAbout(){ return "About Markdown Writer ..."; };
