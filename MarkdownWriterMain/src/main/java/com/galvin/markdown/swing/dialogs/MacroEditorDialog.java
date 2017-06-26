@@ -148,6 +148,19 @@ public class MacroEditorDialog
             globalMacrosEditor.newMacro();
         }
     }
+    
+    public void newProjectMacro( String abb, String beforeCursor, String afterCursor ){
+        newMacro(0, projectMacrosEditor, abb, beforeCursor, afterCursor);
+    }
+    
+    public void newGlobalMacro( String abb, String beforeCursor, String afterCursor ){
+        newMacro(1, globalMacrosEditor, abb, beforeCursor, afterCursor);
+    }
+    
+    private void newMacro( int tabIndex, MacroEditor editor, String abb, String beforeCursor, String afterCursor ){
+        tabbedPane.setSelectedIndex(tabIndex);
+        editor.newMacro(abb, beforeCursor, afterCursor);
+    }
 
     public void saveMacro() {
         if( tabbedPane.getSelectedIndex() == 0 ) {

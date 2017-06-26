@@ -50,6 +50,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Controller {
 
@@ -1821,6 +1822,9 @@ public class Controller {
         if( editor != null ) {
             editor.replaceSelection( UUID.randomUUID().toString() );
         }
+        else {
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
 
     public void toolsExpandMacro() {
@@ -1843,6 +1847,42 @@ public class Controller {
     public void toolsEditMacros() {
         projectFrame.getMacroEditorDialog().refresh();
         projectFrame.getMacroEditorDialog().setVisible( true );
+    }
+    
+    public void toolsNewProjectMacroFromSelection(){
+        toolsNewMacroFromSelection(false);
+    }
+    
+    public void toolsNewGlobalMacroFromSelection(){
+        toolsNewMacroFromSelection(true);
+    }
+    
+    private void toolsNewMacroFromSelection(boolean global){
+        MarkdownEditor editor = getCurrentEditor();
+        if( editor != null ) {
+            String expansion = editor.getSelectedText();
+            if( isBlank(expansion) ){
+                System.out.println("no text");
+                Toolkit.getDefaultToolkit().beep();
+                return;
+            }
+            
+            System.out.println("refresh");
+            projectFrame.getMacroEditorDialog().refresh();
+            System.out.println("new macro");
+            if( global ){
+                projectFrame.getMacroEditorDialog().newGlobalMacro("", expansion, "");
+            }
+            else{
+                projectFrame.getMacroEditorDialog().newProjectMacro("", expansion, "");
+            }
+            System.out.println("visible");
+            projectFrame.getMacroEditorDialog().setVisible( true );
+        }
+        else {
+            System.out.println("No editor");
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
 
     public void helpPreferences() {

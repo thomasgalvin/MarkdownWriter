@@ -109,6 +109,9 @@ public class MarkdownMenuBar
     private JMenu textToolsMenu = new JMenu( messages.menuTextTools() );
     private JMenuItem toolsExpandMacro = createMenuItem( messages.menuExpandMacro(), listener );
     private JMenuItem toolsEditMacros = createMenuItem( messages.menuEditMacros(), listener );
+    private JMenuItem toolsNewProjectMacroFromSelection = createMenuItem( messages.menuNewProjectMacro(), listener );
+    private JMenuItem toolsNewGlobalMacroFromSelection = createMenuItem( messages.menuNewGlobalMacro(), listener );
+    
     private JMenuItem toolsUpperCase = createMenuItem( messages.menuUpperCase(), listener );
     private JMenuItem toolsLowerCase = createMenuItem( messages.menuLowerCase(), listener );
     private JMenuItem toolsCamelCase = createMenuItem( messages.menuCamelCase(), listener );
@@ -203,6 +206,8 @@ public class MarkdownMenuBar
         editMenu.addSeparator();
         editMenu.add( toolsExpandMacro );
         editMenu.add( toolsEditMacros );
+        editMenu.add( toolsNewGlobalMacroFromSelection );
+        editMenu.add( toolsNewProjectMacroFromSelection );
         editMenu.addSeparator();
         editMenu.add( editShowUserDictionary );
 
@@ -641,6 +646,12 @@ public class MarkdownMenuBar
                     }
                     else if( source == toolsEditMacros ) {
                         controller.toolsEditMacros();
+                    }
+                    else if(source == toolsNewProjectMacroFromSelection){
+                        controller.toolsNewProjectMacroFromSelection();
+                    }
+                    else if(source == toolsNewGlobalMacroFromSelection){
+                        controller.toolsNewGlobalMacroFromSelection();
                     }
                     else if( source == toolsUpperCase ) {
                         controller.toolsTextSelectionToUpperCase();

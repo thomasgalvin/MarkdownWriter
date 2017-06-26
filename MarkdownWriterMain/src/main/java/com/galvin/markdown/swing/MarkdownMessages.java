@@ -369,6 +369,8 @@ public class MarkdownMessages
     public String menuTextTools(){ return "Text tools"; };
     public String menuExpandMacro(){ return "Expand macro"; };
     public String menuEditMacros(){ return "Edit macros ..."; };
+    public String menuNewProjectMacro(){ return "New project macro from selection ..."; };
+    public String menuNewGlobalMacro(){ return "New global macro from selection ..."; };
     
     public String menuUndo(){ return "Undo"; };
     public String menuUpperCase(){ return "Selection to upper case"; };
