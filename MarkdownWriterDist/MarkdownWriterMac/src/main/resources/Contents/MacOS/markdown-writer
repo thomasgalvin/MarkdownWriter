@@ -3,6 +3,6 @@
 DIR=$(cd "$(dirname "$0")"; pwd)
 CLASSPATH=$DIR/../Resources/Java
 
-java_home=`/usr/libexec/java_home -v 1.7`
+java_home=`/usr/libexec/java_home -v 1.8`
 #java_home="/Library/Java/Home"
 $java_home/bin/java -Xms512m -Xmx1024m -Xdock:icon="$DIR/../Resources/markdown-writer.icns" -Xdock:name="Markdown Writer" -Dcom.apple.mrj.application.apple.menu.about.name="Markdown Writer" -Dapple.laf.useScreenMenuBar=true -cp "$CLASSPATH/*" com.galvin.markdown.swing.MarkdownServer "$@"

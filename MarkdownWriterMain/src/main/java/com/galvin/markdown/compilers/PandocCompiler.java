@@ -458,8 +458,11 @@ public class PandocCompiler
         }
         else if( ExportFormat.XHTML.equals( toFormat ) ) {
             if( cssFile != null ) {
-                commandSegments.add( "-H" );
-                commandSegments.add( cssFile.getAbsolutePath() );
+            	String filePath = cssFile.getAbsolutePath();
+            	if( filePath.trim().length() != 0 ){
+					commandSegments.add( "-H" );
+					commandSegments.add( cssFile.getAbsolutePath() );
+                }
             }
         }
         else if( ExportFormat.PDF.equals( toFormat ) ) {
